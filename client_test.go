@@ -428,6 +428,10 @@ func TestRequestRejectsOversizedErrorResponse(t *testing.T) {
 	if _, ok := err.(*ResponseTooLargeError); !ok {
 		t.Fatalf("Request error = %T %v, want ResponseTooLargeError", err, err)
 	}
+	sizeErr := err.(*ResponseTooLargeError)
+	if got, want := sizeErr.StatusCode, http.StatusBadGateway; got != want {
+		t.Fatalf("ResponseTooLargeError.StatusCode = %d, want %d", got, want)
+	}
 }
 
 func TestRequestOptionOverridesResponseSizeLimit(t *testing.T) {
@@ -453,6 +457,70 @@ func TestRequestOptionOverridesResponseSizeLimit(t *testing.T) {
 	}
 	if payload["ok"] != true {
 		t.Fatalf("payload = %#v, want ok true", payload)
+	}
+}
+
+func TestRequestDoesNotRetryOversizedResponses(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"payload":"too-large"}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:          server.URL,
+		APIToken:         "token",
+		MaxRetries:       1,
+		MaxResponseBytes: 10,
+		BackoffBase:      time.Nanosecond,
+		HTTPClient:       server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, &payload)
+	if _, ok := err.(*ResponseTooLargeError); !ok {
+		t.Fatalf("Request error = %T %v, want ResponseTooLargeError", err, err)
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want 1", attempts)
+	}
+}
+
+func TestRequestSilverDoesNotFallbackWhenClientHeaderAlreadyOmitted(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		if attempts > 1 {
+			t.Fatalf("unexpected fallback attempt %d", attempts)
+		}
+		if got := r.Header.Get("Client"); got != "" {
+			t.Fatalf("Client header = %q, want omitted", got)
+		}
+		http.Error(w, "client header not accepted", http.StatusForbidden)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.RequestSilver(context.Background(), "tickets", "get_ticket_status", RequestOptions{
+		PathParams:       map[string]any{"ticket_id": "ticket-1"},
+		OmitClientHeader: true,
+	}, nil)
+	if err == nil {
+		t.Fatal("RequestSilver returned nil error, want forbidden response")
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want 1", attempts)
 	}
 }
 
