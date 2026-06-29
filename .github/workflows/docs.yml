@@ -1,23 +1,25 @@
-name: integration
+name: docs
 
 on:
   push:
-    branches: ["staging", "main"]
+    branches: ["main"]
   pull_request:
-    branches: ["staging", "main"]
+    branches: ["main"]
   workflow_dispatch:
-  schedule:
-    - cron: "0 12 * * 1"
 
 permissions:
   contents: read
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  integration:
-    name: integration
-    runs-on: ubuntu-latest
+  docs-build:
+    name: docs-build
     permissions:
       contents: read
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -28,16 +30,25 @@ jobs:
           go-version-file: go.mod
           cache: false
 
-      - name: Integration placeholder
-        run: |
-          echo "No live Go integration suite is defined yet; protected branch pushes are covered by unit."
+      - name: Configure Pages
+        if: github.event_name == 'push'
+        uses: actions/configure-pages@v6
+
+      - name: Build docs site
+        run: go run scripts/build_docs_site.go
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
 
   publish-badges:
-    needs: integration
-    if: always() && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    needs: docs-build
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -48,18 +59,17 @@ jobs:
           go-version-file: go.mod
           cache: false
 
-      - name: Build integration status badge payload
+      - name: Build docs status badge payload
         run: |
           go run scripts/build_badge_json.go status \
-            --conclusion "${{ needs.integration.result }}" \
-            --label "${GITHUB_REF_NAME} integration" \
-            --output integration-status.json
+            --conclusion "${{ needs.docs-build.result }}" \
+            --label "main docs" \
+            --output docs-status.json
 
-      - name: Publish integration badge JSON to badges branch
+      - name: Publish docs badge JSON to badges branch
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          GH_BRANCH: ${{ github.ref_name }}
         run: |
           set -euo pipefail
 
@@ -73,10 +83,10 @@ jobs:
             cd badges-work
             git checkout --orphan badges
             git rm -rf .
-            mkdir -p branch-status
-            touch branch-status/.gitkeep
+            mkdir -p branch-coverage branch-status
+            touch branch-coverage/.gitkeep branch-status/.gitkeep
             echo "# branch badge payloads" > README.md
-            git add README.md branch-status/.gitkeep
+            git add README.md branch-coverage/.gitkeep branch-status/.gitkeep
             git commit -m "Initialize badges branch"
             git push origin badges
             cd ..
@@ -84,15 +94,31 @@ jobs:
             git clone --depth 1 --branch badges "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" badges-work
           fi
 
-          mkdir -p "badges-work/branch-status/${GH_BRANCH}"
-          cp integration-status.json "badges-work/branch-status/${GH_BRANCH}/integration.json"
+          mkdir -p "badges-work/branch-status/main"
+          cp docs-status.json "badges-work/branch-status/main/docs.json"
 
           cd badges-work
-          git add "branch-status/${GH_BRANCH}/integration.json"
+          git add "branch-status/main/docs.json"
           if git diff --cached --quiet; then
-            echo "No integration badge changes to publish."
+            echo "No docs badge changes to publish."
             exit 0
           fi
 
-          git commit -m "Update integration badge for ${GH_BRANCH} [skip ci]"
+          git commit -m "Update docs badge for main [skip ci]"
           git push origin badges
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.docs-build.result == 'success'
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: docs-build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -7,6 +7,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -43,15 +44,60 @@ var statusColors = map[string]string{
 
 func main() {
 	if len(os.Args) < 2 {
-		fatal("usage: go run scripts/build_badge_json.go status --conclusion <value> --label <label> --output <path>")
+		fatal("usage: go run scripts/build_badge_json.go <status|coverage> [flags]")
 	}
 
 	switch os.Args[1] {
+	case "coverage":
+		writeCoverageBadge(os.Args[2:])
 	case "status":
 		writeStatusBadge(os.Args[2:])
 	default:
 		fatal("unsupported badge command %q", os.Args[1])
 	}
+}
+
+func writeCoverageBadge(args []string) {
+	flags := flag.NewFlagSet("coverage", flag.ExitOnError)
+	coverageFile := flags.String("coverage-file", "", "Go coverage profile path")
+	label := flags.String("label", "", "badge label")
+	minimum := flags.Float64("minimum", 0, "minimum allowed coverage percentage")
+	output := flags.String("output", "", "output JSON path")
+	if err := flags.Parse(args); err != nil {
+		fatal("parse coverage flags: %v", err)
+	}
+	if *coverageFile == "" || *label == "" || *output == "" {
+		fatal("--coverage-file, --label, and --output are required")
+	}
+
+	percent, err := coveragePercent(*coverageFile)
+	if err != nil {
+		fatal("calculate coverage: %v", err)
+	}
+	if percent < *minimum {
+		fatal("coverage %.2f%% is below required minimum %.2f%%", percent, *minimum)
+	}
+
+	color := "red"
+	switch {
+	case percent >= 90:
+		color = "brightgreen"
+	case percent >= 80:
+		color = "green"
+	case percent >= 70:
+		color = "yellowgreen"
+	case percent >= 60:
+		color = "yellow"
+	case percent >= 50:
+		color = "orange"
+	}
+
+	writePayload(*output, badgePayload{
+		SchemaVersion: 1,
+		Label:         *label,
+		Message:       fmt.Sprintf("%.2f%%", percent),
+		Color:         color,
+	})
 }
 
 func writeStatusBadge(args []string) {
@@ -85,13 +131,55 @@ func writeStatusBadge(args []string) {
 		Message:       message,
 		Color:         color,
 	}
+	writePayload(*output, payload)
+}
+
+func coveragePercent(path string) (float64, error) {
+	payload, err := os.ReadFile(path)
+	if err != nil {
+		return 0, err
+	}
+
+	var totalStatements int64
+	var coveredStatements int64
+	for lineNumber, rawLine := range strings.Split(string(payload), "\n") {
+		line := strings.TrimSpace(rawLine)
+		if line == "" || strings.HasPrefix(line, "mode:") {
+			continue
+		}
+
+		fields := strings.Fields(line)
+		if len(fields) != 3 {
+			return 0, fmt.Errorf("%s:%d: expected coverage record with 3 fields", path, lineNumber+1)
+		}
+		statements, err := strconv.ParseInt(fields[1], 10, 64)
+		if err != nil {
+			return 0, fmt.Errorf("%s:%d: parse statement count: %w", path, lineNumber+1, err)
+		}
+		count, err := strconv.ParseInt(fields[2], 10, 64)
+		if err != nil {
+			return 0, fmt.Errorf("%s:%d: parse coverage count: %w", path, lineNumber+1, err)
+		}
+		totalStatements += statements
+		if count > 0 {
+			coveredStatements += statements
+		}
+	}
+
+	if totalStatements == 0 {
+		return 0, nil
+	}
+	return float64(coveredStatements) / float64(totalStatements) * 100, nil
+}
+
+func writePayload(output string, payload badgePayload) {
 	encoded, err := json.MarshalIndent(payload, "", "  ")
 	if err != nil {
 		fatal("encode badge payload: %v", err)
 	}
 	encoded = append(encoded, '\n')
-	if err := os.WriteFile(*output, encoded, 0o644); err != nil {
-		fatal("write %s: %v", *output, err)
+	if err := os.WriteFile(output, encoded, 0o644); err != nil {
+		fatal("write %s: %v", output, err)
 	}
 }
 
