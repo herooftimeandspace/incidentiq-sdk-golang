@@ -31,6 +31,15 @@ in this repository.
 
 ## Verification
 
+- Use `.agents/skills/codex-review-safety/SKILL.md` before pushing code,
+  opening or updating a PR, resolving Codex feedback, or deciding whether a PR
+  can merge. That skill requires an independent internal Codex review before
+  GitHub pushes and thread-aware review inspection for Codex feedback,
+  reactions, timestamps, and current PR head state.
+- Use `.agents/skills/codex-scheduled-orchestration/SKILL.md` for scheduled or
+  heartbeat-style issue/PR sweeps, Codex feedback polling, isolated branch
+  selection, and promotion coordination. This repository has policy skills only,
+  not a local scheduled-runner implementation.
 - Run `go generate ./...` after changing wrapper generation or bundled inventory
   files.
 - Run `GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...`
