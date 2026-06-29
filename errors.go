@@ -24,6 +24,19 @@ func (e *ValidationError) Error() string {
 	return e.Message
 }
 
+// ResponseTooLargeError reports a response that exceeded the configured
+// bounded read limit before the SDK could safely decode or attach it to an API
+// error.
+type ResponseTooLargeError struct {
+	Method string
+	Path   string
+	Limit  int64
+}
+
+func (e *ResponseTooLargeError) Error() string {
+	return fmt.Sprintf("incidentiq %s %s response exceeded %d byte limit", e.Method, e.Path, e.Limit)
+}
+
 // APIError reports a non-2xx HTTP response from Incident IQ.
 type APIError struct {
 	StatusCode int

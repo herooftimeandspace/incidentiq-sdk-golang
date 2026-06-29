@@ -18,7 +18,7 @@ HAR-derived undocumented POST route for `client.Silver.Profiles`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
-The Go wrapper sends the multipart body supplied through `RequestOptions.Body` with the caller-provided multipart `ContentType`. The caller is responsible for preparing the image bytes and multipart form body before calling the wrapper.
+The Go wrapper sends the multipart body supplied through `RequestOptions.Body` with the caller-provided multipart `ContentType`. The caller is responsible for preparing the image bytes and multipart form body before calling the wrapper. Browser-observed profile picture uploads omit both `Client` and `SiteId`, so callers that need that exact upload shape should set `OmitClientHeader` and `OmitSiteIDHeader` on the first request.
 
 #### Parameters
 
@@ -48,6 +48,7 @@ err = client.Silver.Profiles.PostProfilePicture(ctx, incidentiq.RequestOptions{
 	PathParams:       map[string]any{"user_id": userID},
 	Body:             body.Bytes(),
 	ContentType:      writer.FormDataContentType(),
+	OmitClientHeader: true,
 	OmitSiteIDHeader: true,
 }, &payload)
 ```
