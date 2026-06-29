@@ -24,7 +24,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `app_key` | `app_key` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -52,7 +52,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `site_app_id` | `site_app_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -80,7 +80,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `include_hidden_apps` | `IncludeHiddenApps` | `body` | `yes` | `bool` | Body field inferred from HAR observations for this undocumented Silver route. |
 

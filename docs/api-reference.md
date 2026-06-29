@@ -1,23 +1,24 @@
 # API Reference
 
-Static package API pages are generated with `pdoc`.
-
-Runtime-generated namespace methods such as `client.tickets.get_ticket(...)` are
-documented separately under the generated SDK reference pages.
-
-Golden Stoplight methods are documented under the generated Golden namespace pages.
-Silver HAR-derived methods are documented under the generated [`silver` overview](sdk-reference/silver.md).
-The legacy app alias under `client.apps.*` is documented on the generated
-[`apps` Silver namespace page](sdk-reference/apps.md).
-
-Build locally:
+Public Go package documentation is available through the standard Go toolchain:
 
 ```bash
-python scripts/generate_api_docs.py
-python scripts/generate_sdk_reference.py
+go doc ./...
 ```
 
-Then open:
-- [`incident_py_q` module](api/incident_py_q.html)
+Runtime inventory helpers are documented in code and in the generated SDK reference pages:
+
+- Golden Stoplight methods are documented under the Golden namespace pages.
+- Silver HAR-derived methods are documented under the generated [`silver` overview](sdk-reference/silver.md).
+- The current Go API reaches those routes through `RequestGolden`, `RequestSilver`, and `Request`.
+
+Build and test locally:
+
+```bash
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
+```
+
+Then review:
 - [SDK reference index](sdk-reference/index.md)
 - [Silver overview](sdk-reference/silver.md)
+- [Go parity notes](go-parity.md)

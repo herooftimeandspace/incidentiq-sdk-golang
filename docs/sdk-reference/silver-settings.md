@@ -284,7 +284,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `product_id` | `ProductId` | `body` | `yes` | `Any | None` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `scope` | `Scope` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |

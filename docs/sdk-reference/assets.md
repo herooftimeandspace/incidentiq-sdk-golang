@@ -38,7 +38,7 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
 | `include_all_models` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
@@ -74,7 +74,7 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
 | `include_all_models` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
@@ -110,7 +110,7 @@ POST /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e/ac6cece8-e4
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID to mark as favorite |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID of the user to be linked to the provided asset |
@@ -153,7 +153,7 @@ POST /api/v1.0/assets/status/types/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `item` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be updated, including all attributes |
 
@@ -183,7 +183,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
 
@@ -218,7 +218,7 @@ DELETE /api/v1.0/assets/funding/types/a443fec7-45fe-4d08-8daf-11f4dd86df79
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | Asset Funding Type Id to be removed |
 
@@ -253,7 +253,7 @@ DELETE /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
 
@@ -282,7 +282,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
 
@@ -318,7 +318,7 @@ GET /api/v1.0/assets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID of the record to modify |
 
@@ -353,7 +353,7 @@ GET /api/v1.0/assets/ac6cece8-e4f4-e511-a789-005056bb000e/activities
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID of the record to modify |
 
@@ -388,7 +388,7 @@ GET /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to use when searching assets |
 | `all` | `All` | `query` | `no` | `Any` | `-` | Include assets within the provided user's assigned location rooms |
@@ -424,7 +424,7 @@ GET /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to use when searching assets |
 | `all` | `All` | `path` | `yes` | `str` | `-` | Include assets within the provided user's assigned location rooms |
@@ -460,7 +460,7 @@ GET /api/v1.0/assets/funding/types/a443fec7-45fe-4d08-8daf-11f4dd86df79
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | Asset Funding Type Id to be retrieved, including all attributes |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
@@ -496,7 +496,7 @@ GET /api/v1.0/assets/funding/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
 
@@ -531,7 +531,7 @@ GET /api/v1.0/assets/funding/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `body` | `yes` | `GetAssetFundingTypesRequest` | `GetAssetFundingTypesRequest` | - |
 
@@ -566,7 +566,7 @@ GET /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
@@ -602,7 +602,7 @@ GET /api/v1.0/assets/status/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
 
@@ -637,7 +637,7 @@ GET /api/v1.0/assets/status/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `body` | `yes` | `GetAssetStatusTypesRequest` | `GetAssetStatusTypesRequest` | - |
 
@@ -685,7 +685,7 @@ POST /api/v1.0/assets
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request_info` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
 
@@ -720,7 +720,7 @@ GET /api/v1.0/assets/assetstatustype/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | Asset status ID to search for |
 
@@ -755,7 +755,7 @@ GET /api/v1.0/assets/assettag/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
 
@@ -790,7 +790,7 @@ GET /api/v1.0/assets/rooms/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_room_id` | `LocationRoomId` | `path` | `yes` | `str` | `-` | Room ID to search for |
 
@@ -825,7 +825,7 @@ GET /api/v1.0/assets/serial/MT500-234A1000-4300
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `serial` | `Serial` | `path` | `yes` | `str` | `-` | Serial number to search for |
 
@@ -860,7 +860,7 @@ GET /api/v1.0/assets/storageunit/ac6cece8-e4f4-e511-a789-005056bb000e/1050
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | Location ID of the location used to search |
 | `storage_unit_number` | `StorageUnitNumber` | `path` | `yes` | `str` | `-` | Storage unit number to search for |
@@ -909,7 +909,7 @@ POST /api/v1.0/assets/count
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request_info` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
 
@@ -944,7 +944,7 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
 
@@ -979,7 +979,7 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
 
@@ -1014,7 +1014,7 @@ GET /api/v1.0/parts/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer ID to be retrieved |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
@@ -1050,7 +1050,7 @@ GET /api/v1.0/assets/assettag/search/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
 
@@ -1085,7 +1085,7 @@ GET /api/v1.0/assets/for/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to search for |
 | `all` | `All` | `query` | `no` | `Any` | `-` | - |
@@ -1121,7 +1121,7 @@ GET /api/v1.0/assets/for/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to search for |
 | `all` | `All` | `path` | `yes` | `str` | `-` | - |
@@ -1157,7 +1157,7 @@ DELETE /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be removed |
 
@@ -1192,7 +1192,7 @@ POST /api/v1.0/assets/favorites/remove/ac6cece8-e4f4-e511-a789-005056bb000e/ac6c
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID to unmark as favorite |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID of the user to be unlinked to the provided asset |
@@ -1228,7 +1228,7 @@ GET /api/v1.0/assets/assettag/search/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
 
@@ -1263,7 +1263,7 @@ GET /api/v1.0/assets/serial/MT500-234A1000-4300
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `serial` | `Serial` | `path` | `yes` | `str` | `-` | Serial number to search for |
 
@@ -1293,7 +1293,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
 | `asset` | `Asset` | `body` | `yes` | `UpdateAssetRequest` | `UpdateAssetRequest` | - |
@@ -1323,7 +1323,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateAssetFundingTypeRequest` | `UpdateAssetFundingTypeRequest` | - |
@@ -1365,7 +1365,7 @@ POST /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be created, including all necessary attributes |
@@ -1395,7 +1395,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |

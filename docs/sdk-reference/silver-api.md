@@ -24,7 +24,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `s` | `s` | `query` | `yes` | `str` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 
@@ -52,7 +52,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `search_expression_as_string` | `searchExpressionAsString` | `query` | `yes` | `str` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 | `source` | `source` | `query` | `yes` | `str` | Query parameter inferred from HAR observations for this undocumented Silver route. |

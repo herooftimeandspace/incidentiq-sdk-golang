@@ -41,7 +41,7 @@ DELETE /api/v1.0/custom-fields/f10f540f-2a9f-47fe-acbd-8ca82dc73e7c
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | Custom Field ID to be deleted |
 
@@ -76,7 +76,7 @@ DELETE /api/v1.0/custom-fields/types/108d5344-012f-4380-b865-3eaa72f7c42f
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | Custom Field Type ID to be deleted |
 
@@ -105,7 +105,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_ids` | `CustomFieldIds` | `body` | `yes` | `list[Any]` | `-` | - |
 
@@ -141,7 +141,7 @@ GET /api/v1.0/custom-fields/e60c4fe8-2236-48bb-8dd0-18a6f5b4c7ae
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | Custom Field ID to be retrieved |
 
@@ -176,7 +176,7 @@ GET /api/v1.0/custom-fields/types/108d5344-012f-4380-b865-3eaa72f7c42f
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | Custom Field Type ID to be deleted |
 
@@ -238,7 +238,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_types_request` | `CustomFieldTypesRequest` | `body` | `yes` | `GetCustomFieldTypesRequest` | `GetCustomFieldTypesRequest` | - |
 
@@ -273,7 +273,7 @@ GET /api/v1.0/custom-fields/values/for/asset/4c35d2ef-2bb1-457f-b123-dea74ee826b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
 
@@ -308,7 +308,7 @@ GET /api/v1.0/custom-fields/values/for/ticket/9933a6e3-d98b-4c5c-be04-043cf23e83
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -343,7 +343,7 @@ GET /api/v1.0/custom-fields/values/for/user/634d18fb-6c6e-44e6-a993-8444466910e2
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | - |
 
@@ -373,7 +373,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `product_filter_type` | `ProductFilterType` | `query` | `no` | `Any` | `-` | - |
 
@@ -409,7 +409,7 @@ POST /api/v1.0/custom-fields
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_fields_request` | `CustomFieldsRequest` | `body` | `yes` | `GetCustomFieldsRequest` | `GetCustomFieldsRequest` | - |
 
@@ -439,7 +439,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | - |
 | `custom_field` | `CustomField` | `body` | `yes` | `CustomField` | `CustomField` | - |
@@ -469,7 +469,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | - |
 | `custom_field_type` | `CustomFieldType` | `body` | `yes` | `CustomFieldType` | `CustomFieldType` | - |

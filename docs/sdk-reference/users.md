@@ -65,7 +65,7 @@ POST /api/v1.0/users/local/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user` | `User` | `body` | `yes` | `User` | `User` | The User to be created |
 
@@ -95,7 +95,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | - |
 
@@ -124,7 +124,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | - |
 
@@ -159,7 +159,7 @@ POST /api/v1.0/users/agents
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request_info` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
 
@@ -222,7 +222,7 @@ GET /api/v1.0/users/0b92ee98-edef-4423-9e15-98fe5726c1af
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User Id of the user details to be retrieved |
 
@@ -257,7 +257,7 @@ GET /api/v1.0/users/views/{ViewId:guid}
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | View Id which details are to be retrieved |
 
@@ -325,7 +325,7 @@ POST /api/v1.0/users
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request_info` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
 
@@ -360,7 +360,7 @@ POST /api/v1.0/users/view/4e6817c9-86b5-4810-84d8-ae99dfb6ba81
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | The ViewId to use |
 | `body_filters` | `BodyFilters` | `body` | `yes` | `list[Any]` | `-` | Other filtration to use to filter the returned view's user list |
@@ -490,7 +490,7 @@ GET /api/v1.0/users/location/1e997655-cbce-4cc3-85a6-5420aa9c6206
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | The LocationId of the Location to be queried |
 
@@ -552,7 +552,7 @@ UpdateUserRequest: {
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `user_id` | `UserId` | `path` | `yes` | `str` | `-` | The UserId of the user to be updated |
 | `user` | `User` | `body` | `yes` | `UpdateUserRequest` | `UpdateUserRequest` | The user details to be updated |
@@ -582,7 +582,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | - |
 | `user_view` | `UserView` | `body` | `yes` | `View` | `View` | - |

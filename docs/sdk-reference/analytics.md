@@ -63,7 +63,7 @@ GET /api/v1.0/analytics/assets/by-audit-schedule-status/ac6cece8-e4f4-e511-a789-
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_audit_policy_schedule_id` | `AssetAuditPolicyScheduleId` | `path` | `yes` | `str` | `-` | Audit Policy Schedule ID of the record to modify |
 
@@ -98,7 +98,7 @@ GET /api/v1.0/analytics/assets/by-audit-status/ac6cece8-e4f4-e511-a789-005056bb0
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `asset_audit_policy_id` | `AssetAuditPolicyId` | `path` | `yes` | `str` | `-` | Audit Policy ID of the record to modify |
 
@@ -232,7 +232,7 @@ GET /api/v1.0/analytics/reports/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
 
@@ -267,7 +267,7 @@ GET /api/v1.0/analytics/reports/elements/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
 
@@ -302,7 +302,7 @@ GET /api/v1.0/analytics/reports/queries/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
 
