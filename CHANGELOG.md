@@ -1,19 +1,20 @@
 # Changelog
 
-All notable changes to `incident-py-q` are documented in this file.
+All notable changes to `incidentiq-sdk-golang` are documented in this file.
 
 The format is based on Keep a Changelog and this project follows Semantic Versioning.
 
-## [0.1.0] - 2026-03-11
+## [0.1.0] - 2026-06-29
 
 ### Added
-- Initial `incident_py_q` package with sync and async clients.
+- Initial `github.com/herooftimeandspace/incidentiq-sdk-golang` module.
+- Low-level `Client.Request` API.
+- `RequestGolden` and `RequestSilver` helpers backed by bundled SDK inventories.
+- Generated Golden wrappers directly on `Client` as the default SDK path.
+- Generated Silver wrappers under `Client.Silver` for quasi-supported HAR-derived calls.
 - Bearer-token auth by default, with optional raw mode.
-- Tenant base URL support for runtime and integration tests.
-- Schema runtime (`loader`, `registry`, `validator`) using bundled Stoplight and Postman artifacts.
-- Dynamic SDK namespace and method generation from bundled controller contracts.
-- Schema sync tooling via `scripts/sync_schemas.py`.
-- Unit, contract, integration, and packaging/resource tests.
-- Golden SDK inventory test for semver-governed public surface drift.
-- MkDocs Material documentation + pdoc API docs generation scripts.
-- GitHub Actions workflows for quality gates, integration tests, and docs publishing.
+- Tenant base URL support for runtime and future integration tests.
+- Embedded Stoplight, Postman, app schema, Silver inventory, and SDK inventory artifacts.
+- Sync tooling via `scripts/sync_from_source_sdk.sh`.
+- Unit tests for config, headers, path rendering, URL construction, retries, and embedded inventory loading.
+- GitHub Actions workflow for `go test ./...`.

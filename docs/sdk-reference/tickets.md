@@ -1,8 +1,7 @@
 # `tickets` Golden Namespace
 
-Sync client access: `client.tickets`
+Go client access: `client.Tickets`
 
-Async client access: `client.tickets` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `assign_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_AssignTicket`
-
-- Sync: `client.tickets.assign_ticket(ticket_id=..., sla=..., timeout=None)`
-- Async: `await client.tickets.assign_ticket(ticket_id=..., sla=..., timeout=None)`
-- Raw payload: `client.tickets.assign_ticket.raw(ticket_id=..., sla=..., timeout=None)`
+- Go wrapper: `client.Tickets.AssignTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "assign_ticket", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/sla`
 - Source controller: `Tickets`
 
@@ -33,29 +27,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
-| `sla` | `Sla` | `body` | `yes` | `Sla` | `Sla` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Sla` | `body` | `yes` | `Sla` | `Sla` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `cancel_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_CancelTicket`
-
-- Sync: `client.tickets.cancel_ticket(ticket_id=..., cancel_options=..., timeout=None)`
-- Async: `await client.tickets.cancel_ticket(ticket_id=..., cancel_options=..., timeout=None)`
-- Raw payload: `client.tickets.cancel_ticket.raw(ticket_id=..., cancel_options=..., timeout=None)`
+- Go wrapper: `client.Tickets.CancelTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "cancel_ticket", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/cancel`
 - Source controller: `Tickets`
 
@@ -82,29 +71,24 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/cancel
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be canceling |
-| `cancel_options` | `CancelOptions` | `body` | `yes` | `TicketCancelOptions` | `TicketCancelOptions` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be canceling |
+| `JSON` | `CancelOptions` | `body` | `yes` | `TicketCancelOptions` | `TicketCancelOptions` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `change_ticket_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_ChangeTicketIssue`
-
-- Sync: `client.tickets.change_ticket_issue(ticket_id=..., request=..., timeout=None)`
-- Async: `await client.tickets.change_ticket_issue(ticket_id=..., request=..., timeout=None)`
-- Raw payload: `client.tickets.change_ticket_issue.raw(ticket_id=..., request=..., timeout=None)`
+- Go wrapper: `client.Tickets.ChangeTicketIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "change_ticket_issue", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/issue`
 - Source controller: `Tickets`
 
@@ -122,29 +106,24 @@ POST /api/v1.0/tickets/EDE88D85-D6E4-E711-80C3-0003FF685BE7/issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that will have the team assigned to it removed |
-| `request` | `Request` | `body` | `yes` | `SetTicketIssueRequest` | `SetTicketIssueRequest` | Ticket Issue Request Object |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that will have the team assigned to it removed |
+| `JSON` | `Request` | `body` | `yes` | `SetTicketIssueRequest` | `SetTicketIssueRequest` | Ticket Issue Request Object |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `change_ticket_to_requestor_responded`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_ChangeTicketToRequestorResponded`
-
-- Sync: `client.tickets.change_ticket_to_requestor_responded(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.change_ticket_to_requestor_responded(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.change_ticket_to_requestor_responded.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.ChangeTicketToRequestorResponded(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "change_ticket_to_requestor_responded", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/status/requestor-responded`
 - Source controller: `Tickets`
 
@@ -158,28 +137,23 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/status/requestor-res
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be changing status of |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `change_ticket_to_waiting_on_requestor`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_ChangeTicketToWaitingOnRequestor`
-
-- Sync: `client.tickets.change_ticket_to_waiting_on_requestor(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.change_ticket_to_waiting_on_requestor(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.change_ticket_to_waiting_on_requestor.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.ChangeTicketToWaitingOnRequestor(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "change_ticket_to_waiting_on_requestor", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/status/waiting-on-requestor`
 - Source controller: `Tickets`
 
@@ -193,28 +167,23 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/status/waiting-on-re
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be changing status of |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `close_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_CloseTicket`
-
-- Sync: `client.tickets.close_ticket(ticket_id=..., close_options=..., timeout=None)`
-- Async: `await client.tickets.close_ticket(ticket_id=..., close_options=..., timeout=None)`
-- Raw payload: `client.tickets.close_ticket.raw(ticket_id=..., close_options=..., timeout=None)`
+- Go wrapper: `client.Tickets.CloseTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "close_ticket", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/close`
 - Source controller: `Tickets`
 
@@ -241,29 +210,24 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/close
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be closing |
-| `close_options` | `CloseOptions` | `body` | `yes` | `TicketCloseOptions` | `TicketCloseOptions` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be closing |
+| `JSON` | `CloseOptions` | `body` | `yes` | `TicketCloseOptions` | `TicketCloseOptions` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `confirm_ticket_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_ConfirmTicketIssue`
-
-- Sync: `client.tickets.confirm_ticket_issue(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.confirm_ticket_issue(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.confirm_ticket_issue.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.ConfirmTicketIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "confirm_ticket_issue", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/confirm-issue`
 - Source controller: `Tickets`
 
@@ -276,28 +240,23 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/confirm-issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be confirming issue of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be confirming issue of |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `copy_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_CopyTicket`
-
-- Sync: `client.tickets.copy_ticket(ticket_id=..., copy_options=..., timeout=None)`
-- Async: `await client.tickets.copy_ticket(ticket_id=..., copy_options=..., timeout=None)`
-- Raw payload: `client.tickets.copy_ticket.raw(ticket_id=..., copy_options=..., timeout=None)`
+- Go wrapper: `client.Tickets.CopyTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "copy_ticket", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/copy`
 - Source controller: `Tickets`
 
@@ -322,29 +281,24 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/copy
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
-| `copy_options` | `CopyOptions` | `body` | `yes` | `CopyTicketOptions` | `CopyTicketOptions` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `CopyOptions` | `body` | `yes` | `CopyTicketOptions` | `CopyTicketOptions` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `create_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_CreateTicket`
-
-- Sync: `client.tickets.create_ticket(ticket=..., timeout=None)`
-- Async: `await client.tickets.create_ticket(ticket=..., timeout=None)`
-- Raw payload: `client.tickets.create_ticket.raw(ticket=..., timeout=None)`
+- Go wrapper: `client.Tickets.CreateTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "create_ticket", opts, out)`
 - HTTP route: `POST /tickets/new`
 - Source controller: `Tickets`
 - Aliases: `create`
@@ -412,28 +366,23 @@ POST /api/v1.0/tickets/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
+| `JSON` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
 
 #### Returns
 
-- Typed call return: `ItemCreateResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemCreateResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemCreateResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_DeleteTicket`
-
-- Sync: `client.tickets.delete_ticket(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.delete_ticket(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.delete_ticket.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.DeleteTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "delete_ticket", opts, out)`
 - HTTP route: `DELETE /tickets/{TicketId}`
 - Source controller: `Tickets`
 - Aliases: `delete`
@@ -448,28 +397,23 @@ DELETE /api/v1.0/tickets/9F326CEF-8390-4707-BA2F-EBD7A397AD65
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be changing status of |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_GetTicket`
-
-- Sync: `client.tickets.get_ticket(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.get_ticket(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.get_ticket.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.GetTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "get_ticket", opts, out)`
 - HTTP route: `GET /tickets/{TicketId}`
 - Source controller: `Tickets`
 - Aliases: `get`
@@ -478,28 +422,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_ticket_assets`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_GetTicketAssets`
-
-- Sync: `client.tickets.get_ticket_assets(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.get_ticket_assets(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.get_ticket_assets.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.GetTicketAssets(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "get_ticket_assets", opts, out)`
 - HTTP route: `GET /tickets/{TicketId}/assets`
 - Source controller: `Tickets`
 
@@ -513,28 +452,23 @@ GET /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e/assets
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the ticket to update |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfTicketAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfTicketAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfTicketAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_ticket_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_GetTicketSla`
-
-- Sync: `client.tickets.get_ticket_sla(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.get_ticket_sla(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.get_ticket_sla.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.GetTicketSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "get_ticket_sla", opts, out)`
 - HTTP route: `GET /tickets/{TicketId}/sla`
 - Source controller: `Tickets`
 
@@ -548,28 +482,23 @@ GET /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e/sla
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the ticket to update |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfTicketSla`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfTicketSla` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfTicketSla`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_ticket_statuses`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_GetTicketStatuses`
-
-- Sync: `client.tickets.get_ticket_statuses(timeout=None)`
-- Async: `await client.tickets.get_ticket_statuses(timeout=None)`
-- Raw payload: `client.tickets.get_ticket_statuses.raw(timeout=None)`
+- Go wrapper: `client.Tickets.GetTicketStatuses(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "get_ticket_statuses", opts, out)`
 - HTTP route: `GET /tickets/statuses`
 - Source controller: `Tickets`
 
@@ -587,22 +516,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfTicketStatus`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfTicketStatus` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfTicketStatus`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_ticket_as_duplicate`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_MarkTicketAsDuplicate`
-
-- Sync: `client.tickets.mark_ticket_as_duplicate(ticket_id=..., original_ticket_id=..., timeout=None)`
-- Async: `await client.tickets.mark_ticket_as_duplicate(ticket_id=..., original_ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.mark_ticket_as_duplicate.raw(ticket_id=..., original_ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.MarkTicketAsDuplicate(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "mark_ticket_as_duplicate", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/mark-as-duplicate/{OriginalTicketId}`
 - Source controller: `Tickets`
 
@@ -610,29 +534,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
-| `original_ticket_id` | `OriginalTicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
+| `PathParams["OriginalTicketId"]` | `OriginalTicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_ticket_not_sensitive`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_MarkTicketNotSensitive`
-
-- Sync: `client.tickets.mark_ticket_not_sensitive(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.mark_ticket_not_sensitive(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.mark_ticket_not_sensitive.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.MarkTicketNotSensitive(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "mark_ticket_not_sensitive", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/mark-not-sensitive`
 - Source controller: `Tickets`
 
@@ -640,28 +559,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_ticket_not_urgent`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_MarkTicketNotUrgent`
-
-- Sync: `client.tickets.mark_ticket_not_urgent(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.mark_ticket_not_urgent(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.mark_ticket_not_urgent.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.MarkTicketNotUrgent(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "mark_ticket_not_urgent", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/mark-not-urgent`
 - Source controller: `Tickets`
 
@@ -669,28 +583,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_ticket_sensitive`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_MarkTicketSensitive`
-
-- Sync: `client.tickets.mark_ticket_sensitive(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.mark_ticket_sensitive(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.mark_ticket_sensitive.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.MarkTicketSensitive(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "mark_ticket_sensitive", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/mark-sensitive`
 - Source controller: `Tickets`
 
@@ -698,28 +607,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_ticket_urgent`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_MarkTicketUrgent`
-
-- Sync: `client.tickets.mark_ticket_urgent(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.mark_ticket_urgent(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.mark_ticket_urgent.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.MarkTicketUrgent(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "mark_ticket_urgent", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/mark-urgent`
 - Source controller: `Tickets`
 
@@ -727,28 +631,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `un_assign_ticket_from_team`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UnAssignTicketFromTeam`
-
-- Sync: `client.tickets.un_assign_ticket_from_team(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.un_assign_ticket_from_team(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.un_assign_ticket_from_team.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.UnAssignTicketFromTeam(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "un_assign_ticket_from_team", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/unassign/team`
 - Source controller: `Tickets`
 
@@ -756,28 +655,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `un_assign_ticket_from_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UnAssignTicketFromUser`
-
-- Sync: `client.tickets.un_assign_ticket_from_user(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.un_assign_ticket_from_user(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.un_assign_ticket_from_user.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.UnAssignTicketFromUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "un_assign_ticket_from_user", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/unassign/user`
 - Source controller: `Tickets`
 
@@ -785,28 +679,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `un_assign_ticket_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UnAssignTicketSla`
-
-- Sync: `client.tickets.un_assign_ticket_sla(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.un_assign_ticket_sla(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.un_assign_ticket_sla.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.UnAssignTicketSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "un_assign_ticket_sla", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/unassign-sla`
 - Source controller: `Tickets`
 
@@ -820,28 +709,23 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/unassign-sla
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket IDof the ticket that will have the SLA removed |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket IDof the ticket that will have the SLA removed |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `un_confirm_ticket_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UnConfirmTicketIssue`
-
-- Sync: `client.tickets.un_confirm_ticket_issue(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.un_confirm_ticket_issue(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.un_confirm_ticket_issue.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.UnConfirmTicketIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "un_confirm_ticket_issue", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/unconfirm-issue`
 - Source controller: `Tickets`
 
@@ -855,28 +739,23 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/unconfirm-issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be reversing the confirm of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be reversing the confirm of |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `undelete_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UndeleteTicket`
-
-- Sync: `client.tickets.undelete_ticket(ticket_id=..., timeout=None)`
-- Async: `await client.tickets.undelete_ticket(ticket_id=..., timeout=None)`
-- Raw payload: `client.tickets.undelete_ticket.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Tickets.UndeleteTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "undelete_ticket", opts, out)`
 - HTTP route: `PUT /tickets/{TicketId}/undelete`
 - Source controller: `Tickets`
 
@@ -890,28 +769,23 @@ PUT /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/undelete
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we will be changing status of |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UpdateTicket`
-
-- Sync: `client.tickets.update_ticket(ticket_id=..., ticket=..., timeout=None)`
-- Async: `await client.tickets.update_ticket(ticket_id=..., ticket=..., timeout=None)`
-- Raw payload: `client.tickets.update_ticket.raw(ticket_id=..., ticket=..., timeout=None)`
+- Go wrapper: `client.Tickets.UpdateTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "update_ticket", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}`
 - Source controller: `Tickets`
 - Aliases: `update`
@@ -979,29 +853,24 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
-| `ticket` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the ticket to update |
+| `JSON` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfTicket`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfTicket` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfTicket`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_ticket_assets`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UpdateTicketAssets`
-
-- Sync: `client.tickets.update_ticket_assets(ticket_id=..., assets=..., timeout=None)`
-- Async: `await client.tickets.update_ticket_assets(ticket_id=..., assets=..., timeout=None)`
-- Raw payload: `client.tickets.update_ticket_assets.raw(ticket_id=..., assets=..., timeout=None)`
+- Go wrapper: `client.Tickets.UpdateTicketAssets(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "update_ticket_assets", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/assets`
 - Source controller: `Tickets`
 
@@ -1020,29 +889,24 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
-| `assets` | `Assets` | `body` | `yes` | `list[Any]` | `-` | Asset ID values for the ticket being updated |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the ticket to update |
+| `JSON` | `Assets` | `body` | `yes` | `[]any` | `-` | Asset ID values for the ticket being updated |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfTicketAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfTicketAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfTicketAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_ticket_custom_fields`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UpdateTicketCustomFields`
-
-- Sync: `client.tickets.update_ticket_custom_fields(ticket_id=..., values=..., timeout=None)`
-- Async: `await client.tickets.update_ticket_custom_fields(ticket_id=..., values=..., timeout=None)`
-- Raw payload: `client.tickets.update_ticket_custom_fields.raw(ticket_id=..., values=..., timeout=None)`
+- Go wrapper: `client.Tickets.UpdateTicketCustomFields(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "update_ticket_custom_fields", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/custom-fields`
 - Source controller: `Tickets`
 
@@ -1079,29 +943,24 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
-| `values` | `Values` | `body` | `yes` | `list[Any]` | `-` | Custom field values for the ticket being updated |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the ticket to update |
+| `JSON` | `Values` | `body` | `yes` | `[]any` | `-` | Custom field values for the ticket being updated |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_ticket_subject`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Ticket_UpdateTicketSubject`
-
-- Sync: `client.tickets.update_ticket_subject(ticket_id=..., update=..., timeout=None)`
-- Async: `await client.tickets.update_ticket_subject(ticket_id=..., update=..., timeout=None)`
-- Raw payload: `client.tickets.update_ticket_subject.raw(ticket_id=..., update=..., timeout=None)`
+- Go wrapper: `client.Tickets.UpdateTicketSubject(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "tickets", "update_ticket_subject", opts, out)`
 - HTTP route: `POST /tickets/{TicketId}/subject`
 - Source controller: `Tickets`
 
@@ -1119,16 +978,16 @@ POST /api/v1.0/tickets/{TicketId:guid}/subject
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we need to update |
-| `update` | `Update` | `body` | `yes` | `UpdateTicketSubjectRequest` | `UpdateTicketSubjectRequest` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID that we need to update |
+| `JSON` | `Update` | `body` | `yes` | `UpdateTicketSubjectRequest` | `UpdateTicketSubjectRequest` | - |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

@@ -9,31 +9,31 @@ Secondary compatibility corpus:
 - Incident IQ APIHub Postman collection
 
 Bundled assets live under:
-- `src/incident_py_q/data/stoplight/controllers/`
-- `src/incident_py_q/data/postman/`
-- `src/incident_py_q/data/source_manifest.json`
-- `src/incident_py_q/data/app_schemas.json`
-- `src/incident_py_q/data/silver_inventory.json`
+- `data/stoplight/controllers/`
+- `data/postman/`
+- `data/source_manifest.json`
+- `data/app_schemas.json`
+- `data/silver_inventory.json`
+- `testdata/contract/golden_sdk_inventory.json`
+- `testdata/contract/silver_sdk_inventory.json`
+- `testdata/contract/merged_sdk_inventory.json`
 
-## Runtime Validation Flow
+## Runtime Flow
 
-1. Match operation by HTTP method + rendered path.
-2. Choose response schema using status fallback:
-   - exact status code
-   - status class wildcard (`2xx`)
-   - `default`
-3. Validate JSON payload with `jsonschema`.
-4. Raise `SchemaValidationError` (`ValueError`) on mismatch.
+1. Render path parameters.
+2. Build the tenant-aware URL.
+3. Merge auth, `Client`, optional `SiteId`, app, and request headers.
+4. Encode an optional JSON body.
+5. Retry idempotent methods for configured retryable statuses.
+6. Decode successful JSON object or array responses into the caller-provided output value.
 
-Golden routes under `client.<namespace>.*` validate against Stoplight contracts. Silver routes under `client.silver.*` are intentionally kept separate because Stoplight does not publish contracts for them. The typed app helpers under `client.silver.apps.*` and the legacy alias `client.apps.*` use the bundled app schema set where dedicated Silver schemas exist.
+The current Go runtime does not yet perform contract-backed response schema validation. The bundled schema and inventory files are embedded so validation and generated typed wrappers can be added without changing request semantics.
 
 ## Schema Sync Workflow
 
 ```bash
-python scripts/sync_schemas.py
-python scripts/update_sdk_inventory.py
-python scripts/update_silver_inventory.py demo.incidentiq.com.har
-python scripts/extract_har_app_inventory.py demo.incidentiq.com.har
+./scripts/sync_from_source_sdk.sh ../incident-py-q
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
-`update_sdk_inventory.py` refreshes the Golden Stoplight inventory. `update_silver_inventory.py` classifies HAR traffic into Golden, Silver, and discarded routes, writes the bundled Silver inventory, refreshes the merged SDK inventory snapshot, and updates the legacy app-path fixture used by contract tests.
+`sync_from_source_sdk.sh` refreshes the bundled contract artifacts and inventory snapshots from the source repository. If schema updates change the SDK method inventory, commit the refreshed `testdata/contract/` files in the same change.

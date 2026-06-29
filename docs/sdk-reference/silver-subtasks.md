@@ -1,8 +1,7 @@
-# `silver.subtasks` Namespace
+# `Silver.subtasks` Namespace
 
-Sync client access: `client.silver.subtasks`
+Go client access: `client.Silver.Subtasks`
 
-Async client access: `client.silver.subtasks` with `await` on method calls.
 
 These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
@@ -10,28 +9,25 @@ These methods are Silver because Stoplight does not publish direct Golden contra
 
 ### `get_subtask`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.subtasks.get_subtask(subtask_id=..., timeout=None)`
-- Async: `await client.silver.subtasks.get_subtask(subtask_id=..., timeout=None)`
-- Raw payload: `client.silver.subtasks.get_subtask.raw(subtask_id=..., timeout=None)`
+- Go wrapper: `client.Silver.Subtasks.GetSubtask(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "subtasks", "get_subtask", opts, out)`
 - HTTP route: `GET /api/v1.0/subtasks/{subtask_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.subtasks`.
+HAR-derived undocumented GET route for `client.Silver.Subtasks`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `subtask_id` | `subtask_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `PathParams["subtask_id"]` | `subtask_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---

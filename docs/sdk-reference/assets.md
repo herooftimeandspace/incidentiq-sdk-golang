@@ -1,8 +1,7 @@
 # `assets` Golden Namespace
 
-Sync client access: `client.assets`
+Go client access: `client.Assets`
 
-Async client access: `client.assets` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -18,13 +17,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `add_manufacturer_to_site`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_AddManufacturerToSite`
-
-- Sync: `client.assets.add_manufacturer_to_site(manufacturer_id=..., include_all_models=None, timeout=None)`
-- Async: `await client.assets.add_manufacturer_to_site(manufacturer_id=..., include_all_models=None, timeout=None)`
-- Raw payload: `client.assets.add_manufacturer_to_site.raw(manufacturer_id=..., include_all_models=None, timeout=None)`
+- Go wrapper: `client.Assets.AddManufacturerToSite(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "add_manufacturer_to_site", opts, out)`
 - HTTP route: `POST /assets/manufacturers/{ManufacturerId}/site`
 - Source controller: `Manufacturers`
 
@@ -38,29 +32,24 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
-| `include_all_models` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be added |
+| `Params["IncludeAllModels"]` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `add_manufacturer_to_site2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_AddManufacturerToSite2`
-
-- Sync: `client.assets.add_manufacturer_to_site2(manufacturer_id=..., include_all_models=..., timeout=None)`
-- Async: `await client.assets.add_manufacturer_to_site2(manufacturer_id=..., include_all_models=..., timeout=None)`
-- Raw payload: `client.assets.add_manufacturer_to_site2.raw(manufacturer_id=..., include_all_models=..., timeout=None)`
+- Go wrapper: `client.Assets.AddManufacturerToSite2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "add_manufacturer_to_site2", opts, out)`
 - HTTP route: `POST /assets/manufacturers/{ManufacturerId}/site/{IncludeAllModels}`
 - Source controller: `Manufacturers`
 
@@ -74,29 +63,24 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
-| `include_all_models` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be added |
+| `PathParams["IncludeAllModels"]` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `add_user_favorite_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_AddUserFavoriteAsset`
-
-- Sync: `client.assets.add_user_favorite_asset(asset_id=..., user_id=..., timeout=None)`
-- Async: `await client.assets.add_user_favorite_asset(asset_id=..., user_id=..., timeout=None)`
-- Raw payload: `client.assets.add_user_favorite_asset.raw(asset_id=..., user_id=..., timeout=None)`
+- Go wrapper: `client.Assets.AddUserFavoriteAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "add_user_favorite_asset", opts, out)`
 - HTTP route: `POST /assets/favorites/{AssetId}/{UserId}`
 - Source controller: `Assets`
 
@@ -110,29 +94,24 @@ POST /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e/ac6cece8-e4
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID to mark as favorite |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID of the user to be linked to the provided asset |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | Asset ID to mark as favorite |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID of the user to be linked to the provided asset |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `create_asset_status_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_CreateAssetStatusType`
-
-- Sync: `client.assets.create_asset_status_type(item=..., timeout=None)`
-- Async: `await client.assets.create_asset_status_type(item=..., timeout=None)`
-- Raw payload: `client.assets.create_asset_status_type.raw(item=..., timeout=None)`
+- Go wrapper: `client.Assets.CreateAssetStatusType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "create_asset_status_type", opts, out)`
 - HTTP route: `POST /assets/status/types/new`
 - Source controller: `Assets`
 
@@ -153,28 +132,23 @@ POST /api/v1.0/assets/status/types/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `item` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be updated, including all attributes |
+| `JSON` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be updated, including all attributes |
 
 #### Returns
 
-- Typed call return: `ItemCreateResponseOfAssetStatusType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemCreateResponseOfAssetStatusType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemCreateResponseOfAssetStatusType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_DeleteAsset`
-
-- Sync: `client.assets.delete_asset(asset_id=..., timeout=None)`
-- Async: `await client.assets.delete_asset(asset_id=..., timeout=None)`
-- Raw payload: `client.assets.delete_asset.raw(asset_id=..., timeout=None)`
+- Go wrapper: `client.Assets.DeleteAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "delete_asset", opts, out)`
 - HTTP route: `DELETE /assets/{AssetId}`
 - Source controller: `Assets`
 - Aliases: `delete`
@@ -183,28 +157,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_asset_funding_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetFundingType_DeleteAssetFundingType`
-
-- Sync: `client.assets.delete_asset_funding_type(asset_funding_type_id=..., timeout=None)`
-- Async: `await client.assets.delete_asset_funding_type(asset_funding_type_id=..., timeout=None)`
-- Raw payload: `client.assets.delete_asset_funding_type.raw(asset_funding_type_id=..., timeout=None)`
+- Go wrapper: `client.Assets.DeleteAssetFundingType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "delete_asset_funding_type", opts, out)`
 - HTTP route: `DELETE /assets/funding/types/{AssetFundingTypeId}`
 - Source controller: `Assets`
 
@@ -218,28 +187,23 @@ DELETE /api/v1.0/assets/funding/types/a443fec7-45fe-4d08-8daf-11f4dd86df79
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | Asset Funding Type Id to be removed |
+| `PathParams["AssetFundingTypeId"]` | `AssetFundingTypeId` | `path` | `yes` | `string` | `-` | Asset Funding Type Id to be removed |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_asset_status_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_DeleteAssetStatusType`
-
-- Sync: `client.assets.delete_asset_status_type(asset_status_type_id=..., timeout=None)`
-- Async: `await client.assets.delete_asset_status_type(asset_status_type_id=..., timeout=None)`
-- Raw payload: `client.assets.delete_asset_status_type.raw(asset_status_type_id=..., timeout=None)`
+- Go wrapper: `client.Assets.DeleteAssetStatusType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "delete_asset_status_type", opts, out)`
 - HTTP route: `DELETE /assets/status/types/{AssetStatusTypeId}`
 - Source controller: `Assets`
 
@@ -253,28 +217,23 @@ DELETE /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["AssetStatusTypeId"]` | `AssetStatusTypeId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_manufacturer`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_DeleteManufacturer`
-
-- Sync: `client.assets.delete_manufacturer(manufacturer_id=..., timeout=None)`
-- Async: `await client.assets.delete_manufacturer(manufacturer_id=..., timeout=None)`
-- Raw payload: `client.assets.delete_manufacturer.raw(manufacturer_id=..., timeout=None)`
+- Go wrapper: `client.Assets.DeleteManufacturer(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "delete_manufacturer", opts, out)`
 - HTTP route: `DELETE /assets/manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 
@@ -282,28 +241,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAsset`
-
-- Sync: `client.assets.get_asset(asset_id=..., timeout=None)`
-- Async: `await client.assets.get_asset(asset_id=..., timeout=None)`
-- Raw payload: `client.assets.get_asset.raw(asset_id=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset", opts, out)`
 - HTTP route: `GET /assets/{AssetId}`
 - Source controller: `Assets`
 - Aliases: `get`
@@ -318,28 +272,23 @@ GET /api/v1.0/assets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID of the record to modify |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | Asset ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_activities`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetActivities`
-
-- Sync: `client.assets.get_asset_activities(asset_id=..., timeout=None)`
-- Async: `await client.assets.get_asset_activities(asset_id=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_activities.raw(asset_id=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetActivities(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_activities", opts, out)`
 - HTTP route: `GET /assets/{AssetId}/activities`
 - Source controller: `Assets`
 
@@ -353,28 +302,23 @@ GET /api/v1.0/assets/ac6cece8-e4f4-e511-a789-005056bb000e/activities
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID of the record to modify |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | Asset ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfActivity`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfActivity` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfActivity`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_favorites`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetFavorites`
-
-- Sync: `client.assets.get_asset_favorites(user_id=..., all=None, timeout=None)`
-- Async: `await client.assets.get_asset_favorites(user_id=..., all=None, timeout=None)`
-- Raw payload: `client.assets.get_asset_favorites.raw(user_id=..., all=None, timeout=None)`
+- Go wrapper: `client.Assets.GetAssetFavorites(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_favorites", opts, out)`
 - HTTP route: `GET /assets/favorites/{UserId}`
 - Source controller: `Assets`
 
@@ -388,29 +332,24 @@ GET /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to use when searching assets |
-| `all` | `All` | `query` | `no` | `Any` | `-` | Include assets within the provided user's assigned location rooms |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID to use when searching assets |
+| `Params["All"]` | `All` | `query` | `no` | `any` | `-` | Include assets within the provided user's assigned location rooms |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_favorites2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetFavorites2`
-
-- Sync: `client.assets.get_asset_favorites2(user_id=..., all=..., timeout=None)`
-- Async: `await client.assets.get_asset_favorites2(user_id=..., all=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_favorites2.raw(user_id=..., all=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetFavorites2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_favorites2", opts, out)`
 - HTTP route: `GET /assets/favorites/{UserId}/{All}`
 - Source controller: `Assets`
 
@@ -424,29 +363,24 @@ GET /api/v1.0/assets/favorites/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to use when searching assets |
-| `all` | `All` | `path` | `yes` | `str` | `-` | Include assets within the provided user's assigned location rooms |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID to use when searching assets |
+| `PathParams["All"]` | `All` | `path` | `yes` | `string` | `-` | Include assets within the provided user's assigned location rooms |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_funding_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetFundingType_GetAssetFundingType`
-
-- Sync: `client.assets.get_asset_funding_type(asset_funding_type_id=..., r=..., timeout=None)`
-- Async: `await client.assets.get_asset_funding_type(asset_funding_type_id=..., r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_funding_type.raw(asset_funding_type_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetFundingType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_funding_type", opts, out)`
 - HTTP route: `GET /assets/funding/types/{AssetFundingTypeId}`
 - Source controller: `Assets`
 
@@ -460,29 +394,24 @@ GET /api/v1.0/assets/funding/types/a443fec7-45fe-4d08-8daf-11f4dd86df79
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | Asset Funding Type Id to be retrieved, including all attributes |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `PathParams["AssetFundingTypeId"]` | `AssetFundingTypeId` | `path` | `yes` | `string` | `-` | Asset Funding Type Id to be retrieved, including all attributes |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfAssetFundingType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfAssetFundingType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfAssetFundingType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_funding_types`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetFundingType_GetAssetFundingTypes`
-
-- Sync: `client.assets.get_asset_funding_types(r=..., timeout=None)`
-- Async: `await client.assets.get_asset_funding_types(r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_funding_types.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetFundingTypes(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_funding_types", opts, out)`
 - HTTP route: `GET /assets/funding/types`
 - Source controller: `Assets`
 
@@ -496,28 +425,23 @@ GET /api/v1.0/assets/funding/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAssetFundingType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAssetFundingType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAssetFundingType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_funding_types2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetFundingType_GetAssetFundingTypes2`
-
-- Sync: `client.assets.get_asset_funding_types2(r=..., timeout=None)`
-- Async: `await client.assets.get_asset_funding_types2(r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_funding_types2.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetFundingTypes2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_funding_types2", opts, out)`
 - HTTP route: `POST /assets/funding/types`
 - Source controller: `Assets`
 
@@ -531,28 +455,23 @@ GET /api/v1.0/assets/funding/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `body` | `yes` | `GetAssetFundingTypesRequest` | `GetAssetFundingTypesRequest` | - |
+| `JSON` | `r` | `body` | `yes` | `GetAssetFundingTypesRequest` | `GetAssetFundingTypesRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAssetFundingType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAssetFundingType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAssetFundingType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_status_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_GetAssetStatusType`
-
-- Sync: `client.assets.get_asset_status_type(asset_status_type_id=..., r=..., timeout=None)`
-- Async: `await client.assets.get_asset_status_type(asset_status_type_id=..., r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_status_type.raw(asset_status_type_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetStatusType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_status_type", opts, out)`
 - HTTP route: `GET /assets/status/types/{AssetStatusTypeId}`
 - Source controller: `Assets`
 
@@ -566,29 +485,24 @@ GET /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `PathParams["AssetStatusTypeId"]` | `AssetStatusTypeId` | `path` | `yes` | `string` | `-` | - |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfAssetStatusType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfAssetStatusType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfAssetStatusType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_status_types`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_GetAssetStatusTypes`
-
-- Sync: `client.assets.get_asset_status_types(r=..., timeout=None)`
-- Async: `await client.assets.get_asset_status_types(r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_status_types.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetStatusTypes(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_status_types", opts, out)`
 - HTTP route: `GET /assets/status/types`
 - Source controller: `Assets`
 
@@ -602,28 +516,23 @@ GET /api/v1.0/assets/status/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAssetStatusType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAssetStatusType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAssetStatusType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_status_types2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_GetAssetStatusTypes2`
-
-- Sync: `client.assets.get_asset_status_types2(r=..., timeout=None)`
-- Async: `await client.assets.get_asset_status_types2(r=..., timeout=None)`
-- Raw payload: `client.assets.get_asset_status_types2.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetStatusTypes2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_asset_status_types2", opts, out)`
 - HTTP route: `POST /assets/status/types`
 - Source controller: `Assets`
 
@@ -637,28 +546,23 @@ GET /api/v1.0/assets/status/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `body` | `yes` | `GetAssetStatusTypesRequest` | `GetAssetStatusTypesRequest` | - |
+| `JSON` | `r` | `body` | `yes` | `GetAssetStatusTypesRequest` | `GetAssetStatusTypesRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAssetStatusType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAssetStatusType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAssetStatusType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssets`
-
-- Sync: `client.assets.get_assets(request_info=..., timeout=None)`
-- Async: `await client.assets.get_assets(request_info=..., timeout=None)`
-- Raw payload: `client.assets.get_assets.raw(request_info=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssets(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets", opts, out)`
 - HTTP route: `POST /assets`
 - Source controller: `Assets`
 
@@ -685,28 +589,23 @@ POST /api/v1.0/assets
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request_info` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
+| `JSON` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_by_asset_status_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsByAssetStatusType`
-
-- Sync: `client.assets.get_assets_by_asset_status_type(asset_status_type_id=..., timeout=None)`
-- Async: `await client.assets.get_assets_by_asset_status_type(asset_status_type_id=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_by_asset_status_type.raw(asset_status_type_id=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsByAssetStatusType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_by_asset_status_type", opts, out)`
 - HTTP route: `GET /assets/assetstatustype/{AssetStatusTypeId}`
 - Source controller: `Assets`
 
@@ -720,28 +619,23 @@ GET /api/v1.0/assets/assetstatustype/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | Asset status ID to search for |
+| `PathParams["AssetStatusTypeId"]` | `AssetStatusTypeId` | `path` | `yes` | `string` | `-` | Asset status ID to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_by_asset_tag`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsByAssetTag`
-
-- Sync: `client.assets.get_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Async: `await client.assets.get_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_by_asset_tag.raw(asset_tag=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsByAssetTag(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_by_asset_tag", opts, out)`
 - HTTP route: `GET /assets/assettag/{AssetTag}`
 - Source controller: `Assets`
 
@@ -755,28 +649,23 @@ GET /api/v1.0/assets/assettag/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
+| `PathParams["AssetTag"]` | `AssetTag` | `path` | `yes` | `string` | `-` | Asset tag to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_by_location_room`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsByLocationRoom`
-
-- Sync: `client.assets.get_assets_by_location_room(location_room_id=..., timeout=None)`
-- Async: `await client.assets.get_assets_by_location_room(location_room_id=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_by_location_room.raw(location_room_id=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsByLocationRoom(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_by_location_room", opts, out)`
 - HTTP route: `GET /assets/rooms/{LocationRoomId}`
 - Source controller: `Assets`
 
@@ -790,28 +679,23 @@ GET /api/v1.0/assets/rooms/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `location_room_id` | `LocationRoomId` | `path` | `yes` | `str` | `-` | Room ID to search for |
+| `PathParams["LocationRoomId"]` | `LocationRoomId` | `path` | `yes` | `string` | `-` | Room ID to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_by_serial`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsBySerial`
-
-- Sync: `client.assets.get_assets_by_serial(serial=..., timeout=None)`
-- Async: `await client.assets.get_assets_by_serial(serial=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_by_serial.raw(serial=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsBySerial(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_by_serial", opts, out)`
 - HTTP route: `GET /assets/serial/{Serial}`
 - Source controller: `Assets`
 
@@ -825,28 +709,23 @@ GET /api/v1.0/assets/serial/MT500-234A1000-4300
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `serial` | `Serial` | `path` | `yes` | `str` | `-` | Serial number to search for |
+| `PathParams["Serial"]` | `Serial` | `path` | `yes` | `string` | `-` | Serial number to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_by_storage_unit_number`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsByStorageUnitNumber`
-
-- Sync: `client.assets.get_assets_by_storage_unit_number(location_id=..., storage_unit_number=..., timeout=None)`
-- Async: `await client.assets.get_assets_by_storage_unit_number(location_id=..., storage_unit_number=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_by_storage_unit_number.raw(location_id=..., storage_unit_number=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsByStorageUnitNumber(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_by_storage_unit_number", opts, out)`
 - HTTP route: `GET /assets/storageunit/{LocationId}/{StorageUnitNumber}`
 - Source controller: `Assets`
 
@@ -860,29 +739,24 @@ GET /api/v1.0/assets/storageunit/ac6cece8-e4f4-e511-a789-005056bb000e/1050
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | Location ID of the location used to search |
-| `storage_unit_number` | `StorageUnitNumber` | `path` | `yes` | `str` | `-` | Storage unit number to search for |
+| `PathParams["LocationId"]` | `LocationId` | `path` | `yes` | `string` | `-` | Location ID of the location used to search |
+| `PathParams["StorageUnitNumber"]` | `StorageUnitNumber` | `path` | `yes` | `string` | `-` | Storage unit number to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_assets_count`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetAssetsCount`
-
-- Sync: `client.assets.get_assets_count(request_info=..., timeout=None)`
-- Async: `await client.assets.get_assets_count(request_info=..., timeout=None)`
-- Raw payload: `client.assets.get_assets_count.raw(request_info=..., timeout=None)`
+- Go wrapper: `client.Assets.GetAssetsCount(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_assets_count", opts, out)`
 - HTTP route: `POST /assets/count`
 - Source controller: `Assets`
 
@@ -909,28 +783,23 @@ POST /api/v1.0/assets/count
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request_info` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
+| `JSON` | `RequestInfo` | `body` | `yes` | `GetAssetsRequest` | `GetAssetsRequest` | Search parameters including optional filter definitions |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_global_manufacturers`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetGlobalManufacturers`
-
-- Sync: `client.assets.get_global_manufacturers(r=..., timeout=None)`
-- Async: `await client.assets.get_global_manufacturers(r=..., timeout=None)`
-- Raw payload: `client.assets.get_global_manufacturers.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetGlobalManufacturers(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_global_manufacturers", opts, out)`
 - HTTP route: `GET /assets/manufacturers/global`
 - Source controller: `Manufacturers`
 
@@ -944,28 +813,23 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_global_manufacturers2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetGlobalManufacturers2`
-
-- Sync: `client.assets.get_global_manufacturers2(r=..., timeout=None)`
-- Async: `await client.assets.get_global_manufacturers2(r=..., timeout=None)`
-- Raw payload: `client.assets.get_global_manufacturers2.raw(r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetGlobalManufacturers2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_global_manufacturers2", opts, out)`
 - HTTP route: `POST /assets/manufacturers/global`
 - Source controller: `Manufacturers`
 
@@ -979,28 +843,23 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
+| `JSON` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_manufacturer`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetManufacturer`
-
-- Sync: `client.assets.get_manufacturer(manufacturer_id=..., r=..., timeout=None)`
-- Async: `await client.assets.get_manufacturer(manufacturer_id=..., r=..., timeout=None)`
-- Raw payload: `client.assets.get_manufacturer.raw(manufacturer_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Assets.GetManufacturer(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_manufacturer", opts, out)`
 - HTTP route: `GET /assets/manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 
@@ -1014,29 +873,24 @@ GET /api/v1.0/parts/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer ID to be retrieved |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer ID to be retrieved |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_spare_assets_by_asset_tag`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetSpareAssetsByAssetTag`
-
-- Sync: `client.assets.get_spare_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Async: `await client.assets.get_spare_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Raw payload: `client.assets.get_spare_assets_by_asset_tag.raw(asset_tag=..., timeout=None)`
+- Go wrapper: `client.Assets.GetSpareAssetsByAssetTag(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_spare_assets_by_asset_tag", opts, out)`
 - HTTP route: `GET /assets/spares/assettag/{AssetTag}`
 - Source controller: `Assets`
 
@@ -1050,28 +904,23 @@ GET /api/v1.0/assets/assettag/search/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
+| `PathParams["AssetTag"]` | `AssetTag` | `path` | `yes` | `string` | `-` | Asset tag to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfSpareAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfSpareAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfSpareAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_user_assets`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetUserAssets`
-
-- Sync: `client.assets.get_user_assets(user_id=..., all=None, timeout=None)`
-- Async: `await client.assets.get_user_assets(user_id=..., all=None, timeout=None)`
-- Raw payload: `client.assets.get_user_assets.raw(user_id=..., all=None, timeout=None)`
+- Go wrapper: `client.Assets.GetUserAssets(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_user_assets", opts, out)`
 - HTTP route: `GET /assets/for/{UserId}`
 - Source controller: `Assets`
 
@@ -1085,29 +934,24 @@ GET /api/v1.0/assets/for/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to search for |
-| `all` | `All` | `query` | `no` | `Any` | `-` | - |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID to search for |
+| `Params["All"]` | `All` | `query` | `no` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_user_assets2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_GetUserAssets2`
-
-- Sync: `client.assets.get_user_assets2(user_id=..., all=..., timeout=None)`
-- Async: `await client.assets.get_user_assets2(user_id=..., all=..., timeout=None)`
-- Raw payload: `client.assets.get_user_assets2.raw(user_id=..., all=..., timeout=None)`
+- Go wrapper: `client.Assets.GetUserAssets2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "get_user_assets2", opts, out)`
 - HTTP route: `GET /assets/for/{UserId}/{All}`
 - Source controller: `Assets`
 
@@ -1121,29 +965,24 @@ GET /api/v1.0/assets/for/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID to search for |
-| `all` | `All` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID to search for |
+| `PathParams["All"]` | `All` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `remove_manufacturer_from_site`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_RemoveManufacturerFromSite`
-
-- Sync: `client.assets.remove_manufacturer_from_site(manufacturer_id=..., timeout=None)`
-- Async: `await client.assets.remove_manufacturer_from_site(manufacturer_id=..., timeout=None)`
-- Raw payload: `client.assets.remove_manufacturer_from_site.raw(manufacturer_id=..., timeout=None)`
+- Go wrapper: `client.Assets.RemoveManufacturerFromSite(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "remove_manufacturer_from_site", opts, out)`
 - HTTP route: `DELETE /assets/manufacturers/{ManufacturerId}/site`
 - Source controller: `Manufacturers`
 
@@ -1157,28 +996,23 @@ DELETE /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be removed |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be removed |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `remove_user_favorite_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_RemoveUserFavoriteAsset`
-
-- Sync: `client.assets.remove_user_favorite_asset(asset_id=..., user_id=..., timeout=None)`
-- Async: `await client.assets.remove_user_favorite_asset(asset_id=..., user_id=..., timeout=None)`
-- Raw payload: `client.assets.remove_user_favorite_asset.raw(asset_id=..., user_id=..., timeout=None)`
+- Go wrapper: `client.Assets.RemoveUserFavoriteAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "remove_user_favorite_asset", opts, out)`
 - HTTP route: `POST /assets/favorites/remove/{AssetId}/{UserId}`
 - Source controller: `Assets`
 
@@ -1192,29 +1026,24 @@ POST /api/v1.0/assets/favorites/remove/ac6cece8-e4f4-e511-a789-005056bb000e/ac6c
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | Asset ID to unmark as favorite |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User ID of the user to be unlinked to the provided asset |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | Asset ID to unmark as favorite |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User ID of the user to be unlinked to the provided asset |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `search_assets_by_asset_tag`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_SearchAssetsByAssetTag`
-
-- Sync: `client.assets.search_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Async: `await client.assets.search_assets_by_asset_tag(asset_tag=..., timeout=None)`
-- Raw payload: `client.assets.search_assets_by_asset_tag.raw(asset_tag=..., timeout=None)`
+- Go wrapper: `client.Assets.SearchAssetsByAssetTag(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "search_assets_by_asset_tag", opts, out)`
 - HTTP route: `GET /assets/assettag/search/{AssetTag}`
 - Source controller: `Assets`
 
@@ -1228,28 +1057,23 @@ GET /api/v1.0/assets/assettag/search/100345
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_tag` | `AssetTag` | `path` | `yes` | `str` | `-` | Asset tag to search for |
+| `PathParams["AssetTag"]` | `AssetTag` | `path` | `yes` | `string` | `-` | Asset tag to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `search_assets_by_serial`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_SearchAssetsBySerial`
-
-- Sync: `client.assets.search_assets_by_serial(serial=..., timeout=None)`
-- Async: `await client.assets.search_assets_by_serial(serial=..., timeout=None)`
-- Raw payload: `client.assets.search_assets_by_serial.raw(serial=..., timeout=None)`
+- Go wrapper: `client.Assets.SearchAssetsBySerial(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "search_assets_by_serial", opts, out)`
 - HTTP route: `GET /assets/serial/search/{Serial}`
 - Source controller: `Assets`
 
@@ -1263,28 +1087,23 @@ GET /api/v1.0/assets/serial/MT500-234A1000-4300
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `serial` | `Serial` | `path` | `yes` | `str` | `-` | Serial number to search for |
+| `PathParams["Serial"]` | `Serial` | `path` | `yes` | `string` | `-` | Serial number to search for |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Asset_UpdateAsset`
-
-- Sync: `client.assets.update_asset(asset_id=..., asset=..., timeout=None)`
-- Async: `await client.assets.update_asset(asset_id=..., asset=..., timeout=None)`
-- Raw payload: `client.assets.update_asset.raw(asset_id=..., asset=..., timeout=None)`
+- Go wrapper: `client.Assets.UpdateAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "update_asset", opts, out)`
 - HTTP route: `POST /assets/{AssetId}`
 - Source controller: `Assets`
 - Aliases: `update`
@@ -1293,29 +1112,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
-| `asset` | `Asset` | `body` | `yes` | `UpdateAssetRequest` | `UpdateAssetRequest` | - |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Asset` | `body` | `yes` | `UpdateAssetRequest` | `UpdateAssetRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfAsset`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfAsset` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfAsset`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_asset_funding_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetFundingType_UpdateAssetFundingType`
-
-- Sync: `client.assets.update_asset_funding_type(asset_funding_type_id=..., item=..., timeout=None)`
-- Async: `await client.assets.update_asset_funding_type(asset_funding_type_id=..., item=..., timeout=None)`
-- Raw payload: `client.assets.update_asset_funding_type.raw(asset_funding_type_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Assets.UpdateAssetFundingType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "update_asset_funding_type", opts, out)`
 - HTTP route: `POST /assets/funding/types/{AssetFundingTypeId}`
 - Source controller: `Assets`
 
@@ -1323,29 +1137,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_funding_type_id` | `AssetFundingTypeId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateAssetFundingTypeRequest` | `UpdateAssetFundingTypeRequest` | - |
+| `PathParams["AssetFundingTypeId"]` | `AssetFundingTypeId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateAssetFundingTypeRequest` | `UpdateAssetFundingTypeRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_asset_status_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `AssetStatusType_UpdateAssetStatusType`
-
-- Sync: `client.assets.update_asset_status_type(asset_status_type_id=..., item=..., timeout=None)`
-- Async: `await client.assets.update_asset_status_type(asset_status_type_id=..., item=..., timeout=None)`
-- Raw payload: `client.assets.update_asset_status_type.raw(asset_status_type_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Assets.UpdateAssetStatusType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "update_asset_status_type", opts, out)`
 - HTTP route: `POST /assets/status/types/{AssetStatusTypeId}`
 - Source controller: `Assets`
 
@@ -1365,29 +1174,24 @@ POST /api/v1.0/assets/status/types/a102cced-419d-4102-aadf-461f1e96b07b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_status_type_id` | `AssetStatusTypeId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be created, including all necessary attributes |
+| `PathParams["AssetStatusTypeId"]` | `AssetStatusTypeId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateAssetStatusTypeRequest` | `UpdateAssetStatusTypeRequest` | Asset Status Type to be created, including all necessary attributes |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_manufacturer`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_UpdateManufacturer`
-
-- Sync: `client.assets.update_manufacturer(manufacturer_id=..., item=..., timeout=None)`
-- Async: `await client.assets.update_manufacturer(manufacturer_id=..., item=..., timeout=None)`
-- Raw payload: `client.assets.update_manufacturer.raw(manufacturer_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Assets.UpdateManufacturer(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "assets", "update_manufacturer", opts, out)`
 - HTTP route: `POST /assets/manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 
@@ -1395,16 +1199,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

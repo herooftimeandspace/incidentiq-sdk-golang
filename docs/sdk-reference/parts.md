@@ -1,8 +1,7 @@
 # `parts` Golden Namespace
 
-Sync client access: `client.parts`
+Go client access: `client.Parts`
 
-Async client access: `client.parts` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `delete_part`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_DeletePart`
-
-- Sync: `client.parts.delete_part(part_id=..., timeout=None)`
-- Async: `await client.parts.delete_part(part_id=..., timeout=None)`
-- Raw payload: `client.parts.delete_part.raw(part_id=..., timeout=None)`
+- Go wrapper: `client.Parts.DeletePart(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "delete_part", opts, out)`
 - HTTP route: `DELETE /parts/{PartId}`
 - Source controller: `Parts`
 - Aliases: `delete`
@@ -40,28 +34,23 @@ DELETE /api/v1.0/parts/c94f81dc-8fae-4e82-8014-b5e5b5e86575
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PartId"]` | `PartId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_part_supplier`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_DeletePartSupplier`
-
-- Sync: `client.parts.delete_part_supplier(part_supplier_id=..., timeout=None)`
-- Async: `await client.parts.delete_part_supplier(part_supplier_id=..., timeout=None)`
-- Raw payload: `client.parts.delete_part_supplier.raw(part_supplier_id=..., timeout=None)`
+- Go wrapper: `client.Parts.DeletePartSupplier(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "delete_part_supplier", opts, out)`
 - HTTP route: `DELETE /parts/suppliers/{PartSupplierId}`
 - Source controller: `Parts`
 
@@ -75,28 +64,23 @@ DELETE /api/v1.0/parts/suppliers/e67018f1-3815-449c-a09f-e66dc6b83202
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PartSupplierId"]` | `PartSupplierId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_part`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetPart`
-
-- Sync: `client.parts.get_part(part_id=..., timeout=None)`
-- Async: `await client.parts.get_part(part_id=..., timeout=None)`
-- Raw payload: `client.parts.get_part.raw(part_id=..., timeout=None)`
+- Go wrapper: `client.Parts.GetPart(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "get_part", opts, out)`
 - HTTP route: `GET /parts/{PartId}`
 - Source controller: `Parts`
 - Aliases: `get`
@@ -111,28 +95,23 @@ GET /api/v1.0/parts/bbfdf941-7bbe-4cc2-a9d7-9b7fbeed2358
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PartId"]` | `PartId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfPart`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfPart` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfPart`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_part_supplier`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetPartSupplier`
-
-- Sync: `client.parts.get_part_supplier(part_supplier_id=..., timeout=None)`
-- Async: `await client.parts.get_part_supplier(part_supplier_id=..., timeout=None)`
-- Raw payload: `client.parts.get_part_supplier.raw(part_supplier_id=..., timeout=None)`
+- Go wrapper: `client.Parts.GetPartSupplier(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "get_part_supplier", opts, out)`
 - HTTP route: `GET /parts/suppliers/{PartSupplierId}`
 - Source controller: `Parts`
 
@@ -146,28 +125,23 @@ GET /api/v1.0/parts/suppliers/0baa50cf-2037-43a4-9b64-391737f58d41
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PartSupplierId"]` | `PartSupplierId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfPartSupplier`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfPartSupplier` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfPartSupplier`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_part_suppliers`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetPartSuppliers`
-
-- Sync: `client.parts.get_part_suppliers(timeout=None)`
-- Async: `await client.parts.get_part_suppliers(timeout=None)`
-- Raw payload: `client.parts.get_part_suppliers.raw(timeout=None)`
+- Go wrapper: `client.Parts.GetPartSuppliers(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "get_part_suppliers", opts, out)`
 - HTTP route: `GET /parts/suppliers`
 - Source controller: `Parts`
 
@@ -185,22 +159,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfPartSupplier`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfPartSupplier` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfPartSupplier`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_parts`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetParts`
-
-- Sync: `client.parts.get_parts(timeout=None)`
-- Async: `await client.parts.get_parts(timeout=None)`
-- Raw payload: `client.parts.get_parts.raw(timeout=None)`
+- Go wrapper: `client.Parts.GetParts(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "get_parts", opts, out)`
 - HTTP route: `GET /parts`
 - Source controller: `Parts`
 - Aliases: `list`
@@ -219,22 +188,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfPart`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfPart` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfPart`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_part`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_UpdatePart`
-
-- Sync: `client.parts.update_part(part_id=..., part=..., timeout=None)`
-- Async: `await client.parts.update_part(part_id=..., part=..., timeout=None)`
-- Raw payload: `client.parts.update_part.raw(part_id=..., part=..., timeout=None)`
+- Go wrapper: `client.Parts.UpdatePart(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "update_part", opts, out)`
 - HTTP route: `POST /parts/{PartId}`
 - Source controller: `Parts`
 - Aliases: `update`
@@ -243,29 +207,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
-| `part` | `Part` | `body` | `yes` | `Part` | `Part` | - |
+| `PathParams["PartId"]` | `PartId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Part` | `body` | `yes` | `Part` | `Part` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfPart`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfPart` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfPart`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_part_supplier`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_UpdatePartSupplier`
-
-- Sync: `client.parts.update_part_supplier(part_supplier_id=..., part_supplier=..., timeout=None)`
-- Async: `await client.parts.update_part_supplier(part_supplier_id=..., part_supplier=..., timeout=None)`
-- Raw payload: `client.parts.update_part_supplier.raw(part_supplier_id=..., part_supplier=..., timeout=None)`
+- Go wrapper: `client.Parts.UpdatePartSupplier(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "parts", "update_part_supplier", opts, out)`
 - HTTP route: `POST /parts/suppliers/{PartSupplierId}`
 - Source controller: `Parts`
 
@@ -273,16 +232,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
-| `part_supplier` | `PartSupplier` | `body` | `yes` | `PartSupplier` | `PartSupplier` | - |
+| `PathParams["PartSupplierId"]` | `PartSupplierId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `PartSupplier` | `body` | `yes` | `PartSupplier` | `PartSupplier` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfPartSupplier`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfPartSupplier` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfPartSupplier`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

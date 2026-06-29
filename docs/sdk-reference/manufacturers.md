@@ -1,8 +1,7 @@
 # `manufacturers` Golden Namespace
 
-Sync client access: `client.manufacturers`
+Go client access: `client.Manufacturers`
 
-Async client access: `client.manufacturers` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -18,13 +17,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `add_manufacturer_to_site3`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_AddManufacturerToSite3`
-
-- Sync: `client.manufacturers.add_manufacturer_to_site3(manufacturer_id=..., include_all_models=None, timeout=None)`
-- Async: `await client.manufacturers.add_manufacturer_to_site3(manufacturer_id=..., include_all_models=None, timeout=None)`
-- Raw payload: `client.manufacturers.add_manufacturer_to_site3.raw(manufacturer_id=..., include_all_models=None, timeout=None)`
+- Go wrapper: `client.Manufacturers.AddManufacturerToSite3(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "add_manufacturer_to_site3", opts, out)`
 - HTTP route: `POST /manufacturers/{ManufacturerId}/site`
 - Source controller: `Manufacturers`
 
@@ -38,29 +32,24 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
-| `include_all_models` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be added |
+| `Params["IncludeAllModels"]` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `add_manufacturer_to_site4`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_AddManufacturerToSite4`
-
-- Sync: `client.manufacturers.add_manufacturer_to_site4(manufacturer_id=..., include_all_models=..., timeout=None)`
-- Async: `await client.manufacturers.add_manufacturer_to_site4(manufacturer_id=..., include_all_models=..., timeout=None)`
-- Raw payload: `client.manufacturers.add_manufacturer_to_site4.raw(manufacturer_id=..., include_all_models=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.AddManufacturerToSite4(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "add_manufacturer_to_site4", opts, out)`
 - HTTP route: `POST /manufacturers/{ManufacturerId}/site/{IncludeAllModels}`
 - Source controller: `Manufacturers`
 
@@ -74,29 +63,24 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
-| `include_all_models` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be added |
+| `PathParams["IncludeAllModels"]` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_manufacturer2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_DeleteManufacturer2`
-
-- Sync: `client.manufacturers.delete_manufacturer2(manufacturer_id=..., timeout=None)`
-- Async: `await client.manufacturers.delete_manufacturer2(manufacturer_id=..., timeout=None)`
-- Raw payload: `client.manufacturers.delete_manufacturer2.raw(manufacturer_id=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.DeleteManufacturer2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "delete_manufacturer2", opts, out)`
 - HTTP route: `DELETE /manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 - Aliases: `delete`
@@ -105,28 +89,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_global_manufacturers3`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetGlobalManufacturers3`
-
-- Sync: `client.manufacturers.get_global_manufacturers3(r=..., timeout=None)`
-- Async: `await client.manufacturers.get_global_manufacturers3(r=..., timeout=None)`
-- Raw payload: `client.manufacturers.get_global_manufacturers3.raw(r=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.GetGlobalManufacturers3(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "get_global_manufacturers3", opts, out)`
 - HTTP route: `GET /manufacturers/global`
 - Source controller: `Manufacturers`
 
@@ -140,28 +119,23 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_global_manufacturers4`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetGlobalManufacturers4`
-
-- Sync: `client.manufacturers.get_global_manufacturers4(r=..., timeout=None)`
-- Async: `await client.manufacturers.get_global_manufacturers4(r=..., timeout=None)`
-- Raw payload: `client.manufacturers.get_global_manufacturers4.raw(r=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.GetGlobalManufacturers4(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "get_global_manufacturers4", opts, out)`
 - HTTP route: `POST /manufacturers/global`
 - Source controller: `Manufacturers`
 
@@ -175,28 +149,23 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
+| `JSON` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_manufacturer2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_GetManufacturer2`
-
-- Sync: `client.manufacturers.get_manufacturer2(manufacturer_id=..., r=..., timeout=None)`
-- Async: `await client.manufacturers.get_manufacturer2(manufacturer_id=..., r=..., timeout=None)`
-- Raw payload: `client.manufacturers.get_manufacturer2.raw(manufacturer_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.GetManufacturer2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "get_manufacturer2", opts, out)`
 - HTTP route: `GET /manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 - Aliases: `get`
@@ -211,29 +180,24 @@ GET /api/v1.0/parts/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer ID to be retrieved |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer ID to be retrieved |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfManufacturer`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfManufacturer` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfManufacturer`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `remove_manufacturer_from_site2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_RemoveManufacturerFromSite2`
-
-- Sync: `client.manufacturers.remove_manufacturer_from_site2(manufacturer_id=..., timeout=None)`
-- Async: `await client.manufacturers.remove_manufacturer_from_site2(manufacturer_id=..., timeout=None)`
-- Raw payload: `client.manufacturers.remove_manufacturer_from_site2.raw(manufacturer_id=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.RemoveManufacturerFromSite2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "remove_manufacturer_from_site2", opts, out)`
 - HTTP route: `DELETE /manufacturers/{ManufacturerId}/site`
 - Source controller: `Manufacturers`
 
@@ -247,28 +211,23 @@ DELETE /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be removed |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | Manufacturer Id to be removed |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_manufacturer2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Manufacturer_UpdateManufacturer2`
-
-- Sync: `client.manufacturers.update_manufacturer2(manufacturer_id=..., item=..., timeout=None)`
-- Async: `await client.manufacturers.update_manufacturer2(manufacturer_id=..., item=..., timeout=None)`
-- Raw payload: `client.manufacturers.update_manufacturer2.raw(manufacturer_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Manufacturers.UpdateManufacturer2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "manufacturers", "update_manufacturer2", opts, out)`
 - HTTP route: `POST /manufacturers/{ManufacturerId}`
 - Source controller: `Manufacturers`
 - Aliases: `update`
@@ -277,16 +236,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |
+| `PathParams["ManufacturerId"]` | `ManufacturerId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

@@ -1,8 +1,7 @@
 # `alerts` Golden Namespace
 
-Sync client access: `client.alerts`
+Go client access: `client.Alerts`
 
-Async client access: `client.alerts` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -16,13 +15,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `queue_notification`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Alerts_QueueNotification`
-
-- Sync: `client.alerts.queue_notification(notification=..., timeout=None)`
-- Async: `await client.alerts.queue_notification(notification=..., timeout=None)`
-- Raw payload: `client.alerts.queue_notification.raw(notification=..., timeout=None)`
+- Go wrapper: `client.Alerts.QueueNotification(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "alerts", "queue_notification", opts, out)`
 - HTTP route: `POST /alerts/new`
 - Source controller: `Emails & Notifications`
 - Aliases: `create`
@@ -45,15 +39,15 @@ POST /api/v1.0/alerts/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `notification` | `notification` | `body` | `yes` | `Alert` | `Alert` | Notification details / parameters |
+| `JSON` | `notification` | `body` | `yes` | `Alert` | `Alert` | Notification details / parameters |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

@@ -15,6 +15,5 @@ type RequestOptions struct {
 	ContentType      string
 	Headers          map[string]string
 	Timeout          time.Duration
-	OmitClientHeader bool
 	OmitSiteIDHeader bool
 }

@@ -1,8 +1,7 @@
 # `notifications` Golden Namespace
 
-Sync client access: `client.notifications`
+Go client access: `client.Notifications`
 
-Async client access: `client.notifications` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -16,13 +15,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `get_notifications`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_GetNotifications`
-
-- Sync: `client.notifications.get_notifications(request_info=..., timeout=None)`
-- Async: `await client.notifications.get_notifications(request_info=..., timeout=None)`
-- Raw payload: `client.notifications.get_notifications.raw(request_info=..., timeout=None)`
+- Go wrapper: `client.Notifications.GetNotifications(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "get_notifications", opts, out)`
 - HTTP route: `POST /notifications`
 - Source controller: `Emails & Notifications`
 - Aliases: `create`
@@ -42,28 +36,23 @@ POST /api/v1.0/notifications
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request_info` | `RequestInfo` | `body` | `yes` | `GetNotificationsRequest` | `GetNotificationsRequest` | - |
+| `JSON` | `RequestInfo` | `body` | `yes` | `GetNotificationsRequest` | `GetNotificationsRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfNotification`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfNotification` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfNotification`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_ticket_emails`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_GetTicketEmails`
-
-- Sync: `client.notifications.get_ticket_emails(ticket_id=..., timeout=None)`
-- Async: `await client.notifications.get_ticket_emails(ticket_id=..., timeout=None)`
-- Raw payload: `client.notifications.get_ticket_emails.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.Notifications.GetTicketEmails(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "get_ticket_emails", opts, out)`
 - HTTP route: `GET /notifications/emails/for/ticket/{TicketId}`
 - Source controller: `Emails & Notifications`
 
@@ -77,28 +66,23 @@ GET /api/v1.0/notifications/emails/for/ticket/ac6cece8-e4f4-e511-a789-005056bb00
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the record to query |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | Ticket ID of the record to query |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfEmail`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfEmail` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfEmail`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_unarchived_notifications`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_GetUnarchivedNotifications`
-
-- Sync: `client.notifications.get_unarchived_notifications(timeout=None)`
-- Async: `await client.notifications.get_unarchived_notifications(timeout=None)`
-- Raw payload: `client.notifications.get_unarchived_notifications.raw(timeout=None)`
+- Go wrapper: `client.Notifications.GetUnarchivedNotifications(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "get_unarchived_notifications", opts, out)`
 - HTTP route: `GET /notifications/unarchived`
 - Source controller: `Emails & Notifications`
 
@@ -116,22 +100,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfNotification`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfNotification` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfNotification`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_unread_notifications`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_GetUnreadNotifications`
-
-- Sync: `client.notifications.get_unread_notifications(timeout=None)`
-- Async: `await client.notifications.get_unread_notifications(timeout=None)`
-- Raw payload: `client.notifications.get_unread_notifications.raw(timeout=None)`
+- Go wrapper: `client.Notifications.GetUnreadNotifications(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "get_unread_notifications", opts, out)`
 - HTTP route: `GET /notifications/unread`
 - Source controller: `Emails & Notifications`
 
@@ -149,22 +128,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfNotification`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfNotification` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfNotification`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_all_notifications_archived`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_MarkAllNotificationsArchived`
-
-- Sync: `client.notifications.mark_all_notifications_archived(timeout=None)`
-- Async: `await client.notifications.mark_all_notifications_archived(timeout=None)`
-- Raw payload: `client.notifications.mark_all_notifications_archived.raw(timeout=None)`
+- Go wrapper: `client.Notifications.MarkAllNotificationsArchived(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "mark_all_notifications_archived", opts, out)`
 - HTTP route: `POST /notifications/all-archive`
 - Source controller: `Emails & Notifications`
 
@@ -182,22 +156,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_all_notifications_read`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_MarkAllNotificationsRead`
-
-- Sync: `client.notifications.mark_all_notifications_read(timeout=None)`
-- Async: `await client.notifications.mark_all_notifications_read(timeout=None)`
-- Raw payload: `client.notifications.mark_all_notifications_read.raw(timeout=None)`
+- Go wrapper: `client.Notifications.MarkAllNotificationsRead(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "mark_all_notifications_read", opts, out)`
 - HTTP route: `POST /notifications/all-read`
 - Source controller: `Emails & Notifications`
 
@@ -215,22 +184,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_notification_archived`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_MarkNotificationArchived`
-
-- Sync: `client.notifications.mark_notification_archived(notification_id=..., timeout=None)`
-- Async: `await client.notifications.mark_notification_archived(notification_id=..., timeout=None)`
-- Raw payload: `client.notifications.mark_notification_archived.raw(notification_id=..., timeout=None)`
+- Go wrapper: `client.Notifications.MarkNotificationArchived(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "mark_notification_archived", opts, out)`
 - HTTP route: `POST /notifications/{NotificationId}/archive`
 - Source controller: `Emails & Notifications`
 
@@ -244,28 +208,23 @@ POST /api/v1.0/notifications/ac6cece8-e4f4-e511-a789-005056bb000e/archive
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `notification_id` | `NotificationId` | `path` | `yes` | `str` | `-` | Notification ID of the record to modify |
+| `PathParams["NotificationId"]` | `NotificationId` | `path` | `yes` | `string` | `-` | Notification ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `mark_notification_read`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Notification_MarkNotificationRead`
-
-- Sync: `client.notifications.mark_notification_read(notification_id=..., timeout=None)`
-- Async: `await client.notifications.mark_notification_read(notification_id=..., timeout=None)`
-- Raw payload: `client.notifications.mark_notification_read.raw(notification_id=..., timeout=None)`
+- Go wrapper: `client.Notifications.MarkNotificationRead(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "notifications", "mark_notification_read", opts, out)`
 - HTTP route: `POST /notifications/{NotificationId}/read`
 - Source controller: `Emails & Notifications`
 
@@ -279,15 +238,15 @@ POST /api/v1.0/notifications/ac6cece8-e4f4-e511-a789-005056bb000e/read
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `notification_id` | `NotificationId` | `path` | `yes` | `str` | `-` | Notification ID of the record to modify |
+| `PathParams["NotificationId"]` | `NotificationId` | `path` | `yes` | `string` | `-` | Notification ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

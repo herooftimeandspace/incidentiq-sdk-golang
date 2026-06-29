@@ -1,8 +1,7 @@
-# `silver.assets` Namespace
+# `Silver.assets` Namespace
 
-Sync client access: `client.silver.assets`
+Go client access: `client.Silver.Assets`
 
-Async client access: `client.silver.assets` with `await` on method calls.
 
 These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
@@ -10,11 +9,8 @@ These methods are Silver because Stoplight does not publish direct Golden contra
 
 ### `get_asset_by_serial`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.get_asset_by_serial(serial=..., timeout=None)`
-- Async: `await client.silver.assets.get_asset_by_serial(serial=..., timeout=None)`
-- Raw payload: `client.silver.assets.get_asset_by_serial.raw(serial=..., timeout=None)`
+- Go wrapper: `client.Silver.Assets.GetAssetBySerial(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "get_asset_by_serial", opts, out)`
 - HTTP route: `GET /assets/serial/{serial}`
 - Observed in: `synthetic_required_route`
 
@@ -24,86 +20,77 @@ This route is treated as Silver because bundled Stoplight contracts do not defin
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `serial` | `serial` | `path` | `yes` | `str` | Serial number path segment. This Silver route is added explicitly because it is known to exist even when the HAR does not capture it. |
+| `PathParams["serial"]` | `serial` | `path` | `yes` | `string` | Serial number path segment. This Silver route is added explicitly because it is known to exist even when the HAR does not capture it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `get_asset_files`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.get_asset_files(asset_id=..., timeout=None)`
-- Async: `await client.silver.assets.get_asset_files(asset_id=..., timeout=None)`
-- Raw payload: `client.silver.assets.get_asset_files.raw(asset_id=..., timeout=None)`
+- Go wrapper: `client.Silver.Assets.GetAssetFiles(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "get_asset_files", opts, out)`
 - HTTP route: `GET /api/v1.0/assets/{asset_id}/files`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.assets`.
+HAR-derived undocumented GET route for `client.Silver.Assets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `asset_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `PathParams["asset_id"]` | `asset_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `get_asset_verifications`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.get_asset_verifications(asset_id=..., s=..., timeout=None)`
-- Async: `await client.silver.assets.get_asset_verifications(asset_id=..., s=..., timeout=None)`
-- Raw payload: `client.silver.assets.get_asset_verifications.raw(asset_id=..., s=..., timeout=None)`
+- Go wrapper: `client.Silver.Assets.GetAssetVerifications(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "get_asset_verifications", opts, out)`
 - HTTP route: `GET /api/v1.0/assets/{asset_id}/verifications`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.assets`.
+HAR-derived undocumented GET route for `client.Silver.Assets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `asset_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-| `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
+| `PathParams["asset_id"]` | `asset_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `get_stats_locations`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.get_stats_locations(timeout=None)`
-- Async: `await client.silver.assets.get_stats_locations(timeout=None)`
-- Raw payload: `client.silver.assets.get_stats_locations.raw(timeout=None)`
+- Go wrapper: `client.Silver.Assets.GetStatsLocations(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "get_stats_locations", opts, out)`
 - HTTP route: `GET /api/v1.0/assets/stats/locations`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.assets`.
+HAR-derived undocumented GET route for `client.Silver.Assets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -113,64 +100,58 @@ This Silver route does not define inferred parameters.
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `get_type`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.get_type(type_id=..., timeout=None)`
-- Async: `await client.silver.assets.get_type(type_id=..., timeout=None)`
-- Raw payload: `client.silver.assets.get_type.raw(type_id=..., timeout=None)`
+- Go wrapper: `client.Silver.Assets.GetType(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "get_type", opts, out)`
 - HTTP route: `GET /api/v1.0/assets/types/{type_id}`
 - Observed in: `apple-asset-actions.har`, `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.assets`.
+HAR-derived undocumented GET route for `client.Silver.Assets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `type_id` | `type_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `PathParams["type_id"]` | `type_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `post_checkouts_transactions_query_get`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.assets.post_checkouts_transactions_query_get(json_body=..., timeout=None)`
-- Async: `await client.silver.assets.post_checkouts_transactions_query_get(json_body=..., timeout=None)`
-- Raw payload: `client.silver.assets.post_checkouts_transactions_query_get.raw(json_body=..., timeout=None)`
+- Go wrapper: `client.Silver.Assets.PostCheckoutsTransactionsQueryGet(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "assets", "post_checkouts_transactions_query_get", opts, out)`
 - HTTP route: `POST /api/v1.0/assets/checkouts/transactions/query/get`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.silver.assets`.
+HAR-derived undocumented POST route for `client.Silver.Assets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `JSON` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---

@@ -2,12 +2,12 @@
 
 ## Requirements
 
-- Python `3.14+`
+- Go version declared in `go.mod`
 
 ## Install
 
 ```bash
-python -m pip install incident-py-q
+go get github.com/herooftimeandspace/incidentiq-sdk-golang
 ```
 
 ## Environment Variables
@@ -16,60 +16,54 @@ Runtime:
 - `INCIDENTIQ_BASE_URL`
 - `INCIDENTIQ_API_TOKEN`
 - `INCIDENTIQ_SITE_ID` (optional)
-- `INCIDENTIQ_CLIENT_HEADER` (optional, default `ApiClient`)
 - `INCIDENTIQ_AUTH_MODE` (optional, default `bearer`)
 - `INCIDENTIQ_APP_HEADERS_JSON` (optional JSON object string for app-path calls)
 
 `INCIDENTIQ_BASE_URL` may be either the tenant root, such as `https://your-tenant.incidentiq.com`, or an explicit API prefix such as `https://your-tenant.incidentiq.com/api/v1.0`. Bare tenant roots are normalized to `/api/v1.0` for Golden routes.
 
-Integration smoke tests:
+Future integration smoke tests should use:
 - `INCIDENTIQ_TEST_BASE_URL`
 - `INCIDENTIQ_TEST_API_TOKEN`
 - `INCIDENTIQ_TEST_SITE_ID` (optional)
-- `INCIDENTIQ_TEST_CLIENT_HEADER` (optional)
 - `INCIDENTIQ_TEST_AUTH_MODE` (optional)
 - `INCIDENTIQ_TEST_APP_HEADERS_JSON` (optional JSON object string)
-- Optional app lookup smoke identifiers:
-  - `INCIDENTIQ_TEST_INTUNE_ASSET_ID` / `INCIDENTIQ_TEST_INTUNE_ASSET_SERIAL` / `INCIDENTIQ_TEST_INTUNE_ASSET_TAG`
-  - `INCIDENTIQ_TEST_MOSYLE_ASSET_ID` / `INCIDENTIQ_TEST_MOSYLE_ASSET_SERIAL` / `INCIDENTIQ_TEST_MOSYLE_ASSET_TAG`
-  - `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_ID` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_SERIAL` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_TAG`
 
-## Sync Client
+## Client From Env
 
-```python
-from incident_py_q import Client
-
-client = Client.from_env()
-users = client.users.get_users_legacy()
-client.close()
+```go
+client, err := incidentiq.NewClientFromEnv()
+if err != nil {
+	return err
+}
 ```
 
-## Async Client
+## Low-Level Request
 
-```python
-import asyncio
-from incident_py_q import AsyncClient
-
-async def main() -> None:
-    async with AsyncClient.from_env() as client:
-        users = await client.users.get_users_legacy()
-        print(users)
-
-asyncio.run(main())
+```go
+var users map[string]any
+err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
+	PathParams: map[string]any{
+		"UserId": "00000000-0000-0000-0000-000000000000",
+	},
+}, &users)
 ```
 
-## Silver Namespace
+## Golden And Silver Helpers
 
-Golden methods stay on `client.<namespace>.*`. Undocumented supplementary routes are exposed under `client.silver.*`.
+Golden is the correct default SDK path. Golden methods are exposed directly on
+the client:
 
-The legacy app-path alias still exists on `client.apps`, but the preferred explicit path is `client.silver.apps`:
+```go
+var statuses map[string]any
+err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &statuses)
+```
 
-```python
-apps = client.silver.apps.registry.list_apps()
-intune = client.silver.apps.microsoft_intune.lookup_asset(
-    asset_id="asset-guid",
-    serial_number="SER123",
-)
-serial_lookup = client.silver.assets.get_asset_by_serial(serial="SER123")
-assigned = client.silver.tickets.list_current_user_assigned_tickets()
+Silver is a separate namespace for quasi-supported API calls derived from live
+site interaction HARs. The exported Go accessor is `client.Silver`:
+
+```go
+var status map[string]any
+err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"ticket_id": "ticket-guid"},
+}, &status)
 ```

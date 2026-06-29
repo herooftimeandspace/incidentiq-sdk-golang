@@ -1,8 +1,7 @@
-# `silver.custom_fields` Namespace
+# `Silver.custom_fields` Namespace
 
-Sync client access: `client.silver.custom_fields`
+Go client access: `client.Silver.CustomFields`
 
-Async client access: `client.silver.custom_fields` with `await` on method calls.
 
 These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
@@ -10,87 +9,78 @@ These methods are Silver because Stoplight does not publish direct Golden contra
 
 ### `post_for__asset`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.custom_fields.post_for__asset(s=..., json_body=..., timeout=None)`
-- Async: `await client.silver.custom_fields.post_for__asset(s=..., json_body=..., timeout=None)`
-- Raw payload: `client.silver.custom_fields.post_for__asset.raw(s=..., json_body=..., timeout=None)`
+- Go wrapper: `client.Silver.CustomFields.PostForAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "custom_fields", "post_for__asset", opts, out)`
 - HTTP route: `POST /api/v1.0/custom-fields/for/asset`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.silver.custom_fields`.
+HAR-derived undocumented POST route for `client.Silver.CustomFields`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
+| `JSON` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `post_for__ticket`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.custom_fields.post_for__ticket(s=..., json_body=..., timeout=None)`
-- Async: `await client.silver.custom_fields.post_for__ticket(s=..., json_body=..., timeout=None)`
-- Raw payload: `client.silver.custom_fields.post_for__ticket.raw(s=..., json_body=..., timeout=None)`
+- Go wrapper: `client.Silver.CustomFields.PostForTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "custom_fields", "post_for__ticket", opts, out)`
 - HTTP route: `POST /api/v1.0/custom-fields/for/ticket`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.silver.custom_fields`.
+HAR-derived undocumented POST route for `client.Silver.CustomFields`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
+| `JSON` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `post_for__user`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.custom_fields.post_for__user(s=..., json_body=..., timeout=None)`
-- Async: `await client.silver.custom_fields.post_for__user(s=..., json_body=..., timeout=None)`
-- Raw payload: `client.silver.custom_fields.post_for__user.raw(s=..., json_body=..., timeout=None)`
+- Go wrapper: `client.Silver.CustomFields.PostForUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "custom_fields", "post_for__user", opts, out)`
 - HTTP route: `POST /api/v1.0/custom-fields/for/user`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.silver.custom_fields`.
+HAR-derived undocumented POST route for `client.Silver.CustomFields`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
+| `JSON` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---

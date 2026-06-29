@@ -1,8 +1,7 @@
 # `issues` Golden Namespace
 
-Sync client access: `client.issues`
+Go client access: `client.Issues`
 
-Async client access: `client.issues` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -18,13 +17,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `delete_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_DeleteIssue`
-
-- Sync: `client.issues.delete_issue(issue_id=..., timeout=None)`
-- Async: `await client.issues.delete_issue(issue_id=..., timeout=None)`
-- Raw payload: `client.issues.delete_issue.raw(issue_id=..., timeout=None)`
+- Go wrapper: `client.Issues.DeleteIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "delete_issue", opts, out)`
 - HTTP route: `DELETE /issues/{IssueId}`
 - Source controller: `Issues`
 - Aliases: `delete`
@@ -33,28 +27,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["IssueId"]` | `IssueId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_issue_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_DeleteIssueType`
-
-- Sync: `client.issues.delete_issue_type(issue_type_id=..., timeout=None)`
-- Async: `await client.issues.delete_issue_type(issue_type_id=..., timeout=None)`
-- Raw payload: `client.issues.delete_issue_type.raw(issue_type_id=..., timeout=None)`
+- Go wrapper: `client.Issues.DeleteIssueType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "delete_issue_type", opts, out)`
 - HTTP route: `DELETE /issues/types/{IssueTypeId}`
 - Source controller: `Issues`
 
@@ -68,28 +57,23 @@ DELETE /api/v1.0/issues/types/{IssueTypeId:guid}
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["IssueTypeId"]` | `IssueTypeId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_available_issues`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_GetAvailableIssues`
-
-- Sync: `client.issues.get_available_issues(timeout=None)`
-- Async: `await client.issues.get_available_issues(timeout=None)`
-- Raw payload: `client.issues.get_available_issues.raw(timeout=None)`
+- Go wrapper: `client.Issues.GetAvailableIssues(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "get_available_issues", opts, out)`
 - HTTP route: `GET /issues/site`
 - Source controller: `Issues`
 
@@ -107,22 +91,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfIssueRoles`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfIssueRoles` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfIssueRoles`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_GetIssue`
-
-- Sync: `client.issues.get_issue(issue_id=..., timeout=None)`
-- Async: `await client.issues.get_issue(issue_id=..., timeout=None)`
-- Raw payload: `client.issues.get_issue.raw(issue_id=..., timeout=None)`
+- Go wrapper: `client.Issues.GetIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "get_issue", opts, out)`
 - HTTP route: `GET /issues/{IssueId}`
 - Source controller: `Issues`
 - Aliases: `get`
@@ -137,28 +116,23 @@ GET /api/v1.0/issues/53bf1b92-a533-4a0e-8894-059f05b38f41
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["IssueId"]` | `IssueId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfIssue`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfIssue` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfIssue`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_issue_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_GetIssueType`
-
-- Sync: `client.issues.get_issue_type(issue_type_id=..., timeout=None)`
-- Async: `await client.issues.get_issue_type(issue_type_id=..., timeout=None)`
-- Raw payload: `client.issues.get_issue_type.raw(issue_type_id=..., timeout=None)`
+- Go wrapper: `client.Issues.GetIssueType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "get_issue_type", opts, out)`
 - HTTP route: `GET /issues/types/{IssueTypeId}`
 - Source controller: `Issues`
 
@@ -172,28 +146,23 @@ GET /api/v1.0/issues/types/fb08be5e-0876-4204-acf1-8f6aad44797c
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["IssueTypeId"]` | `IssueTypeId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfIssueType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfIssueType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfIssueType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_issue_types`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_GetIssueTypes`
-
-- Sync: `client.issues.get_issue_types(request=..., timeout=None)`
-- Async: `await client.issues.get_issue_types(request=..., timeout=None)`
-- Raw payload: `client.issues.get_issue_types.raw(request=..., timeout=None)`
+- Go wrapper: `client.Issues.GetIssueTypes(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "get_issue_types", opts, out)`
 - HTTP route: `POST /issues/types`
 - Source controller: `Issues`
 
@@ -207,28 +176,23 @@ POST /api/v1.0/issues/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request` | `request` | `body` | `yes` | `GetIssueTypesRequest` | `GetIssueTypesRequest` | - |
+| `JSON` | `request` | `body` | `yes` | `GetIssueTypesRequest` | `GetIssueTypesRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfIssueType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfIssueType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfIssueType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_issue_types_simple`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_GetIssueTypesSimple`
-
-- Sync: `client.issues.get_issue_types_simple(apply_site_visibility=None, timeout=None)`
-- Async: `await client.issues.get_issue_types_simple(apply_site_visibility=None, timeout=None)`
-- Raw payload: `client.issues.get_issue_types_simple.raw(apply_site_visibility=None, timeout=None)`
+- Go wrapper: `client.Issues.GetIssueTypesSimple(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "get_issue_types_simple", opts, out)`
 - HTTP route: `GET /issues/types`
 - Source controller: `Issues`
 
@@ -236,28 +200,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `apply_site_visibility` | `ApplySiteVisibility` | `query` | `no` | `bool` | `-` | - |
+| `Params["ApplySiteVisibility"]` | `ApplySiteVisibility` | `query` | `no` | `bool` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfIssueType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfIssueType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfIssueType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_issue`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_UpdateIssue`
-
-- Sync: `client.issues.update_issue(issue_id=..., model=..., timeout=None)`
-- Async: `await client.issues.update_issue(issue_id=..., model=..., timeout=None)`
-- Raw payload: `client.issues.update_issue.raw(issue_id=..., model=..., timeout=None)`
+- Go wrapper: `client.Issues.UpdateIssue(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "update_issue", opts, out)`
 - HTTP route: `POST /issues/{IssueId}`
 - Source controller: `Issues`
 - Aliases: `update`
@@ -266,29 +225,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
-| `model` | `Model` | `body` | `yes` | `Issue` | `Issue` | - |
+| `PathParams["IssueId"]` | `IssueId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Model` | `body` | `yes` | `Issue` | `Issue` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfIssue`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfIssue` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfIssue`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_issue_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Issue_UpdateIssueType`
-
-- Sync: `client.issues.update_issue_type(issue_type_id=..., model=..., timeout=None)`
-- Async: `await client.issues.update_issue_type(issue_type_id=..., model=..., timeout=None)`
-- Raw payload: `client.issues.update_issue_type.raw(issue_type_id=..., model=..., timeout=None)`
+- Go wrapper: `client.Issues.UpdateIssueType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "issues", "update_issue_type", opts, out)`
 - HTTP route: `POST /issues/types/{IssueTypeId}`
 - Source controller: `Issues`
 
@@ -296,16 +250,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
-| `model` | `Model` | `body` | `yes` | `IssueType` | `IssueType` | - |
+| `PathParams["IssueTypeId"]` | `IssueTypeId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Model` | `body` | `yes` | `IssueType` | `IssueType` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfIssueType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfIssueType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfIssueType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

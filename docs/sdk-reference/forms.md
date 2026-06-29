@@ -1,8 +1,7 @@
 # `forms` Golden Namespace
 
-Sync client access: `client.forms`
+Go client access: `client.Forms`
 
-Async client access: `client.forms` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -10,13 +9,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `submit_form`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Form_SubmitForm`
-
-- Sync: `client.forms.submit_form(model=..., timeout=None)`
-- Async: `await client.forms.submit_form(model=..., timeout=None)`
-- Raw payload: `client.forms.submit_form.raw(model=..., timeout=None)`
+- Go wrapper: `client.Forms.SubmitForm(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "forms", "submit_form", opts, out)`
 - HTTP route: `POST /forms/submit`
 - Source controller: `Forms`
 
@@ -38,15 +32,15 @@ POST /api/v1.0/forms/submit
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `model` | `Model` | `body` | `yes` | `FormSubmission` | `FormSubmission` | Form submission infomation / parameters |
+| `JSON` | `Model` | `body` | `yes` | `FormSubmission` | `FormSubmission` | Form submission infomation / parameters |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
