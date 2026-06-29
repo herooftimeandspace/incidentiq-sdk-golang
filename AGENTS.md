@@ -66,6 +66,11 @@ in this repository.
   branch payload paths, main-branch docs build, Dependabot config, and
   main-branch GitHub Release behavior aligned with the documented workflow when
   editing CI.
+- Keep the promotion-owned `unit`, `integration`, `docs-build`, and
+  `release-prep` check reports in `.github/workflows/promotion.yml` aligned with
+  the ordinary required PR checks. They exist so the Actions-authored
+  `promote/staging-to-main` PR can satisfy required checks even when GitHub does
+  not attach normal `pull_request` workflow runs to that workflow-created branch.
 - The automation uses `GITHUB_TOKEN` by default. Do not introduce a personal
   access token unless GitHub repository rules make it unavoidable and the docs
   are updated with the reason.
