@@ -61,6 +61,7 @@ func writeCoverageBadge(args []string) {
 	flags := flag.NewFlagSet("coverage", flag.ExitOnError)
 	coverageFile := flags.String("coverage-file", "", "Go coverage profile path")
 	label := flags.String("label", "", "badge label")
+	minimum := flags.Float64("minimum", 0, "minimum allowed coverage percentage")
 	output := flags.String("output", "", "output JSON path")
 	if err := flags.Parse(args); err != nil {
 		fatal("parse coverage flags: %v", err)
@@ -72,6 +73,9 @@ func writeCoverageBadge(args []string) {
 	percent, err := coveragePercent(*coverageFile)
 	if err != nil {
 		fatal("calculate coverage: %v", err)
+	}
+	if percent < *minimum {
+		fatal("coverage %.2f%% is below required minimum %.2f%%", percent, *minimum)
 	}
 
 	color := "red"
