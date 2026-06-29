@@ -22,6 +22,14 @@ go tool cover -html=coverage.out -o coverage.html
 go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
 ```
 
+The `95.0%` value is the permanent minimum, not the target to drift back
+toward. Coverage is ratcheted by branch. If the current published branch badge
+shows a higher percentage, new work must keep coverage at or above that higher
+percentage. For example, if `dev` is currently at `97.10%`, a new pull request
+into `dev` must keep the Go coverage result at `97.10%` or higher even though
+that is above the permanent `95.0%` floor. Add focused tests for new or changed
+behavior instead of accepting a lower percentage.
+
 ## Branch Promotion Flow
 
 - Branch feature, bugfix, and chore work from `dev`.
@@ -44,8 +52,19 @@ The `quality` workflow runs `go vet ./...` plus the same package test command
 with native Go coverage enabled. It uploads `coverage.out`,
 `coverage-summary.txt`, and `coverage.html` as workflow artifacts. The workflow
 also publishes branch status and coverage badge payloads to the `badges` branch
-for `dev`, `staging`, and `main`. Coverage must stay at or above the current Go
-baseline of `95.0%`.
+for `dev`, `staging`, and `main`.
+
+Coverage must stay at or above the effective branch floor. The effective floor
+is the greater of:
+
+- the permanent minimum of `95.0%`
+- the current coverage percentage published for the pull request base branch or,
+  for direct branch pushes, the current coverage percentage published for that
+  same branch
+
+This means coverage should never drop. When adding code lowers the percentage,
+add tests until the result is at least the formerly published percentage for
+that branch.
 
 Build the static docs site locally before changing contributor or reference
 Markdown:

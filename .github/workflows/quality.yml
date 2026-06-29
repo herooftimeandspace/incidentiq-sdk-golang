@@ -98,6 +98,23 @@ jobs:
           go tool cover -func=coverage.out -o coverage-summary.txt
           go tool cover -html=coverage.out -o coverage.html
 
+      - name: Fetch coverage ratchet floor
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        env:
+          COVERAGE_FLOOR_BRANCH: ${{ github.base_ref || github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          badge_path="branch-coverage/${COVERAGE_FLOOR_BRANCH}/coverage.json"
+          if gh api "repos/${GITHUB_REPOSITORY}/contents/${badge_path}?ref=badges" --jq '.content' > coverage-floor.b64 2>/tmp/coverage-floor.err; then
+            base64 -d coverage-floor.b64 > coverage-floor.json
+            echo "Using coverage floor from badges:${badge_path}"
+            cat coverage-floor.json
+          else
+            echo "No existing coverage floor found at badges:${badge_path}; using the static floor."
+            cat /tmp/coverage-floor.err
+          fi
+
       - name: Build unit status badge payload
         if: github.event_name == 'push'
         run: |
@@ -107,13 +124,27 @@ jobs:
             --output unit-status.json
 
       - name: Build coverage badge payload
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
         run: |
-          go run scripts/build_badge_json.go coverage \
+          set -euo pipefail
+
+          label="coverage ${GITHUB_REF_NAME}"
+          if [ "${GITHUB_EVENT_NAME}" = "pull_request" ]; then
+            label="coverage ${GITHUB_BASE_REF}"
+          fi
+
+          args=(
+            coverage
             --coverage-file coverage.out \
-            --label "coverage ${GITHUB_REF_NAME}" \
+            --label "${label}" \
             --minimum 95.0 \
             --output coverage-badge.json
+          )
+          if [ -f coverage-floor.json ]; then
+            args+=(--minimum-badge-file coverage-floor.json)
+          fi
+
+          go run scripts/build_badge_json.go "${args[@]}"
 
       - name: Upload unit status badge artifact
         if: github.event_name == 'push'
