@@ -84,6 +84,11 @@ publishes the generated site plus the `main docs` badge after `main` pushes.
   - `semver:major`
 - Automated promotion PRs copy the semver label from the associated source PR
   when one exists and otherwise default to `semver:patch`.
+- The promotion workflow reports the required `unit`, `integration`,
+  `docs-build`, and `release-prep` checks directly on the Actions-authored
+  `promote/staging-to-main` branch. This keeps the automated promotion path
+  usable even when GitHub does not attach ordinary `pull_request` workflow runs
+  to the workflow-created promotion branch.
 - Merging the prepared `promote/staging-to-main -> main` PR creates a GitHub
   Release, a `vMAJOR.MINOR.PATCH` tag, and a source archive.
 - Go module releases are tag-based. There is no package metadata file to bump in
