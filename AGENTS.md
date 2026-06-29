@@ -43,7 +43,10 @@ in this repository.
   summary and `go tool cover -html=coverage.out -o coverage.html` for the HTML
   report. Use `go run scripts/build_badge_json.go coverage --coverage-file
   coverage.out --label "coverage local" --minimum 95.0 --output
-  coverage-badge.json` to enforce the current CI coverage floor.
+  coverage-badge.json` to enforce the permanent minimum. Coverage is ratcheted
+  by branch. If the published badge for the relevant base branch is higher than
+  `95.0%`, new work must keep coverage at or above that higher badge value
+  instead of allowing coverage to drift down toward `95.0%`.
 - Run `go vet ./...` after touching shared runtime code or generated wrappers.
 - Run `go run scripts/build_docs_site.go` after touching docs or docs workflow
   behavior.
