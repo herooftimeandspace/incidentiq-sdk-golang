@@ -241,7 +241,7 @@ func isClientHeaderRejectionError(err error) bool {
 		return false
 	}
 	switch apiErr.StatusCode {
-	case http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden:
+	case http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound:
 	default:
 		return false
 	}
