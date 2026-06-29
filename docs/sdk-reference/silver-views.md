@@ -24,7 +24,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `view_key` | `view_key` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -52,7 +52,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `view_id` | `view_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 

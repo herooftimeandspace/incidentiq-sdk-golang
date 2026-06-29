@@ -40,7 +40,7 @@ DELETE /api/v1.0/metrics/2c6101d2-1ac8-4320-b234-74f51a3b2e58
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | MetricID to be deleted |
 
@@ -75,7 +75,7 @@ DELETE /api/v1.0/metrics/types/67a39334-d778-487c-95ae-07a776ed8201
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | MetricTypeID of the MetricType to be deleted |
 
@@ -111,7 +111,7 @@ GET /api/v1.0/metrics/2c6101d2-1ac8-4320-b234-74f51a3b2e58
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | MetricId of Metric being requested |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Metric(s) |
@@ -147,7 +147,7 @@ GET /api/v1.0/metrics/types/67a39334-d778-487c-95ae-07a776ed8201
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | MetricTypeId of the MetricType being requested |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the MetricType(s) |
@@ -183,7 +183,7 @@ GET /api/v1.0/metrics/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the MetricType(s) |
 
@@ -219,7 +219,7 @@ GET /api/v1.0/metrics/
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Metric(s) |
 
@@ -254,7 +254,7 @@ GET /api/v1.0/metrics/for/sla/bd64e104-4c83-4744-a888-eeb760c03bfe
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SlaId of SLA containing the Metrics being requested |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Sla Metrics |
@@ -285,7 +285,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateMetricRequest` | `UpdateMetricRequest` | - |
@@ -315,7 +315,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateMetricTypeRequest` | `UpdateMetricTypeRequest` | - |
@@ -345,7 +345,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | - |
 | `items` | `Items` | `body` | `yes` | `list[Any]` | `-` | - |

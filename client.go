@@ -16,7 +16,9 @@ var tenantRootPathPrefixes = []string{"/api/", "/services/", "/apps/", "/img/", 
 
 // Client is the shared entry point for Incident IQ HTTP calls.
 type Client struct {
+	generatedClientServices
 	config Config
+	Silver *SilverClient
 }
 
 // NewClient validates configuration and returns an Incident IQ client.
@@ -25,7 +27,9 @@ func NewClient(config Config) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Client{config: normalized}, nil
+	client := &Client{config: normalized}
+	wireGeneratedServices(client)
+	return client, nil
 }
 
 // NewClientFromEnv builds a Client from the same environment variables used by
@@ -162,7 +166,6 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
-	request.Header.Set("Client", c.config.ClientHeader)
 	if c.config.SiteID != "" {
 		request.Header.Set("SiteId", c.config.SiteID)
 	}

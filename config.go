@@ -27,7 +27,6 @@ type Config struct {
 	BaseURL           string
 	APIToken          string
 	SiteID            string
-	ClientHeader      string
 	AuthMode          AuthMode
 	AppHeaders        map[string]string
 	Timeout           time.Duration
@@ -48,7 +47,6 @@ func ConfigFromEnv(testMode bool) (Config, error) {
 		BaseURL:           strings.TrimSpace(os.Getenv(prefix + "BASE_URL")),
 		APIToken:          strings.TrimSpace(os.Getenv(prefix + "API_TOKEN")),
 		SiteID:            strings.TrimSpace(os.Getenv(prefix + "SITE_ID")),
-		ClientHeader:      strings.TrimSpace(os.Getenv(prefix + "CLIENT_HEADER")),
 		AuthMode:          AuthMode(strings.ToLower(strings.TrimSpace(os.Getenv(prefix + "AUTH_MODE")))),
 		ValidateResponses: true,
 	}
@@ -75,9 +73,6 @@ func (c Config) normalized() (Config, error) {
 		return Config{}, err
 	}
 	c.BaseURL = baseURL
-	if c.ClientHeader == "" {
-		c.ClientHeader = "ApiClient"
-	}
 	if c.AuthMode == "" {
 		c.AuthMode = AuthModeBearer
 	}
@@ -98,9 +93,6 @@ func (c Config) normalized() (Config, error) {
 	}
 	if c.MaxRetries < 0 {
 		return Config{}, &ConfigurationError{Message: "max_retries must be zero or positive"}
-	}
-	if err := validateHeaderValue(c.ClientHeader, "client_header"); err != nil {
-		return Config{}, err
 	}
 	if err := validateHeaderValue(c.SiteID, "site_id"); err != nil {
 		return Config{}, err

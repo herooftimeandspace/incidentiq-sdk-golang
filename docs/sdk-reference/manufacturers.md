@@ -38,7 +38,7 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
 | `include_all_models` | `IncludeAllModels` | `query` | `no` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
@@ -74,7 +74,7 @@ POST /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site/true
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be added |
 | `include_all_models` | `IncludeAllModels` | `path` | `yes` | `bool` | `-` | (default false) Add all Models from this manufacturer to site |
@@ -105,7 +105,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
 
@@ -140,7 +140,7 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
 
@@ -175,7 +175,7 @@ GET /api/v1.0/manufacturers/global
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `body` | `yes` | `GetManufacturersRequest` | `GetManufacturersRequest` | - |
 
@@ -211,7 +211,7 @@ GET /api/v1.0/parts/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer ID to be retrieved |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | - |
@@ -247,7 +247,7 @@ DELETE /api/v1.0/manufacturers/70fe08d5-e67e-4495-8ac4-d92f734774af/site
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | Manufacturer Id to be removed |
 
@@ -277,7 +277,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `manufacturer_id` | `ManufacturerId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateManufacturerRequest` | `UpdateManufacturerRequest` | - |

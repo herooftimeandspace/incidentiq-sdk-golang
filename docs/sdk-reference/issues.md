@@ -33,7 +33,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
 
@@ -68,7 +68,7 @@ DELETE /api/v1.0/issues/types/{IssueTypeId:guid}
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
 
@@ -137,7 +137,7 @@ GET /api/v1.0/issues/53bf1b92-a533-4a0e-8894-059f05b38f41
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
 
@@ -172,7 +172,7 @@ GET /api/v1.0/issues/types/fb08be5e-0876-4204-acf1-8f6aad44797c
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
 
@@ -207,7 +207,7 @@ POST /api/v1.0/issues/types
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request` | `request` | `body` | `yes` | `GetIssueTypesRequest` | `GetIssueTypesRequest` | - |
 
@@ -236,7 +236,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `apply_site_visibility` | `ApplySiteVisibility` | `query` | `no` | `bool` | `-` | - |
 
@@ -266,7 +266,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_id` | `IssueId` | `path` | `yes` | `str` | `-` | - |
 | `model` | `Model` | `body` | `yes` | `Issue` | `Issue` | - |
@@ -296,7 +296,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `issue_type_id` | `IssueTypeId` | `path` | `yes` | `str` | `-` | - |
 | `model` | `Model` | `body` | `yes` | `IssueType` | `IssueType` | - |

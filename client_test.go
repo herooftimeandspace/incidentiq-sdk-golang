@@ -43,8 +43,8 @@ func TestRequestSendsIncidentIQHeadersAndJSON(t *testing.T) {
 		if got, want := r.Header.Get("Authorization"), "Bearer token"; got != want {
 			t.Fatalf("Authorization = %q, want %q", got, want)
 		}
-		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
-			t.Fatalf("Client = %q, want %q", got, want)
+		if got := r.Header.Get("Client"); got != "" {
+			t.Fatalf("Client header = %q, want absent", got)
 		}
 		if got, want := r.Header.Get("SiteId"), "site-1"; got != want {
 			t.Fatalf("SiteId = %q, want %q", got, want)

@@ -50,7 +50,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 

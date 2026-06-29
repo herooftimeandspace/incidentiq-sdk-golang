@@ -1,62 +1,44 @@
 # SDK Usage
 
-The SDK surface is split into Golden and Silver paths:
-- Golden: generated from bundled Stoplight controller contracts.
-- Silver: generated from HAR-observed undocumented routes and exposed explicitly under `client.silver`.
+The SDK surface distinguishes the Golden path from the Silver namespace:
+- Golden: the golden SDK path and correct default API surface, exposed directly on `client.<Namespace>.<Method>`.
+- Silver: quasi-supported API calls derived from live site interaction HARs, exposed under `client.Silver.<Namespace>.<Method>`.
 
-Full generated method and route documentation lives under the SDK reference pages.
+Full generated route documentation lives under the SDK reference pages. The generated Go wrappers are reproduced from the bundled inventory snapshots.
 
-## Namespace Pattern
+## Golden Wrapper Pattern
 
-```python
-from incident_py_q import Client
-
-client = Client.from_env()
-print(client.tickets.list_methods())
+```go
+var payload map[string]any
+err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &payload)
 ```
 
-Common shape:
-- `client.<namespace>.<method>(...)` returns typed Pydantic models when representable.
-- `client.<namespace>.<method>.raw(...)` returns validated JSON payloads.
-- `client.<namespace>.list_methods()` enumerates the generated runtime surface for that namespace.
-- `client.silver.<namespace>.*` exposes undocumented Silver routes.
-- `client.apps.<service>.*` is the legacy alias for `client.silver.apps.<service>.*`.
+## Silver Wrapper Pattern
 
-## Request Signatures
+```go
+var payload map[string]any
+err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"ticket_id": "ticket-guid"},
+}, &payload)
+```
 
-Generated method parameters are snake_case from schema names:
-- `ThingId` -> `thing_id`
-- `pageSize` -> `page_size`
+## Request Options
 
-## Pagination Helper
+Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, and per-request timeout:
 
-When paging query parameters are present, `iter_pages(...)` is available:
-
-```python
-pages = client.tickets.get_tickets.iter_pages(start_page=1, page_size=100, max_pages=3)
+```go
+err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
+	PathParams: map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
+	Params:     map[string]string{"$s": "100"},
+}, &payload)
 ```
 
 ## Low-Level Request API
 
-```python
-payload = client.request(
-    "GET",
-    "/users/{UserId}",
-    path_params={"UserId": "00000000-0000-0000-0000-000000000000"},
-)
+```go
+err := client.Request(ctx, "POST", "/services/tickets/-/-/AssignedToMe_Unassigned", incidentiq.RequestOptions{
+	JSON: map[string]any{"OnlyOpen": true},
+}, &payload)
 ```
 
-## Silver Examples
-
-```python
-registry = client.silver.apps.registry.list_apps()
-actions = client.silver.apps.microsoft_intune.list_remote_actions()
-lookup = client.silver.apps.google_device_data.lookup_asset(
-    asset_id="asset-guid",
-    serial_number="SER123",
-)
-stats = client.silver.analytics.get_agent_current_stats()
-assigned = client.silver.tickets.list_current_user_assigned_tickets()
-```
-
-`list_current_user_assigned_tickets(...)` uses the UI-observed read-only assigned/open queue route. It is useful when analytics or saved-view routes return zero rows while the web UI still shows current-user assigned work.
+Use `RequestGolden` and `RequestSilver` when a caller needs to resolve a route dynamically by inventory namespace and method name instead of calling a generated Go method.

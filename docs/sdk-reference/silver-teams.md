@@ -24,7 +24,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `filter` | `$filter` | `query` | `yes` | `str` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 | `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
@@ -53,7 +53,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `for__id` | `for__id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 

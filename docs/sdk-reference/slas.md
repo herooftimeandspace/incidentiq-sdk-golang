@@ -39,7 +39,7 @@ POST /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe/activate
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be activated |
 
@@ -74,7 +74,7 @@ POST /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe/deactivate
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be deactivated |
 
@@ -110,7 +110,7 @@ DELETE /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be activated |
 
@@ -146,7 +146,7 @@ GET /api/v1.0/slas/{SlaId:guid}
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SlaId of SLA being requested |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the SlaId |
@@ -183,7 +183,7 @@ GET /api/v1.0/slas
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Sla |
 
@@ -213,7 +213,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | - |
 | `item` | `Item` | `body` | `yes` | `UpdateSlaRequest` | `UpdateSlaRequest` | - |

@@ -1,82 +1,108 @@
-# Incident IQ SDK Build Plan (`incident-py-q`)
+# Incident IQ SDK Build Plan (`incidentiq-sdk-golang`)
 
 ## Summary
-Build a production-ready Python package (`incident-py-q`, import `incident_py_q`) with sync+async clients, strict schema validation, dynamic SDK generation, contract-driven tests, docs, and CI/CD.  
-Primary contract source is Incident IQ Stoplight Swagger 2.0 controller specs; APIHub Postman collection is bundled as a secondary contract corpus.
+
+Build a production-ready Go module (`github.com/herooftimeandspace/incidentiq-sdk-golang`) that stays functionally aligned with the `incident-py-q` source repository.
+
+Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 controller specs copied from the source repository. The APIHub Postman collection and Silver HAR-derived inventory are bundled as secondary contract corpora. Golden refers to the golden SDK path and correct default API surface. Silver is a separate namespace for quasi-supported API calls derived from live site interaction HARs.
 
 ## Key Constraints and Public Interfaces
-- Python target is **3.14+** only.
+
+- Go module target is the version declared in `go.mod`.
 - Default auth behavior is **Bearer token** (`Authorization: Bearer <token>`).
 - Client supports explicit tenant URL configuration for SDK/runtime and integration smoke tests.
 - Public entry points:
-  - `incident_py_q.Client`
-  - `incident_py_q.AsyncClient`
-- Unified request method on both:
-  - `request(method, path, *, path_params=None, params=None, json=None, headers=None, timeout=None) -> dict | list | None`
+  - `incidentiq.NewClient`
+  - `incidentiq.NewClientFromEnv`
+  - `incidentiq.ConfigFromEnv`
+  - `incidentiq.GoldenInventory`
+  - `incidentiq.SilverInventory`
+- Unified request method:
+  - `Request(ctx, method, path, opts, out) error`
+- Inventory-backed request helpers:
+  - `RequestGolden(ctx, namespace, name, opts, out) error`
+  - `RequestSilver(ctx, namespace, name, opts, out) error`
+- Generated wrapper surface:
+  - Golden default SDK path: `client.<Namespace>.<Method>(ctx, opts, out) error`
+  - Silver quasi-supported HAR-derived namespace: `client.Silver.<Namespace>.<Method>(ctx, opts, out) error`
 - Config surface:
-  - `base_url` (tenant-specific, required unless provided by env)
-  - `api_token`
-  - `site_id` (optional/required depending on endpoint policy)
-  - `client_header` (default `ApiClient`)
-  - `auth_mode` (default `bearer`; optional `raw` for compatibility)
+  - `BaseURL` (tenant-specific, required unless provided by env)
+  - `APIToken`
+  - `SiteID` (optional/required depending on endpoint policy)
+  - `AuthMode` (default `bearer`; optional `raw` for compatibility)
+  - `AppHeaders`
+  - `Timeout`
+  - `ValidateResponses`
+  - `MaxRetries`
+  - `BackoffBase`
+  - `HTTPClient`
 - Tenant URL env vars:
   - `INCIDENTIQ_BASE_URL` for normal SDK usage
   - `INCIDENTIQ_TEST_BASE_URL` for integration/smoke tests
-  - tests fail-fast/skip cleanly with clear messaging if test base URL or creds are missing
 
 ## Implementation Changes
-- Package layout under `src/incident_py_q`:
-  - core transport (sync+async parity, retries, logging redaction)
-  - auth/header policy (Bearer default)
-  - schema loader/registry/validator
-  - dynamic SDK namespace/method generator from operation metadata
-- Schema sync tooling:
-  - Stoplight GraphQL source (workspace `incidentiq`, project `v1`, default branch, `/controllers/*.json`)
-  - APIHub Postman collection source
-  - manifest-driven sync script with continue-on-error reporting and required-source failure exit
-- Runtime validation:
-  - method/path operation matching
-  - status-code response schema selection
-  - `jsonschema` validation for successful responses
-  - `ValueError` on schema validation failure
-- SDK ergonomics:
-  - snake_case params from schema names
-  - typed Pydantic response models by default when possible
-  - `.raw(...)` for validated JSON
-  - stable inventory snapshot for semver governance
+
+- Package layout at repository root:
+  - `client.go`: transport, request construction, retries, and inventory-backed calls
+  - `config.go`: config loading, auth mode, and URL/header validation
+  - `data.go`: embedded contract and inventory access
+  - `errors.go`: exported error types
+  - `request.go`: request options
+  - `retry.go`: retry policy helpers
+- Contract artifacts:
+  - `data/stoplight/controllers/*.json`
+  - `data/postman/collection.json`
+  - `data/source_manifest.json`
+  - `data/app_schemas.json`
+  - `data/silver_inventory.json`
+  - `testdata/contract/*_sdk_inventory.json`
+- Sync tooling:
+  - `scripts/sync_from_source_sdk.sh`
+- Wrapper tooling:
+  - `scripts/generate_wrappers.go`
+  - `go generate ./...`
+- Current runtime behavior:
+  - method/path request construction
+  - path parameter escaping
+  - tenant-root URL handling for Golden and Silver paths
+  - JSON body encoding
+  - JSON object/array response decoding
+  - retry handling for idempotent methods and retryable statuses
 
 ## Test Plan
+
 - Unit tests:
-  - auth/header behavior (Bearer default, optional `site_id`/`client` behavior)
-  - request construction, retries, timeout, error propagation
-  - schema loading/matching/ref resolution/validation
-  - SDK generation + signatures + sync/async parity
-- Contract tests (schema-driven):
-  - coverage across bundled Stoplight operations
-  - compatibility checks against bundled Postman corpus
-  - golden SDK surface inventory drift detection
-- Integration tests (`@pytest.mark.integration`):
-  - use `INCIDENTIQ_TEST_BASE_URL` explicitly
-  - read-only smoke endpoints only
-  - skip cleanly when credentials/base URL are absent
-- Packaging/resource tests:
-  - verify bundled schemas load from installed wheel/sdist
+  - auth/header behavior
+  - optional `SiteId` header
+  - request construction
+  - tenant URL normalization
+  - tenant-root path handling
+  - retries and error propagation
+  - bundled inventory loading
+- Contract tests:
+  - verify Golden and Silver inventories load from embedded files
+  - compare generated Go wrapper coverage against bundled inventory snapshots
+- Integration tests:
+  - not implemented yet
+  - future tests should use `INCIDENTIQ_TEST_BASE_URL` explicitly
+  - future tests should stay read-only unless a checked-in test plan documents a write-safe scenario
 
 ## Docs, CI/CD, and Artifact
+
 - Docs:
-  - `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`, `.env.example`
-  - MkDocs Material site + pdoc API reference integration
-  - explicit section for tenant URL setup (`INCIDENTIQ_BASE_URL`, `INCIDENTIQ_TEST_BASE_URL`)
+  - `README.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md`
+  - `docs/go-parity.md`
+  - copied source-reference Markdown kept for parity tracking until Go-generated docs replace it
 - CI:
-  - quality workflow: Python **3.14+**, ruff, mypy, tests (non-integration), build, docs build
-  - integration workflow: secrets + `INCIDENTIQ_TEST_BASE_URL` gated
-  - GitHub Pages docs publish workflow
+  - GitHub Actions runs `go test ./...` on `main`, `dev`, `staging`, and pull requests.
 - Plan artifact:
   - `IMPLEMENTATION_PLAN.md` (this document)
 
 ## Assumptions and Defaults
-- Distribution: `incident-py-q`; import: `incident_py_q`.
-- Python 3.14+ required for runtime and CI.
+
+- Module path: `github.com/herooftimeandspace/incidentiq-sdk-golang`.
 - Bearer token is default auth mode.
 - Tenant URL is always configurable per client instance and separately for integration smoke tests.
-
+- Generated wrappers are reproduced from bundled Golden and Silver inventory snapshots.
+- Golden wrappers remain the default `client.<Namespace>.<Method>` SDK path.
+- Silver wrappers remain isolated under `client.Silver` for quasi-supported HAR-derived calls.
