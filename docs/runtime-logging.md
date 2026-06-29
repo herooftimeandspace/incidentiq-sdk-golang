@@ -1,27 +1,17 @@
-# Logging and Runtime Behavior
+# Runtime Behavior
 
 ## Logging
 
-The SDK uses standard-library `logging` and does not install handlers.
+The current Go runtime does not install a logger or emit structured logs.
 
-- Logger name: `incident_py_q.client`
-- Structured `extra` fields include method/path/status.
-- Sensitive headers (Authorization, cookies, API keys) are redacted.
-
-Configure logging in your application as needed:
-
-```python
-import logging
-
-logging.basicConfig(level=logging.INFO)
-```
+Callers should log request context in their own application code and must avoid logging credentials, tokens, cookies, or raw Authorization header values.
 
 ## Retry Policy
 
 Conservative retry defaults:
 - Retryable statuses: `408`, `429`, `500`, `502`, `503`, `504`
 - Retry methods: idempotent methods only (`GET`, `HEAD`, `OPTIONS`, `DELETE`, `PUT`)
-- Backoff: exponential with bounded jitter
+- Backoff: exponential based on `BackoffBase`
 
 Non-idempotent writes are not retried by default.
 

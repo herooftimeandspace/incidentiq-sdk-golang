@@ -24,7 +24,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `session_state_id` | `SessionStateId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `value` | `Value` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |

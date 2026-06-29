@@ -40,7 +40,7 @@ DELETE /api/v1.0/parts/c94f81dc-8fae-4e82-8014-b5e5b5e86575
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
 
@@ -75,7 +75,7 @@ DELETE /api/v1.0/parts/suppliers/e67018f1-3815-449c-a09f-e66dc6b83202
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
 
@@ -111,7 +111,7 @@ GET /api/v1.0/parts/bbfdf941-7bbe-4cc2-a9d7-9b7fbeed2358
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
 
@@ -146,7 +146,7 @@ GET /api/v1.0/parts/suppliers/0baa50cf-2037-43a4-9b64-391737f58d41
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
 
@@ -243,7 +243,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_id` | `PartId` | `path` | `yes` | `str` | `-` | - |
 | `part` | `Part` | `body` | `yes` | `Part` | `Part` | - |
@@ -273,7 +273,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `part_supplier_id` | `PartSupplierId` | `path` | `yes` | `str` | `-` | - |
 | `part_supplier` | `PartSupplier` | `body` | `yes` | `PartSupplier` | `PartSupplier` | - |

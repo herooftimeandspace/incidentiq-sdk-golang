@@ -215,7 +215,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `limit` | `Limit` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `skip` | `Skip` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -249,7 +249,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `usage_id` | `usage_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `path` | `yes` | `int` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
@@ -278,7 +278,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -311,12 +311,12 @@ Posts the asset lookup payload to the Google Device Data endpoint.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
-| `query` | `Query` | `body` | `no` | `str | None` | Optional search query. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
+| `query` | `Query` | `body` | `no` | `string` | Optional search query. |
 | `skip` | `Skip` | `body` | `no` | `int` | Result offset for the Google endpoint. |
 | `limit` | `Limit` | `body` | `no` | `int` | Maximum results requested. |
 
@@ -343,12 +343,12 @@ Same request as `lookup_asset`, but returns validated raw JSON.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
-| `query` | `Query` | `body` | `no` | `str | None` | Optional search query. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
+| `query` | `Query` | `body` | `no` | `string` | Optional search query. |
 | `skip` | `Skip` | `body` | `no` | `int` | Result offset for the Google endpoint. |
 | `limit` | `Limit` | `body` | `no` | `int` | Maximum results requested. |
 
@@ -476,7 +476,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `usage_id` | `usage_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `path` | `yes` | `int` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
@@ -583,7 +583,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `google_device_data_key` | `google_device_data_key` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -637,7 +637,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `schedule_id` | `schedule_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -665,7 +665,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `job_id` | `job_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `limit` | `Limit` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -694,10 +694,10 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -723,7 +723,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -751,7 +751,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -813,7 +813,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -847,7 +847,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -880,7 +880,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -914,7 +914,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `refresh` | `refresh` | `query` | `yes` | `bool` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 
@@ -998,7 +998,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1031,11 +1031,11 @@ Posts the asset lookup payload to the Intune app endpoint and returns the typed 
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number sent to the Intune lookup endpoint. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
 
 #### Returns
 
@@ -1060,11 +1060,11 @@ Same request as `lookup_asset`, but returns validated raw JSON.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number sent to the Intune lookup endpoint. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
 
 #### Returns
 
@@ -1139,10 +1139,10 @@ Utility helper that derives owner type and optional external-id match state from
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `lookup_response` | `lookup_response` | `python` | `yes` | `AppLookupResponse | Mapping[str, Any]` | Lookup payload or model to classify. |
-| `expected_external_id` | `expected_external_id` | `python` | `no` | `str | None` | Optional external id used to flag mismatches. |
+| `lookup_response` | `lookup_response` | `go` | `yes` | `map[string]any` | Lookup payload or model to classify. |
+| `expected_external_id` | `expected_external_id` | `go` | `no` | `string` | Optional external id used to flag mismatches. |
 
 #### Returns
 
@@ -1167,9 +1167,9 @@ Utility helper that performs lookups as needed and groups assets into company, p
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `assets` | `assets` | `python` | `yes` | `Sequence[Mapping[str, Any]]` | Asset payloads containing Intune app mapping data. |
+| `assets` | `assets` | `go` | `yes` | `[]map[string]any` | Asset payloads containing Intune app mapping data. |
 
 #### Returns
 
@@ -1195,7 +1195,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `usage_id` | `usage_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `n_883d10f1_e4a0_4268_a319_3d36d1948030_id` | `path` | `yes` | `int` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
@@ -1328,7 +1328,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `job_id` | `job_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `limit` | `Limit` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1357,7 +1357,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `keep_user_data` | `KeepUserData` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1386,7 +1386,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `user_principal_name` | `UserPrincipalName` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1415,7 +1415,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1443,7 +1443,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1471,7 +1471,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1499,7 +1499,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1527,7 +1527,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1555,7 +1555,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1583,7 +1583,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1611,7 +1611,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1639,7 +1639,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1667,7 +1667,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1695,7 +1695,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1723,7 +1723,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1751,7 +1751,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `quick_scan` | `QuickScan` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1780,7 +1780,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -1808,7 +1808,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `execute_id` | `execute_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `keep_enrollment_data` | `KeepEnrollmentData` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
@@ -1842,11 +1842,11 @@ Posts the asset lookup payload to the Mosyle app endpoint.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
 
 #### Returns
 
@@ -1871,11 +1871,11 @@ Same request as `lookup_asset`, but returns validated raw JSON.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Incident IQ asset identifier. |
 | `serial_number` | `SerialNumber` | `body` | `yes` | `str` | Serial number. |
-| `asset_tag` | `AssetTag` | `body` | `no` | `str | None` | Optional asset tag. |
+| `asset_tag` | `AssetTag` | `body` | `no` | `string` | Optional asset tag. |
 
 #### Returns
 
@@ -2033,7 +2033,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `pin_code` | `pin_code` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
 
@@ -2065,7 +2065,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `user_id` | `user_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2149,9 +2149,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2233,9 +2233,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2317,9 +2317,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2401,9 +2401,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2485,9 +2485,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2569,9 +2569,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2601,7 +2601,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `user_id` | `user_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2632,7 +2632,7 @@ Calls the tenant app registry endpoint and returns the typed registry response e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `include_hidden` | `include_hidden` | `path` | `no` | `bool` | Whether to include hidden app registrations. |
 
@@ -2659,7 +2659,7 @@ Same request as `list_apps`, but returns validated raw JSON.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `include_hidden` | `include_hidden` | `path` | `no` | `bool` | Whether to include hidden app registrations. |
 
@@ -2691,7 +2691,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2723,7 +2723,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2755,7 +2755,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `bb6cece8_e4f4_e511_a789_005056bb000e_statu_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2813,7 +2813,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `ticket_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `pool_id` | `pool_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
@@ -2842,9 +2842,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `json_body` | `json_body` | `body` | `yes` | `Mapping[str, Any]` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+| `json_body` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
 
 #### Returns
 
@@ -2956,7 +2956,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `widget_id` | `widget_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
@@ -2988,7 +2988,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `asset_id` | `AssetId` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 | `asset_tag` | `AssetTag` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |

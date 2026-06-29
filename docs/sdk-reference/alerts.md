@@ -45,7 +45,7 @@ POST /api/v1.0/alerts/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `notification` | `notification` | `body` | `yes` | `Alert` | `Alert` | Notification details / parameters |
 

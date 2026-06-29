@@ -2,80 +2,58 @@
 
 ## Development Setup
 
-1. Use Python `3.14+`.
-2. Create and activate a virtual environment.
-3. Install project + dev dependencies:
+1. Use the Go version declared in `go.mod`.
+2. Clone this repository.
+3. Run the local test suite:
 
 ```bash
-python -m pip install -e '.[dev]'
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
+
+The repo-local cache variables are useful on workstations where the default Go cache path is sandboxed or shared across projects.
 
 ## Branch Promotion Flow
 
 - Branch feature, bugfix, and chore work from `dev`.
-- Merge reviewed work into `dev` after the `unit` check passes.
-- GitHub Actions opens a promotion PR from `dev` to `staging` after green pushes on `dev`.
-- Merge `dev -> staging` only after `unit` and `integration` both pass.
-  On the auto-generated promotion PR, `unit` is a proxy check that confirms the already-green
-  `dev` push validation for the same head SHA instead of rerunning the full unit workflow.
-- GitHub Actions opens a promotion PR from `staging` to `main` after green pushes on `staging`.
-- Merge `staging -> main` only after `unit`, `integration`, `docs-build`, and `release-prep` pass.
-- `dev` allows the repository owner to bypass the PR gate when necessary. `staging` and `main` do not.
+- Merge reviewed work into `dev` after the `test` workflow passes.
+- Promote `dev -> staging` after green pushes on `dev`.
+- Promote `staging -> main` after green pushes on `staging`.
+- Keep `dev`, `staging`, and `main` aligned with the source repository workflow unless a repository-specific decision changes that policy.
 
 ## Quality Gates
 
 Run all required checks before opening a pull request:
 
 ```bash
-python scripts/run_local_ci.py --target dev
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
-Use the branch target that matches the branch you are promoting into:
-
-```bash
-python scripts/run_local_ci.py --target dev
-python scripts/run_local_ci.py --target staging
-python scripts/run_local_ci.py --target main
-```
-
-- `dev` mirrors the `unit` workflow gate.
-- `staging` mirrors `unit` plus `integration`.
-- `main` mirrors `unit`, `integration`, and `docs-build`.
-- `staging` and `main` require live integration credentials locally, just like protected-branch CI.
+The current GitHub Actions workflow runs the same package test command.
 
 ## Release Labels and Mainline Releases
 
-- Every `staging -> main` promotion PR must carry exactly one of:
+- Every `staging -> main` promotion PR should carry exactly one of:
   - `semver:patch`
   - `semver:minor`
   - `semver:major`
-- The `prepare-release-promotion` workflow rewrites the promotion branch with the release version bump before merge.
-- The required `release-prep` check is non-mutating and verifies that the final promotion PR head is already prepared.
-- After the PR merges into `main`, GitHub Actions:
-  - tags the release as `vX.Y.Z`
-  - creates a GitHub Release
-  - attaches the wheel, sdist, and versioned SDK zip asset
-- PyPI publication is intentionally out of scope for this repository flow today.
+- Version tagging and release asset publication are not implemented yet.
+- Do not document or rely on release artifacts that are not produced by the current workflows.
 
 ## Schema Sync Workflow
 
-The runtime validator and contract tests use bundled schema artifacts only.  
-To refresh bundled upstream contracts:
+The runtime client and contract tests use bundled schema artifacts only. To refresh bundled upstream contracts from a sibling source checkout:
 
 ```bash
-python scripts/sync_schemas.py
-python scripts/update_sdk_inventory.py
-pytest --cov=incident_py_q --cov-report=xml -m "not integration"
+./scripts/sync_from_source_sdk.sh ../incident-py-q
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
-If schema updates change generated SDK method inventory, the golden snapshot file at
-`tests/contract/golden_sdk_inventory.json` must be committed in the same change.
+If schema updates change generated SDK method inventory, commit the refreshed files under `testdata/contract/` in the same change.
 
 ## Public API Stability
 
-The public SDK surface (`Client`, `AsyncClient`, generated namespaces/method names, and
-request signatures) is semver-governed:
+The public SDK surface (`Client`, `Config`, `RequestOptions`, request methods, and inventory helpers) is semver-governed:
 
 - Backward-compatible additive changes: minor version bump.
-- Breaking method/namespace/signature changes: major version bump.
+- Breaking method, type, or signature changes: major version bump.
 - Bug fixes that preserve public surface: patch version bump.
