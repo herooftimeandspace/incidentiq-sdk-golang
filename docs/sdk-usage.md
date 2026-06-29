@@ -38,14 +38,20 @@ contract.
 
 ## Request Options
 
-Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, and per-request timeout:
+Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, per-request timeout, and per-request response-size limits:
 
 ```go
 err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
-	PathParams: map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
-	Params:     map[string]string{"$s": "100"},
+	PathParams:           map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
+	Params:               map[string]string{"$s": "100"},
+	MaxResponseBodyBytes: 8 * 1024 * 1024,
 }, &payload)
 ```
+
+Responses are capped at 4 MiB by default before JSON decoding or API error body
+capture. Set `Config.MaxResponseBodyBytes` to change the client-wide cap or
+`RequestOptions.MaxResponseBodyBytes` to override it for one request. Oversized
+responses return `*incidentiq.ResponseSizeError`.
 
 ## Low-Level Request API
 
