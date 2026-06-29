@@ -19,10 +19,11 @@ in this repository.
 - Golden refers to the golden SDK path. It is the correct default API surface for
   supported SDK calls.
 - Golden methods must be exposed directly as `client.<Namespace>.<Method>`.
-- Silver is a separate namespace for quasi-supported API calls derived from live
-  site interaction HARs.
-- Silver methods must stay under `client.Silver.<Namespace>.<Method>` and must
-  not be presented as the default API surface.
+- Silver is a separate namespace for quasi-supported API calls derived from
+  live site interaction HARs.
+- Silver methods must stay under `client.Silver.<Namespace>.<Method>` or, for
+  app routes, `client.Silver.Apps.<AppNamespace>.<Method>`. They must not be
+  presented as the default API surface.
 - Do not split Golden into a separate `client.Golden` namespace. The direct
   `client.<Namespace>.<Method>` shape is the Golden path.
 - Preserve this distinction in docs, generated wrapper text, examples, tests, and

@@ -1,4 +1,4 @@
-# `silver.schedules` Namespace
+# `Silver.schedules` Namespace
 
 Go client access: `client.Silver.Schedules`
 

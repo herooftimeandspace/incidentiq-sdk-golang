@@ -79,6 +79,19 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 	silverServices := reflect.TypeOf(*client.Silver)
 	for i := 0; i < silverServices.NumField(); i++ {
 		field := silverServices.Field(i)
+		if field.Name == "Apps" {
+			appServices := field.Type.Elem()
+			for j := 0; j < appServices.NumField(); j++ {
+				appField := appServices.Field(j)
+				got := appField.Type.NumMethod()
+				key := field.Name + "." + appField.Name
+				if wantSilver[key] != got {
+					t.Fatalf("silver namespace %s has %d generated methods, want %d", key, got, wantSilver[key])
+				}
+				delete(wantSilver, key)
+			}
+			continue
+		}
 		got := field.Type.NumMethod()
 		if wantSilver[field.Name] != got {
 			t.Fatalf("silver namespace %s has %d generated methods, want %d", field.Name, got, wantSilver[field.Name])
@@ -87,6 +100,41 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 	}
 	if len(wantSilver) != 0 {
 		t.Fatalf("missing silver generated namespaces: %#v", wantSilver)
+	}
+}
+
+func TestGeneratedSilverAppsWrapperUsesNestedAppsNamespace(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.URL.Path, "/apps/googleDeviceData/api/googleDeviceData/site-app/status/last"; got != want {
+			t.Fatalf("path = %q, want %q", got, want)
+		}
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client = %q, want %q", got, want)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if client.Silver == nil || client.Silver.Apps == nil || client.Silver.Apps.GoogleDeviceData == nil {
+		t.Fatal("client.Silver.Apps.GoogleDeviceData was nil")
+	}
+	var payload map[string]any
+	if err := client.Silver.Apps.GoogleDeviceData.GetStatusLast(context.Background(), RequestOptions{
+		PathParams: map[string]any{"google_device_data_key": "site-app"},
+	}, &payload); err != nil {
+		t.Fatalf("GetStatusLast returned error: %v", err)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
 	}
 }
 
@@ -167,7 +215,12 @@ func (op SilverOperation) GetNamespace() string {
 func countByExportedNamespace[T inventoryOperation](operations []T) map[string]int {
 	counts := map[string]int{}
 	for _, operation := range operations {
-		counts[testExportedName(operation.GetNamespace())]++
+		namespace := operation.GetNamespace()
+		if parent, child, ok := strings.Cut(namespace, "."); ok {
+			counts[testExportedName(parent)+"."+testExportedName(child)]++
+			continue
+		}
+		counts[testExportedName(namespace)]++
 	}
 	return counts
 }

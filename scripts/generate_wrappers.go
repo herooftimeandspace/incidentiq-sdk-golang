@@ -45,6 +45,12 @@ type namespaceGroup struct {
 	Operations []generatedOperation
 }
 
+type nestedNamespaceGroup struct {
+	Namespace string
+	FieldName string
+	Children  []namespaceGroup
+}
+
 var nonIdentifier = regexp.MustCompile(`[^0-9A-Za-z]+`)
 
 func main() {
@@ -56,7 +62,7 @@ func main() {
 	out.WriteString("\npackage incidentiq\n\n")
 	out.WriteString("import \"context\"\n\n")
 	writeClientFields(&out, groupOperations(golden, "Golden"))
-	writeRoot(&out, "Silver", groupOperations(silver, "Silver"))
+	writeSilverRoot(&out, groupOperations(silver, "Silver"))
 	writeWireFunction(&out, groupOperations(golden, "Golden"), groupOperations(silver, "Silver"))
 	writeInventoryFunctions(&out, golden, silver)
 
@@ -149,7 +155,34 @@ func writeRoot(out *bytes.Buffer, prefix string, groups []namespaceGroup) {
 		fmt.Fprintf(out, "type %s struct { client *Client }\n\n", group.StructName)
 		for _, op := range group.Operations {
 			fmt.Fprintf(out, "func (s *%s) %s(ctx context.Context, opts RequestOptions, out any) error {\n", group.StructName, exportedName(op.Name))
-			fmt.Fprintf(out, "\treturn s.client.Request(ctx, %q, %q, opts, out)\n", op.Method, op.Path)
+			fmt.Fprintf(out, "\treturn s.client.request(ctx, %q, %q, opts, out, true)\n", op.Method, op.Path)
+			out.WriteString("}\n\n")
+		}
+	}
+}
+
+func writeSilverRoot(out *bytes.Buffer, groups []namespaceGroup) {
+	topLevel, nested := splitNestedGroups(groups)
+	out.WriteString("type SilverClient struct {\n")
+	for _, group := range topLevel {
+		fmt.Fprintf(out, "\t%s *%s\n", group.FieldName, group.StructName)
+	}
+	for _, group := range nested {
+		fmt.Fprintf(out, "\t%s *Silver%sClient\n", group.FieldName, group.FieldName)
+	}
+	out.WriteString("}\n\n")
+	for _, group := range nested {
+		fmt.Fprintf(out, "type Silver%sClient struct {\n", group.FieldName)
+		for _, child := range group.Children {
+			fmt.Fprintf(out, "\t%s *%s\n", child.FieldName, child.StructName)
+		}
+		out.WriteString("}\n\n")
+	}
+	for _, group := range append(topLevel, flattenNestedGroups(nested)...) {
+		fmt.Fprintf(out, "type %s struct { client *Client }\n\n", group.StructName)
+		for _, op := range group.Operations {
+			fmt.Fprintf(out, "func (s *%s) %s(ctx context.Context, opts RequestOptions, out any) error {\n", group.StructName, exportedName(op.Name))
+			fmt.Fprintf(out, "\treturn s.client.request(ctx, %q, %q, opts, out, true)\n", op.Method, op.Path)
 			out.WriteString("}\n\n")
 		}
 	}
@@ -172,6 +205,7 @@ func writeClientFields(out *bytes.Buffer, groups []namespaceGroup) {
 }
 
 func writeWireFunction(out *bytes.Buffer, golden []namespaceGroup, silver []namespaceGroup) {
+	topLevelSilver, nestedSilver := splitNestedGroups(silver)
 	out.WriteString("func wireGeneratedServices(client *Client) {\n")
 	out.WriteString("\tclient.generatedClientServices = generatedClientServices{\n")
 	for _, group := range golden {
@@ -179,11 +213,58 @@ func writeWireFunction(out *bytes.Buffer, golden []namespaceGroup, silver []name
 	}
 	out.WriteString("\t}\n")
 	out.WriteString("\tclient.Silver = &SilverClient{\n")
-	for _, group := range silver {
+	for _, group := range topLevelSilver {
 		fmt.Fprintf(out, "\t\t%s: &%s{client: client},\n", group.FieldName, group.StructName)
+	}
+	for _, group := range nestedSilver {
+		fmt.Fprintf(out, "\t\t%s: &Silver%sClient{\n", group.FieldName, group.FieldName)
+		for _, child := range group.Children {
+			fmt.Fprintf(out, "\t\t\t%s: &%s{client: client},\n", child.FieldName, child.StructName)
+		}
+		out.WriteString("\t\t},\n")
 	}
 	out.WriteString("\t}\n")
 	out.WriteString("}\n\n")
+}
+
+func splitNestedGroups(groups []namespaceGroup) ([]namespaceGroup, []nestedNamespaceGroup) {
+	topLevel := make([]namespaceGroup, 0, len(groups))
+	byParent := map[string][]namespaceGroup{}
+	for _, group := range groups {
+		parent, child, ok := strings.Cut(group.Namespace, ".")
+		if !ok {
+			topLevel = append(topLevel, group)
+			continue
+		}
+		group.FieldName = exportedName(child)
+		byParent[parent] = append(byParent[parent], group)
+	}
+	parents := make([]string, 0, len(byParent))
+	for parent := range byParent {
+		parents = append(parents, parent)
+	}
+	sort.Strings(parents)
+	nested := make([]nestedNamespaceGroup, 0, len(parents))
+	for _, parent := range parents {
+		children := byParent[parent]
+		sort.Slice(children, func(i, j int) bool {
+			return children[i].FieldName < children[j].FieldName
+		})
+		nested = append(nested, nestedNamespaceGroup{
+			Namespace: parent,
+			FieldName: exportedName(parent),
+			Children:  children,
+		})
+	}
+	return topLevel, nested
+}
+
+func flattenNestedGroups(groups []nestedNamespaceGroup) []namespaceGroup {
+	var flattened []namespaceGroup
+	for _, group := range groups {
+		flattened = append(flattened, group.Children...)
+	}
+	return flattened
 }
 
 func writeInventoryFunctions(out *bytes.Buffer, golden []generatedOperation, silver []generatedOperation) {

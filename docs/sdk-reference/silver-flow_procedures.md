@@ -1,4 +1,4 @@
-# `silver.flow_procedures` Namespace
+# `Silver.flow_procedures` Namespace
 
 Go client access: `client.Silver.FlowProcedures`
 

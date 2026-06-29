@@ -25,6 +25,7 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 - Generated wrapper surface:
   - Golden default SDK path: `client.<Namespace>.<Method>(ctx, opts, out) error`
   - Silver quasi-supported HAR-derived namespace: `client.Silver.<Namespace>.<Method>(ctx, opts, out) error`
+  - Silver app namespace: `client.Silver.Apps.<AppNamespace>.<Method>(ctx, opts, out) error`
 - Config surface:
   - `BaseURL` (tenant-specific, required unless provided by env)
   - `APIToken`
@@ -106,3 +107,4 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 - Generated wrappers are reproduced from bundled Golden and Silver inventory snapshots.
 - Golden wrappers remain the default `client.<Namespace>.<Method>` SDK path.
 - Silver wrappers remain isolated under `client.Silver` for quasi-supported HAR-derived calls.
+- All requests send `Client: ApiClient` by default. Silver calls retry once without the SDK-provided `Client` header if the ApiClient-shaped request fails.

@@ -1,4 +1,4 @@
-# `silver.subtasks` Namespace
+# `Silver.subtasks` Namespace
 
 Go client access: `client.Silver.Subtasks`
 

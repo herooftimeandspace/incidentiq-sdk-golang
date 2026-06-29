@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+const defaultClientHeader = "ApiClient"
+
 var tenantRootPathPrefixes = []string{"/api/", "/services/", "/apps/", "/img/", "/s/"}
 
 // Client is the shared entry point for Incident IQ HTTP calls.
@@ -51,6 +53,10 @@ func (c *Client) Config() Config {
 // Request sends one low-level API request and decodes a JSON object or array
 // response into out when out is non-nil.
 func (c *Client) Request(ctx context.Context, method string, path string, opts RequestOptions, out any) error {
+	return c.request(ctx, method, path, opts, out, false)
+}
+
+func (c *Client) request(ctx context.Context, method string, path string, opts RequestOptions, out any, silver bool) error {
 	if strings.TrimSpace(method) == "" {
 		return &ValidationError{Message: "method is required"}
 	}
@@ -70,7 +76,7 @@ func (c *Client) Request(ctx context.Context, method string, path string, opts R
 		return err
 	}
 	method = strings.ToUpper(strings.TrimSpace(method))
-	return c.doHTTPRequest(ctx, method, renderedPath, requestURL, body, contentType, opts, out)
+	return c.doHTTPRequest(ctx, method, renderedPath, requestURL, body, contentType, opts, out, silver)
 }
 
 // RequestGolden looks up a bundled Golden operation by namespace and method
@@ -97,7 +103,7 @@ func (c *Client) RequestSilver(ctx context.Context, namespace string, name strin
 	}
 	for _, operation := range inventory {
 		if operation.Namespace == namespace && operation.Name == name {
-			return c.Request(ctx, operation.HTTPMethod, operation.Path, opts, out)
+			return c.request(ctx, operation.HTTPMethod, operation.Path, opts, out, true)
 		}
 	}
 	return &ValidationError{Message: fmt.Sprintf("unknown Silver operation %s.%s", namespace, name)}
@@ -138,7 +144,15 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 	return parsed.String(), nil
 }
 
-func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any) error {
+func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, silver bool) error {
+	err := c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, true)
+	if err == nil || !silver || hasHeader(opts.Headers, "Client") {
+		return err
+	}
+	return c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, false)
+}
+
+func (c *Client) doHTTPRequestWithClientHeader(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, includeClientHeader bool) error {
 	canRetry := methodIsIdempotent(method)
 	var lastErr error
 	for attempt := 0; attempt <= c.config.MaxRetries; attempt++ {
@@ -147,7 +161,7 @@ func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, 
 				return err
 			}
 		}
-		err := c.sendOnce(ctx, method, path, requestURL, body, contentType, opts, out)
+		err := c.sendOnce(ctx, method, path, requestURL, body, contentType, opts, out, includeClientHeader)
 		if err == nil {
 			return nil
 		}
@@ -159,13 +173,16 @@ func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, 
 	return lastErr
 }
 
-func (c *Client) sendOnce(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any) error {
+func (c *Client) sendOnce(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, includeClientHeader bool) error {
 	request, err := http.NewRequestWithContext(ctx, method, requestURL, bytes.NewReader(body))
 	if err != nil {
 		return err
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
+	if includeClientHeader && !hasHeader(opts.Headers, "Client") {
+		request.Header.Set("Client", defaultClientHeader)
+	}
 	if c.config.SiteID != "" && !opts.OmitSiteIDHeader {
 		request.Header.Set("SiteId", c.config.SiteID)
 	}
@@ -207,6 +224,15 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		return &ValidationError{Message: fmt.Sprintf("response for %s %s was not valid JSON: %v", method, path, err)}
 	}
 	return nil
+}
+
+func hasHeader(headers map[string]string, name string) bool {
+	for key := range headers {
+		if strings.EqualFold(key, name) {
+			return true
+		}
+	}
+	return false
 }
 
 func encodeRequestBody(opts RequestOptions) ([]byte, string, error) {

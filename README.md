@@ -81,10 +81,15 @@ to the golden SDK path and is the correct default API surface for supported SDK
 calls. Golden methods are exposed directly on
 `client.<Namespace>.<Method>`.
 
-Silver is a separate namespace for quasi-supported API calls derived from live
-site interaction HARs. Silver methods are exposed under
-`client.Silver.<Namespace>.<Method>` and are not promoted onto the default
-client surface.
+Silver is a separate namespace for quasi-supported API calls derived from
+live site interaction HARs. Silver methods are exposed under
+`client.Silver.<Namespace>.<Method>` and app-specific routes are exposed under
+`client.Silver.Apps.<AppNamespace>.<Method>`.
+
+All requests send `Client: ApiClient` by default. Silver requests first try that
+same header shape; if the Silver route rejects it, the SDK retries once without
+the SDK-provided `Client` header because HAR-derived routes may not follow the
+documented Postman requirement.
 
 ```go
 var tickets map[string]any

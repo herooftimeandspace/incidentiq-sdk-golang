@@ -1,4 +1,4 @@
-# `silver.tasks` Namespace
+# `Silver.tasks` Namespace
 
 Go client access: `client.Silver.Tasks`
 

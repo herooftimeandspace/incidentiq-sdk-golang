@@ -1,4 +1,4 @@
-# `silver.analytics` Namespace
+# `Silver.analytics` Namespace
 
 Go client access: `client.Silver.Analytics`
 

@@ -1,4 +1,4 @@
-# `silver.settings` Namespace
+# `Silver.settings` Namespace
 
 Go client access: `client.Silver.Settings`
 

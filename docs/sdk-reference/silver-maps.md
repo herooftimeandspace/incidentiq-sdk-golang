@@ -1,4 +1,4 @@
-# `silver.maps` Namespace
+# `Silver.maps` Namespace
 
 Go client access: `client.Silver.Maps`
 
