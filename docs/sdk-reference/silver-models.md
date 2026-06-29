@@ -1,4 +1,4 @@
-# `silver.models` Namespace
+# `Silver.models` Namespace
 
 Go client access: `client.Silver.Models`
 

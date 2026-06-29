@@ -1,4 +1,4 @@
-# `silver.custom_fields` Namespace
+# `Silver.custom_fields` Namespace
 
 Go client access: `client.Silver.CustomFields`
 

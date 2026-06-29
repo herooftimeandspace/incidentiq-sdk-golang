@@ -21,7 +21,7 @@ The Go client currently matches the source SDK for the following runtime rules:
 - JSON object and array response decoding
 - retry behavior for idempotent methods and retryable HTTP statuses
 - Golden wrappers directly on `client.<Namespace>.<Method>` as the correct default SDK path
-- Silver wrappers under `client.Silver.<Namespace>.<Method>` for quasi-supported API calls derived from live site interaction HARs
+- Silver wrappers under `client.Silver.<Namespace>.<Method>` for quasi-supported API calls derived from live site interaction HARs, with app routes nested under `client.Silver.Apps.<AppNamespace>.<Method>`
 
 ## Contract Artifacts
 
@@ -42,7 +42,8 @@ The Go repo generates wrappers from the bundled Golden and Silver SDK inventory
 snapshots. Golden is the golden SDK path, so Golden wrappers are promoted
 directly onto `Client` as `client.<Namespace>.<Method>`. Silver is a separate
 namespace for quasi-supported API calls derived from live site interaction HARs,
-so Silver wrappers stay under `Client.Silver`.
+so Silver wrappers stay under `Client.Silver`. App-specific Silver routes are
+nested under `Client.Silver.Apps`.
 
 Regenerate wrappers after refreshing inventories:
 

@@ -1,4 +1,4 @@
-# `silver.help` Namespace
+# `Silver.help` Namespace
 
 Go client access: `client.Silver.Help`
 

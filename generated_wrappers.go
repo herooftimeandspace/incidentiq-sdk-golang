@@ -745,920 +745,924 @@ func (s *GoldenUsersService) UpdateUserView(ctx context.Context, opts RequestOpt
 }
 
 type SilverClient struct {
-	Analytics                 *SilverAnalyticsService
-	Api                       *SilverApiService
-	AppRegistry               *SilverAppRegistryService
-	AppsAeriesSis             *SilverAppsAeriesSisService
-	AppsFileWave              *SilverAppsFileWaveService
-	AppsGoogleDeviceData      *SilverAppsGoogleDeviceDataService
-	AppsInfiniteCampus        *SilverAppsInfiniteCampusService
-	AppsJamf                  *SilverAppsJamfService
-	AppsJamfSchool            *SilverAppsJamfSchoolService
-	AppsLocalAssetManager     *SilverAppsLocalAssetManagerService
-	AppsLockNCharge2          *SilverAppsLockNCharge2Service
-	AppsMerakiMdm             *SilverAppsMerakiMdmService
-	AppsMicrosoftIntune       *SilverAppsMicrosoftIntuneService
-	AppsMosyleManager         *SilverAppsMosyleManagerService
-	AppsPasswordReset         *SilverAppsPasswordResetService
-	AppsPaymentsFeeTracker    *SilverAppsPaymentsFeeTrackerService
-	AppsPaymentsInTouch       *SilverAppsPaymentsInTouchService
-	AppsPaymentsMySchoolBucks *SilverAppsPaymentsMySchoolBucksService
-	AppsPaymentsSquare        *SilverAppsPaymentsSquareService
-	AppsPaymentsStripe        *SilverAppsPaymentsStripeService
-	AppsPaymentsVanco         *SilverAppsPaymentsVancoService
-	AppsPolicyAgreements      *SilverAppsPolicyAgreementsService
-	AppsRemoteBeyondTrust     *SilverAppsRemoteBeyondTrustService
-	AppsRemoteChrome          *SilverAppsRemoteChromeService
-	AppsRemoteTeamViewer      *SilverAppsRemoteTeamViewerService
-	AppsSparePoolManagement   *SilverAppsSparePoolManagementService
-	AppsTrafera               *SilverAppsTraferaService
-	AppsWidgets               *SilverAppsWidgetsService
-	AppsWorkspaceOne          *SilverAppsWorkspaceOneService
-	Assets                    *SilverAssetsService
-	Audits                    *SilverAuditsService
-	Calendars                 *SilverCalendarsService
-	Categories                *SilverCategoriesService
-	CustomFields              *SilverCustomFieldsService
-	Dev                       *SilverDevService
-	Entities                  *SilverEntitiesService
-	Files                     *SilverFilesService
-	Filters                   *SilverFiltersService
-	FlowProcedures            *SilverFlowProceduresService
-	Help                      *SilverHelpService
-	Jobs                      *SilverJobsService
-	Labor                     *SilverLaborService
-	Layouts                   *SilverLayoutsService
-	Maps                      *SilverMapsService
-	Models                    *SilverModelsService
-	Permissions               *SilverPermissionsService
-	PermissionsNext           *SilverPermissionsNextService
-	Products                  *SilverProductsService
-	Profiles                  *SilverProfilesService
-	Resolutions               *SilverResolutionsService
-	Rules                     *SilverRulesService
-	S                         *SilverSService
-	Schedules                 *SilverSchedulesService
-	Search                    *SilverSearchService
-	Session                   *SilverSessionService
-	Settings                  *SilverSettingsService
-	Sis                       *SilverSisService
-	Sites                     *SilverSitesService
-	Subtasks                  *SilverSubtasksService
-	Surveys                   *SilverSurveysService
-	Tasks                     *SilverTasksService
-	Teams                     *SilverTeamsService
-	Tickets                   *SilverTicketsService
-	TicketsTemplates          *SilverTicketsTemplatesService
-	Users                     *SilverUsersService
-	Views                     *SilverViewsService
+	Analytics        *SilverAnalyticsService
+	Api              *SilverApiService
+	AppRegistry      *SilverAppRegistryService
+	Assets           *SilverAssetsService
+	Audits           *SilverAuditsService
+	Calendars        *SilverCalendarsService
+	Categories       *SilverCategoriesService
+	CustomFields     *SilverCustomFieldsService
+	Dev              *SilverDevService
+	Entities         *SilverEntitiesService
+	Files            *SilverFilesService
+	Filters          *SilverFiltersService
+	FlowProcedures   *SilverFlowProceduresService
+	Help             *SilverHelpService
+	Jobs             *SilverJobsService
+	Labor            *SilverLaborService
+	Layouts          *SilverLayoutsService
+	Maps             *SilverMapsService
+	Models           *SilverModelsService
+	Permissions      *SilverPermissionsService
+	PermissionsNext  *SilverPermissionsNextService
+	Products         *SilverProductsService
+	Profiles         *SilverProfilesService
+	Resolutions      *SilverResolutionsService
+	Rules            *SilverRulesService
+	S                *SilverSService
+	Schedules        *SilverSchedulesService
+	Search           *SilverSearchService
+	Session          *SilverSessionService
+	Settings         *SilverSettingsService
+	Sis              *SilverSisService
+	Sites            *SilverSitesService
+	Subtasks         *SilverSubtasksService
+	Surveys          *SilverSurveysService
+	Tasks            *SilverTasksService
+	Teams            *SilverTeamsService
+	Tickets          *SilverTicketsService
+	TicketsTemplates *SilverTicketsTemplatesService
+	Users            *SilverUsersService
+	Views            *SilverViewsService
+	Apps             *SilverAppsClient
+}
+
+type SilverAppsClient struct {
+	AeriesSis             *SilverAppsAeriesSisService
+	FileWave              *SilverAppsFileWaveService
+	GoogleDeviceData      *SilverAppsGoogleDeviceDataService
+	InfiniteCampus        *SilverAppsInfiniteCampusService
+	Jamf                  *SilverAppsJamfService
+	JamfSchool            *SilverAppsJamfSchoolService
+	LocalAssetManager     *SilverAppsLocalAssetManagerService
+	LockNCharge2          *SilverAppsLockNCharge2Service
+	MerakiMdm             *SilverAppsMerakiMdmService
+	MicrosoftIntune       *SilverAppsMicrosoftIntuneService
+	MosyleManager         *SilverAppsMosyleManagerService
+	PasswordReset         *SilverAppsPasswordResetService
+	PaymentsFeeTracker    *SilverAppsPaymentsFeeTrackerService
+	PaymentsInTouch       *SilverAppsPaymentsInTouchService
+	PaymentsMySchoolBucks *SilverAppsPaymentsMySchoolBucksService
+	PaymentsSquare        *SilverAppsPaymentsSquareService
+	PaymentsStripe        *SilverAppsPaymentsStripeService
+	PaymentsVanco         *SilverAppsPaymentsVancoService
+	PolicyAgreements      *SilverAppsPolicyAgreementsService
+	RemoteBeyondTrust     *SilverAppsRemoteBeyondTrustService
+	RemoteChrome          *SilverAppsRemoteChromeService
+	RemoteTeamViewer      *SilverAppsRemoteTeamViewerService
+	SparePoolManagement   *SilverAppsSparePoolManagementService
+	Trafera               *SilverAppsTraferaService
+	Widgets               *SilverAppsWidgetsService
+	WorkspaceOne          *SilverAppsWorkspaceOneService
 }
 
 type SilverAnalyticsService struct{ client *Client }
 
 func (s *SilverAnalyticsService) GetAgentCurrentStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/agent-current-stats", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/agent-current-stats", opts, out, true)
 }
 
 func (s *SilverAnalyticsService) GetAgentLocationStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/agent-location-stats", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/agent-location-stats", opts, out, true)
 }
 
 func (s *SilverAnalyticsService) GetAssetSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/asset/{asset_id}/summary-stats", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/asset/{asset_id}/summary-stats", opts, out, true)
 }
 
 func (s *SilverAnalyticsService) GetRequestorSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/requestor/{requestor_id}/summary-stats", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/requestor/{requestor_id}/summary-stats", opts, out, true)
 }
 
 type SilverApiService struct{ client *Client }
 
 func (s *SilverApiService) GetSearchV2Expression(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/search/v2/expression", opts, out)
+	return s.client.request(ctx, "GET", "/api/search/v2/expression", opts, out, true)
 }
 
 func (s *SilverApiService) PostSearchV2RecentUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/search/v2/recent/user", opts, out)
+	return s.client.request(ctx, "POST", "/api/search/v2/recent/user", opts, out, true)
 }
 
 type SilverAppRegistryService struct{ client *Client }
 
 func (s *SilverAppRegistryService) GetApp(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/app-registry/app/{app_key}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/app-registry/app/{app_key}", opts, out, true)
 }
 
 func (s *SilverAppRegistryService) GetSiteApp(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/app-registry/site-app/{site_app_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/app-registry/site-app/{site_app_id}", opts, out, true)
 }
 
 func (s *SilverAppRegistryService) PostInstalled(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/app-registry/installed", opts, out)
-}
-
-type SilverAppsAeriesSisService struct{ client *Client }
-
-func (s *SilverAppsAeriesSisService) GetAuthOnerosterValidate(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/auth/oneroster/validate", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) GetSettingsOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/settings/options", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) GetSettingsOptionsSync(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/settings/options/sync", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/data/sync/history", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) GetSyncLocations(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/sync/data/locations", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) GetSyncStatusLast(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/sync/status/last", opts, out)
-}
-
-func (s *SilverAppsAeriesSisService) PostUsersSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/aeriesSis/api/aeriesSis/data/users/search", opts, out)
-}
-
-type SilverAppsFileWaveService struct{ client *Client }
-
-func (s *SilverAppsFileWaveService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/fileWave/api/fileWave/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out)
-}
-
-func (s *SilverAppsFileWaveService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/fileWave/api/fileWave/data/assets/lookup", opts, out)
-}
-
-type SilverAppsGoogleDeviceDataService struct{ client *Client }
-
-func (s *SilverAppsGoogleDeviceDataService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) GetAssignmentSuggestions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/assignment/suggestions", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) GetAuthTokenCheck(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/auth/token-check", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) GetModelsDistinct(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/models/distinct", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) GetStatusLast(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/{google_device_data_key}/status/last", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/sync/history", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) PostDeviceSyncPushSchedule(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/device/sync/push/schedule/{schedule_id}", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) PostJobsLogs(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/data/jobs/{job_id}/logs", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsDeprovisionDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/DeprovisionDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsDisableDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/DisableDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsWipeDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/WipeDevice/execute/{execute_id}", opts, out)
-}
-
-type SilverAppsInfiniteCampusService struct{ client *Client }
-
-func (s *SilverAppsInfiniteCampusService) GetSettingsOptionsSync(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/infiniteCampus/api/infiniteCampus/settings/options/sync", opts, out)
-}
-
-type SilverAppsJamfService struct{ client *Client }
-
-func (s *SilverAppsJamfService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/jamf/api/jamf/data/assets/lookup", opts, out)
-}
-
-type SilverAppsJamfSchoolService struct{ client *Client }
-
-func (s *SilverAppsJamfSchoolService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/jamfSchool/api/jamfSchool/data/assets/lookup", opts, out)
-}
-
-type SilverAppsLocalAssetManagerService struct{ client *Client }
-
-func (s *SilverAppsLocalAssetManagerService) PostMicrosoftSccmAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/localAssetManager/api/microsoftSccm/data/assets/lookup", opts, out)
-}
-
-type SilverAppsLockNCharge2Service struct{ client *Client }
-
-func (s *SilverAppsLockNCharge2Service) GetBays(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/lockNCharge2/api/bays", opts, out)
-}
-
-func (s *SilverAppsLockNCharge2Service) GetStations(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/lockNCharge2/api/stations", opts, out)
-}
-
-func (s *SilverAppsLockNCharge2Service) GetStationsLicensed(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/lockNCharge2/api/stations/licensed", opts, out)
-}
-
-type SilverAppsMerakiMdmService struct{ client *Client }
-
-func (s *SilverAppsMerakiMdmService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/merakiMdm/api/merakiMdm/data/assets/lookup", opts, out)
-}
-
-type SilverAppsMicrosoftIntuneService struct{ client *Client }
-
-func (s *SilverAppsMicrosoftIntuneService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) GetAuthTokenCheck(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/auth/token-check", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/data/sync/history", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/sync/options", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) GetSyncStatusLast(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/sync/status/last", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostJobsLogs(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/data/jobs/{job_id}/logs", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsCleanWindowsDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/CleanWindowsDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsDeleteUserFromSharedAppleDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/DeleteUserFromSharedAppleDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsDisableLostModeExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/DisableLostMode/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsLocateDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/LocateDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsLogoutSharedAppleDeviceActiveUserExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/LogoutSharedAppleDeviceActiveUser/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRebootDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RebootDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRecoverPasscodeExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RecoverPasscode/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRemoteLockExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RemoteLock/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRequestRemoteAssistanceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RequestRemoteAssistance/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsResetPasscodeExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/ResetPasscode/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRetireDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RetireDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsShutDownExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/ShutDown/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsSyncDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/SyncDevice/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsUpdateWindowsDeviceAccountExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/UpdateWindowsDeviceAccount/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWindowsDefenderScanExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderScan/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWindowsDefenderUpdateSignaturesExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderUpdateSignatures/execute/{execute_id}", opts, out)
-}
-
-func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWipeExecute(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/Wipe/execute/{execute_id}", opts, out)
-}
-
-type SilverAppsMosyleManagerService struct{ client *Client }
-
-func (s *SilverAppsMosyleManagerService) PostRemoteactionsClearCommandsExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/ClearCommands/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out)
-}
-
-func (s *SilverAppsMosyleManagerService) PostRemoteactionsRestartDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/RestartDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out)
-}
-
-func (s *SilverAppsMosyleManagerService) PostRemoteactionsShutdownDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/ShutdownDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out)
-}
-
-func (s *SilverAppsMosyleManagerService) PostRemoteactionsWipeDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/WipeDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out)
-}
-
-type SilverAppsPasswordResetService struct{ client *Client }
-
-func (s *SilverAppsPasswordResetService) GetUserSetup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/passwordReset/api/user/{user_id}/setup", opts, out)
-}
-
-type SilverAppsPaymentsFeeTrackerService struct{ client *Client }
-
-func (s *SilverAppsPaymentsFeeTrackerService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsFeeTracker/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsFeeTrackerService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsFeeTracker/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsFeeTrackerService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsFeeTracker/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPaymentsInTouchService struct{ client *Client }
-
-func (s *SilverAppsPaymentsInTouchService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsInTouch/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsInTouchService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsInTouch/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsInTouchService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsInTouch/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPaymentsMySchoolBucksService struct{ client *Client }
-
-func (s *SilverAppsPaymentsMySchoolBucksService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsMySchoolBucks/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsMySchoolBucksService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsMySchoolBucks/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsMySchoolBucksService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsMySchoolBucks/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPaymentsSquareService struct{ client *Client }
-
-func (s *SilverAppsPaymentsSquareService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsSquare/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsSquareService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsSquare/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsSquareService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsSquare/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPaymentsStripeService struct{ client *Client }
-
-func (s *SilverAppsPaymentsStripeService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsStripe/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsStripeService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsStripe/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsStripeService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsStripe/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPaymentsVancoService struct{ client *Client }
-
-func (s *SilverAppsPaymentsVancoService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/paymentsVanco/api/sync/options", opts, out)
-}
-
-func (s *SilverAppsPaymentsVancoService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsVanco/api/data/line-item-types/search", opts, out)
-}
-
-func (s *SilverAppsPaymentsVancoService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/paymentsVanco/api/data/line-items/search", opts, out)
-}
-
-type SilverAppsPolicyAgreementsService struct{ client *Client }
-
-func (s *SilverAppsPolicyAgreementsService) GetUsersAcceptancesIncludingCleared(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/policyAgreements/api/users/{user_id}/acceptances/including-cleared", opts, out)
-}
-
-type SilverAppsRemoteBeyondTrustService struct{ client *Client }
-
-func (s *SilverAppsRemoteBeyondTrustService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/apps/remoteBeyondTrust/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out)
-}
-
-type SilverAppsRemoteChromeService struct{ client *Client }
-
-func (s *SilverAppsRemoteChromeService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/apps/remoteChrome/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out)
-}
-
-type SilverAppsRemoteTeamViewerService struct{ client *Client }
-
-func (s *SilverAppsRemoteTeamViewerService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/apps/remoteTeamViewer/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out)
-}
-
-type SilverAppsSparePoolManagementService struct{ client *Client }
-
-func (s *SilverAppsSparePoolManagementService) GetPoolStatsToday(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/sparePoolManagement/api/pool/stats/today", opts, out)
-}
-
-func (s *SilverAppsSparePoolManagementService) GetTicketPool(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/sparePoolManagement/api/ticket/{ticket_id}/pools/{pool_id}", opts, out)
-}
-
-func (s *SilverAppsSparePoolManagementService) PostAssetsDeployments(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/sparePoolManagement/api/assets/deployments", opts, out)
-}
-
-func (s *SilverAppsSparePoolManagementService) PostGroups(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/sparePoolManagement/api/groups", opts, out)
-}
-
-type SilverAppsTraferaService struct{ client *Client }
-
-func (s *SilverAppsTraferaService) GetParts(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/trafera/api/parts", opts, out)
-}
-
-func (s *SilverAppsTraferaService) GetSettingsOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/apps/trafera/api/settings/options", opts, out)
-}
-
-type SilverAppsWidgetsService struct{ client *Client }
-
-func (s *SilverAppsWidgetsService) GetEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/apps/widgets/{widget_id}", opts, out)
-}
-
-type SilverAppsWorkspaceOneService struct{ client *Client }
-
-func (s *SilverAppsWorkspaceOneService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/apps/workspaceOne/api/workspaceOne/data/assets/lookup", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/app-registry/installed", opts, out, true)
 }
 
 type SilverAssetsService struct{ client *Client }
 
 func (s *SilverAssetsService) GetAssetBySerial(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/serial/{serial}", opts, out)
+	return s.client.request(ctx, "GET", "/assets/serial/{serial}", opts, out, true)
 }
 
 func (s *SilverAssetsService) GetAssetFiles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{asset_id}/files", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/{asset_id}/files", opts, out, true)
 }
 
 func (s *SilverAssetsService) GetAssetVerifications(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{asset_id}/verifications", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/{asset_id}/verifications", opts, out, true)
 }
 
 func (s *SilverAssetsService) GetStatsLocations(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/assets/stats/locations", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/stats/locations", opts, out, true)
 }
 
 func (s *SilverAssetsService) GetType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/assets/types/{type_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/types/{type_id}", opts, out, true)
 }
 
 func (s *SilverAssetsService) PostCheckoutsTransactionsQueryGet(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/transactions/query/get", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/checkouts/transactions/query/get", opts, out, true)
 }
 
 type SilverAuditsService struct{ client *Client }
 
 func (s *SilverAuditsService) GetPoliciesSchedulesForAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/schedules/for-asset/{for_asset_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/audits/policies/schedules/for-asset/{for_asset_id}", opts, out, true)
 }
 
 type SilverCalendarsService struct{ client *Client }
 
 func (s *SilverCalendarsService) GetEventsKey(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/calendars/events/key", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/calendars/events/key", opts, out, true)
 }
 
 func (s *SilverCalendarsService) PostEvents(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/calendars/events", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/calendars/events", opts, out, true)
 }
 
 type SilverCategoriesService struct{ client *Client }
 
 func (s *SilverCategoriesService) GetOfFilters(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/filters", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/categories/of/filters", opts, out, true)
 }
 
 func (s *SilverCategoriesService) GetOfModels(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/models", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/categories/of/models", opts, out, true)
 }
 
 type SilverCustomFieldsService struct{ client *Client }
 
 func (s *SilverCustomFieldsService) PostForAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/asset", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/asset", opts, out, true)
 }
 
 func (s *SilverCustomFieldsService) PostForTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/ticket", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/ticket", opts, out, true)
 }
 
 func (s *SilverCustomFieldsService) PostForUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/user", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/user", opts, out, true)
 }
 
 type SilverDevService struct{ client *Client }
 
 func (s *SilverDevService) PostTestUrl(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/dev/test-url", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/dev/test-url", opts, out, true)
 }
 
 type SilverEntitiesService struct{ client *Client }
 
 func (s *SilverEntitiesService) GetTypesFieldsWithoptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/entities/types/{type_id}/fields/withoptions", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/entities/types/{type_id}/fields/withoptions", opts, out, true)
 }
 
 type SilverFilesService struct{ client *Client }
 
 func (s *SilverFilesService) GetEntity(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/files/entity/{entity_id}/{n_888891ac_91aa_e711_80c2_100dffa00004_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/files/entity/{entity_id}/{n_888891ac_91aa_e711_80c2_100dffa00004_id}", opts, out, true)
 }
 
 type SilverFiltersService struct{ client *Client }
 
 func (s *SilverFiltersService) GetForEntitytype(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/filters/for/entitytype/{entitytype_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/filters/for/entitytype/{entitytype_id}", opts, out, true)
 }
 
 func (s *SilverFiltersService) GetSet(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/filters/sets/{set_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/filters/sets/{set_id}", opts, out, true)
 }
 
 func (s *SilverFiltersService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/filters", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/filters", opts, out, true)
 }
 
 type SilverFlowProceduresService struct{ client *Client }
 
 func (s *SilverFlowProceduresService) PostAvailableCards(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/flow-procedures/available/cards", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/flow-procedures/available/cards", opts, out, true)
 }
 
 type SilverHelpService struct{ client *Client }
 
 func (s *SilverHelpService) GetIntrosKey(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/help/intros/key/{key_key}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/help/intros/key/{key_key}", opts, out, true)
 }
 
 type SilverJobsService struct{ client *Client }
 
 func (s *SilverJobsService) GetJob(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/jobs/{job_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/jobs/{job_id}", opts, out, true)
 }
 
 type SilverLaborService struct{ client *Client }
 
 func (s *SilverLaborService) GetRatesUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}/{n_61757b5f_dd31_f111_8ef2_000d3a7cb1a2_id}/{n_88df910c_91aa_e711_80c2_0004ffa00010_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}/{n_61757b5f_dd31_f111_8ef2_000d3a7cb1a2_id}/{n_88df910c_91aa_e711_80c2_0004ffa00010_id}", opts, out, true)
 }
 
 func (s *SilverLaborService) GetRatesUser2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}", opts, out, true)
 }
 
 func (s *SilverLaborService) PostTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/labor/types", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/labor/types", opts, out, true)
 }
 
 type SilverLayoutsService struct{ client *Client }
 
 func (s *SilverLayoutsService) GetMyDashboard(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/layouts/my/dashboard", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/layouts/my/dashboard", opts, out, true)
 }
 
 type SilverMapsService struct{ client *Client }
 
 func (s *SilverMapsService) PostAssetsAll(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/maps/assets/all", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/maps/assets/all", opts, out, true)
 }
 
 type SilverModelsService struct{ client *Client }
 
 func (s *SilverModelsService) GetAll(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/models/all", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/models/all", opts, out, true)
 }
 
 func (s *SilverModelsService) GetAppsAeriesSis(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/models/apps/aeriesSis", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/aeriesSis", opts, out, true)
 }
 
 func (s *SilverModelsService) GetAppsGoogleDeviceData(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/models/apps/googleDeviceData", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/googleDeviceData", opts, out, true)
 }
 
 func (s *SilverModelsService) GetAppsMicrosoftIntune(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/models/apps/microsoftIntune", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/microsoftIntune", opts, out, true)
 }
 
 func (s *SilverModelsService) GetAppsSubticketsForIT(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/models/apps/subticketsForIT", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/subticketsForIT", opts, out, true)
 }
 
 func (s *SilverModelsService) PostAvailableToSite(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/models/available/to/site", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/models/available/to/site", opts, out, true)
 }
 
 func (s *SilverModelsService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/models", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/models", opts, out, true)
 }
 
 type SilverPermissionsService struct{ client *Client }
 
 func (s *SilverPermissionsService) GetTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/permissions/ticket/{ticket_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/permissions/ticket/{ticket_id}", opts, out, true)
 }
 
 type SilverPermissionsNextService struct{ client *Client }
 
 func (s *SilverPermissionsNextService) GetUsersUserPreviewAppliedPolicies(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/permissions-next/users/{user_id}/user-preview-applied-policies", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/permissions-next/users/{user_id}/user-preview-applied-policies", opts, out, true)
 }
 
 func (s *SilverPermissionsNextService) PostCheckPermission(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/permissions-next/check-permission", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/permissions-next/check-permission", opts, out, true)
 }
 
 type SilverProductsService struct{ client *Client }
 
 func (s *SilverProductsService) GetAvailableFeatures(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/products/available-features", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/products/available-features", opts, out, true)
 }
 
 type SilverProfilesService struct{ client *Client }
 
 func (s *SilverProfilesService) PostProfilePicture(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/profiles/{user_id}/picture", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/profiles/{user_id}/picture", opts, out, true)
 }
 
 type SilverResolutionsService struct{ client *Client }
 
 func (s *SilverResolutionsService) PostActions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/resolutions/actions", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/resolutions/actions", opts, out, true)
 }
 
 func (s *SilverResolutionsService) PostActionsForIssueLink(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/resolutions/actions/for/issue/link", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/resolutions/actions/for/issue/link", opts, out, true)
 }
 
 type SilverRulesService struct{ client *Client }
 
 func (s *SilverRulesService) GetLog(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/rules/logs/{log_id}/{n_888891ac_91aa_e711_80c2_100dffa00003_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/rules/logs/{log_id}/{n_888891ac_91aa_e711_80c2_100dffa00003_id}", opts, out, true)
 }
 
 func (s *SilverRulesService) PostIds(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/rules/ids", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/rules/ids", opts, out, true)
 }
 
 type SilverSService struct{ client *Client }
 
 func (s *SilverSService) GetOpensansV44Memsyags126mizpbaUvwbx2vvnxbbobj2ovzyoosr4dvjwugsjz0b4gaviuwaeqbjaWoff2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVIUwaEQbjA.woff2", opts, out)
+	return s.client.request(ctx, "GET", "/s/opensans/v44/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVIUwaEQbjA.woff2", opts, out, true)
 }
 
 type SilverSchedulesService struct{ client *Client }
 
 func (s *SilverSchedulesService) GetRecurring(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/schedules/recurring", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/schedules/recurring", opts, out, true)
 }
 
 type SilverSearchService struct{ client *Client }
 
 func (s *SilverSearchService) PostScan(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/search/scan", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/search/scan", opts, out, true)
 }
 
 type SilverSessionService struct{ client *Client }
 
 func (s *SilverSessionService) PostState(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/session/state", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/session/state", opts, out, true)
 }
 
 type SilverSettingsService struct{ client *Client }
 
 func (s *SilverSettingsService) GetAppsRemoteBeyondTrustRemoteConnectionUrl(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteBeyondTrust.RemoteConnectionUrl", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteBeyondTrust.RemoteConnectionUrl", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetAppsRemoteTeamViewerApiToken(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.ApiToken", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.ApiToken", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetAppsRemoteTeamViewerDownloadLink(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.DownloadLink", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.DownloadLink", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetAppsRemoteTeamViewerPrimaryGroupId(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.PrimaryGroupId", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Apps.RemoteTeamViewer.PrimaryGroupId", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetAppsSisCustomFieldMappingEnabled(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Apps.Sis.CustomFieldMapping.Enabled", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Apps.Sis.CustomFieldMapping.Enabled", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetGridsUserOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Grids.UserOptions", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Grids.UserOptions", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetPreferredMappings(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/preferred-mappings", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/preferred-mappings", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetShortcutsRecentIds(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Shortcuts.RecentIds", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Shortcuts.RecentIds", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetTicketsStatusLock(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/Tickets.StatusLock", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/Tickets.StatusLock", opts, out, true)
 }
 
 func (s *SilverSettingsService) GetUndefined(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/settings/undefined", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/settings/undefined", opts, out, true)
 }
 
 func (s *SilverSettingsService) PostSearchRecentUserSearches(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/settings/Search.RecentUserSearches", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/settings/Search.RecentUserSearches", opts, out, true)
 }
 
 type SilverSisService struct{ client *Client }
 
 func (s *SilverSisService) GetClassesForUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/sis/classes/for/user/{user_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/sis/classes/for/user/{user_id}", opts, out, true)
 }
 
 type SilverSitesService struct{ client *Client }
 
 func (s *SilverSitesService) GetDeployments(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/sites/deployments", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/sites/deployments", opts, out, true)
 }
 
 func (s *SilverSitesService) PostRoles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/sites/roles", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/sites/roles", opts, out, true)
 }
 
 type SilverSubtasksService struct{ client *Client }
 
 func (s *SilverSubtasksService) GetSubtask(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks/{subtask_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/subtasks/{subtask_id}", opts, out, true)
 }
 
 type SilverSurveysService struct{ client *Client }
 
 func (s *SilverSurveysService) GetResponsesTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/responses/ticket/{ticket_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/surveys/responses/ticket/{ticket_id}", opts, out, true)
 }
 
 type SilverTasksService struct{ client *Client }
 
 func (s *SilverTasksService) GetEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tasks", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tasks", opts, out, true)
 }
 
 type SilverTeamsService struct{ client *Client }
 
 func (s *SilverTeamsService) GetEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/teams", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/teams", opts, out, true)
 }
 
 func (s *SilverTeamsService) GetFor(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/teams/for/{for__id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/teams/for/{for__id}", opts, out, true)
 }
 
 type SilverTicketsService struct{ client *Client }
 
 func (s *SilverTicketsService) GetTicketActivities(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/activities", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/activities", opts, out, true)
 }
 
 func (s *SilverTicketsService) GetTicketKbArticles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/kb-articles", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/kb-articles", opts, out, true)
 }
 
 func (s *SilverTicketsService) GetTicketNextSteps(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/next-steps", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/next-steps", opts, out, true)
 }
 
 func (s *SilverTicketsService) GetTicketStatus(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/status", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/status", opts, out, true)
 }
 
 func (s *SilverTicketsService) GetWizardsSite(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/wizards/site/{site_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/tickets/wizards/site/{site_id}", opts, out, true)
 }
 
 func (s *SilverTicketsService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/tickets", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/tickets", opts, out, true)
 }
 
 func (s *SilverTicketsService) PostTicketTimeline(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticket_id}/timeline", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/tickets/{ticket_id}/timeline", opts, out, true)
 }
 
 type SilverTicketsTemplatesService struct{ client *Client }
 
 func (s *SilverTicketsTemplatesService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/tickets-templates", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/tickets-templates", opts, out, true)
 }
 
 type SilverUsersService struct{ client *Client }
 
 func (s *SilverUsersService) GetMyShortcuts(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/my/shortcuts", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/my/shortcuts", opts, out, true)
 }
 
 func (s *SilverUsersService) GetShortcutsAvailable(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/shortcuts/available", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/shortcuts/available", opts, out, true)
 }
 
 func (s *SilverUsersService) GetSimple(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/simple/{simple_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/simple/{simple_id}", opts, out, true)
 }
 
 func (s *SilverUsersService) GetUserOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/{user_id}/options", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/options", opts, out, true)
 }
 
 func (s *SilverUsersService) GetUserRelationships(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/{user_id}/relationships", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/relationships", opts, out, true)
 }
 
 func (s *SilverUsersService) GetUserRooms(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/users/{user_id}/rooms", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/rooms", opts, out, true)
 }
 
 func (s *SilverUsersService) PostIsOnlineList(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/api/v1.0/users/is-online/list", opts, out)
+	return s.client.request(ctx, "POST", "/api/v1.0/users/is-online/list", opts, out, true)
 }
 
 type SilverViewsService struct{ client *Client }
 
 func (s *SilverViewsService) GetView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/views/{view_key}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/views/{view_key}", opts, out, true)
 }
 
 func (s *SilverViewsService) GetView2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/api/v1.0/views/{view_id}", opts, out)
+	return s.client.request(ctx, "GET", "/api/v1.0/views/{view_id}", opts, out, true)
+}
+
+type SilverAppsAeriesSisService struct{ client *Client }
+
+func (s *SilverAppsAeriesSisService) GetAuthOnerosterValidate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/auth/oneroster/validate", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) GetSettingsOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/settings/options", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) GetSettingsOptionsSync(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/settings/options/sync", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/data/sync/history", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) GetSyncLocations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/sync/data/locations", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) GetSyncStatusLast(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/aeriesSis/api/aeriesSis/sync/status/last", opts, out, true)
+}
+
+func (s *SilverAppsAeriesSisService) PostUsersSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/aeriesSis/api/aeriesSis/data/users/search", opts, out, true)
+}
+
+type SilverAppsFileWaveService struct{ client *Client }
+
+func (s *SilverAppsFileWaveService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/fileWave/api/fileWave/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out, true)
+}
+
+func (s *SilverAppsFileWaveService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/fileWave/api/fileWave/data/assets/lookup", opts, out, true)
+}
+
+type SilverAppsGoogleDeviceDataService struct{ client *Client }
+
+func (s *SilverAppsGoogleDeviceDataService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) GetAssignmentSuggestions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/assignment/suggestions", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) GetAuthTokenCheck(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/auth/token-check", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) GetModelsDistinct(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/models/distinct", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) GetStatusLast(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/{google_device_data_key}/status/last", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/googleDeviceData/api/googleDeviceData/data/sync/history", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) PostDeviceSyncPushSchedule(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/device/sync/push/schedule/{schedule_id}", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) PostJobsLogs(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/data/jobs/{job_id}/logs", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsDeprovisionDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/DeprovisionDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsDisableDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/DisableDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsGoogleDeviceDataService) PostRemoteactionsWipeDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/googleDeviceData/api/googleDeviceData/remoteactions/WipeDevice/execute/{execute_id}", opts, out, true)
+}
+
+type SilverAppsInfiniteCampusService struct{ client *Client }
+
+func (s *SilverAppsInfiniteCampusService) GetSettingsOptionsSync(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/infiniteCampus/api/infiniteCampus/settings/options/sync", opts, out, true)
+}
+
+type SilverAppsJamfService struct{ client *Client }
+
+func (s *SilverAppsJamfService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/jamf/api/jamf/data/assets/lookup", opts, out, true)
+}
+
+type SilverAppsJamfSchoolService struct{ client *Client }
+
+func (s *SilverAppsJamfSchoolService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/jamfSchool/api/jamfSchool/data/assets/lookup", opts, out, true)
+}
+
+type SilverAppsLocalAssetManagerService struct{ client *Client }
+
+func (s *SilverAppsLocalAssetManagerService) PostMicrosoftSccmAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/localAssetManager/api/microsoftSccm/data/assets/lookup", opts, out, true)
+}
+
+type SilverAppsLockNCharge2Service struct{ client *Client }
+
+func (s *SilverAppsLockNCharge2Service) GetBays(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/lockNCharge2/api/bays", opts, out, true)
+}
+
+func (s *SilverAppsLockNCharge2Service) GetStations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/lockNCharge2/api/stations", opts, out, true)
+}
+
+func (s *SilverAppsLockNCharge2Service) GetStationsLicensed(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/lockNCharge2/api/stations/licensed", opts, out, true)
+}
+
+type SilverAppsMerakiMdmService struct{ client *Client }
+
+func (s *SilverAppsMerakiMdmService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/merakiMdm/api/merakiMdm/data/assets/lookup", opts, out, true)
+}
+
+type SilverAppsMicrosoftIntuneService struct{ client *Client }
+
+func (s *SilverAppsMicrosoftIntuneService) GetAssetsUsage(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) GetAuthTokenCheck(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/auth/token-check", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) GetSyncHistory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/data/sync/history", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) GetSyncStatusLast(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/microsoftIntune/api/microsoftIntune/sync/status/last", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostJobsLogs(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/data/jobs/{job_id}/logs", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsCleanWindowsDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/CleanWindowsDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsDeleteUserFromSharedAppleDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/DeleteUserFromSharedAppleDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsDisableLostModeExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/DisableLostMode/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsLocateDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/LocateDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsLogoutSharedAppleDeviceActiveUserExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/LogoutSharedAppleDeviceActiveUser/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRebootDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RebootDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRecoverPasscodeExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RecoverPasscode/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRemoteLockExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RemoteLock/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRequestRemoteAssistanceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RequestRemoteAssistance/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsResetPasscodeExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/ResetPasscode/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsRetireDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/RetireDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsShutDownExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/ShutDown/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsSyncDeviceExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/SyncDevice/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsUpdateWindowsDeviceAccountExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/UpdateWindowsDeviceAccount/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWindowsDefenderScanExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderScan/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWindowsDefenderUpdateSignaturesExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderUpdateSignatures/execute/{execute_id}", opts, out, true)
+}
+
+func (s *SilverAppsMicrosoftIntuneService) PostRemoteactionsWipeExecute(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/microsoftIntune/api/microsoftIntune/remoteactions/Wipe/execute/{execute_id}", opts, out, true)
+}
+
+type SilverAppsMosyleManagerService struct{ client *Client }
+
+func (s *SilverAppsMosyleManagerService) PostRemoteactionsClearCommandsExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/ClearCommands/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out, true)
+}
+
+func (s *SilverAppsMosyleManagerService) PostRemoteactionsRestartDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/RestartDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out, true)
+}
+
+func (s *SilverAppsMosyleManagerService) PostRemoteactionsShutdownDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/ShutdownDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out, true)
+}
+
+func (s *SilverAppsMosyleManagerService) PostRemoteactionsWipeDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/mosyleManager/api/mosyleManager/remoteactions/WipeDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D", opts, out, true)
+}
+
+type SilverAppsPasswordResetService struct{ client *Client }
+
+func (s *SilverAppsPasswordResetService) GetUserSetup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/passwordReset/api/user/{user_id}/setup", opts, out, true)
+}
+
+type SilverAppsPaymentsFeeTrackerService struct{ client *Client }
+
+func (s *SilverAppsPaymentsFeeTrackerService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsFeeTracker/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsFeeTrackerService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsFeeTracker/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsFeeTrackerService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsFeeTracker/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPaymentsInTouchService struct{ client *Client }
+
+func (s *SilverAppsPaymentsInTouchService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsInTouch/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsInTouchService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsInTouch/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsInTouchService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsInTouch/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPaymentsMySchoolBucksService struct{ client *Client }
+
+func (s *SilverAppsPaymentsMySchoolBucksService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsMySchoolBucks/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsMySchoolBucksService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsMySchoolBucks/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsMySchoolBucksService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsMySchoolBucks/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPaymentsSquareService struct{ client *Client }
+
+func (s *SilverAppsPaymentsSquareService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsSquare/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsSquareService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsSquare/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsSquareService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsSquare/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPaymentsStripeService struct{ client *Client }
+
+func (s *SilverAppsPaymentsStripeService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsStripe/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsStripeService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsStripe/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsStripeService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsStripe/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPaymentsVancoService struct{ client *Client }
+
+func (s *SilverAppsPaymentsVancoService) GetSyncOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/paymentsVanco/api/sync/options", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsVancoService) PostLineItemTypesSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsVanco/api/data/line-item-types/search", opts, out, true)
+}
+
+func (s *SilverAppsPaymentsVancoService) PostLineItemsSearch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/paymentsVanco/api/data/line-items/search", opts, out, true)
+}
+
+type SilverAppsPolicyAgreementsService struct{ client *Client }
+
+func (s *SilverAppsPolicyAgreementsService) GetUsersAcceptancesIncludingCleared(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/policyAgreements/api/users/{user_id}/acceptances/including-cleared", opts, out, true)
+}
+
+type SilverAppsRemoteBeyondTrustService struct{ client *Client }
+
+func (s *SilverAppsRemoteBeyondTrustService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/apps/remoteBeyondTrust/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out, true)
+}
+
+type SilverAppsRemoteChromeService struct{ client *Client }
+
+func (s *SilverAppsRemoteChromeService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/apps/remoteChrome/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out, true)
+}
+
+type SilverAppsRemoteTeamViewerService struct{ client *Client }
+
+func (s *SilverAppsRemoteTeamViewerService) GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/apps/remoteTeamViewer/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}", opts, out, true)
+}
+
+type SilverAppsSparePoolManagementService struct{ client *Client }
+
+func (s *SilverAppsSparePoolManagementService) GetPoolStatsToday(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/sparePoolManagement/api/pool/stats/today", opts, out, true)
+}
+
+func (s *SilverAppsSparePoolManagementService) GetTicketPool(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/sparePoolManagement/api/ticket/{ticket_id}/pools/{pool_id}", opts, out, true)
+}
+
+func (s *SilverAppsSparePoolManagementService) PostAssetsDeployments(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/sparePoolManagement/api/assets/deployments", opts, out, true)
+}
+
+func (s *SilverAppsSparePoolManagementService) PostGroups(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/sparePoolManagement/api/groups", opts, out, true)
+}
+
+type SilverAppsTraferaService struct{ client *Client }
+
+func (s *SilverAppsTraferaService) GetParts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/trafera/api/parts", opts, out, true)
+}
+
+func (s *SilverAppsTraferaService) GetSettingsOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/apps/trafera/api/settings/options", opts, out, true)
+}
+
+type SilverAppsWidgetsService struct{ client *Client }
+
+func (s *SilverAppsWidgetsService) GetEndpoint(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/apps/widgets/{widget_id}", opts, out, true)
+}
+
+type SilverAppsWorkspaceOneService struct{ client *Client }
+
+func (s *SilverAppsWorkspaceOneService) PostAssetsLookup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/apps/workspaceOne/api/workspaceOne/data/assets/lookup", opts, out, true)
 }
 
 func wireGeneratedServices(client *Client) {
@@ -1680,72 +1684,74 @@ func wireGeneratedServices(client *Client) {
 		Users:          &GoldenUsersService{client: client},
 	}
 	client.Silver = &SilverClient{
-		Analytics:                 &SilverAnalyticsService{client: client},
-		Api:                       &SilverApiService{client: client},
-		AppRegistry:               &SilverAppRegistryService{client: client},
-		AppsAeriesSis:             &SilverAppsAeriesSisService{client: client},
-		AppsFileWave:              &SilverAppsFileWaveService{client: client},
-		AppsGoogleDeviceData:      &SilverAppsGoogleDeviceDataService{client: client},
-		AppsInfiniteCampus:        &SilverAppsInfiniteCampusService{client: client},
-		AppsJamf:                  &SilverAppsJamfService{client: client},
-		AppsJamfSchool:            &SilverAppsJamfSchoolService{client: client},
-		AppsLocalAssetManager:     &SilverAppsLocalAssetManagerService{client: client},
-		AppsLockNCharge2:          &SilverAppsLockNCharge2Service{client: client},
-		AppsMerakiMdm:             &SilverAppsMerakiMdmService{client: client},
-		AppsMicrosoftIntune:       &SilverAppsMicrosoftIntuneService{client: client},
-		AppsMosyleManager:         &SilverAppsMosyleManagerService{client: client},
-		AppsPasswordReset:         &SilverAppsPasswordResetService{client: client},
-		AppsPaymentsFeeTracker:    &SilverAppsPaymentsFeeTrackerService{client: client},
-		AppsPaymentsInTouch:       &SilverAppsPaymentsInTouchService{client: client},
-		AppsPaymentsMySchoolBucks: &SilverAppsPaymentsMySchoolBucksService{client: client},
-		AppsPaymentsSquare:        &SilverAppsPaymentsSquareService{client: client},
-		AppsPaymentsStripe:        &SilverAppsPaymentsStripeService{client: client},
-		AppsPaymentsVanco:         &SilverAppsPaymentsVancoService{client: client},
-		AppsPolicyAgreements:      &SilverAppsPolicyAgreementsService{client: client},
-		AppsRemoteBeyondTrust:     &SilverAppsRemoteBeyondTrustService{client: client},
-		AppsRemoteChrome:          &SilverAppsRemoteChromeService{client: client},
-		AppsRemoteTeamViewer:      &SilverAppsRemoteTeamViewerService{client: client},
-		AppsSparePoolManagement:   &SilverAppsSparePoolManagementService{client: client},
-		AppsTrafera:               &SilverAppsTraferaService{client: client},
-		AppsWidgets:               &SilverAppsWidgetsService{client: client},
-		AppsWorkspaceOne:          &SilverAppsWorkspaceOneService{client: client},
-		Assets:                    &SilverAssetsService{client: client},
-		Audits:                    &SilverAuditsService{client: client},
-		Calendars:                 &SilverCalendarsService{client: client},
-		Categories:                &SilverCategoriesService{client: client},
-		CustomFields:              &SilverCustomFieldsService{client: client},
-		Dev:                       &SilverDevService{client: client},
-		Entities:                  &SilverEntitiesService{client: client},
-		Files:                     &SilverFilesService{client: client},
-		Filters:                   &SilverFiltersService{client: client},
-		FlowProcedures:            &SilverFlowProceduresService{client: client},
-		Help:                      &SilverHelpService{client: client},
-		Jobs:                      &SilverJobsService{client: client},
-		Labor:                     &SilverLaborService{client: client},
-		Layouts:                   &SilverLayoutsService{client: client},
-		Maps:                      &SilverMapsService{client: client},
-		Models:                    &SilverModelsService{client: client},
-		Permissions:               &SilverPermissionsService{client: client},
-		PermissionsNext:           &SilverPermissionsNextService{client: client},
-		Products:                  &SilverProductsService{client: client},
-		Profiles:                  &SilverProfilesService{client: client},
-		Resolutions:               &SilverResolutionsService{client: client},
-		Rules:                     &SilverRulesService{client: client},
-		S:                         &SilverSService{client: client},
-		Schedules:                 &SilverSchedulesService{client: client},
-		Search:                    &SilverSearchService{client: client},
-		Session:                   &SilverSessionService{client: client},
-		Settings:                  &SilverSettingsService{client: client},
-		Sis:                       &SilverSisService{client: client},
-		Sites:                     &SilverSitesService{client: client},
-		Subtasks:                  &SilverSubtasksService{client: client},
-		Surveys:                   &SilverSurveysService{client: client},
-		Tasks:                     &SilverTasksService{client: client},
-		Teams:                     &SilverTeamsService{client: client},
-		Tickets:                   &SilverTicketsService{client: client},
-		TicketsTemplates:          &SilverTicketsTemplatesService{client: client},
-		Users:                     &SilverUsersService{client: client},
-		Views:                     &SilverViewsService{client: client},
+		Analytics:        &SilverAnalyticsService{client: client},
+		Api:              &SilverApiService{client: client},
+		AppRegistry:      &SilverAppRegistryService{client: client},
+		Assets:           &SilverAssetsService{client: client},
+		Audits:           &SilverAuditsService{client: client},
+		Calendars:        &SilverCalendarsService{client: client},
+		Categories:       &SilverCategoriesService{client: client},
+		CustomFields:     &SilverCustomFieldsService{client: client},
+		Dev:              &SilverDevService{client: client},
+		Entities:         &SilverEntitiesService{client: client},
+		Files:            &SilverFilesService{client: client},
+		Filters:          &SilverFiltersService{client: client},
+		FlowProcedures:   &SilverFlowProceduresService{client: client},
+		Help:             &SilverHelpService{client: client},
+		Jobs:             &SilverJobsService{client: client},
+		Labor:            &SilverLaborService{client: client},
+		Layouts:          &SilverLayoutsService{client: client},
+		Maps:             &SilverMapsService{client: client},
+		Models:           &SilverModelsService{client: client},
+		Permissions:      &SilverPermissionsService{client: client},
+		PermissionsNext:  &SilverPermissionsNextService{client: client},
+		Products:         &SilverProductsService{client: client},
+		Profiles:         &SilverProfilesService{client: client},
+		Resolutions:      &SilverResolutionsService{client: client},
+		Rules:            &SilverRulesService{client: client},
+		S:                &SilverSService{client: client},
+		Schedules:        &SilverSchedulesService{client: client},
+		Search:           &SilverSearchService{client: client},
+		Session:          &SilverSessionService{client: client},
+		Settings:         &SilverSettingsService{client: client},
+		Sis:              &SilverSisService{client: client},
+		Sites:            &SilverSitesService{client: client},
+		Subtasks:         &SilverSubtasksService{client: client},
+		Surveys:          &SilverSurveysService{client: client},
+		Tasks:            &SilverTasksService{client: client},
+		Teams:            &SilverTeamsService{client: client},
+		Tickets:          &SilverTicketsService{client: client},
+		TicketsTemplates: &SilverTicketsTemplatesService{client: client},
+		Users:            &SilverUsersService{client: client},
+		Views:            &SilverViewsService{client: client},
+		Apps: &SilverAppsClient{
+			AeriesSis:             &SilverAppsAeriesSisService{client: client},
+			FileWave:              &SilverAppsFileWaveService{client: client},
+			GoogleDeviceData:      &SilverAppsGoogleDeviceDataService{client: client},
+			InfiniteCampus:        &SilverAppsInfiniteCampusService{client: client},
+			Jamf:                  &SilverAppsJamfService{client: client},
+			JamfSchool:            &SilverAppsJamfSchoolService{client: client},
+			LocalAssetManager:     &SilverAppsLocalAssetManagerService{client: client},
+			LockNCharge2:          &SilverAppsLockNCharge2Service{client: client},
+			MerakiMdm:             &SilverAppsMerakiMdmService{client: client},
+			MicrosoftIntune:       &SilverAppsMicrosoftIntuneService{client: client},
+			MosyleManager:         &SilverAppsMosyleManagerService{client: client},
+			PasswordReset:         &SilverAppsPasswordResetService{client: client},
+			PaymentsFeeTracker:    &SilverAppsPaymentsFeeTrackerService{client: client},
+			PaymentsInTouch:       &SilverAppsPaymentsInTouchService{client: client},
+			PaymentsMySchoolBucks: &SilverAppsPaymentsMySchoolBucksService{client: client},
+			PaymentsSquare:        &SilverAppsPaymentsSquareService{client: client},
+			PaymentsStripe:        &SilverAppsPaymentsStripeService{client: client},
+			PaymentsVanco:         &SilverAppsPaymentsVancoService{client: client},
+			PolicyAgreements:      &SilverAppsPolicyAgreementsService{client: client},
+			RemoteBeyondTrust:     &SilverAppsRemoteBeyondTrustService{client: client},
+			RemoteChrome:          &SilverAppsRemoteChromeService{client: client},
+			RemoteTeamViewer:      &SilverAppsRemoteTeamViewerService{client: client},
+			SparePoolManagement:   &SilverAppsSparePoolManagementService{client: client},
+			Trafera:               &SilverAppsTraferaService{client: client},
+			Widgets:               &SilverAppsWidgetsService{client: client},
+			WorkspaceOne:          &SilverAppsWorkspaceOneService{client: client},
+		},
 	}
 }
 

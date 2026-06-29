@@ -59,7 +59,7 @@ err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &statu
 ```
 
 Silver is a separate namespace for quasi-supported API calls derived from live
-site interaction HARs. Silver methods are exposed under `client.Silver`:
+site interaction HARs. The exported Go accessor is `client.Silver`:
 
 ```go
 var status map[string]any

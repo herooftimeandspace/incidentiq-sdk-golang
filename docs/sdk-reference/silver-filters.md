@@ -1,4 +1,4 @@
-# `silver.filters` Namespace
+# `Silver.filters` Namespace
 
 Go client access: `client.Silver.Filters`
 

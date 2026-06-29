@@ -1,4 +1,4 @@
-# `silver.rules` Namespace
+# `Silver.rules` Namespace
 
 Go client access: `client.Silver.Rules`
 

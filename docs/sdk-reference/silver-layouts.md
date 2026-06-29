@@ -1,4 +1,4 @@
-# `silver.layouts` Namespace
+# `Silver.layouts` Namespace
 
 Go client access: `client.Silver.Layouts`
 

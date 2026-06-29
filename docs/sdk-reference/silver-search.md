@@ -1,4 +1,4 @@
-# `silver.search` Namespace
+# `Silver.search` Namespace
 
 Go client access: `client.Silver.Search`
 

@@ -2,7 +2,7 @@
 
 The SDK surface distinguishes the Golden path from the Silver namespace:
 - Golden: the golden SDK path and correct default API surface, exposed directly on `client.<Namespace>.<Method>`.
-- Silver: quasi-supported API calls derived from live site interaction HARs, exposed under `client.Silver.<Namespace>.<Method>`.
+- Silver: quasi-supported API calls derived from live site interaction HARs. Silver methods are exposed under `client.Silver.<Namespace>.<Method>`, with app routes nested under `client.Silver.Apps.<AppNamespace>.<Method>`.
 
 Full generated route documentation lives under the SDK reference pages. The generated Go wrappers are reproduced from the bundled inventory snapshots.
 
@@ -21,6 +21,20 @@ err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
 	PathParams: map[string]any{"ticket_id": "ticket-guid"},
 }, &payload)
 ```
+
+App-specific Silver routes use the nested app namespace:
+
+```go
+err := client.Silver.Apps.GoogleDeviceData.GetStatusLast(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"google_device_data_key": "site-app-key"},
+}, &payload)
+```
+
+All requests send `Client: ApiClient` by default. Silver wrappers and
+`RequestSilver` retry once without the SDK-provided `Client` header if the
+ApiClient-shaped request fails, because Silver routes are reverse-engineered
+from live site traffic and may not comply with the documented Postman header
+contract.
 
 ## Request Options
 

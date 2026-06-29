@@ -1,4 +1,4 @@
-# `silver.categories` Namespace
+# `Silver.categories` Namespace
 
 Go client access: `client.Silver.Categories`
 
