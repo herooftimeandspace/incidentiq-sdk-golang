@@ -112,7 +112,7 @@ jobs:
           go run scripts/build_badge_json.go coverage \
             --coverage-file coverage.out \
             --label "coverage ${GITHUB_REF_NAME}" \
-            --minimum 31.0 \
+            --minimum 95.0 \
             --output coverage-badge.json
 
       - name: Upload unit status badge artifact

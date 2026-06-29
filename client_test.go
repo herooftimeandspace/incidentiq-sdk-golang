@@ -318,3 +318,226 @@ func TestInventoriesLoadFromPythonSDKArtifacts(t *testing.T) {
 		t.Fatal("StoplightControllerNames returned no controllers")
 	}
 }
+
+func TestNewClientFromEnvNormalizesRuntimeConfig(t *testing.T) {
+	t.Setenv("INCIDENTIQ_BASE_URL", "https://example.incidentiq.com")
+	t.Setenv("INCIDENTIQ_API_TOKEN", "token")
+	t.Setenv("INCIDENTIQ_SITE_ID", "site")
+	t.Setenv("INCIDENTIQ_AUTH_MODE", "raw")
+	t.Setenv("INCIDENTIQ_APP_HEADERS_JSON", `{"X-App":"yes"}`)
+
+	client, err := NewClientFromEnv()
+	if err != nil {
+		t.Fatalf("NewClientFromEnv returned error: %v", err)
+	}
+	config := client.Config()
+	if got, want := config.BaseURL, "https://example.incidentiq.com/api/v1.0"; got != want {
+		t.Fatalf("BaseURL = %q, want %q", got, want)
+	}
+	if got, want := config.AuthMode, AuthModeRaw; got != want {
+		t.Fatalf("AuthMode = %q, want %q", got, want)
+	}
+	if got, want := config.AppHeaders["X-App"], "yes"; got != want {
+		t.Fatalf("AppHeaders[X-App] = %q, want %q", got, want)
+	}
+}
+
+func TestRequestGoldenLooksUpInventoryOperation(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.URL.Path, "/api/v1.0/users"; got != want {
+			t.Fatalf("path = %q, want %q", got, want)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	if err := client.RequestGolden(context.Background(), "users", "get_users_legacy", RequestOptions{}, &payload); err != nil {
+		t.Fatalf("RequestGolden returned error: %v", err)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
+	}
+	if err := client.RequestGolden(context.Background(), "missing", "operation", RequestOptions{}, nil); err == nil {
+		t.Fatal("RequestGolden accepted an unknown operation")
+	}
+}
+
+func TestRequestValidatesMethodPathAndParameters(t *testing.T) {
+	client, err := NewClient(Config{
+		BaseURL:  "https://example.incidentiq.com",
+		APIToken: "token",
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	tests := []struct {
+		name string
+		fn   func() error
+		want string
+	}{
+		{
+			name: "missing method",
+			fn: func() error {
+				return client.Request(context.Background(), " ", "/users", RequestOptions{}, nil)
+			},
+			want: "method is required",
+		},
+		{
+			name: "missing path",
+			fn: func() error {
+				return client.Request(context.Background(), "GET", " ", RequestOptions{}, nil)
+			},
+			want: "path is required",
+		},
+		{
+			name: "missing path parameter",
+			fn: func() error {
+				return client.Request(context.Background(), "GET", "/users/{UserId}", RequestOptions{}, nil)
+			},
+			want: "missing path parameters: UserId",
+		},
+		{
+			name: "json marshal failure",
+			fn: func() error {
+				return client.Request(context.Background(), "POST", "/users", RequestOptions{JSON: map[string]any{"bad": make(chan int)}}, nil)
+			},
+			want: "request body could not be encoded as JSON",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := tt.fn()
+			if err == nil || !strings.Contains(err.Error(), tt.want) {
+				t.Fatalf("Request error = %v, want containing %q", err, tt.want)
+			}
+		})
+	}
+}
+
+func TestRequestResponseHandlingBranches(t *testing.T) {
+	tests := []struct {
+		name        string
+		status      int
+		contentType string
+		body        string
+		wantErr     string
+		wantPayload bool
+	}{
+		{name: "api error", status: http.StatusBadRequest, body: `{"error":"bad"}`, wantErr: "HTTP 400"},
+		{name: "invalid json", status: http.StatusOK, contentType: "application/json", body: `{`, wantErr: "was not valid JSON"},
+		{name: "non json response ignored", status: http.StatusOK, contentType: "text/plain", body: "plain"},
+		{name: "empty response ignored", status: http.StatusOK, contentType: "application/json", body: "  "},
+		{name: "json response decoded", status: http.StatusOK, contentType: "application/json", body: `{"ok":true}`, wantPayload: true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.contentType != "" {
+					w.Header().Set("Content-Type", tt.contentType)
+				}
+				w.WriteHeader(tt.status)
+				_, _ = w.Write([]byte(tt.body))
+			}))
+			defer server.Close()
+
+			client, err := NewClient(Config{
+				BaseURL:    server.URL,
+				APIToken:   "token",
+				HTTPClient: server.Client(),
+			})
+			if err != nil {
+				t.Fatalf("NewClient returned error: %v", err)
+			}
+			var payload map[string]any
+			err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, &payload)
+			if tt.wantErr != "" {
+				if err == nil || !strings.Contains(err.Error(), tt.wantErr) {
+					t.Fatalf("Request error = %v, want containing %q", err, tt.wantErr)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("Request returned error: %v", err)
+			}
+			if tt.wantPayload && payload["ok"] != true {
+				t.Fatalf("payload = %#v, want ok true", payload)
+			}
+		})
+	}
+}
+
+func TestRequestTransportTimeoutAndRetryDecisions(t *testing.T) {
+	transportErr := &roundTripError{err: io.ErrUnexpectedEOF}
+	client, err := NewClient(Config{
+		BaseURL:     "https://example.incidentiq.com",
+		APIToken:    "token",
+		HTTPClient:  &http.Client{Transport: transportErr},
+		MaxRetries:  1,
+		BackoffBase: time.Nanosecond,
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if err := client.Request(context.Background(), "GET", "/users", RequestOptions{Timeout: time.Second}, nil); err == nil {
+		t.Fatal("Request returned nil for transport failure")
+	}
+	if got, want := transportErr.calls, 2; got != want {
+		t.Fatalf("transport calls = %d, want %d", got, want)
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if err := sleepWithContext(ctx, time.Hour); err == nil {
+		t.Fatal("sleepWithContext returned nil for canceled context")
+	}
+}
+
+func TestRequestHelperBranches(t *testing.T) {
+	if _, err := addQuery("http://[::1", map[string]string{"q": "value"}); err == nil {
+		t.Fatal("addQuery accepted an invalid URL")
+	}
+	if got, err := addQuery("https://example.test/path?existing=1", map[string]string{"q": "a b"}); err != nil || got != "https://example.test/path?existing=1&q=a+b" {
+		t.Fatalf("addQuery = %q, %v", got, err)
+	}
+	if got, err := renderPath("/users/{UserId}/files/{FileId}", map[string]any{"UserId": "a b", "FileId": "x/y"}); err != nil || got != "/users/a%20b/files/x%2Fy" {
+		t.Fatalf("renderPath = %q, %v", got, err)
+	}
+	if got, contentType, err := encodeRequestBody(RequestOptions{Body: []byte("raw"), ContentType: " text/plain "}); err != nil || string(got) != "raw" || contentType != "text/plain" {
+		t.Fatalf("encodeRequestBody raw = %q, %q, %v", got, contentType, err)
+	}
+	if !isRetriableError(io.ErrUnexpectedEOF) {
+		t.Fatal("transport errors should be retriable")
+	}
+	if isRetriableError(&APIError{StatusCode: http.StatusBadRequest}) {
+		t.Fatal("HTTP 400 should not be retriable")
+	}
+	if got := computeBackoff(-1, time.Millisecond); got != time.Millisecond {
+		t.Fatalf("computeBackoff(-1) = %s, want 1ms", got)
+	}
+	if !methodIsIdempotent("DELETE") || methodIsIdempotent("POST") {
+		t.Fatal("method idempotency table returned unexpected values")
+	}
+	if err := readEmbeddedJSON("missing.json", &map[string]any{}); err == nil {
+		t.Fatal("readEmbeddedJSON accepted a missing file")
+	}
+}
+
+type roundTripError struct {
+	err   error
+	calls int
+}
+
+func (r *roundTripError) RoundTrip(*http.Request) (*http.Response, error) {
+	r.calls++
+	return nil, r.err
+}

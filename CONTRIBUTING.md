@@ -19,7 +19,7 @@ wrappers, or test infrastructure:
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
 go tool cover -func=coverage.out -o coverage-summary.txt
 go tool cover -html=coverage.out -o coverage.html
-go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 31.0 --output coverage-badge.json
+go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
 ```
 
 ## Branch Promotion Flow
@@ -45,7 +45,7 @@ with native Go coverage enabled. It uploads `coverage.out`,
 `coverage-summary.txt`, and `coverage.html` as workflow artifacts. The workflow
 also publishes branch status and coverage badge payloads to the `badges` branch
 for `dev`, `staging`, and `main`. Coverage must stay at or above the current Go
-baseline of `31.0%`.
+baseline of `95.0%`.
 
 Build the static docs site locally before changing contributor or reference
 Markdown:
