@@ -1,0 +1,96 @@
+name: integration
+
+on:
+  push:
+    branches: ["staging", "main"]
+  pull_request:
+    branches: ["staging", "main"]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    name: integration
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Integration placeholder
+        run: |
+          echo "No live Go integration suite is defined yet; protected branch pushes are covered by go-test."
+
+  publish-badges:
+    needs: integration
+    if: always() && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build integration status badge payload
+        run: |
+          go run scripts/build_badge_json.go status \
+            --conclusion "${{ needs.integration.result }}" \
+            --label "${GITHUB_REF_NAME} integration" \
+            --output integration-status.json
+
+      - name: Publish integration badge JSON to badges branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_BRANCH: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --heads "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" badges | grep -q .; then
+            git clone --depth 1 --branch badges "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" badges-work
+          else
+            git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" badges-work
+            cd badges-work
+            git checkout --orphan badges
+            git rm -rf .
+            mkdir -p branch-status
+            touch branch-status/.gitkeep
+            echo "# branch badge payloads" > README.md
+            git add README.md branch-status/.gitkeep
+            git commit -m "Initialize badges branch"
+            git push origin badges
+            cd ..
+            rm -rf badges-work
+            git clone --depth 1 --branch badges "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" badges-work
+          fi
+
+          mkdir -p "badges-work/branch-status/${GH_BRANCH}"
+          cp integration-status.json "badges-work/branch-status/${GH_BRANCH}/integration.json"
+
+          cd badges-work
+          git add "branch-status/${GH_BRANCH}/integration.json"
+          if git diff --cached --quiet; then
+            echo "No integration badge changes to publish."
+            exit 0
+          fi
+
+          git commit -m "Update integration badge for ${GH_BRANCH} [skip ci]"
+          git push origin badges
