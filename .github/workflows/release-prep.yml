@@ -1,0 +1,52 @@
+name: prepare-release-promotion
+
+on:
+  pull_request_target:
+    branches: ["main"]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  prepare-release-promotion:
+    name: prepare-release-promotion
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'promote/staging-to-main'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      GH_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      GH_PR_NUMBER: ${{ github.event.pull_request.number }}
+    steps:
+      - name: Checkout promotion branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Prepare release promotion branch
+        run: |
+          set -euo pipefail
+
+          labels="$(gh pr view "${GH_PR_NUMBER}" --repo "${GH_REPO}" --json labels --jq '.labels[].name')"
+          semver_labels="$(printf '%s\n' "${labels}" | grep '^semver:' || true)"
+          semver_count="$(printf '%s\n' "${semver_labels}" | sed '/^$/d' | wc -l | tr -d ' ')"
+
+          if [ "${semver_count}" != "1" ]; then
+            echo "Expected exactly one semver label on PR #${GH_PR_NUMBER}; found ${semver_count}."
+            exit 1
+          fi
+
+          git fetch origin main staging "${GH_HEAD_REF}"
+          if git merge-base --is-ancestor origin/main HEAD && git merge-base --is-ancestor origin/staging HEAD; then
+            echo "Promotion branch already contains the current main and staging tips."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git reset --hard origin/main
+          git merge --no-ff --no-edit origin/staging
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" HEAD:"${GH_HEAD_REF}" --force
