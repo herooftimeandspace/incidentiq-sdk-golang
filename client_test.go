@@ -589,6 +589,86 @@ func TestRequestResponseHandlingBranches(t *testing.T) {
 	}
 }
 
+func TestRequestRejectsOversizedSuccessResponse(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"payload":"too-large"}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:              server.URL,
+		APIToken:             "token",
+		HTTPClient:           server.Client(),
+		MaxResponseBodyBytes: 8,
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, &map[string]any{})
+	sizeErr, ok := err.(*ResponseSizeError)
+	if !ok {
+		t.Fatalf("Request error = %T %[1]v, want ResponseSizeError", err)
+	}
+	if sizeErr.Limit != 8 {
+		t.Fatalf("ResponseSizeError.Limit = %d, want 8", sizeErr.Limit)
+	}
+}
+
+func TestRequestRejectsOversizedErrorResponseBeforeAPIError(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Trace", "trace-1")
+		http.Error(w, strings.Repeat("x", 32), http.StatusBadGateway)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:              server.URL,
+		APIToken:             "token",
+		HTTPClient:           server.Client(),
+		MaxResponseBodyBytes: 16,
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, nil)
+	if _, ok := err.(*ResponseSizeError); !ok {
+		t.Fatalf("Request error = %T %[1]v, want ResponseSizeError", err)
+	}
+	if _, ok := err.(*APIError); ok {
+		t.Fatalf("Request error = %T, want size error before APIError", err)
+	}
+}
+
+func TestRequestPreservesAPIErrorBodyAndHeadersWithinLimit(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Trace", "trace-1")
+		http.Error(w, "bad request", http.StatusBadRequest)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:              server.URL,
+		APIToken:             "token",
+		HTTPClient:           server.Client(),
+		MaxResponseBodyBytes: 1024,
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, nil)
+	apiErr, ok := err.(*APIError)
+	if !ok {
+		t.Fatalf("Request error = %T %[1]v, want APIError", err)
+	}
+	if got, want := apiErr.Headers.Get("X-Trace"), "trace-1"; got != want {
+		t.Fatalf("APIError X-Trace = %q, want %q", got, want)
+	}
+	if !strings.Contains(string(apiErr.Body), "bad request") {
+		t.Fatalf("APIError body = %q, want bad request", apiErr.Body)
+	}
+}
+
 func TestRequestTransportTimeoutAndRetryDecisions(t *testing.T) {
 	transportErr := &roundTripError{err: io.ErrUnexpectedEOF}
 	client, err := NewClient(Config{
@@ -642,6 +722,45 @@ func TestRequestHelperBranches(t *testing.T) {
 	}
 	if err := readEmbeddedJSON("missing.json", &map[string]any{}); err == nil {
 		t.Fatal("readEmbeddedJSON accepted a missing file")
+	}
+}
+
+func TestRequestRejectsNegativePerRequestResponseBodyLimit(t *testing.T) {
+	client, err := NewClient(Config{
+		BaseURL:  "https://example.incidentiq.com",
+		APIToken: "token",
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{MaxResponseBodyBytes: -1}, nil)
+	if err == nil || !strings.Contains(err.Error(), "max_response_body_bytes must be zero or positive") {
+		t.Fatalf("Request error = %v, want max_response_body_bytes validation", err)
+	}
+}
+
+func TestRequestPerRequestResponseBodyLimitOverridesConfig(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:              server.URL,
+		APIToken:             "token",
+		HTTPClient:           server.Client(),
+		MaxResponseBodyBytes: 4,
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	if err := client.Request(context.Background(), "GET", "/users", RequestOptions{MaxResponseBodyBytes: 32}, &payload); err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
 	}
 }
 

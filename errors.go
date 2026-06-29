@@ -36,3 +36,15 @@ type APIError struct {
 func (e *APIError) Error() string {
 	return fmt.Sprintf("incidentiq %s %s failed with HTTP %d", e.Method, e.Path, e.StatusCode)
 }
+
+// ResponseSizeError reports a response body that exceeds the configured SDK
+// safety limit before it can be decoded or attached to APIError.
+type ResponseSizeError struct {
+	Method string
+	Path   string
+	Limit  int64
+}
+
+func (e *ResponseSizeError) Error() string {
+	return fmt.Sprintf("incidentiq %s %s response body exceeded %d bytes", e.Method, e.Path, e.Limit)
+}

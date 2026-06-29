@@ -10,6 +10,7 @@ import (
 )
 
 const defaultGoldenAPIPrefix = "/api/v1.0"
+const defaultMaxResponseBodyBytes int64 = 4 * 1024 * 1024
 
 // AuthMode controls how API tokens are written into the Authorization header.
 type AuthMode string
@@ -33,7 +34,10 @@ type Config struct {
 	ValidateResponses bool
 	MaxRetries        int
 	BackoffBase       time.Duration
-	HTTPClient        *http.Client
+	// MaxResponseBodyBytes caps successful and error response bodies before JSON
+	// decoding or APIError construction. Leave zero to use the SDK default.
+	MaxResponseBodyBytes int64
+	HTTPClient           *http.Client
 }
 
 // ConfigFromEnv builds Config from the same runtime variables used by
@@ -93,6 +97,12 @@ func (c Config) normalized() (Config, error) {
 	}
 	if c.MaxRetries < 0 {
 		return Config{}, &ConfigurationError{Message: "max_retries must be zero or positive"}
+	}
+	if c.MaxResponseBodyBytes == 0 {
+		c.MaxResponseBodyBytes = defaultMaxResponseBodyBytes
+	}
+	if c.MaxResponseBodyBytes < 0 {
+		return Config{}, &ConfigurationError{Message: "max_response_body_bytes must be zero or positive"}
 	}
 	if err := validateHeaderValue(c.SiteID, "site_id"); err != nil {
 		return Config{}, err
