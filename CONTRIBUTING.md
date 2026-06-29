@@ -15,9 +15,11 @@ The repo-local cache variables are useful on workstations where the default Go c
 ## Branch Promotion Flow
 
 - Branch feature, bugfix, and chore work from `dev`.
-- Merge reviewed work into `dev` after the `test` workflow passes.
-- Promote `dev -> staging` after green pushes on `dev`.
-- Promote `staging -> main` after green pushes on `staging`.
+- Merge reviewed work into `dev` after the `quality` workflow passes.
+- Promote `dev -> staging` with the automated promotion PR created after green
+  pushes on `dev`.
+- Promote `staging -> main` with the automated `promote/staging-to-main`
+  promotion PR created after green pushes on `staging`.
 - Keep `dev`, `staging`, and `main` aligned with the source repository workflow unless a repository-specific decision changes that policy.
 
 ## Quality Gates
@@ -28,7 +30,9 @@ Run all required checks before opening a pull request:
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
-The current GitHub Actions workflow runs the same package test command.
+The `quality` workflow runs the same package test command. The workflow also
+publishes branch status badge payloads to the `badges` branch for `dev`,
+`staging`, and `main`.
 
 ## Release Labels and Mainline Releases
 
@@ -36,8 +40,15 @@ The current GitHub Actions workflow runs the same package test command.
   - `semver:patch`
   - `semver:minor`
   - `semver:major`
-- Version tagging and release asset publication are not implemented yet.
-- Do not document or rely on release artifacts that are not produced by the current workflows.
+- Automated promotion PRs copy the semver label from the associated source PR
+  when one exists and otherwise default to `semver:patch`.
+- Merging the prepared `promote/staging-to-main -> main` PR creates a GitHub
+  Release, a `vMAJOR.MINOR.PATCH` tag, and a source archive.
+- Go module releases are tag-based. There is no package metadata file to bump in
+  this repository.
+- The workflows use the repository `GITHUB_TOKEN` by default. Do not add a
+  personal access token unless repository rules prove that GitHub
+  Actions-authored PRs cannot satisfy required checks.
 
 ## Schema Sync Workflow
 

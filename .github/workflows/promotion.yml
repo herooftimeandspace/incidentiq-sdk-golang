@@ -1,0 +1,143 @@
+name: promotion
+
+on:
+  workflow_run:
+    workflows: ["quality"]
+    types: [completed]
+
+permissions:
+  contents: write
+  checks: read
+  pull-requests: write
+
+jobs:
+  promote-dev-to-staging:
+    if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Create or refresh dev to staging promotion PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_SHA: ${{ github.event.workflow_run.head_sha }}
+          GH_URL: ${{ github.event.workflow_run.html_url }}
+        run: |
+          set -euo pipefail
+
+          git fetch origin staging
+          resolved_label="$(go run scripts/release_tools.go resolve-promotion-semver --repo "${GH_REPO}" --sha "${GH_SHA}" --base-ref dev)"
+          existing_pr="$(gh pr list --repo "${GH_REPO}" --base staging --head dev --state open --json number --jq '.[0].number')"
+          title="Promote dev to staging"
+          body="$(printf '%s\n' \
+            'Automated promotion PR from dev to staging.' \
+            '' \
+            "Source commit: ${GH_SHA}" \
+            "Source workflow: ${GH_URL}" \
+            '' \
+            'This workflow uses the repository GITHUB_TOKEN instead of a personal access token.')"
+
+          if [ -n "${existing_pr}" ]; then
+            gh pr edit "${existing_pr}" --repo "${GH_REPO}" --title "${title}" --body "${body}"
+            for label in semver:patch semver:minor semver:major; do
+              if [ "${label}" != "${resolved_label}" ]; then
+                gh pr edit "${existing_pr}" --repo "${GH_REPO}" --remove-label "${label}" >/dev/null 2>&1 || true
+              fi
+            done
+            gh pr edit "${existing_pr}" --repo "${GH_REPO}" --add-label "${resolved_label}"
+            exit 0
+          fi
+
+          if [ "$(git rev-list --count origin/staging..HEAD)" = "0" ]; then
+            echo "No commits between staging and dev; skipping dev -> staging promotion PR."
+            exit 0
+          fi
+
+          gh pr create \
+            --repo "${GH_REPO}" \
+            --base staging \
+            --head dev \
+            --title "${title}" \
+            --body "${body}" \
+            --label "${resolved_label}"
+
+  promote-staging-to-main:
+    if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Create or refresh staging to main promotion PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_SHA: ${{ github.event.workflow_run.head_sha }}
+          GH_URL: ${{ github.event.workflow_run.html_url }}
+          GH_PROMOTION_REF: promote/staging-to-main
+        run: |
+          set -euo pipefail
+
+          git fetch origin main staging
+          resolved_label="$(go run scripts/release_tools.go resolve-promotion-semver --repo "${GH_REPO}" --sha "${GH_SHA}" --base-ref staging)"
+
+          if [ "$(git rev-list --count origin/main.."${GH_SHA}")" = "0" ]; then
+            echo "No commits between main and staging; skipping staging -> main promotion PR."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "${GH_PROMOTION_REF}" origin/main
+          git merge --no-ff --no-edit "${GH_SHA}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" \
+            "HEAD:refs/heads/${GH_PROMOTION_REF}" \
+            --force
+
+          existing_pr="$(gh pr list --repo "${GH_REPO}" --base main --head "${GH_PROMOTION_REF}" --state open --json number --jq '.[0].number')"
+          title="Promote staging to main"
+          body="$(printf '%s\n' \
+            'Automated promotion PR from staging to main.' \
+            '' \
+            "Source commit: ${GH_SHA}" \
+            "Source workflow: ${GH_URL}" \
+            '' \
+            'This PR must carry exactly one release label: semver:patch, semver:minor, or semver:major.' \
+            'The release workflow creates a GitHub Release and semver tag after this PR merges to main.' \
+            '' \
+            'This workflow uses the repository GITHUB_TOKEN instead of a personal access token.')"
+
+          if [ -n "${existing_pr}" ]; then
+            gh pr edit "${existing_pr}" --repo "${GH_REPO}" --title "${title}" --body "${body}"
+            for label in semver:patch semver:minor semver:major; do
+              if [ "${label}" != "${resolved_label}" ]; then
+                gh pr edit "${existing_pr}" --repo "${GH_REPO}" --remove-label "${label}" >/dev/null 2>&1 || true
+              fi
+            done
+            gh pr edit "${existing_pr}" --repo "${GH_REPO}" --add-label "${resolved_label}"
+            exit 0
+          fi
+
+          gh pr create \
+            --repo "${GH_REPO}" \
+            --base main \
+            --head "${GH_PROMOTION_REF}" \
+            --title "${title}" \
+            --body "${body}" \
+            --label "${resolved_label}"

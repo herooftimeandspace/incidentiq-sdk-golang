@@ -1,5 +1,11 @@
 # incidentiq-sdk-golang
 
+[![dev go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
+[![staging go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
+[![main go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
+[![staging integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Astaging)
+[![main integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Amain)
+
 `incidentiq-sdk-golang` is the Go SDK companion to
 [`herooftimeandspace/incident-py-q`](https://github.com/herooftimeandspace/incident-py-q).
 
@@ -170,3 +176,21 @@ Regenerate wrappers after refreshing inventory snapshots:
 ```bash
 go generate ./...
 ```
+
+## Promotion And Release Automation
+
+The Go SDK follows the same branch promotion shape as `incident-py-q`:
+
+- `dev` is the normal integration branch.
+- successful `quality` push checks on `dev` create or refresh a `dev -> staging`
+  promotion PR.
+- successful `quality` push checks on `staging` create or refresh a
+  `promote/staging-to-main -> main` promotion PR.
+- every promotion PR carries exactly one release label:
+  `semver:patch`, `semver:minor`, or `semver:major`.
+- merges to `main` create a GitHub Release and source archive tagged as the next
+  semantic version.
+
+The automation uses the repository `GITHUB_TOKEN`. It does not require a
+personal access token by default. Repository rules must allow GitHub
+Actions-authored branches and pull requests for fully automatic promotion.

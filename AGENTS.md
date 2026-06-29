@@ -36,3 +36,12 @@ in this repository.
 - Run `GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...`
   after code, generator, contract, or documentation changes that affect the
   public SDK surface.
+- Promotion, badge, and release automation lives in `.github/workflows/` and is
+  intentionally aligned with `incident-py-q` while using Go helper scripts under
+  `scripts/`.
+- Keep the `dev -> staging -> main` promotion chain, `semver:*` labels, badge
+  branch payload paths, and main-branch GitHub Release behavior aligned with the
+  documented workflow when editing CI.
+- The automation uses `GITHUB_TOKEN` by default. Do not introduce a personal
+  access token unless GitHub repository rules make it unavoidable and the docs
+  are updated with the reason.
