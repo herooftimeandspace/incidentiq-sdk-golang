@@ -18,5 +18,9 @@ type RequestOptions struct {
 	// MaxResponseBodyBytes overrides Config.MaxResponseBodyBytes for this
 	// request. Leave zero to use the client-level limit.
 	MaxResponseBodyBytes int64
-	OmitSiteIDHeader     bool
+	// OmitClientHeader skips the SDK-provided Client: ApiClient header for
+	// this request. Default requests should leave this false; it exists for
+	// HAR-validated Silver routes that intentionally omit the header.
+	OmitClientHeader bool
+	OmitSiteIDHeader bool
 }

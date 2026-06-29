@@ -38,7 +38,7 @@ contract.
 
 ## Request Options
 
-Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, per-request timeout, and per-request response-size limits:
+Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, per-request timeout, per-request response-size limits, and explicit SDK header omission for HAR-validated Silver calls:
 
 ```go
 err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
@@ -47,6 +47,11 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 	MaxResponseBodyBytes: 8 * 1024 * 1024,
 }, &payload)
 ```
+
+Golden and default Silver requests send `Client: ApiClient`. Set
+`OmitClientHeader: true` only when a Silver route has been validated against
+browser HAR traffic that omits the `Client` header, such as profile photo
+uploads.
 
 Responses are capped at 4 MiB by default before JSON decoding or API error body
 capture. Set `Config.MaxResponseBodyBytes` to change the client-wide cap or

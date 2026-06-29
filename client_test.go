@@ -178,6 +178,54 @@ func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
 	}
 }
 
+func TestSilverProfilePictureWrapperCanOmitClientHeader(t *testing.T) {
+	var body bytes.Buffer
+	writer := multipart.NewWriter(&body)
+	part, err := writer.CreateFormFile("File", "photo.jpg")
+	if err != nil {
+		t.Fatalf("CreateFormFile returned error: %v", err)
+	}
+	if _, err := part.Write([]byte("image-bytes")); err != nil {
+		t.Fatalf("write multipart part: %v", err)
+	}
+	if err := writer.Close(); err != nil {
+		t.Fatalf("close multipart writer: %v", err)
+	}
+
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got := r.Header.Get("Client"); got != "" {
+			t.Fatalf("Client = %q, want omitted", got)
+		}
+		if got := r.Header.Get("SiteId"); got != "" {
+			t.Fatalf("SiteId = %q, want omitted", got)
+		}
+		if got := r.Header.Get("Content-Type"); got == "" || !strings.HasPrefix(got, "multipart/form-data;") {
+			t.Fatalf("Content-Type = %q, want multipart form data", got)
+		}
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		SiteID:     "site-1",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if err := client.Silver.Profiles.PostProfilePicture(context.Background(), RequestOptions{
+		PathParams:       map[string]any{"user_id": "user-123"},
+		Body:             body.Bytes(),
+		ContentType:      writer.FormDataContentType(),
+		OmitClientHeader: true,
+		OmitSiteIDHeader: true,
+	}, nil); err != nil {
+		t.Fatalf("PostProfilePicture returned error: %v", err)
+	}
+}
+
 func TestRequestRespectsExplicitClientHeader(t *testing.T) {
 	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if got, want := r.Header.Get("Client"), "CustomClient"; got != want {
@@ -198,6 +246,28 @@ func TestRequestRespectsExplicitClientHeader(t *testing.T) {
 	if err := client.Request(context.Background(), "GET", "/users", RequestOptions{
 		Headers: map[string]string{"Client": "CustomClient"},
 	}, nil); err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+}
+
+func TestRequestSendsDefaultClientHeaderWhenOmitClientHeaderIsFalse(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client header = %q, want %q", got, want)
+		}
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if err := client.Request(context.Background(), "GET", "/users", RequestOptions{}, nil); err != nil {
 		t.Fatalf("Request returned error: %v", err)
 	}
 }
