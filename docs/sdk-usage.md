@@ -1,24 +1,24 @@
 # SDK Usage
 
 The SDK surface is split into Golden and Silver paths:
-- Golden: bundled Stoplight controller contract inventory.
-- Silver: HAR-observed undocumented route inventory.
+- Golden: bundled Stoplight controller contract inventory exposed directly on `client.<Namespace>.<Method>`.
+- Silver: HAR-observed undocumented route inventory exposed under `client.Silver.<Namespace>.<Method>`.
 
-Full generated route documentation lives under the SDK reference pages. Typed Go wrappers for every inventory entry are tracked separately; until those wrappers exist, use the inventory-backed request helpers.
+Full generated route documentation lives under the SDK reference pages. The generated Go wrappers are reproduced from the bundled inventory snapshots.
 
-## Golden Inventory Pattern
+## Golden Wrapper Pattern
 
 ```go
 var payload map[string]any
-err := client.RequestGolden(ctx, "tickets", "get_ticket_statuses", incidentiq.RequestOptions{}, &payload)
+err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &payload)
 ```
 
-## Silver Inventory Pattern
+## Silver Wrapper Pattern
 
 ```go
 var payload map[string]any
-err := client.RequestSilver(ctx, "tickets", "list_current_user_assigned_tickets", incidentiq.RequestOptions{
-	Params: map[string]string{"$s": "100"},
+err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"ticket_id": "ticket-guid"},
 }, &payload)
 ```
 
@@ -41,4 +41,4 @@ err := client.Request(ctx, "POST", "/services/tickets/-/-/AssignedToMe_Unassigne
 }, &payload)
 ```
 
-`list_current_user_assigned_tickets` uses the UI-observed read-only assigned/open queue route. It is useful when analytics or saved-view routes return zero rows while the web UI still shows current-user assigned work.
+Use `RequestGolden` and `RequestSilver` when a caller needs to resolve a route dynamically by inventory namespace and method name instead of calling a generated Go method.

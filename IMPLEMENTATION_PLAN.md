@@ -22,6 +22,9 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 - Inventory-backed request helpers:
   - `RequestGolden(ctx, namespace, name, opts, out) error`
   - `RequestSilver(ctx, namespace, name, opts, out) error`
+- Generated wrapper surface:
+  - Golden: `client.<Namespace>.<Method>(ctx, opts, out) error`
+  - Silver: `client.Silver.<Namespace>.<Method>(ctx, opts, out) error`
 - Config surface:
   - `BaseURL` (tenant-specific, required unless provided by env)
   - `APIToken`
@@ -55,6 +58,9 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
   - `testdata/contract/*_sdk_inventory.json`
 - Sync tooling:
   - `scripts/sync_from_source_sdk.sh`
+- Wrapper tooling:
+  - `scripts/generate_wrappers.go`
+  - `go generate ./...`
 - Current runtime behavior:
   - method/path request construction
   - path parameter escaping
@@ -75,7 +81,7 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
   - bundled inventory loading
 - Contract tests:
   - verify Golden and Silver inventories load from embedded files
-  - future wrapper-generation tests must compare generated Go method coverage against bundled inventory snapshots
+  - compare generated Go wrapper coverage against bundled inventory snapshots
 - Integration tests:
   - not implemented yet
   - future tests should use `INCIDENTIQ_TEST_BASE_URL` explicitly
@@ -97,4 +103,4 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 - Module path: `github.com/herooftimeandspace/incidentiq-sdk-golang`.
 - Bearer token is default auth mode.
 - Tenant URL is always configurable per client instance and separately for integration smoke tests.
-- One generated Go method per Golden and Silver inventory entry remains tracked in GitHub issue #1.
+- Generated wrappers are reproduced from bundled Golden and Silver inventory snapshots.
