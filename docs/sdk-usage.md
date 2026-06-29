@@ -1,8 +1,8 @@
 # SDK Usage
 
-The SDK surface is split into Golden and Silver paths:
-- Golden: bundled Stoplight controller contract inventory exposed directly on `client.<Namespace>.<Method>`.
-- Silver: HAR-observed undocumented route inventory exposed under `client.Silver.<Namespace>.<Method>`.
+The SDK surface distinguishes the Golden path from the Silver namespace:
+- Golden: the golden SDK path and correct default API surface, exposed directly on `client.<Namespace>.<Method>`.
+- Silver: quasi-supported API calls derived from live site interaction HARs, exposed under `client.Silver.<Namespace>.<Method>`.
 
 Full generated route documentation lives under the SDK reference pages. The generated Go wrappers are reproduced from the bundled inventory snapshots.
 

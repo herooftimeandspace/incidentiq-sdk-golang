@@ -50,14 +50,16 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 
 ## Golden And Silver Helpers
 
-Golden methods are exposed directly on the client:
+Golden is the correct default SDK path. Golden methods are exposed directly on
+the client:
 
 ```go
 var statuses map[string]any
 err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &statuses)
 ```
 
-Silver fallback routes are exposed under `client.Silver`:
+Silver is a separate namespace for quasi-supported API calls derived from live
+site interaction HARs. Silver methods are exposed under `client.Silver`:
 
 ```go
 var status map[string]any

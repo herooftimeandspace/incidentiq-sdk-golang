@@ -4,7 +4,7 @@
 
 Build a production-ready Go module (`github.com/herooftimeandspace/incidentiq-sdk-golang`) that stays functionally aligned with the `incident-py-q` source repository.
 
-Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 controller specs copied from the source repository. The APIHub Postman collection and Silver HAR-derived inventory are bundled as secondary contract corpora.
+Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 controller specs copied from the source repository. The APIHub Postman collection and Silver HAR-derived inventory are bundled as secondary contract corpora. Golden refers to the golden SDK path and correct default API surface. Silver is a separate namespace for quasi-supported API calls derived from live site interaction HARs.
 
 ## Key Constraints and Public Interfaces
 
@@ -23,8 +23,8 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
   - `RequestGolden(ctx, namespace, name, opts, out) error`
   - `RequestSilver(ctx, namespace, name, opts, out) error`
 - Generated wrapper surface:
-  - Golden: `client.<Namespace>.<Method>(ctx, opts, out) error`
-  - Silver: `client.Silver.<Namespace>.<Method>(ctx, opts, out) error`
+  - Golden default SDK path: `client.<Namespace>.<Method>(ctx, opts, out) error`
+  - Silver quasi-supported HAR-derived namespace: `client.Silver.<Namespace>.<Method>(ctx, opts, out) error`
 - Config surface:
   - `BaseURL` (tenant-specific, required unless provided by env)
   - `APIToken`
@@ -104,3 +104,5 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 - Bearer token is default auth mode.
 - Tenant URL is always configurable per client instance and separately for integration smoke tests.
 - Generated wrappers are reproduced from bundled Golden and Silver inventory snapshots.
+- Golden wrappers remain the default `client.<Namespace>.<Method>` SDK path.
+- Silver wrappers remain isolated under `client.Silver` for quasi-supported HAR-derived calls.
