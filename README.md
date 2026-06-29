@@ -8,7 +8,7 @@ The project goal is functional parity with the source SDK:
 - same Incident IQ runtime environment variables
 - same tenant URL normalization rules
 - same bearer/raw authorization behavior
-- same `Client` and `SiteId` header behavior
+- same auth and optional `SiteId` header behavior
 - same Golden Stoplight contract artifacts
 - same Silver HAR-derived inventory artifacts
 - same retry policy for idempotent requests
@@ -64,7 +64,6 @@ func main() {
 - `INCIDENTIQ_BASE_URL`
 - `INCIDENTIQ_API_TOKEN`
 - `INCIDENTIQ_SITE_ID`
-- `INCIDENTIQ_CLIENT_HEADER`
 - `INCIDENTIQ_AUTH_MODE`
 - `INCIDENTIQ_APP_HEADERS_JSON`
 
@@ -139,7 +138,7 @@ The current parity surface is protected by tests for:
 
 - config and environment variable names
 - HTTPS-only base URL normalization
-- auth, `Client`, and `SiteId` headers
+- auth and optional `SiteId` headers
 - path parameter escaping
 - Golden-prefix versus tenant-root URL construction
 - idempotent retry handling for retryable status codes

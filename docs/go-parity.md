@@ -14,7 +14,6 @@ The Go client currently matches the source SDK for the following runtime rules:
 
 - `INCIDENTIQ_*` environment variable names
 - bearer and raw authorization modes
-- `Client` header default value of `ApiClient`
 - optional `SiteId` header
 - HTTPS-only base URL validation
 - tenant root normalization to `/api/v1.0`

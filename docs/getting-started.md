@@ -16,7 +16,6 @@ Runtime:
 - `INCIDENTIQ_BASE_URL`
 - `INCIDENTIQ_API_TOKEN`
 - `INCIDENTIQ_SITE_ID` (optional)
-- `INCIDENTIQ_CLIENT_HEADER` (optional, default `ApiClient`)
 - `INCIDENTIQ_AUTH_MODE` (optional, default `bearer`)
 - `INCIDENTIQ_APP_HEADERS_JSON` (optional JSON object string for app-path calls)
 
@@ -26,7 +25,6 @@ Future integration smoke tests should use:
 - `INCIDENTIQ_TEST_BASE_URL`
 - `INCIDENTIQ_TEST_API_TOKEN`
 - `INCIDENTIQ_TEST_SITE_ID` (optional)
-- `INCIDENTIQ_TEST_CLIENT_HEADER` (optional)
 - `INCIDENTIQ_TEST_AUTH_MODE` (optional)
 - `INCIDENTIQ_TEST_APP_HEADERS_JSON` (optional JSON object string)
 

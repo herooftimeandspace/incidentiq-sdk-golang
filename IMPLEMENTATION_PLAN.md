@@ -26,7 +26,6 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
   - `BaseURL` (tenant-specific, required unless provided by env)
   - `APIToken`
   - `SiteID` (optional/required depending on endpoint policy)
-  - `ClientHeader` (default `ApiClient`)
   - `AuthMode` (default `bearer`; optional `raw` for compatibility)
   - `AppHeaders`
   - `Timeout`
@@ -68,7 +67,7 @@ Primary contract source is the bundled Incident IQ Stoplight Swagger 2.0 control
 
 - Unit tests:
   - auth/header behavior
-  - optional `SiteId` and `Client` headers
+  - optional `SiteId` header
   - request construction
   - tenant URL normalization
   - tenant-root path handling

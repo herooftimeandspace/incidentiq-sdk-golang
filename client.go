@@ -162,7 +162,6 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
-	request.Header.Set("Client", c.config.ClientHeader)
 	if c.config.SiteID != "" {
 		request.Header.Set("SiteId", c.config.SiteID)
 	}
