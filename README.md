@@ -179,7 +179,7 @@ Run the native Go coverage workflow locally:
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
 go tool cover -func=coverage.out -o coverage-summary.txt
 go tool cover -html=coverage.out -o coverage.html
-go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 31.0 --output coverage-badge.json
+go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
 ```
 
 The repo uses only the Go standard library for the runtime client.

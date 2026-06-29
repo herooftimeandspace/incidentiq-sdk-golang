@@ -42,7 +42,7 @@ in this repository.
   Use `go tool cover -func=coverage.out -o coverage-summary.txt` for the text
   summary and `go tool cover -html=coverage.out -o coverage.html` for the HTML
   report. Use `go run scripts/build_badge_json.go coverage --coverage-file
-  coverage.out --label "coverage local" --minimum 31.0 --output
+  coverage.out --label "coverage local" --minimum 95.0 --output
   coverage-badge.json` to enforce the current CI coverage floor.
 - Run `go vet ./...` after touching shared runtime code or generated wrappers.
 - Run `go run scripts/build_docs_site.go` after touching docs or docs workflow
