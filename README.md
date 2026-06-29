@@ -1,8 +1,8 @@
 # incidentiq-sdk-golang
 
-[![dev go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
-[![staging go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
-[![main go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
+[![dev unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
+[![staging unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
+[![main unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
 [![staging integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Astaging)
 [![main integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Amain)
 

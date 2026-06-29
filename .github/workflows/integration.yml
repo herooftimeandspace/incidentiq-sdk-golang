@@ -29,7 +29,7 @@ jobs:
 
       - name: Integration placeholder
         run: |
-          echo "No live Go integration suite is defined yet; protected branch pushes are covered by go-test."
+          echo "No live Go integration suite is defined yet; protected branch pushes are covered by unit."
 
   publish-badges:
     needs: integration
