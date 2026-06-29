@@ -83,9 +83,15 @@ jobs:
           echo "Timed out waiting for the authoritative dev push go-test check for ${PR_HEAD_SHA}."
           exit 1
 
-      - name: Tests
+      - name: Tests with native coverage
         if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
-        run: go test ./...
+        run: go test -covermode=atomic -coverprofile=coverage.out ./...
+
+      - name: Build coverage reports
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        run: |
+          go tool cover -func=coverage.out -o coverage-summary.txt
+          go tool cover -html=coverage.out -o coverage.html
 
       - name: Build go-test status badge payload
         if: github.event_name == 'push'
@@ -95,12 +101,37 @@ jobs:
             --label "${GITHUB_REF_NAME} go-test" \
             --output go-test-status.json
 
+      - name: Build coverage badge payload
+        if: github.event_name == 'push'
+        run: |
+          go run scripts/build_badge_json.go coverage \
+            --coverage-file coverage.out \
+            --label "coverage ${GITHUB_REF_NAME}" \
+            --output coverage-badge.json
+
       - name: Upload go-test status badge artifact
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: go-test-status-badge
           path: go-test-status.json
+
+      - name: Upload coverage badge artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-badge
+          path: coverage-badge.json
+
+      - name: Upload coverage reports
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            coverage.out
+            coverage-summary.txt
+            coverage.html
 
   publish-badges:
     needs: go-test
@@ -122,6 +153,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: go-test-status-badge
+          path: .
+
+      - name: Download coverage badge artifact
+        if: needs.go-test.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-badge
           path: .
 
       - name: Build go-test status badge payload
@@ -164,8 +202,16 @@ jobs:
           mkdir -p "badges-work/branch-status/${GH_BRANCH}"
           cp go-test-status.json "badges-work/branch-status/${GH_BRANCH}/go-test.json"
 
+          if [ -f coverage-badge.json ]; then
+            mkdir -p "badges-work/branch-coverage/${GH_BRANCH}"
+            cp coverage-badge.json "badges-work/branch-coverage/${GH_BRANCH}/coverage.json"
+          fi
+
           cd badges-work
           git add "branch-status/${GH_BRANCH}/go-test.json"
+          if [ -f "branch-coverage/${GH_BRANCH}/coverage.json" ]; then
+            git add "branch-coverage/${GH_BRANCH}/coverage.json"
+          fi
           if git diff --cached --quiet; then
             echo "No badge changes to publish."
             exit 0

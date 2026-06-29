@@ -1,6 +1,8 @@
 .DS_Store
 bin/
 coverage.out
+coverage-summary.txt
+coverage.html
 dist/
 .gocache/
 .gomodcache/

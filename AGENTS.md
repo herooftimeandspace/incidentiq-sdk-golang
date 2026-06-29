@@ -36,6 +36,12 @@ in this repository.
 - Run `GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...`
   after code, generator, contract, or documentation changes that affect the
   public SDK surface.
+- Run native Go coverage for shared request behavior, generated wrappers, and CI
+  changes:
+  `GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...`.
+  Use `go tool cover -func=coverage.out -o coverage-summary.txt` for the text
+  summary and `go tool cover -html=coverage.out -o coverage.html` for the HTML
+  report.
 - Promotion, badge, and release automation lives in `.github/workflows/` and is
   intentionally aligned with `incident-py-q` while using Go helper scripts under
   `scripts/`.

@@ -1,8 +1,11 @@
 # incidentiq-sdk-golang
 
 [![dev go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
+[![dev coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/dev/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
 [![staging go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
+[![staging coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/staging/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
 [![main go-test](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/go-test.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
+[![main coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/main/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
 [![staging integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Astaging)
 [![main integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Amain)
 
@@ -167,6 +170,14 @@ The current parity surface is protected by tests for:
 
 ```bash
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
+```
+
+Run the native Go coverage workflow locally:
+
+```bash
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
+go tool cover -func=coverage.out -o coverage-summary.txt
+go tool cover -html=coverage.out -o coverage.html
 ```
 
 The repo uses only the Go standard library for the runtime client.
