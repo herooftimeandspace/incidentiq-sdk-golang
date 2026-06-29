@@ -146,7 +146,7 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 
 func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, silver bool) error {
 	err := c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, true)
-	if err == nil || !silver || hasHeader(opts.Headers, "Client") {
+	if err == nil || !silver || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
 		return err
 	}
 	return c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, false)
@@ -211,7 +211,7 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		return err
 	}
 	if response.StatusCode < http.StatusOK || response.StatusCode >= http.StatusMultipleChoices {
-		return &APIError{StatusCode: response.StatusCode, Method: method, Path: path, Body: payload}
+		return &APIError{StatusCode: response.StatusCode, Method: method, Path: path, Body: payload, Headers: response.Header.Clone()}
 	}
 	if len(bytes.TrimSpace(payload)) == 0 || response.StatusCode == http.StatusNoContent || out == nil {
 		return nil
@@ -233,6 +233,30 @@ func hasHeader(headers map[string]string, name string) bool {
 		}
 	}
 	return false
+}
+
+func isClientHeaderRejectionError(err error) bool {
+	apiErr, ok := err.(*APIError)
+	if !ok {
+		return false
+	}
+	switch apiErr.StatusCode {
+	case http.StatusBadRequest, http.StatusUnauthorized, http.StatusForbidden, http.StatusNotFound:
+	default:
+		return false
+	}
+
+	haystack := strings.ToLower(string(apiErr.Body))
+	for name, values := range apiErr.Headers {
+		haystack += "\n" + strings.ToLower(name)
+		for _, value := range values {
+			haystack += "\n" + strings.ToLower(value)
+		}
+	}
+	return strings.Contains(haystack, "apiclient") ||
+		strings.Contains(haystack, "client header") ||
+		strings.Contains(haystack, "client:") ||
+		strings.Contains(haystack, "client-header")
 }
 
 func encodeRequestBody(opts RequestOptions) ([]byte, string, error) {
