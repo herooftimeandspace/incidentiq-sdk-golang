@@ -18,7 +18,7 @@ HAR-derived undocumented POST route for `client.Silver.Profiles`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
-The Go wrapper sends the multipart body supplied through `RequestOptions.Body` with the caller-provided multipart `ContentType`. The caller is responsible for preparing the image bytes and multipart form body before calling the wrapper.
+The Go wrapper sends the multipart body supplied through `RequestOptions.Body` with the caller-provided multipart `ContentType`. The caller is responsible for preparing the image bytes and multipart form body before calling the wrapper. Browser-observed profile photo uploads omit the SDK `Client` header, so callers that need to match the HAR exactly can set `RequestOptions.OmitClientHeader`.
 
 #### Parameters
 
@@ -26,6 +26,7 @@ The Go wrapper sends the multipart body supplied through `RequestOptions.Body` w
 | --- | --- | --- | --- | --- | --- |
 | `PathParams["user_id"]` | `user_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `Body` and `ContentType` | `File` | `file` | `yes` | `multipart/form-data bytes` | Multipart image field inferred from HAR observations for this undocumented Silver route. Build a multipart form with a `File` part and pass the encoded bytes plus the writer's form-data content type. |
+| `OmitClientHeader` | `Client` | `header` | `no` | `bool` | Set to `true` when the upload must match HAR-observed browser traffic that does not include the SDK-provided `Client: ApiClient` header. |
 
 #### Examples
 
@@ -48,6 +49,7 @@ err = client.Silver.Profiles.PostProfilePicture(ctx, incidentiq.RequestOptions{
 	PathParams:       map[string]any{"user_id": userID},
 	Body:             body.Bytes(),
 	ContentType:      writer.FormDataContentType(),
+	OmitClientHeader: true,
 	OmitSiteIDHeader: true,
 }, &payload)
 ```

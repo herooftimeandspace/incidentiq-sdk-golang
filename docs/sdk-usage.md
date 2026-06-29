@@ -38,7 +38,7 @@ contract.
 
 ## Request Options
 
-Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, and per-request timeout:
+Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, per-request timeout, and explicit SDK header omission for HAR-validated Silver calls:
 
 ```go
 err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
@@ -46,6 +46,11 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 	Params:     map[string]string{"$s": "100"},
 }, &payload)
 ```
+
+Golden and default Silver requests send `Client: ApiClient`. Set
+`OmitClientHeader: true` only when a Silver route has been validated against
+browser HAR traffic that omits the `Client` header, such as profile photo
+uploads.
 
 ## Low-Level Request API
 

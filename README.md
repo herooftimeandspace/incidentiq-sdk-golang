@@ -99,7 +99,9 @@ live site interaction HARs. Silver methods are exposed under
 All requests send `Client: ApiClient` by default. Silver requests first try that
 same header shape; if the Silver route rejects it, the SDK retries once without
 the SDK-provided `Client` header because HAR-derived routes may not follow the
-documented Postman requirement.
+documented Postman requirement. Set `RequestOptions.OmitClientHeader` only for
+HAR-validated Silver calls that must intentionally match browser traffic without
+the SDK-provided `Client` header.
 
 ```go
 var tickets map[string]any

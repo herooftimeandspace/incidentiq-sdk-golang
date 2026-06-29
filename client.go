@@ -146,7 +146,7 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 
 func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, silver bool) error {
 	err := c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, true)
-	if err == nil || !silver || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
+	if err == nil || !silver || opts.OmitClientHeader || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
 		return err
 	}
 	return c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, false)
@@ -180,7 +180,7 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
-	if includeClientHeader && !hasHeader(opts.Headers, "Client") {
+	if includeClientHeader && !opts.OmitClientHeader && !hasHeader(opts.Headers, "Client") {
 		request.Header.Set("Client", defaultClientHeader)
 	}
 	if c.config.SiteID != "" && !opts.OmitSiteIDHeader {
