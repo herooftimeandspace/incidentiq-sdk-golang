@@ -30,6 +30,7 @@ type Config struct {
 	AuthMode          AuthMode
 	AppHeaders        map[string]string
 	Timeout           time.Duration
+	MaxResponseBytes  int64
 	ValidateResponses bool
 	MaxRetries        int
 	BackoffBase       time.Duration
@@ -84,6 +85,12 @@ func (c Config) normalized() (Config, error) {
 	}
 	if c.Timeout < 0 {
 		return Config{}, &ConfigurationError{Message: "timeout must be greater than zero"}
+	}
+	if c.MaxResponseBytes == 0 {
+		c.MaxResponseBytes = 4 << 20
+	}
+	if c.MaxResponseBytes < 0 {
+		return Config{}, &ConfigurationError{Message: "max_response_bytes must be greater than zero"}
 	}
 	if c.BackoffBase == 0 {
 		c.BackoffBase = 250 * time.Millisecond

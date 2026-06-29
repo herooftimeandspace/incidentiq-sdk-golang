@@ -8,12 +8,14 @@ import "time"
 // added. Request remains the drop-in escape hatch that matches incident-py-q's
 // Client.request method.
 type RequestOptions struct {
-	PathParams       map[string]any
-	Params           map[string]string
-	JSON             any
-	Body             []byte
-	ContentType      string
-	Headers          map[string]string
-	Timeout          time.Duration
-	OmitSiteIDHeader bool
+	PathParams           map[string]any
+	Params               map[string]string
+	JSON                 any
+	Body                 []byte
+	ContentType          string
+	Headers              map[string]string
+	Timeout              time.Duration
+	MaxResponseBodyBytes int64
+	OmitClientHeader     bool
+	OmitSiteIDHeader     bool
 }
