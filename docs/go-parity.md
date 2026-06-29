@@ -20,6 +20,8 @@ The Go client currently matches the source SDK for the following runtime rules:
 - tenant-root handling for `/api/`, `/services/`, `/apps/`, `/img/`, and `/s/`
 - JSON object and array response decoding
 - retry behavior for idempotent methods and retryable HTTP statuses
+- Golden wrappers directly on `client.<Namespace>.<Method>`
+- Silver fallback wrappers under `client.Silver.<Namespace>.<Method>`
 
 ## Contract Artifacts
 
@@ -34,9 +36,14 @@ The Go repo embeds these synced source SDK artifacts:
 - `testdata/contract/silver_sdk_inventory.json`
 - `testdata/contract/merged_sdk_inventory.json`
 
-## Remaining Parity Work
+## Generated Wrapper Surface
 
-The Go repo still needs generated typed wrappers for each Golden and Silver SDK
-inventory entry. Until those wrappers are generated, callers can use
-`RequestGolden`, `RequestSilver`, or `Request` to reach the same routes with the
-same runtime semantics.
+The Go repo generates wrappers from the bundled Golden and Silver SDK inventory
+snapshots. Golden wrappers are promoted directly onto `Client`, while Silver
+wrappers stay under `Client.Silver` to match the source SDK fallback model.
+
+Regenerate wrappers after refreshing inventories:
+
+```bash
+go generate ./...
+```

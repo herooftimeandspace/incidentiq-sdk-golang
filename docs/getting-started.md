@@ -50,16 +50,18 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 
 ## Golden And Silver Helpers
 
-Golden methods are available through `RequestGolden` while typed wrappers are still pending:
+Golden methods are exposed directly on the client:
 
 ```go
 var statuses map[string]any
-err := client.RequestGolden(ctx, "tickets", "get_ticket_statuses", incidentiq.RequestOptions{}, &statuses)
+err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &statuses)
 ```
 
-Silver routes are available through `RequestSilver`:
+Silver fallback routes are exposed under `client.Silver`:
 
 ```go
-var assigned map[string]any
-err := client.RequestSilver(ctx, "tickets", "list_current_user_assigned_tickets", incidentiq.RequestOptions{}, &assigned)
+var status map[string]any
+err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"ticket_id": "ticket-guid"},
+}, &status)
 ```

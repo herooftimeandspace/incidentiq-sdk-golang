@@ -10,6 +10,8 @@ The format is based on Keep a Changelog and this project follows Semantic Versio
 - Initial `github.com/herooftimeandspace/incidentiq-sdk-golang` module.
 - Low-level `Client.Request` API.
 - `RequestGolden` and `RequestSilver` helpers backed by bundled SDK inventories.
+- Generated Golden wrappers directly on `Client`.
+- Generated Silver fallback wrappers under `Client.Silver`.
 - Bearer-token auth by default, with optional raw mode.
 - Tenant base URL support for runtime and future integration tests.
 - Embedded Stoplight, Postman, app schema, Silver inventory, and SDK inventory artifacts.
