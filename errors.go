@@ -1,6 +1,9 @@
 package incidentiq
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 // ConfigurationError reports invalid client setup such as unsafe base URLs or
 // missing credentials.
@@ -27,6 +30,7 @@ type APIError struct {
 	Method     string
 	Path       string
 	Body       []byte
+	Headers    http.Header
 }
 
 func (e *APIError) Error() string {

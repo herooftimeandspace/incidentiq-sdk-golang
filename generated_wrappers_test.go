@@ -200,6 +200,41 @@ func TestGeneratedSilverWrapperUsesSilverNamespace(t *testing.T) {
 	}
 }
 
+func TestGeneratedWrappersInvokeAllInventoryOperations(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+
+	golden, err := GoldenInventory()
+	if err != nil {
+		t.Fatalf("GoldenInventory returned error: %v", err)
+	}
+	for _, operation := range golden {
+		service := reflect.ValueOf(client.generatedClientServices).FieldByName(testExportedName(operation.Namespace))
+		invokeGeneratedWrapper(t, "Golden."+operation.Namespace+"."+operation.Name, service, operation.Name, operation.Path)
+	}
+
+	silver, err := SilverInventory()
+	if err != nil {
+		t.Fatalf("SilverInventory returned error: %v", err)
+	}
+	for _, operation := range silver {
+		service := silverServiceValue(t, client.Silver, operation.Namespace)
+		invokeGeneratedWrapper(t, "Silver."+operation.Namespace+"."+operation.Name, service, operation.Name, operation.Path)
+	}
+}
+
 type inventoryOperation interface {
 	GetNamespace() string
 }
@@ -226,6 +261,56 @@ func countByExportedNamespace[T inventoryOperation](operations []T) map[string]i
 }
 
 var testNonIdentifier = regexp.MustCompile(`[^0-9A-Za-z]+`)
+var testPathParamPattern = regexp.MustCompile(`\{([^}]+)\}`)
+
+func silverServiceValue(t *testing.T, silver *SilverClient, namespace string) reflect.Value {
+	t.Helper()
+	service := reflect.ValueOf(silver).Elem()
+	if parent, child, ok := strings.Cut(namespace, "."); ok {
+		parentValue := service.FieldByName(testExportedName(parent))
+		if !parentValue.IsValid() || parentValue.IsNil() {
+			t.Fatalf("missing Silver parent namespace %s", parent)
+		}
+		service = parentValue.Elem()
+		return service.FieldByName(testExportedName(child))
+	}
+	return service.FieldByName(testExportedName(namespace))
+}
+
+func invokeGeneratedWrapper(t *testing.T, label string, service reflect.Value, operationName string, path string) {
+	t.Helper()
+	if !service.IsValid() || service.IsNil() {
+		t.Fatalf("%s service was nil", label)
+	}
+	method := service.MethodByName(testExportedName(operationName))
+	if !method.IsValid() {
+		t.Fatalf("%s wrapper method was missing", label)
+	}
+
+	var payload map[string]any
+	results := method.Call([]reflect.Value{
+		reflect.ValueOf(context.Background()),
+		reflect.ValueOf(RequestOptions{PathParams: pathParamsForTest(path)}),
+		reflect.ValueOf(&payload),
+	})
+	if len(results) != 1 {
+		t.Fatalf("%s returned %d values, want 1", label, len(results))
+	}
+	if err, ok := results[0].Interface().(error); ok && err != nil {
+		t.Fatalf("%s returned error: %v", label, err)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("%s payload = %#v, want ok true", label, payload)
+	}
+}
+
+func pathParamsForTest(path string) map[string]any {
+	params := map[string]any{}
+	for _, match := range testPathParamPattern.FindAllStringSubmatch(path, -1) {
+		params[match[1]] = "value"
+	}
+	return params
+}
 
 func testExportedName(value string) string {
 	parts := strings.Fields(testNonIdentifier.ReplaceAllString(value, " "))
