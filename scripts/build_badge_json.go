@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -62,6 +63,7 @@ func writeCoverageBadge(args []string) {
 	coverageFile := flags.String("coverage-file", "", "Go coverage profile path")
 	label := flags.String("label", "", "badge label")
 	minimum := flags.Float64("minimum", 0, "minimum allowed coverage percentage")
+	minimumBadgeFile := flags.String("minimum-badge-file", "", "optional existing coverage badge JSON whose message sets a higher floor")
 	output := flags.String("output", "", "output JSON path")
 	if err := flags.Parse(args); err != nil {
 		fatal("parse coverage flags: %v", err)
@@ -74,8 +76,19 @@ func writeCoverageBadge(args []string) {
 	if err != nil {
 		fatal("calculate coverage: %v", err)
 	}
-	if percent < *minimum {
-		fatal("coverage %.2f%% is below required minimum %.2f%%", percent, *minimum)
+	effectiveMinimum := *minimum
+	if *minimumBadgeFile != "" {
+		badgeMinimum, err := coverageMinimumFromBadge(*minimumBadgeFile)
+		if err != nil {
+			fatal("read coverage floor badge: %v", err)
+		}
+		if badgeMinimum > effectiveMinimum {
+			effectiveMinimum = badgeMinimum
+		}
+	}
+	roundedPercent := roundCoveragePercent(percent)
+	if roundedPercent < effectiveMinimum {
+		fatal("coverage %.2f%% is below required minimum %.2f%%", roundedPercent, effectiveMinimum)
 	}
 
 	color := "red"
@@ -95,9 +108,33 @@ func writeCoverageBadge(args []string) {
 	writePayload(*output, badgePayload{
 		SchemaVersion: 1,
 		Label:         *label,
-		Message:       fmt.Sprintf("%.2f%%", percent),
+		Message:       fmt.Sprintf("%.2f%%", roundedPercent),
 		Color:         color,
 	})
+}
+
+func coverageMinimumFromBadge(path string) (float64, error) {
+	payload, err := os.ReadFile(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return 0, nil
+		}
+		return 0, err
+	}
+
+	var badge badgePayload
+	if err := json.Unmarshal(payload, &badge); err != nil {
+		return 0, fmt.Errorf("%s: decode badge JSON: %w", path, err)
+	}
+	message := strings.TrimSpace(strings.TrimSuffix(badge.Message, "%"))
+	if message == "" {
+		return 0, fmt.Errorf("%s: coverage badge message is empty", path)
+	}
+	percent, err := strconv.ParseFloat(message, 64)
+	if err != nil {
+		return 0, fmt.Errorf("%s: parse coverage badge message %q: %w", path, badge.Message, err)
+	}
+	return percent, nil
 }
 
 func writeStatusBadge(args []string) {
@@ -170,6 +207,10 @@ func coveragePercent(path string) (float64, error) {
 		return 0, nil
 	}
 	return float64(coveredStatements) / float64(totalStatements) * 100, nil
+}
+
+func roundCoveragePercent(percent float64) float64 {
+	return math.Round(percent*100) / 100
 }
 
 func writePayload(output string, payload badgePayload) {

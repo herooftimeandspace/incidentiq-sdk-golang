@@ -188,6 +188,14 @@ go tool cover -html=coverage.out -o coverage.html
 go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
 ```
 
+Coverage is ratcheted by branch. The `95.0%` value is the permanent minimum,
+but the effective floor is higher when the branch already publishes a higher
+coverage badge. Pull requests are checked against the current badge for their
+base branch, and direct pushes are checked against the current badge for the
+same branch before a new badge is published. If coverage was previously
+`97.10%`, new code must include enough tests to keep coverage at `97.10%` or
+higher.
+
 The repo uses only the Go standard library for the runtime client.
 
 Regenerate wrappers after refreshing inventory snapshots:
