@@ -460,7 +460,7 @@ func TestRequestOptionOverridesResponseSizeLimit(t *testing.T) {
 	}
 }
 
-func TestRequestDoesNotRetryOversizedResponses(t *testing.T) {
+func TestRequestDoesNotRetryOversizedSuccessResponses(t *testing.T) {
 	attempts := 0
 	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		attempts++
@@ -487,6 +487,44 @@ func TestRequestDoesNotRetryOversizedResponses(t *testing.T) {
 	}
 	if attempts != 1 {
 		t.Fatalf("attempts = %d, want 1", attempts)
+	}
+}
+
+func TestRequestRetriesOversizedRetryableErrorResponses(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		if attempts == 1 {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			_, _ = w.Write([]byte("this temporary upstream error body is too large"))
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:          server.URL,
+		APIToken:         "token",
+		MaxRetries:       1,
+		MaxResponseBytes: 16,
+		BackoffBase:      time.Nanosecond,
+		HTTPClient:       server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, &payload)
+	if err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+	if attempts != 2 {
+		t.Fatalf("attempts = %d, want 2", attempts)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
 	}
 }
 
