@@ -246,6 +246,74 @@ func TestRequestSilverRetriesWithoutDefaultClientHeader(t *testing.T) {
 	}
 }
 
+func TestRequestSilverDoesNotRetryWithoutClientHeaderForUnrelatedFailure(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		if attempts > 1 {
+			t.Fatalf("unexpected retry attempt %d", attempts)
+		}
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client header = %q, want %q", got, want)
+		}
+		http.Error(w, "remote action failed after dispatch", http.StatusInternalServerError)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.request(context.Background(), "POST", "/services/remote-action", RequestOptions{
+		JSON: map[string]any{"action": "run"},
+	}, nil, true)
+	if err == nil {
+		t.Fatal("Request returned nil error, want server error")
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want 1", attempts)
+	}
+}
+
+func TestRequestSilverDoesNotRetryWithoutClientHeaderForMalformedResponse(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		if attempts > 1 {
+			t.Fatalf("unexpected retry attempt %d", attempts)
+		}
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client header = %q, want %q", got, want)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"not-valid"`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	err = client.request(context.Background(), "POST", "/services/remote-action", RequestOptions{
+		JSON: map[string]any{"action": "run"},
+	}, &payload, true)
+	if err == nil {
+		t.Fatal("Request returned nil error, want JSON validation error")
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want 1", attempts)
+	}
+}
+
 func TestRequestRejectsJSONAndRawBodyTogether(t *testing.T) {
 	client, err := NewClient(Config{
 		BaseURL:  "https://example.incidentiq.com",
