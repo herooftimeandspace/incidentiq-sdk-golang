@@ -1,8 +1,7 @@
 # `users` Golden Namespace
 
-Sync client access: `client.users`
+Go client access: `client.Users`
 
-Async client access: `client.users` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `create_local_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_CreateLocalUser`
-
-- Sync: `client.users.create_local_user(user=..., timeout=None)`
-- Async: `await client.users.create_local_user(user=..., timeout=None)`
-- Raw payload: `client.users.create_local_user.raw(user=..., timeout=None)`
+- Go wrapper: `client.Users.CreateLocalUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "create_local_user", opts, out)`
 - HTTP route: `POST /users/local/new`
 - Source controller: `Users`
 
@@ -65,28 +59,23 @@ POST /api/v1.0/users/local/new
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user` | `User` | `body` | `yes` | `User` | `User` | The User to be created |
+| `JSON` | `User` | `body` | `yes` | `User` | `User` | The User to be created |
 
 #### Returns
 
-- Typed call return: `ItemCreateResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemCreateResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemCreateResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_DeleteUser`
-
-- Sync: `client.users.delete_user(user_id=..., timeout=None)`
-- Async: `await client.users.delete_user(user_id=..., timeout=None)`
-- Raw payload: `client.users.delete_user.raw(user_id=..., timeout=None)`
+- Go wrapper: `client.Users.DeleteUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "delete_user", opts, out)`
 - HTTP route: `DELETE /users/{UserId}`
 - Source controller: `Users`
 - Aliases: `delete`
@@ -95,28 +84,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_user_view`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `View_DeleteUserView`
-
-- Sync: `client.users.delete_user_view(view_id=..., timeout=None)`
-- Async: `await client.users.delete_user_view(view_id=..., timeout=None)`
-- Raw payload: `client.users.delete_user_view.raw(view_id=..., timeout=None)`
+- Go wrapper: `client.Users.DeleteUserView(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "delete_user_view", opts, out)`
 - HTTP route: `DELETE /users/views/{ViewId}`
 - Source controller: `Views`
 
@@ -124,28 +108,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["ViewId"]` | `ViewId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_agents`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetAgents`
-
-- Sync: `client.users.get_agents(request_info=..., timeout=None)`
-- Async: `await client.users.get_agents(request_info=..., timeout=None)`
-- Raw payload: `client.users.get_agents.raw(request_info=..., timeout=None)`
+- Go wrapper: `client.Users.GetAgents(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_agents", opts, out)`
 - HTTP route: `POST /users/agents`
 - Source controller: `Users`
 
@@ -159,28 +138,23 @@ POST /api/v1.0/users/agents
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request_info` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
+| `JSON` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_agents_legacy`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetAgentsLegacy`
-
-- Sync: `client.users.get_agents_legacy(timeout=None)`
-- Async: `await client.users.get_agents_legacy(timeout=None)`
-- Raw payload: `client.users.get_agents_legacy.raw(timeout=None)`
+- Go wrapper: `client.Users.GetAgentsLegacy(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_agents_legacy", opts, out)`
 - HTTP route: `GET /users/agents`
 - Source controller: `Users`
 
@@ -192,22 +166,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUser`
-
-- Sync: `client.users.get_user(user_id=..., timeout=None)`
-- Async: `await client.users.get_user(user_id=..., timeout=None)`
-- Raw payload: `client.users.get_user.raw(user_id=..., timeout=None)`
+- Go wrapper: `client.Users.GetUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_user", opts, out)`
 - HTTP route: `GET /users/{UserId}`
 - Source controller: `Users`
 - Aliases: `get`
@@ -222,28 +191,23 @@ GET /api/v1.0/users/0b92ee98-edef-4423-9e15-98fe5726c1af
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | User Id of the user details to be retrieved |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | User Id of the user details to be retrieved |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_user_view`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `View_GetUserView`
-
-- Sync: `client.users.get_user_view(view_id=..., timeout=None)`
-- Async: `await client.users.get_user_view(view_id=..., timeout=None)`
-- Raw payload: `client.users.get_user_view.raw(view_id=..., timeout=None)`
+- Go wrapper: `client.Users.GetUserView(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_user_view", opts, out)`
 - HTTP route: `GET /users/views/{ViewId}`
 - Source controller: `Views`
 
@@ -257,28 +221,23 @@ GET /api/v1.0/users/views/{ViewId:guid}
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | View Id which details are to be retrieved |
+| `PathParams["ViewId"]` | `ViewId` | `path` | `yes` | `string` | `-` | View Id which details are to be retrieved |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfView`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfView` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfView`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_user_views`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `View_GetUserViews`
-
-- Sync: `client.users.get_user_views(timeout=None)`
-- Async: `await client.users.get_user_views(timeout=None)`
-- Raw payload: `client.users.get_user_views.raw(timeout=None)`
+- Go wrapper: `client.Users.GetUserViews(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_user_views", opts, out)`
 - HTTP route: `GET /users/views`
 - Source controller: `Views`
 
@@ -296,22 +255,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfView`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfView` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfView`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsers`
-
-- Sync: `client.users.get_users(request_info=..., timeout=None)`
-- Async: `await client.users.get_users(request_info=..., timeout=None)`
-- Raw payload: `client.users.get_users.raw(request_info=..., timeout=None)`
+- Go wrapper: `client.Users.GetUsers(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users", opts, out)`
 - HTTP route: `POST /users`
 - Source controller: `Users`
 
@@ -325,28 +279,23 @@ POST /api/v1.0/users
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `request_info` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
+| `JSON` | `RequestInfo` | `body` | `yes` | `GetUsersRequestV1` | `GetUsersRequestV1` | Request object containing filters |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users_for_view`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsersForView`
-
-- Sync: `client.users.get_users_for_view(view_id=..., body_filters=..., timeout=None)`
-- Async: `await client.users.get_users_for_view(view_id=..., body_filters=..., timeout=None)`
-- Raw payload: `client.users.get_users_for_view.raw(view_id=..., body_filters=..., timeout=None)`
+- Go wrapper: `client.Users.GetUsersForView(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users_for_view", opts, out)`
 - HTTP route: `POST /users/view/{ViewId}`
 - Source controller: `Users`
 
@@ -360,29 +309,24 @@ POST /api/v1.0/users/view/4e6817c9-86b5-4810-84d8-ae99dfb6ba81
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | The ViewId to use |
-| `body_filters` | `BodyFilters` | `body` | `yes` | `list[Any]` | `-` | Other filtration to use to filter the returned view's user list |
+| `PathParams["ViewId"]` | `ViewId` | `path` | `yes` | `string` | `-` | The ViewId to use |
+| `JSON` | `BodyFilters` | `body` | `yes` | `[]any` | `-` | Other filtration to use to filter the returned view's user list |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users_legacy`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsersLegacy`
-
-- Sync: `client.users.get_users_legacy(timeout=None)`
-- Async: `await client.users.get_users_legacy(timeout=None)`
-- Raw payload: `client.users.get_users_legacy.raw(timeout=None)`
+- Go wrapper: `client.Users.GetUsersLegacy(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users_legacy", opts, out)`
 - HTTP route: `GET /users`
 - Source controller: `Users`
 - Aliases: `list`
@@ -395,22 +339,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users_per_grade`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsersPerGrade`
-
-- Sync: `client.users.get_users_per_grade(timeout=None)`
-- Async: `await client.users.get_users_per_grade(timeout=None)`
-- Raw payload: `client.users.get_users_per_grade.raw(timeout=None)`
+- Go wrapper: `client.Users.GetUsersPerGrade(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users_per_grade", opts, out)`
 - HTTP route: `GET /users/stats/grades`
 - Source controller: `Users`
 
@@ -428,22 +367,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfGradeStat`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfGradeStat` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfGradeStat`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users_per_location`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsersPerLocation`
-
-- Sync: `client.users.get_users_per_location(timeout=None)`
-- Async: `await client.users.get_users_per_location(timeout=None)`
-- Raw payload: `client.users.get_users_per_location.raw(timeout=None)`
+- Go wrapper: `client.Users.GetUsersPerLocation(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users_per_location", opts, out)`
 - HTTP route: `GET /users/stats/locations`
 - Source controller: `Users`
 
@@ -461,22 +395,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfLocationStat`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfLocationStat` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfLocationStat`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_users_with_location_permission`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_GetUsersWithLocationPermission`
-
-- Sync: `client.users.get_users_with_location_permission(location_id=..., timeout=None)`
-- Async: `await client.users.get_users_with_location_permission(location_id=..., timeout=None)`
-- Raw payload: `client.users.get_users_with_location_permission.raw(location_id=..., timeout=None)`
+- Go wrapper: `client.Users.GetUsersWithLocationPermission(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "get_users_with_location_permission", opts, out)`
 - HTTP route: `GET /users/location/{LocationId}`
 - Source controller: `Users`
 
@@ -490,28 +419,23 @@ GET /api/v1.0/users/location/1e997655-cbce-4cc3-85a6-5420aa9c6206
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | The LocationId of the Location to be queried |
+| `PathParams["LocationId"]` | `LocationId` | `path` | `yes` | `string` | `-` | The LocationId of the Location to be queried |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUserWithLocationPermission`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUserWithLocationPermission` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUserWithLocationPermission`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `User_UpdateUser`
-
-- Sync: `client.users.update_user(user_id=..., user=..., timeout=None)`
-- Async: `await client.users.update_user(user_id=..., user=..., timeout=None)`
-- Raw payload: `client.users.update_user.raw(user_id=..., user=..., timeout=None)`
+- Go wrapper: `client.Users.UpdateUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "update_user", opts, out)`
 - HTTP route: `POST /users/{UserId}`
 - Source controller: `Users`
 - Aliases: `update`
@@ -552,29 +476,24 @@ UpdateUserRequest: {
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | The UserId of the user to be updated |
-| `user` | `User` | `body` | `yes` | `UpdateUserRequest` | `UpdateUserRequest` | The user details to be updated |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | The UserId of the user to be updated |
+| `JSON` | `User` | `body` | `yes` | `UpdateUserRequest` | `UpdateUserRequest` | The user details to be updated |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfUser`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfUser` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfUser`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_user_view`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `View_UpdateUserView`
-
-- Sync: `client.users.update_user_view(view_id=..., user_view=..., timeout=None)`
-- Async: `await client.users.update_user_view(view_id=..., user_view=..., timeout=None)`
-- Raw payload: `client.users.update_user_view.raw(view_id=..., user_view=..., timeout=None)`
+- Go wrapper: `client.Users.UpdateUserView(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "users", "update_user_view", opts, out)`
 - HTTP route: `POST /users/views/{ViewId}`
 - Source controller: `Views`
 
@@ -582,16 +501,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `view_id` | `ViewId` | `path` | `yes` | `str` | `-` | - |
-| `user_view` | `UserView` | `body` | `yes` | `View` | `View` | - |
+| `PathParams["ViewId"]` | `ViewId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `UserView` | `body` | `yes` | `View` | `View` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfView`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfView` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfView`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

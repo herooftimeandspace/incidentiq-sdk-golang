@@ -26,5 +26,5 @@ Golden methods come from bundled Stoplight controller contracts. Silver methods 
 
 | Namespace | Methods | Page |
 | --- | ---: | --- |
-| `silver` | 181 | [`client.silver`](silver.md) |
-| `apps` legacy alias | 18 manual helpers + 86 | [`client.apps`](apps.md) |
+| `silver` | 181 | [`client.Silver`](silver.md) |
+| `apps` Silver app namespaces | 18 source SDK helpers + 86 generated wrappers | [`client.Silver.Apps*`](apps.md) |

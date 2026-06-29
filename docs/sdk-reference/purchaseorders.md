@@ -1,8 +1,7 @@
 # `purchaseorders` Golden Namespace
 
-Sync client access: `client.purchaseorders`
+Go client access: `client.Purchaseorders`
 
-Async client access: `client.purchaseorders` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `delete_purchase_order`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_DeletePurchaseOrder`
-
-- Sync: `client.purchaseorders.delete_purchase_order(purchase_order_id=..., timeout=None)`
-- Async: `await client.purchaseorders.delete_purchase_order(purchase_order_id=..., timeout=None)`
-- Raw payload: `client.purchaseorders.delete_purchase_order.raw(purchase_order_id=..., timeout=None)`
+- Go wrapper: `client.Purchaseorders.DeletePurchaseOrder(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "purchaseorders", "delete_purchase_order", opts, out)`
 - HTTP route: `DELETE /purchaseorders/{PurchaseOrderId}`
 - Source controller: `Parts`
 - Aliases: `delete`
@@ -40,28 +34,23 @@ DELETE /api/v1.0/purchaseorders/b199f092-e1a9-418b-8eef-f6e44e273539
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PurchaseOrderId"]` | `PurchaseOrderId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_purchase_order`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetPurchaseOrder`
-
-- Sync: `client.purchaseorders.get_purchase_order(purchase_order_id=..., timeout=None)`
-- Async: `await client.purchaseorders.get_purchase_order(purchase_order_id=..., timeout=None)`
-- Raw payload: `client.purchaseorders.get_purchase_order.raw(purchase_order_id=..., timeout=None)`
+- Go wrapper: `client.Purchaseorders.GetPurchaseOrder(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "purchaseorders", "get_purchase_order", opts, out)`
 - HTTP route: `GET /purchaseorders/{PurchaseOrderId}`
 - Source controller: `Parts`
 - Aliases: `get`
@@ -76,28 +65,23 @@ GET /api/v1.0/purchaseorders/b199f092-e1a9-418b-8eef-f6e44e273539
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["PurchaseOrderId"]` | `PurchaseOrderId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfPurchaseOrder`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfPurchaseOrder` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfPurchaseOrder`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_purchase_orders`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_GetPurchaseOrders`
-
-- Sync: `client.purchaseorders.get_purchase_orders(timeout=None)`
-- Async: `await client.purchaseorders.get_purchase_orders(timeout=None)`
-- Raw payload: `client.purchaseorders.get_purchase_orders.raw(timeout=None)`
+- Go wrapper: `client.Purchaseorders.GetPurchaseOrders(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "purchaseorders", "get_purchase_orders", opts, out)`
 - HTTP route: `GET /purchaseorders`
 - Source controller: `Parts`
 - Aliases: `list`
@@ -116,22 +100,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfPurchaseOrder`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfPurchaseOrder` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfPurchaseOrder`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_purchase_order`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Part_UpdatePurchaseOrder`
-
-- Sync: `client.purchaseorders.update_purchase_order(purchase_order_id=..., purchase_order=..., timeout=None)`
-- Async: `await client.purchaseorders.update_purchase_order(purchase_order_id=..., purchase_order=..., timeout=None)`
-- Raw payload: `client.purchaseorders.update_purchase_order.raw(purchase_order_id=..., purchase_order=..., timeout=None)`
+- Go wrapper: `client.Purchaseorders.UpdatePurchaseOrder(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "purchaseorders", "update_purchase_order", opts, out)`
 - HTTP route: `POST /purchaseorders/{PurchaseOrderId}`
 - Source controller: `Parts`
 - Aliases: `update`
@@ -140,16 +119,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
-| `purchase_order` | `PurchaseOrder` | `body` | `yes` | `PurchaseOrder` | `PurchaseOrder` | - |
+| `PathParams["PurchaseOrderId"]` | `PurchaseOrderId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `PurchaseOrder` | `body` | `yes` | `PurchaseOrder` | `PurchaseOrder` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfPurchaseOrder`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfPurchaseOrder` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfPurchaseOrder`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

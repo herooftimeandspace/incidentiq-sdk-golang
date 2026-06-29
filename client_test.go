@@ -102,7 +102,7 @@ func TestTenantRootPathBypassesGoldenPrefix(t *testing.T) {
 	}
 }
 
-func TestRequestSendsRawMultipartBodyAndCanOmitBrowserHeaders(t *testing.T) {
+func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
 	var body bytes.Buffer
 	writer := multipart.NewWriter(&body)
 	part, err := writer.CreateFormFile("File", "photo.jpg")
@@ -165,7 +165,7 @@ func TestRequestSendsRawMultipartBodyAndCanOmitBrowserHeaders(t *testing.T) {
 		t.Fatalf("NewClient returned error: %v", err)
 	}
 	var payload map[string]any
-	if err := client.Request(context.Background(), "POST", "/api/v1.0/profiles/{user_id}/picture", RequestOptions{
+	if err := client.Silver.Profiles.PostProfilePicture(context.Background(), RequestOptions{
 		PathParams:       map[string]any{"user_id": "user-123"},
 		Body:             body.Bytes(),
 		ContentType:      writer.FormDataContentType(),

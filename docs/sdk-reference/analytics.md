@@ -1,8 +1,7 @@
 # `analytics` Golden Namespace
 
-Sync client access: `client.analytics`
+Go client access: `client.Analytics`
 
-Async client access: `client.analytics` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -10,13 +9,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `get_asset_counts_by_audit_policy_coverage`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByAuditPolicyCoverage`
-
-- Sync: `client.analytics.get_asset_counts_by_audit_policy_coverage(timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_audit_policy_coverage(timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_audit_policy_coverage.raw(timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByAuditPolicyCoverage(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_audit_policy_coverage", opts, out)`
 - HTTP route: `GET /analytics/assets/by-audit-policy-coverage`
 - Source controller: `Analytics`
 
@@ -34,22 +28,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_counts_by_audit_policy_schedule_status`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByAuditPolicyScheduleStatus`
-
-- Sync: `client.analytics.get_asset_counts_by_audit_policy_schedule_status(asset_audit_policy_schedule_id=..., timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_audit_policy_schedule_status(asset_audit_policy_schedule_id=..., timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_audit_policy_schedule_status.raw(asset_audit_policy_schedule_id=..., timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByAuditPolicyScheduleStatus(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_audit_policy_schedule_status", opts, out)`
 - HTTP route: `GET /analytics/assets/by-audit-policy-schedule-status/{AssetAuditPolicyScheduleId}`
 - Source controller: `Analytics`
 
@@ -63,28 +52,23 @@ GET /api/v1.0/analytics/assets/by-audit-schedule-status/ac6cece8-e4f4-e511-a789-
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_audit_policy_schedule_id` | `AssetAuditPolicyScheduleId` | `path` | `yes` | `str` | `-` | Audit Policy Schedule ID of the record to modify |
+| `PathParams["AssetAuditPolicyScheduleId"]` | `AssetAuditPolicyScheduleId` | `path` | `yes` | `string` | `-` | Audit Policy Schedule ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_counts_by_audit_policy_status`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByAuditPolicyStatus`
-
-- Sync: `client.analytics.get_asset_counts_by_audit_policy_status(asset_audit_policy_id=..., timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_audit_policy_status(asset_audit_policy_id=..., timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_audit_policy_status.raw(asset_audit_policy_id=..., timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByAuditPolicyStatus(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_audit_policy_status", opts, out)`
 - HTTP route: `GET /analytics/assets/by-audit-policy-status/{AssetAuditPolicyId}`
 - Source controller: `Analytics`
 
@@ -98,28 +82,23 @@ GET /api/v1.0/analytics/assets/by-audit-status/ac6cece8-e4f4-e511-a789-005056bb0
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_audit_policy_id` | `AssetAuditPolicyId` | `path` | `yes` | `str` | `-` | Audit Policy ID of the record to modify |
+| `PathParams["AssetAuditPolicyId"]` | `AssetAuditPolicyId` | `path` | `yes` | `string` | `-` | Audit Policy ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_counts_by_audit_status`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByAuditStatus`
-
-- Sync: `client.analytics.get_asset_counts_by_audit_status(timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_audit_status(timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_audit_status.raw(timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByAuditStatus(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_audit_status", opts, out)`
 - HTTP route: `GET /analytics/assets/by-audit-status`
 - Source controller: `Analytics`
 
@@ -137,22 +116,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_counts_by_verification_location`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByVerificationLocation`
-
-- Sync: `client.analytics.get_asset_counts_by_verification_location(timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_verification_location(timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_verification_location.raw(timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByVerificationLocation(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_verification_location", opts, out)`
 - HTTP route: `GET /analytics/assets/by-verification-location`
 - Source controller: `Analytics`
 
@@ -170,22 +144,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_asset_counts_by_verification_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetAssetCountsByVerificationType`
-
-- Sync: `client.analytics.get_asset_counts_by_verification_type(timeout=None)`
-- Async: `await client.analytics.get_asset_counts_by_verification_type(timeout=None)`
-- Raw payload: `client.analytics.get_asset_counts_by_verification_type.raw(timeout=None)`
+- Go wrapper: `client.Analytics.GetAssetCountsByVerificationType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_asset_counts_by_verification_type", opts, out)`
 - HTTP route: `GET /analytics/assets/by-verification-type`
 - Source controller: `Analytics`
 
@@ -203,22 +172,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAnalyticsDataPoint`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAnalyticsDataPoint` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAnalyticsDataPoint`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_report`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetReport`
-
-- Sync: `client.analytics.get_report(report_id=..., timeout=None)`
-- Async: `await client.analytics.get_report(report_id=..., timeout=None)`
-- Raw payload: `client.analytics.get_report.raw(report_id=..., timeout=None)`
+- Go wrapper: `client.Analytics.GetReport(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_report", opts, out)`
 - HTTP route: `GET /analytics/reports/{ReportId}`
 - Source controller: `Analytics`
 
@@ -232,28 +196,23 @@ GET /api/v1.0/analytics/reports/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
+| `PathParams["ReportId"]` | `ReportId` | `path` | `yes` | `string` | `-` | Report ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfReport`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfReport` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfReport`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_report_elements`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetReportElements`
-
-- Sync: `client.analytics.get_report_elements(report_id=..., timeout=None)`
-- Async: `await client.analytics.get_report_elements(report_id=..., timeout=None)`
-- Raw payload: `client.analytics.get_report_elements.raw(report_id=..., timeout=None)`
+- Go wrapper: `client.Analytics.GetReportElements(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_report_elements", opts, out)`
 - HTTP route: `GET /analytics/reports/elements/{ReportId}`
 - Source controller: `Analytics`
 
@@ -267,28 +226,23 @@ GET /api/v1.0/analytics/reports/elements/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
+| `PathParams["ReportId"]` | `ReportId` | `path` | `yes` | `string` | `-` | Report ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfReportElement`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfReportElement` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfReportElement`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_report_queries`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetReportQueries`
-
-- Sync: `client.analytics.get_report_queries(report_id=..., timeout=None)`
-- Async: `await client.analytics.get_report_queries(report_id=..., timeout=None)`
-- Raw payload: `client.analytics.get_report_queries.raw(report_id=..., timeout=None)`
+- Go wrapper: `client.Analytics.GetReportQueries(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_report_queries", opts, out)`
 - HTTP route: `GET /analytics/reports/queries/{ReportId}`
 - Source controller: `Analytics`
 
@@ -302,28 +256,23 @@ GET /api/v1.0/analytics/reports/queries/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `report_id` | `ReportId` | `path` | `yes` | `str` | `-` | Report ID of the record to modify |
+| `PathParams["ReportId"]` | `ReportId` | `path` | `yes` | `string` | `-` | Report ID of the record to modify |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfReportQuery`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfReportQuery` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfReportQuery`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_reports`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Analytics_GetReports`
-
-- Sync: `client.analytics.get_reports(timeout=None)`
-- Async: `await client.analytics.get_reports(timeout=None)`
-- Raw payload: `client.analytics.get_reports.raw(timeout=None)`
+- Go wrapper: `client.Analytics.GetReports(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "analytics", "get_reports", opts, out)`
 - HTTP route: `GET /analytics/reports`
 - Source controller: `Analytics`
 
@@ -341,9 +290,9 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfReport`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfReport` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfReport`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

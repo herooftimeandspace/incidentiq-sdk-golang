@@ -1,8 +1,7 @@
 # `slas` Golden Namespace
 
-Sync client access: `client.slas`
+Go client access: `client.Slas`
 
-Async client access: `client.slas` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `activate_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_ActivateSla`
-
-- Sync: `client.slas.activate_sla(sla_id=..., timeout=None)`
-- Async: `await client.slas.activate_sla(sla_id=..., timeout=None)`
-- Raw payload: `client.slas.activate_sla.raw(sla_id=..., timeout=None)`
+- Go wrapper: `client.Slas.ActivateSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "activate_sla", opts, out)`
 - HTTP route: `POST /slas/{SlaId}/activate`
 - Source controller: `SLAs`
 
@@ -39,28 +33,23 @@ POST /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe/activate
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be activated |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | SLA ID to be activated |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `deactivate_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_DeactivateSla`
-
-- Sync: `client.slas.deactivate_sla(sla_id=..., timeout=None)`
-- Async: `await client.slas.deactivate_sla(sla_id=..., timeout=None)`
-- Raw payload: `client.slas.deactivate_sla.raw(sla_id=..., timeout=None)`
+- Go wrapper: `client.Slas.DeactivateSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "deactivate_sla", opts, out)`
 - HTTP route: `POST /slas/{SlaId}/deactivate`
 - Source controller: `SLAs`
 
@@ -74,28 +63,23 @@ POST /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe/deactivate
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be deactivated |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | SLA ID to be deactivated |
 
 #### Returns
 
-- Typed call return: `ActionResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ActionResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ActionResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_DeleteSla`
-
-- Sync: `client.slas.delete_sla(sla_id=..., timeout=None)`
-- Async: `await client.slas.delete_sla(sla_id=..., timeout=None)`
-- Raw payload: `client.slas.delete_sla.raw(sla_id=..., timeout=None)`
+- Go wrapper: `client.Slas.DeleteSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "delete_sla", opts, out)`
 - HTTP route: `DELETE /slas/{SlaId}`
 - Source controller: `SLAs`
 - Aliases: `delete`
@@ -110,28 +94,23 @@ DELETE /api/v1.0/slas/bd64e104-4c83-4744-a888-eeb760c03bfe
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SLA ID to be activated |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | SLA ID to be activated |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetSla`
-
-- Sync: `client.slas.get_sla(sla_id=..., r=..., timeout=None)`
-- Async: `await client.slas.get_sla(sla_id=..., r=..., timeout=None)`
-- Raw payload: `client.slas.get_sla.raw(sla_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Slas.GetSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "get_sla", opts, out)`
 - HTTP route: `GET /slas/{SlaId}`
 - Source controller: `SLAs`
 - Aliases: `get`
@@ -146,29 +125,24 @@ GET /api/v1.0/slas/{SlaId:guid}
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SlaId of SLA being requested |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the SlaId |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | SlaId of SLA being requested |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the SlaId |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfSla`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfSla` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfSla`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_slas`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetSlas`
-
-- Sync: `client.slas.get_slas(r=..., timeout=None)`
-- Async: `await client.slas.get_slas(r=..., timeout=None)`
-- Raw payload: `client.slas.get_slas.raw(r=..., timeout=None)`
+- Go wrapper: `client.Slas.GetSlas(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "get_slas", opts, out)`
 - HTTP route: `GET /slas`
 - Source controller: `SLAs`
 - Aliases: `list`
@@ -183,28 +157,23 @@ GET /api/v1.0/slas
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Sla |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the Sla |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfSla`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfSla` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfSla`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_UpdateSla`
-
-- Sync: `client.slas.update_sla(sla_id=..., item=..., timeout=None)`
-- Async: `await client.slas.update_sla(sla_id=..., item=..., timeout=None)`
-- Raw payload: `client.slas.update_sla.raw(sla_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Slas.UpdateSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "slas", "update_sla", opts, out)`
 - HTTP route: `POST /slas/{SlaId}`
 - Source controller: `SLAs`
 - Aliases: `update`
@@ -213,16 +182,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateSlaRequest` | `UpdateSlaRequest` | - |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateSlaRequest` | `UpdateSlaRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
