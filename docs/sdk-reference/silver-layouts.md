@@ -1,8 +1,7 @@
 # `silver.layouts` Namespace
 
-Sync client access: `client.silver.layouts`
+Go client access: `client.Silver.Layouts`
 
-Async client access: `client.silver.layouts` with `await` on method calls.
 
 These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
@@ -10,15 +9,12 @@ These methods are Silver because Stoplight does not publish direct Golden contra
 
 ### `get_my_dashboard`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.layouts.get_my_dashboard(timeout=None)`
-- Async: `await client.silver.layouts.get_my_dashboard(timeout=None)`
-- Raw payload: `client.silver.layouts.get_my_dashboard.raw(timeout=None)`
+- Go wrapper: `client.Silver.Layouts.GetMyDashboard(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "layouts", "get_my_dashboard", opts, out)`
 - HTTP route: `GET /api/v1.0/layouts/my/dashboard`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.layouts`.
+HAR-derived undocumented GET route for `client.Silver.Layouts`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -28,8 +24,8 @@ This Silver route does not define inferred parameters.
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---

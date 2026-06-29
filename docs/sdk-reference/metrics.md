@@ -1,8 +1,7 @@
 # `metrics` Golden Namespace
 
-Sync client access: `client.metrics`
+Go client access: `client.Metrics`
 
-Async client access: `client.metrics` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -19,13 +18,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `delete_metric`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_DeleteMetric`
-
-- Sync: `client.metrics.delete_metric(metric_id=..., timeout=None)`
-- Async: `await client.metrics.delete_metric(metric_id=..., timeout=None)`
-- Raw payload: `client.metrics.delete_metric.raw(metric_id=..., timeout=None)`
+- Go wrapper: `client.Metrics.DeleteMetric(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "delete_metric", opts, out)`
 - HTTP route: `DELETE /metrics/{MetricId}`
 - Source controller: `SLAs`
 - Aliases: `delete`
@@ -40,28 +34,23 @@ DELETE /api/v1.0/metrics/2c6101d2-1ac8-4320-b234-74f51a3b2e58
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | MetricID to be deleted |
+| `PathParams["MetricId"]` | `MetricId` | `path` | `yes` | `string` | `-` | MetricID to be deleted |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_metric_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_DeleteMetricType`
-
-- Sync: `client.metrics.delete_metric_type(metric_type_id=..., timeout=None)`
-- Async: `await client.metrics.delete_metric_type(metric_type_id=..., timeout=None)`
-- Raw payload: `client.metrics.delete_metric_type.raw(metric_type_id=..., timeout=None)`
+- Go wrapper: `client.Metrics.DeleteMetricType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "delete_metric_type", opts, out)`
 - HTTP route: `DELETE /metrics/types/{MetricTypeId}`
 - Source controller: `SLAs`
 
@@ -75,28 +64,23 @@ DELETE /api/v1.0/metrics/types/67a39334-d778-487c-95ae-07a776ed8201
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | MetricTypeID of the MetricType to be deleted |
+| `PathParams["MetricTypeId"]` | `MetricTypeId` | `path` | `yes` | `string` | `-` | MetricTypeID of the MetricType to be deleted |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_metric`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetMetric`
-
-- Sync: `client.metrics.get_metric(metric_id=..., r=..., timeout=None)`
-- Async: `await client.metrics.get_metric(metric_id=..., r=..., timeout=None)`
-- Raw payload: `client.metrics.get_metric.raw(metric_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Metrics.GetMetric(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "get_metric", opts, out)`
 - HTTP route: `GET /metrics/{MetricId}`
 - Source controller: `SLAs`
 - Aliases: `get`
@@ -111,29 +95,24 @@ GET /api/v1.0/metrics/2c6101d2-1ac8-4320-b234-74f51a3b2e58
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | MetricId of Metric being requested |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Metric(s) |
+| `PathParams["MetricId"]` | `MetricId` | `path` | `yes` | `string` | `-` | MetricId of Metric being requested |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the Metric(s) |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfMetric`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfMetric` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfMetric`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_metric_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetMetricType`
-
-- Sync: `client.metrics.get_metric_type(metric_type_id=..., r=..., timeout=None)`
-- Async: `await client.metrics.get_metric_type(metric_type_id=..., r=..., timeout=None)`
-- Raw payload: `client.metrics.get_metric_type.raw(metric_type_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Metrics.GetMetricType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "get_metric_type", opts, out)`
 - HTTP route: `GET /metrics/types/{MetricTypeId}`
 - Source controller: `SLAs`
 
@@ -147,29 +126,24 @@ GET /api/v1.0/metrics/types/67a39334-d778-487c-95ae-07a776ed8201
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | MetricTypeId of the MetricType being requested |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the MetricType(s) |
+| `PathParams["MetricTypeId"]` | `MetricTypeId` | `path` | `yes` | `string` | `-` | MetricTypeId of the MetricType being requested |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the MetricType(s) |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfMetricType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfMetricType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfMetricType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_metric_types`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetMetricTypes`
-
-- Sync: `client.metrics.get_metric_types(r=..., timeout=None)`
-- Async: `await client.metrics.get_metric_types(r=..., timeout=None)`
-- Raw payload: `client.metrics.get_metric_types.raw(r=..., timeout=None)`
+- Go wrapper: `client.Metrics.GetMetricTypes(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "get_metric_types", opts, out)`
 - HTTP route: `GET /metrics/types`
 - Source controller: `SLAs`
 
@@ -183,28 +157,23 @@ GET /api/v1.0/metrics/types
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the MetricType(s) |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the MetricType(s) |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfMetricType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfMetricType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfMetricType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_metrics`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetMetrics`
-
-- Sync: `client.metrics.get_metrics(r=..., timeout=None)`
-- Async: `await client.metrics.get_metrics(r=..., timeout=None)`
-- Raw payload: `client.metrics.get_metrics.raw(r=..., timeout=None)`
+- Go wrapper: `client.Metrics.GetMetrics(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "get_metrics", opts, out)`
 - HTTP route: `GET /metrics`
 - Source controller: `SLAs`
 - Aliases: `list`
@@ -219,28 +188,23 @@ GET /api/v1.0/metrics/
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Metric(s) |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the Metric(s) |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfMetric`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfMetric` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfMetric`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_metrics_for_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_GetMetricsForSla`
-
-- Sync: `client.metrics.get_metrics_for_sla(sla_id=..., r=..., timeout=None)`
-- Async: `await client.metrics.get_metrics_for_sla(sla_id=..., r=..., timeout=None)`
-- Raw payload: `client.metrics.get_metrics_for_sla.raw(sla_id=..., r=..., timeout=None)`
+- Go wrapper: `client.Metrics.GetMetricsForSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "get_metrics_for_sla", opts, out)`
 - HTTP route: `GET /metrics/for/sla/{SlaId}`
 - Source controller: `SLAs`
 
@@ -254,29 +218,24 @@ GET /api/v1.0/metrics/for/sla/bd64e104-4c83-4744-a888-eeb760c03bfe
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | SlaId of SLA containing the Metrics being requested |
-| `r` | `r` | `query` | `yes` | `Any` | `-` | Request Options specified for the Sla Metrics |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | SlaId of SLA containing the Metrics being requested |
+| `Params["r"]` | `r` | `query` | `yes` | `any` | `-` | Request Options specified for the Sla Metrics |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfMetric`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfMetric` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfMetric`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_metric`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_UpdateMetric`
-
-- Sync: `client.metrics.update_metric(metric_id=..., item=..., timeout=None)`
-- Async: `await client.metrics.update_metric(metric_id=..., item=..., timeout=None)`
-- Raw payload: `client.metrics.update_metric.raw(metric_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Metrics.UpdateMetric(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "update_metric", opts, out)`
 - HTTP route: `POST /metrics/{MetricId}`
 - Source controller: `SLAs`
 - Aliases: `update`
@@ -285,29 +244,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_id` | `MetricId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateMetricRequest` | `UpdateMetricRequest` | - |
+| `PathParams["MetricId"]` | `MetricId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateMetricRequest` | `UpdateMetricRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_metric_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_UpdateMetricType`
-
-- Sync: `client.metrics.update_metric_type(metric_type_id=..., item=..., timeout=None)`
-- Async: `await client.metrics.update_metric_type(metric_type_id=..., item=..., timeout=None)`
-- Raw payload: `client.metrics.update_metric_type.raw(metric_type_id=..., item=..., timeout=None)`
+- Go wrapper: `client.Metrics.UpdateMetricType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "update_metric_type", opts, out)`
 - HTTP route: `POST /metrics/types/{MetricTypeId}`
 - Source controller: `SLAs`
 
@@ -315,29 +269,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `metric_type_id` | `MetricTypeId` | `path` | `yes` | `str` | `-` | - |
-| `item` | `Item` | `body` | `yes` | `UpdateMetricTypeRequest` | `UpdateMetricTypeRequest` | - |
+| `PathParams["MetricTypeId"]` | `MetricTypeId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Item` | `body` | `yes` | `UpdateMetricTypeRequest` | `UpdateMetricTypeRequest` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_metrics_for_sla`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `Sla_UpdateMetricsForSla`
-
-- Sync: `client.metrics.update_metrics_for_sla(sla_id=..., items=..., timeout=None)`
-- Async: `await client.metrics.update_metrics_for_sla(sla_id=..., items=..., timeout=None)`
-- Raw payload: `client.metrics.update_metrics_for_sla.raw(sla_id=..., items=..., timeout=None)`
+- Go wrapper: `client.Metrics.UpdateMetricsForSla(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "metrics", "update_metrics_for_sla", opts, out)`
 - HTTP route: `POST /metrics/for/sla/{SlaId}`
 - Source controller: `SLAs`
 
@@ -345,16 +294,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `sla_id` | `SlaId` | `path` | `yes` | `str` | `-` | - |
-| `items` | `Items` | `body` | `yes` | `list[Any]` | `-` | - |
+| `PathParams["SlaId"]` | `SlaId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `Items` | `body` | `yes` | `[]any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListUpdateResponseOfGuid`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListUpdateResponseOfGuid` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListUpdateResponseOfGuid`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---

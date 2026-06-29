@@ -1,10 +1,14 @@
 package incidentiq
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"io"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 )
@@ -95,6 +99,99 @@ func TestTenantRootPathBypassesGoldenPrefix(t *testing.T) {
 	}
 	if err := client.Request(context.Background(), "GET", "/services/tickets/-/-/AssignedToMe_Unassigned", RequestOptions{}, nil); err != nil {
 		t.Fatalf("Request returned error: %v", err)
+	}
+}
+
+func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
+	var body bytes.Buffer
+	writer := multipart.NewWriter(&body)
+	part, err := writer.CreateFormFile("File", "photo.jpg")
+	if err != nil {
+		t.Fatalf("CreateFormFile returned error: %v", err)
+	}
+	if _, err := part.Write([]byte("image-bytes")); err != nil {
+		t.Fatalf("write multipart part: %v", err)
+	}
+	if err := writer.Close(); err != nil {
+		t.Fatalf("close multipart writer: %v", err)
+	}
+
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.URL.Path, "/api/v1.0/profiles/user-123/picture"; got != want {
+			t.Fatalf("path = %q, want %q", got, want)
+		}
+		if got, want := r.Header.Get("Authorization"), "Bearer token"; got != want {
+			t.Fatalf("Authorization = %q, want %q", got, want)
+		}
+		if got := r.Header.Get("Client"); got != "" {
+			t.Fatalf("Client = %q, want omitted", got)
+		}
+		if got := r.Header.Get("SiteId"); got != "" {
+			t.Fatalf("SiteId = %q, want omitted", got)
+		}
+		if got := r.Header.Get("Content-Type"); got == "" || !strings.HasPrefix(got, "multipart/form-data;") {
+			t.Fatalf("Content-Type = %q, want multipart form data", got)
+		}
+		reader, err := r.MultipartReader()
+		if err != nil {
+			t.Fatalf("MultipartReader returned error: %v", err)
+		}
+		uploaded, err := reader.NextPart()
+		if err != nil {
+			t.Fatalf("NextPart returned error: %v", err)
+		}
+		if uploaded.FormName() != "File" || uploaded.FileName() != "photo.jpg" {
+			t.Fatalf("multipart part = %s/%s, want File/photo.jpg", uploaded.FormName(), uploaded.FileName())
+		}
+		content, err := io.ReadAll(uploaded)
+		if err != nil {
+			t.Fatalf("read multipart content: %v", err)
+		}
+		if string(content) != "image-bytes" {
+			t.Fatalf("multipart content = %q, want image-bytes", content)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(map[string]any{"FileId": "file-123"})
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		SiteID:     "site-1",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	if err := client.Silver.Profiles.PostProfilePicture(context.Background(), RequestOptions{
+		PathParams:       map[string]any{"user_id": "user-123"},
+		Body:             body.Bytes(),
+		ContentType:      writer.FormDataContentType(),
+		OmitSiteIDHeader: true,
+	}, &payload); err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+	if payload["FileId"] != "file-123" {
+		t.Fatalf("payload = %#v, want FileId", payload)
+	}
+}
+
+func TestRequestRejectsJSONAndRawBodyTogether(t *testing.T) {
+	client, err := NewClient(Config{
+		BaseURL:  "https://example.incidentiq.com",
+		APIToken: "token",
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "POST", "/users", RequestOptions{
+		JSON: map[string]any{"ok": true},
+		Body: []byte("raw"),
+	}, nil)
+	if err == nil || !strings.Contains(err.Error(), "both JSON and Body") {
+		t.Fatalf("Request error = %v, want JSON/raw-body validation", err)
 	}
 }
 

@@ -65,12 +65,12 @@ func (c *Client) Request(ctx context.Context, method string, path string, opts R
 	if err != nil {
 		return err
 	}
-	body, err := encodeJSONBody(opts.JSON)
+	body, contentType, err := encodeRequestBody(opts)
 	if err != nil {
 		return err
 	}
 	method = strings.ToUpper(strings.TrimSpace(method))
-	return c.doHTTPRequest(ctx, method, renderedPath, requestURL, body, opts, out)
+	return c.doHTTPRequest(ctx, method, renderedPath, requestURL, body, contentType, opts, out)
 }
 
 // RequestGolden looks up a bundled Golden operation by namespace and method
@@ -138,7 +138,7 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 	return parsed.String(), nil
 }
 
-func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, opts RequestOptions, out any) error {
+func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any) error {
 	canRetry := methodIsIdempotent(method)
 	var lastErr error
 	for attempt := 0; attempt <= c.config.MaxRetries; attempt++ {
@@ -147,7 +147,7 @@ func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, 
 				return err
 			}
 		}
-		err := c.sendOnce(ctx, method, path, requestURL, body, opts, out)
+		err := c.sendOnce(ctx, method, path, requestURL, body, contentType, opts, out)
 		if err == nil {
 			return nil
 		}
@@ -159,14 +159,14 @@ func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, 
 	return lastErr
 }
 
-func (c *Client) sendOnce(ctx context.Context, method string, path string, requestURL string, body []byte, opts RequestOptions, out any) error {
+func (c *Client) sendOnce(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any) error {
 	request, err := http.NewRequestWithContext(ctx, method, requestURL, bytes.NewReader(body))
 	if err != nil {
 		return err
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
-	if c.config.SiteID != "" {
+	if c.config.SiteID != "" && !opts.OmitSiteIDHeader {
 		request.Header.Set("SiteId", c.config.SiteID)
 	}
 	for key, value := range c.config.AppHeaders {
@@ -175,8 +175,8 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	for key, value := range opts.Headers {
 		request.Header.Set(key, value)
 	}
-	if len(body) > 0 {
-		request.Header.Set("Content-Type", "application/json")
+	if len(body) > 0 && contentType != "" {
+		request.Header.Set("Content-Type", contentType)
 	}
 	httpClient := c.config.HTTPClient
 	if opts.Timeout > 0 {
@@ -199,8 +199,8 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	if len(bytes.TrimSpace(payload)) == 0 || response.StatusCode == http.StatusNoContent || out == nil {
 		return nil
 	}
-	contentType := strings.ToLower(response.Header.Get("Content-Type"))
-	if contentType != "" && !strings.Contains(contentType, "json") {
+	responseContentType := strings.ToLower(response.Header.Get("Content-Type"))
+	if responseContentType != "" && !strings.Contains(responseContentType, "json") {
 		return nil
 	}
 	if err := json.Unmarshal(payload, out); err != nil {
@@ -209,15 +209,21 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	return nil
 }
 
-func encodeJSONBody(body any) ([]byte, error) {
-	if body == nil {
-		return nil, nil
+func encodeRequestBody(opts RequestOptions) ([]byte, string, error) {
+	if opts.JSON != nil && opts.Body != nil {
+		return nil, "", &ValidationError{Message: "request options cannot set both JSON and Body"}
 	}
-	payload, err := json.Marshal(body)
+	if opts.Body != nil {
+		return opts.Body, strings.TrimSpace(opts.ContentType), nil
+	}
+	if opts.JSON == nil {
+		return nil, "", nil
+	}
+	payload, err := json.Marshal(opts.JSON)
 	if err != nil {
-		return nil, &ValidationError{Message: fmt.Sprintf("request body could not be encoded as JSON: %v", err)}
+		return nil, "", &ValidationError{Message: fmt.Sprintf("request body could not be encoded as JSON: %v", err)}
 	}
-	return payload, nil
+	return payload, "application/json", nil
 }
 
 func renderPath(pathTemplate string, pathParams map[string]any) (string, error) {

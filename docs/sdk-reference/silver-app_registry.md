@@ -1,8 +1,7 @@
 # `silver.app_registry` Namespace
 
-Sync client access: `client.silver.app_registry`
+Go client access: `client.Silver.AppRegistry`
 
-Async client access: `client.silver.app_registry` with `await` on method calls.
 
 These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
@@ -10,84 +9,75 @@ These methods are Silver because Stoplight does not publish direct Golden contra
 
 ### `get_app`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.app_registry.get_app(app_key=..., timeout=None)`
-- Async: `await client.silver.app_registry.get_app(app_key=..., timeout=None)`
-- Raw payload: `client.silver.app_registry.get_app.raw(app_key=..., timeout=None)`
+- Go wrapper: `client.Silver.AppRegistry.GetApp(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "app_registry", "get_app", opts, out)`
 - HTTP route: `GET /api/v1.0/app-registry/app/{app_key}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.app_registry`.
+HAR-derived undocumented GET route for `client.Silver.AppRegistry`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `app_key` | `app_key` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `PathParams["app_key"]` | `app_key` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `get_site_app`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.app_registry.get_site_app(site_app_id=..., timeout=None)`
-- Async: `await client.silver.app_registry.get_site_app(site_app_id=..., timeout=None)`
-- Raw payload: `client.silver.app_registry.get_site_app.raw(site_app_id=..., timeout=None)`
+- Go wrapper: `client.Silver.AppRegistry.GetSiteApp(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "app_registry", "get_site_app", opts, out)`
 - HTTP route: `GET /api/v1.0/app-registry/site-app/{site_app_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.silver.app_registry`.
+HAR-derived undocumented GET route for `client.Silver.AppRegistry`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `site_app_id` | `site_app_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `PathParams["site_app_id"]` | `site_app_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
 ### `post_installed`
 
-Provenance: Silver (HAR-derived undocumented route)
-
-- Sync: `client.silver.app_registry.post_installed(include_hidden_apps=..., timeout=None)`
-- Async: `await client.silver.app_registry.post_installed(include_hidden_apps=..., timeout=None)`
-- Raw payload: `client.silver.app_registry.post_installed.raw(include_hidden_apps=..., timeout=None)`
+- Go wrapper: `client.Silver.AppRegistry.PostInstalled(ctx, opts, out)`
+- Dynamic helper: `client.RequestSilver(ctx, "app_registry", "post_installed", opts, out)`
 - HTTP route: `POST /api/v1.0/app-registry/installed`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.silver.app_registry`.
+HAR-derived undocumented POST route for `client.Silver.AppRegistry`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Description |
+| RequestOptions Field | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `include_hidden_apps` | `IncludeHiddenApps` | `body` | `yes` | `bool` | Body field inferred from HAR observations for this undocumented Silver route. |
+| `JSON` | `IncludeHiddenApps` | `body` | `yes` | `bool` | Body field inferred from HAR observations for this undocumented Silver route. |
 
 #### Returns
 
-- Typed call return: `dict[str, Any] | list[Any] | None`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---

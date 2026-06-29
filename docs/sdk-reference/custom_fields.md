@@ -1,8 +1,7 @@
 # `custom_fields` Golden Namespace
 
-Sync client access: `client.custom_fields`
+Go client access: `client.CustomFields`
 
-Async client access: `client.custom_fields` with `await` on method calls.
 
 These methods are Golden because they come from bundled Stoplight controller contracts.
 
@@ -20,13 +19,8 @@ These methods are Golden because they come from bundled Stoplight controller con
 
 ### `delete_custom_field`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_DeleteCustomField`
-
-- Sync: `client.custom_fields.delete_custom_field(custom_field_id=..., timeout=None)`
-- Async: `await client.custom_fields.delete_custom_field(custom_field_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.delete_custom_field.raw(custom_field_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.DeleteCustomField(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "delete_custom_field", opts, out)`
 - HTTP route: `DELETE /custom-fields/{CustomFieldId}`
 - Source controller: `Custom Fields`
 - Aliases: `delete`
@@ -41,28 +35,23 @@ DELETE /api/v1.0/custom-fields/f10f540f-2a9f-47fe-acbd-8ca82dc73e7c
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | Custom Field ID to be deleted |
+| `PathParams["CustomFieldId"]` | `CustomFieldId` | `path` | `yes` | `string` | `-` | Custom Field ID to be deleted |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_custom_field_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_DeleteCustomFieldType`
-
-- Sync: `client.custom_fields.delete_custom_field_type(custom_field_type_id=..., timeout=None)`
-- Async: `await client.custom_fields.delete_custom_field_type(custom_field_type_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.delete_custom_field_type.raw(custom_field_type_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.DeleteCustomFieldType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "delete_custom_field_type", opts, out)`
 - HTTP route: `DELETE /custom-fields/types/{CustomFieldTypeId}`
 - Source controller: `Custom Fields`
 
@@ -76,28 +65,23 @@ DELETE /api/v1.0/custom-fields/types/108d5344-012f-4380-b865-3eaa72f7c42f
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | Custom Field Type ID to be deleted |
+| `PathParams["CustomFieldTypeId"]` | `CustomFieldTypeId` | `path` | `yes` | `string` | `-` | Custom Field Type ID to be deleted |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `delete_custom_fields`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_DeleteCustomFields`
-
-- Sync: `client.custom_fields.delete_custom_fields(custom_field_ids=..., timeout=None)`
-- Async: `await client.custom_fields.delete_custom_fields(custom_field_ids=..., timeout=None)`
-- Raw payload: `client.custom_fields.delete_custom_fields.raw(custom_field_ids=..., timeout=None)`
+- Go wrapper: `client.CustomFields.DeleteCustomFields(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "delete_custom_fields", opts, out)`
 - HTTP route: `DELETE /custom-fields`
 - Source controller: `Custom Fields`
 
@@ -105,28 +89,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_ids` | `CustomFieldIds` | `body` | `yes` | `list[Any]` | `-` | - |
+| `JSON` | `CustomFieldIds` | `body` | `yes` | `[]any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ItemDeleteResponse`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemDeleteResponse` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemDeleteResponse`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomField`
-
-- Sync: `client.custom_fields.get_custom_field(custom_field_id=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field(custom_field_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field.raw(custom_field_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomField(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field", opts, out)`
 - HTTP route: `GET /custom-fields/{CustomFieldId}`
 - Source controller: `Custom Fields`
 - Aliases: `get`
@@ -141,28 +120,23 @@ GET /api/v1.0/custom-fields/e60c4fe8-2236-48bb-8dd0-18a6f5b4c7ae
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | Custom Field ID to be retrieved |
+| `PathParams["CustomFieldId"]` | `CustomFieldId` | `path` | `yes` | `string` | `-` | Custom Field ID to be retrieved |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfCustomField`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfCustomField` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfCustomField`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldType`
-
-- Sync: `client.custom_fields.get_custom_field_type(custom_field_type_id=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_type(custom_field_type_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_type.raw(custom_field_type_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_type", opts, out)`
 - HTTP route: `GET /custom-fields/types/{CustomFieldTypeId}`
 - Source controller: `Custom Fields`
 
@@ -176,28 +150,23 @@ GET /api/v1.0/custom-fields/types/108d5344-012f-4380-b865-3eaa72f7c42f
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | Custom Field Type ID to be deleted |
+| `PathParams["CustomFieldTypeId"]` | `CustomFieldTypeId` | `path` | `yes` | `string` | `-` | Custom Field Type ID to be deleted |
 
 #### Returns
 
-- Typed call return: `ItemGetResponseOfCustomFieldType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemGetResponseOfCustomFieldType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemGetResponseOfCustomFieldType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_types`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldTypes`
-
-- Sync: `client.custom_fields.get_custom_field_types(timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_types(timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_types.raw(timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldTypes(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_types", opts, out)`
 - HTTP route: `GET /custom-fields/types`
 - Source controller: `Custom Fields`
 
@@ -215,22 +184,17 @@ This operation does not define request parameters.
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfCustomFieldType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfCustomFieldType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfCustomFieldType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_types2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldTypes2`
-
-- Sync: `client.custom_fields.get_custom_field_types2(custom_field_types_request=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_types2(custom_field_types_request=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_types2.raw(custom_field_types_request=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldTypes2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_types2", opts, out)`
 - HTTP route: `POST /custom-fields/types`
 - Source controller: `Custom Fields`
 
@@ -238,28 +202,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_types_request` | `CustomFieldTypesRequest` | `body` | `yes` | `GetCustomFieldTypesRequest` | `GetCustomFieldTypesRequest` | - |
+| `JSON` | `CustomFieldTypesRequest` | `body` | `yes` | `GetCustomFieldTypesRequest` | `GetCustomFieldTypesRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfCustomFieldType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfCustomFieldType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfCustomFieldType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_values_for_asset`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldValuesForAsset`
-
-- Sync: `client.custom_fields.get_custom_field_values_for_asset(asset_id=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_values_for_asset(asset_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_values_for_asset.raw(asset_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldValuesForAsset(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_values_for_asset", opts, out)`
 - HTTP route: `GET /custom-fields/values/for/asset/{AssetId}`
 - Source controller: `Custom Fields`
 
@@ -273,28 +232,23 @@ GET /api/v1.0/custom-fields/values/for/asset/4c35d2ef-2bb1-457f-b123-dea74ee826b
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `asset_id` | `AssetId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["AssetId"]` | `AssetId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfAssetCustomFieldValue`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfAssetCustomFieldValue` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfAssetCustomFieldValue`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_values_for_ticket`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldValuesForTicket`
-
-- Sync: `client.custom_fields.get_custom_field_values_for_ticket(ticket_id=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_values_for_ticket(ticket_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_values_for_ticket.raw(ticket_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldValuesForTicket(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_values_for_ticket", opts, out)`
 - HTTP route: `GET /custom-fields/values/for/ticket/{TicketId}`
 - Source controller: `Custom Fields`
 
@@ -308,28 +262,23 @@ GET /api/v1.0/custom-fields/values/for/ticket/9933a6e3-d98b-4c5c-be04-043cf23e83
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["TicketId"]` | `TicketId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfTicketCustomFieldValue`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfTicketCustomFieldValue` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfTicketCustomFieldValue`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_field_values_for_user`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFieldValuesForUser`
-
-- Sync: `client.custom_fields.get_custom_field_values_for_user(user_id=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_field_values_for_user(user_id=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_field_values_for_user.raw(user_id=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFieldValuesForUser(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_field_values_for_user", opts, out)`
 - HTTP route: `GET /custom-fields/values/for/user/{UserId}`
 - Source controller: `Custom Fields`
 
@@ -343,28 +292,23 @@ GET /api/v1.0/custom-fields/values/for/user/634d18fb-6c6e-44e6-a993-8444466910e2
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `user_id` | `UserId` | `path` | `yes` | `str` | `-` | - |
+| `PathParams["UserId"]` | `UserId` | `path` | `yes` | `string` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfUserCustomFieldValue`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfUserCustomFieldValue` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfUserCustomFieldValue`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_fields`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFields`
-
-- Sync: `client.custom_fields.get_custom_fields(product_filter_type=None, timeout=None)`
-- Async: `await client.custom_fields.get_custom_fields(product_filter_type=None, timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_fields.raw(product_filter_type=None, timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFields(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_fields", opts, out)`
 - HTTP route: `GET /custom-fields`
 - Source controller: `Custom Fields`
 - Aliases: `list`
@@ -373,28 +317,23 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `product_filter_type` | `ProductFilterType` | `query` | `no` | `Any` | `-` | - |
+| `Params["ProductFilterType"]` | `ProductFilterType` | `query` | `no` | `any` | `-` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfCustomField`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfCustomField` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfCustomField`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `get_custom_fields2`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_GetCustomFields2`
-
-- Sync: `client.custom_fields.get_custom_fields2(custom_fields_request=..., timeout=None)`
-- Async: `await client.custom_fields.get_custom_fields2(custom_fields_request=..., timeout=None)`
-- Raw payload: `client.custom_fields.get_custom_fields2.raw(custom_fields_request=..., timeout=None)`
+- Go wrapper: `client.CustomFields.GetCustomFields2(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "get_custom_fields2", opts, out)`
 - HTTP route: `POST /custom-fields`
 - Source controller: `Custom Fields`
 - Aliases: `create`
@@ -409,28 +348,23 @@ POST /api/v1.0/custom-fields
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_fields_request` | `CustomFieldsRequest` | `body` | `yes` | `GetCustomFieldsRequest` | `GetCustomFieldsRequest` | - |
+| `JSON` | `CustomFieldsRequest` | `body` | `yes` | `GetCustomFieldsRequest` | `GetCustomFieldsRequest` | - |
 
 #### Returns
 
-- Typed call return: `ListGetResponseOfCustomField`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ListGetResponseOfCustomField` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ListGetResponseOfCustomField`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_custom_field`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_UpdateCustomField`
-
-- Sync: `client.custom_fields.update_custom_field(custom_field_id=..., custom_field=..., timeout=None)`
-- Async: `await client.custom_fields.update_custom_field(custom_field_id=..., custom_field=..., timeout=None)`
-- Raw payload: `client.custom_fields.update_custom_field.raw(custom_field_id=..., custom_field=..., timeout=None)`
+- Go wrapper: `client.CustomFields.UpdateCustomField(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "update_custom_field", opts, out)`
 - HTTP route: `POST /custom-fields/{CustomFieldId}`
 - Source controller: `Custom Fields`
 - Aliases: `update`
@@ -439,29 +373,24 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_id` | `CustomFieldId` | `path` | `yes` | `str` | `-` | - |
-| `custom_field` | `CustomField` | `body` | `yes` | `CustomField` | `CustomField` | - |
+| `PathParams["CustomFieldId"]` | `CustomFieldId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `CustomField` | `body` | `yes` | `CustomField` | `CustomField` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfCustomField`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfCustomField` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfCustomField`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
 
 ### `update_custom_field_type`
 
-Provenance: Golden Stoplight contract
-
-Operation ID: `CustomField_UpdateCustomFieldType`
-
-- Sync: `client.custom_fields.update_custom_field_type(custom_field_type_id=..., custom_field_type=..., timeout=None)`
-- Async: `await client.custom_fields.update_custom_field_type(custom_field_type_id=..., custom_field_type=..., timeout=None)`
-- Raw payload: `client.custom_fields.update_custom_field_type.raw(custom_field_type_id=..., custom_field_type=..., timeout=None)`
+- Go wrapper: `client.CustomFields.UpdateCustomFieldType(ctx, opts, out)`
+- Dynamic helper: `client.RequestGolden(ctx, "custom_fields", "update_custom_field_type", opts, out)`
 - HTTP route: `POST /custom-fields/types/{CustomFieldTypeId}`
 - Source controller: `Custom Fields`
 
@@ -469,16 +398,16 @@ No contract summary provided.
 
 #### Parameters
 
-| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
+| RequestOptions Field | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
-| `custom_field_type_id` | `CustomFieldTypeId` | `path` | `yes` | `str` | `-` | - |
-| `custom_field_type` | `CustomFieldType` | `body` | `yes` | `CustomFieldType` | `CustomFieldType` | - |
+| `PathParams["CustomFieldTypeId"]` | `CustomFieldTypeId` | `path` | `yes` | `string` | `-` | - |
+| `JSON` | `CustomFieldType` | `body` | `yes` | `CustomFieldType` | `CustomFieldType` | - |
 
 #### Returns
 
-- Typed call return: `ItemUpdateResponseOfCustomFieldType`
-- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Go wrapper return: `error`; decoded `ItemUpdateResponseOfCustomFieldType` responses are written into `out`.
+- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: `ItemUpdateResponseOfCustomFieldType`
-- Pagination helper: No paging query parameters detected; `iter_pages(...)` returns a single raw response.
+- Pagination helper: No paging query parameters detected; the generated wrapper returns one decoded response through `out`.
 
 ---
