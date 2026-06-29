@@ -9,9 +9,9 @@ go doc ./...
 Runtime inventory helpers are documented in code and in the generated SDK reference pages:
 
 - Golden Stoplight methods are documented under the default SDK reference pages.
-- Silver HAR-derived methods are documented under the generated [`silver` overview](sdk-reference/silver.md).
+- Silver HAR-derived methods are documented under the generated [`Silver` overview](sdk-reference/silver.md).
 - The Go API exposes Golden methods directly on `client.<Namespace>.<Method>` because Golden is the correct default SDK path.
-- Silver methods are quasi-supported API calls derived from live site interaction HARs and stay under `client.Silver.<Namespace>.<Method>`.
+- Silver methods are quasi-supported API calls derived from live site interaction HARs. Silver methods stay under `client.Silver.<Namespace>.<Method>` and app routes use `client.Silver.Apps.<AppNamespace>.<Method>`.
 
 Build and test locally:
 

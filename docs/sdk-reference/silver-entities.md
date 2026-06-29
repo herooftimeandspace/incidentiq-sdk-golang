@@ -1,4 +1,4 @@
-# `silver.entities` Namespace
+# `Silver.entities` Namespace
 
 Go client access: `client.Silver.Entities`
 

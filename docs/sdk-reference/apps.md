@@ -1,6 +1,6 @@
 # `apps` Silver Namespace
 
-Go client access: `client.Silver.<AppsNamespace>` where `<AppsNamespace>` is the generated app service listed below.
+Go client access: `client.Silver.Apps.<AppNamespace>` where `<AppNamespace>` is the generated app service listed below.
 
 
 
@@ -8,47 +8,47 @@ These methods are Silver because Stoplight does not publish Golden contracts for
 
 | Service | Manual Helpers | Generic Silver Methods | Access Path |
 | --- | ---: | ---: | --- |
-| `aeries_sis` | 0 | 7 | `client.Silver.AppsAeriesSis` |
-| `file_wave` | 0 | 2 | `client.Silver.AppsFileWave` |
-| `google_device_data` | 6 | 11 | `client.Silver.AppsGoogleDeviceData` |
-| `infinite_campus` | 0 | 1 | `client.Silver.AppsInfiniteCampus` |
-| `jamf` | 0 | 1 | `client.Silver.AppsJamf` |
-| `jamf_school` | 0 | 1 | `client.Silver.AppsJamfSchool` |
-| `local_asset_manager` | 0 | 1 | `client.Silver.AppsLocalAssetManager` |
-| `lock_n_charge2` | 0 | 3 | `client.Silver.AppsLockNCharge2` |
-| `meraki_mdm` | 0 | 1 | `client.Silver.AppsMerakiMdm` |
-| `microsoft_intune` | 6 | 23 | `client.Silver.AppsMicrosoftIntune` |
-| `mosyle` | 4 | 0 | `client.Silver.AppsMosyle` |
-| `mosyle_manager` | 0 | 4 | `client.Silver.AppsMosyleManager` |
-| `password_reset` | 0 | 1 | `client.Silver.AppsPasswordReset` |
-| `payments_fee_tracker` | 0 | 3 | `client.Silver.AppsPaymentsFeeTracker` |
-| `payments_in_touch` | 0 | 3 | `client.Silver.AppsPaymentsInTouch` |
-| `payments_my_school_bucks` | 0 | 3 | `client.Silver.AppsPaymentsMySchoolBucks` |
-| `payments_square` | 0 | 3 | `client.Silver.AppsPaymentsSquare` |
-| `payments_stripe` | 0 | 3 | `client.Silver.AppsPaymentsStripe` |
-| `payments_vanco` | 0 | 3 | `client.Silver.AppsPaymentsVanco` |
-| `policy_agreements` | 0 | 1 | `client.Silver.AppsPolicyAgreements` |
-| `registry` | 2 | 0 | `client.Silver.AppsRegistry` |
-| `remote_beyond_trust` | 0 | 1 | `client.Silver.AppsRemoteBeyondTrust` |
-| `remote_chrome` | 0 | 1 | `client.Silver.AppsRemoteChrome` |
-| `remote_team_viewer` | 0 | 1 | `client.Silver.AppsRemoteTeamViewer` |
-| `spare_pool_management` | 0 | 4 | `client.Silver.AppsSparePoolManagement` |
-| `trafera` | 0 | 2 | `client.Silver.AppsTrafera` |
-| `widgets` | 0 | 1 | `client.Silver.AppsWidgets` |
-| `workspace_one` | 0 | 1 | `client.Silver.AppsWorkspaceOne` |
+| `aeries_sis` | 0 | 7 | `client.Silver.Apps.AeriesSis` |
+| `file_wave` | 0 | 2 | `client.Silver.Apps.FileWave` |
+| `google_device_data` | 6 | 11 | `client.Silver.Apps.GoogleDeviceData` |
+| `infinite_campus` | 0 | 1 | `client.Silver.Apps.InfiniteCampus` |
+| `jamf` | 0 | 1 | `client.Silver.Apps.Jamf` |
+| `jamf_school` | 0 | 1 | `client.Silver.Apps.JamfSchool` |
+| `local_asset_manager` | 0 | 1 | `client.Silver.Apps.LocalAssetManager` |
+| `lock_n_charge2` | 0 | 3 | `client.Silver.Apps.LockNCharge2` |
+| `meraki_mdm` | 0 | 1 | `client.Silver.Apps.MerakiMdm` |
+| `microsoft_intune` | 6 | 23 | `client.Silver.Apps.MicrosoftIntune` |
+| `mosyle` | 4 | 0 | Source SDK helper only; use `Client.Request` |
+| `mosyle_manager` | 0 | 4 | `client.Silver.Apps.MosyleManager` |
+| `password_reset` | 0 | 1 | `client.Silver.Apps.PasswordReset` |
+| `payments_fee_tracker` | 0 | 3 | `client.Silver.Apps.PaymentsFeeTracker` |
+| `payments_in_touch` | 0 | 3 | `client.Silver.Apps.PaymentsInTouch` |
+| `payments_my_school_bucks` | 0 | 3 | `client.Silver.Apps.PaymentsMySchoolBucks` |
+| `payments_square` | 0 | 3 | `client.Silver.Apps.PaymentsSquare` |
+| `payments_stripe` | 0 | 3 | `client.Silver.Apps.PaymentsStripe` |
+| `payments_vanco` | 0 | 3 | `client.Silver.Apps.PaymentsVanco` |
+| `policy_agreements` | 0 | 1 | `client.Silver.Apps.PolicyAgreements` |
+| `registry` | 2 | 0 | Source SDK helper only; use `Client.Request` |
+| `remote_beyond_trust` | 0 | 1 | `client.Silver.Apps.RemoteBeyondTrust` |
+| `remote_chrome` | 0 | 1 | `client.Silver.Apps.RemoteChrome` |
+| `remote_team_viewer` | 0 | 1 | `client.Silver.Apps.RemoteTeamViewer` |
+| `spare_pool_management` | 0 | 4 | `client.Silver.Apps.SparePoolManagement` |
+| `trafera` | 0 | 2 | `client.Silver.Apps.Trafera` |
+| `widgets` | 0 | 1 | `client.Silver.Apps.Widgets` |
+| `workspace_one` | 0 | 1 | `client.Silver.Apps.WorkspaceOne` |
 
 ## `aeries_sis`
 
-Aeries Sis service available at `client.Silver.AppsAeriesSis`.
+Aeries Sis service available at `client.Silver.Apps.AeriesSis`.
 
 ### `get_auth_oneroster_validate`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetAuthOnerosterValidate(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetAuthOnerosterValidate(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_auth_oneroster_validate", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/auth/oneroster/validate`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -66,12 +66,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_settings_options`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetSettingsOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetSettingsOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_settings_options", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/settings/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -89,12 +89,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_settings_options_sync`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetSettingsOptionsSync(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetSettingsOptionsSync(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_settings_options_sync", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/settings/options/sync`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -112,12 +112,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_history`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetSyncHistory(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetSyncHistory(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_sync_history", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/data/sync/history`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -135,12 +135,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_locations`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetSyncLocations(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetSyncLocations(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_sync_locations", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/sync/data/locations`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -158,12 +158,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_status_last`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.GetSyncStatusLast(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.GetSyncStatusLast(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "get_sync_status_last", opts, out)`
 - HTTP route: `GET /apps/aeriesSis/api/aeriesSis/sync/status/last`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented GET route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -181,12 +181,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_users_search`
 
-- Go wrapper: `client.Silver.AppsAeriesSis.PostUsersSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.AeriesSis.PostUsersSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.aeries_sis", "post_users_search", opts, out)`
 - HTTP route: `POST /apps/aeriesSis/api/aeriesSis/data/users/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsAeriesSis`.
+HAR-derived undocumented POST route for `client.Silver.Apps.AeriesSis`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -208,16 +208,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `file_wave`
 
-File Wave service available at `client.Silver.AppsFileWave`.
+File Wave service available at `client.Silver.Apps.FileWave`.
 
 ### `get_assets_usage`
 
-- Go wrapper: `client.Silver.AppsFileWave.GetAssetsUsage(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.FileWave.GetAssetsUsage(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.file_wave", "get_assets_usage", opts, out)`
 - HTTP route: `GET /apps/fileWave/api/fileWave/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsFileWave`.
+HAR-derived undocumented GET route for `client.Silver.Apps.FileWave`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -238,12 +238,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsFileWave.PostAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.FileWave.PostAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.file_wave", "post_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/fileWave/api/fileWave/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsFileWave`.
+HAR-derived undocumented POST route for `client.Silver.Apps.FileWave`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -265,7 +265,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `google_device_data`
 
-Google Device Data service available at `client.Silver.AppsGoogleDeviceData`.
+Google Device Data service available at `client.Silver.Apps.GoogleDeviceData`.
 
 ### `lookup_asset`
 
@@ -421,12 +421,12 @@ This method does not define parameters.
 
 ### `get_assets_usage`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetAssetsUsage(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetAssetsUsage(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_assets_usage", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/googleDeviceData/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -447,12 +447,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `get_assignment_suggestions`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetAssignmentSuggestions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetAssignmentSuggestions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_assignment_suggestions", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/googleDeviceData/data/assignment/suggestions`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -470,12 +470,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_auth_token_check`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetAuthTokenCheck(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetAuthTokenCheck(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_auth_token_check", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/auth/token-check`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -493,12 +493,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_models_distinct`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetModelsDistinct(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetModelsDistinct(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_models_distinct", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/googleDeviceData/data/models/distinct`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -516,12 +516,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_status_last`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetStatusLast(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetStatusLast(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_status_last", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/googleDeviceData/{google_device_data_key}/status/last`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -541,12 +541,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `get_sync_history`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.GetSyncHistory(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.GetSyncHistory(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "get_sync_history", opts, out)`
 - HTTP route: `GET /apps/googleDeviceData/api/googleDeviceData/data/sync/history`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented GET route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -564,12 +564,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_device_sync_push_schedule`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.PostDeviceSyncPushSchedule(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.PostDeviceSyncPushSchedule(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "post_device_sync_push_schedule", opts, out)`
 - HTTP route: `POST /apps/googleDeviceData/api/googleDeviceData/device/sync/push/schedule/{schedule_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented POST route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -589,12 +589,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_jobs_logs`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.PostJobsLogs(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.PostJobsLogs(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "post_jobs_logs", opts, out)`
 - HTTP route: `POST /apps/googleDeviceData/api/googleDeviceData/data/jobs/{job_id}/logs`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented POST route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -615,12 +615,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_deprovision_device_execute`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.PostRemoteactionsDeprovisionDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.PostRemoteactionsDeprovisionDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "post_remoteactions_deprovision_device_execute", opts, out)`
 - HTTP route: `POST /apps/googleDeviceData/api/googleDeviceData/remoteactions/DeprovisionDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented POST route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -641,12 +641,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_disable_device_execute`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.PostRemoteactionsDisableDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.PostRemoteactionsDisableDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "post_remoteactions_disable_device_execute", opts, out)`
 - HTTP route: `POST /apps/googleDeviceData/api/googleDeviceData/remoteactions/DisableDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented POST route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -666,12 +666,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_wipe_device_execute`
 
-- Go wrapper: `client.Silver.AppsGoogleDeviceData.PostRemoteactionsWipeDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.GoogleDeviceData.PostRemoteactionsWipeDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.google_device_data", "post_remoteactions_wipe_device_execute", opts, out)`
 - HTTP route: `POST /apps/googleDeviceData/api/googleDeviceData/remoteactions/WipeDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsGoogleDeviceData`.
+HAR-derived undocumented POST route for `client.Silver.Apps.GoogleDeviceData`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -691,16 +691,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `infinite_campus`
 
-Infinite Campus service available at `client.Silver.AppsInfiniteCampus`.
+Infinite Campus service available at `client.Silver.Apps.InfiniteCampus`.
 
 ### `get_settings_options_sync`
 
-- Go wrapper: `client.Silver.AppsInfiniteCampus.GetSettingsOptionsSync(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.InfiniteCampus.GetSettingsOptionsSync(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.infinite_campus", "get_settings_options_sync", opts, out)`
 - HTTP route: `GET /apps/infiniteCampus/api/infiniteCampus/settings/options/sync`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsInfiniteCampus`.
+HAR-derived undocumented GET route for `client.Silver.Apps.InfiniteCampus`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -718,16 +718,16 @@ This Silver route does not define inferred parameters.
 
 ## `jamf`
 
-Jamf service available at `client.Silver.AppsJamf`.
+Jamf service available at `client.Silver.Apps.Jamf`.
 
 ### `post_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsJamf.PostAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.Jamf.PostAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.jamf", "post_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/jamf/api/jamf/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsJamf`.
+HAR-derived undocumented POST route for `client.Silver.Apps.Jamf`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -749,16 +749,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `jamf_school`
 
-Jamf School service available at `client.Silver.AppsJamfSchool`.
+Jamf School service available at `client.Silver.Apps.JamfSchool`.
 
 ### `post_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsJamfSchool.PostAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.JamfSchool.PostAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.jamf_school", "post_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/jamfSchool/api/jamfSchool/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsJamfSchool`.
+HAR-derived undocumented POST route for `client.Silver.Apps.JamfSchool`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -779,16 +779,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `local_asset_manager`
 
-Local Asset Manager service available at `client.Silver.AppsLocalAssetManager`.
+Local Asset Manager service available at `client.Silver.Apps.LocalAssetManager`.
 
 ### `post_microsoft_sccm_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsLocalAssetManager.PostMicrosoftSccmAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.LocalAssetManager.PostMicrosoftSccmAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.local_asset_manager", "post_microsoft_sccm_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/localAssetManager/api/microsoftSccm/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsLocalAssetManager`.
+HAR-derived undocumented POST route for `client.Silver.Apps.LocalAssetManager`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -810,16 +810,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `lock_n_charge2`
 
-Lock N Charge2 service available at `client.Silver.AppsLockNCharge2`.
+Lock N Charge2 service available at `client.Silver.Apps.LockNCharge2`.
 
 ### `get_bays`
 
-- Go wrapper: `client.Silver.AppsLockNCharge2.GetBays(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.LockNCharge2.GetBays(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.lock_n_charge2", "get_bays", opts, out)`
 - HTTP route: `GET /apps/lockNCharge2/api/bays`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsLockNCharge2`.
+HAR-derived undocumented GET route for `client.Silver.Apps.LockNCharge2`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -839,12 +839,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `get_stations`
 
-- Go wrapper: `client.Silver.AppsLockNCharge2.GetStations(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.LockNCharge2.GetStations(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.lock_n_charge2", "get_stations", opts, out)`
 - HTTP route: `GET /apps/lockNCharge2/api/stations`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsLockNCharge2`.
+HAR-derived undocumented GET route for `client.Silver.Apps.LockNCharge2`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -862,12 +862,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_stations_licensed`
 
-- Go wrapper: `client.Silver.AppsLockNCharge2.GetStationsLicensed(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.LockNCharge2.GetStationsLicensed(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.lock_n_charge2", "get_stations_licensed", opts, out)`
 - HTTP route: `GET /apps/lockNCharge2/api/stations/licensed`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsLockNCharge2`.
+HAR-derived undocumented GET route for `client.Silver.Apps.LockNCharge2`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -885,16 +885,16 @@ This Silver route does not define inferred parameters.
 
 ## `meraki_mdm`
 
-Meraki Mdm service available at `client.Silver.AppsMerakiMdm`.
+Meraki Mdm service available at `client.Silver.Apps.MerakiMdm`.
 
 ### `post_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsMerakiMdm.PostAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MerakiMdm.PostAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.meraki_mdm", "post_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/merakiMdm/api/merakiMdm/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMerakiMdm`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MerakiMdm`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -916,7 +916,7 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `microsoft_intune`
 
-Microsoft Intune service available at `client.Silver.AppsMicrosoftIntune`.
+Microsoft Intune service available at `client.Silver.Apps.MicrosoftIntune`.
 
 ### `lookup_asset`
 
@@ -1071,12 +1071,12 @@ Utility helper that performs lookups as needed and groups assets into company, p
 
 ### `get_assets_usage`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.GetAssetsUsage(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.GetAssetsUsage(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "get_assets_usage", opts, out)`
 - HTTP route: `GET /apps/microsoftIntune/api/microsoftIntune/data/assets/usage/{usage_id}/{n_883d10f1_e4a0_4268_a319_3d36d1948030_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented GET route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1097,12 +1097,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `get_auth_token_check`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.GetAuthTokenCheck(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.GetAuthTokenCheck(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "get_auth_token_check", opts, out)`
 - HTTP route: `GET /apps/microsoftIntune/api/microsoftIntune/auth/token-check`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented GET route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1120,12 +1120,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_history`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.GetSyncHistory(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.GetSyncHistory(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "get_sync_history", opts, out)`
 - HTTP route: `GET /apps/microsoftIntune/api/microsoftIntune/data/sync/history`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented GET route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1143,12 +1143,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/microsoftIntune/api/microsoftIntune/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented GET route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1166,12 +1166,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_sync_status_last`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.GetSyncStatusLast(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.GetSyncStatusLast(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "get_sync_status_last", opts, out)`
 - HTTP route: `GET /apps/microsoftIntune/api/microsoftIntune/sync/status/last`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented GET route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1189,12 +1189,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_jobs_logs`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostJobsLogs(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostJobsLogs(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_jobs_logs", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/data/jobs/{job_id}/logs`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1215,12 +1215,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_clean_windows_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsCleanWindowsDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsCleanWindowsDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_clean_windows_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/CleanWindowsDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1241,12 +1241,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_delete_user_from_shared_apple_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsDeleteUserFromSharedAppleDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsDeleteUserFromSharedAppleDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_delete_user_from_shared_apple_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/DeleteUserFromSharedAppleDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1267,12 +1267,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_disable_lost_mode_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsDisableLostModeExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsDisableLostModeExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_disable_lost_mode_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/DisableLostMode/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1292,12 +1292,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_locate_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsLocateDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsLocateDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_locate_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/LocateDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1317,12 +1317,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_logout_shared_apple_device_active_user_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsLogoutSharedAppleDeviceActiveUserExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsLogoutSharedAppleDeviceActiveUserExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_logout_shared_apple_device_active_user_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/LogoutSharedAppleDeviceActiveUser/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1342,12 +1342,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_reboot_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsRebootDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsRebootDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_reboot_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/RebootDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1367,12 +1367,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_recover_passcode_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsRecoverPasscodeExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsRecoverPasscodeExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_recover_passcode_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/RecoverPasscode/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1392,12 +1392,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_remote_lock_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsRemoteLockExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsRemoteLockExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_remote_lock_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/RemoteLock/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1417,12 +1417,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_request_remote_assistance_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsRequestRemoteAssistanceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsRequestRemoteAssistanceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_request_remote_assistance_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/RequestRemoteAssistance/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1442,12 +1442,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_reset_passcode_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsResetPasscodeExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsResetPasscodeExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_reset_passcode_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/ResetPasscode/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1467,12 +1467,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_retire_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsRetireDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsRetireDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_retire_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/RetireDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1492,12 +1492,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_shut_down_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsShutDownExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsShutDownExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_shut_down_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/ShutDown/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1517,12 +1517,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_sync_device_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsSyncDeviceExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsSyncDeviceExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_sync_device_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/SyncDevice/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1542,12 +1542,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_update_windows_device_account_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsUpdateWindowsDeviceAccountExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsUpdateWindowsDeviceAccountExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_update_windows_device_account_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/UpdateWindowsDeviceAccount/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1567,12 +1567,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_windows_defender_scan_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsWindowsDefenderScanExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsWindowsDefenderScanExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_windows_defender_scan_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderScan/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1593,12 +1593,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_windows_defender_update_signatures_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsWindowsDefenderUpdateSignaturesExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsWindowsDefenderUpdateSignaturesExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_windows_defender_update_signatures_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/WindowsDefenderUpdateSignatures/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1618,12 +1618,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_remoteactions_wipe_execute`
 
-- Go wrapper: `client.Silver.AppsMicrosoftIntune.PostRemoteactionsWipeExecute(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MicrosoftIntune.PostRemoteactionsWipeExecute(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.microsoft_intune", "post_remoteactions_wipe_execute", opts, out)`
 - HTTP route: `POST /apps/microsoftIntune/api/microsoftIntune/remoteactions/Wipe/execute/{execute_id}`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `windows-asset-intune-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMicrosoftIntune`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MicrosoftIntune`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1646,7 +1646,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `mosyle`
 
-Mosyle service available at `client.Silver.AppsMosyle`.
+Mosyle helpers are source SDK helpers only in the current Go reference. They
+are not exposed by the generated Go wrapper surface; use `Client.Request` with
+the documented route when implementing these workflows in Go.
 
 ### `lookup_asset`
 
@@ -1750,16 +1752,16 @@ This method does not define parameters.
 
 ## `mosyle_manager`
 
-Mosyle Manager service available at `client.Silver.AppsMosyleManager`.
+Mosyle Manager service available at `client.Silver.Apps.MosyleManager`.
 
 ### `post_remoteactions_clear_commands_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d`
 
-- Go wrapper: `client.Silver.AppsMosyleManager.PostRemoteactionsClearCommandsExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MosyleManager.PostRemoteactionsClearCommandsExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.mosyle_manager", "post_remoteactions_clear_commands_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d", opts, out)`
 - HTTP route: `POST /apps/mosyleManager/api/mosyleManager/remoteactions/ClearCommands/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D`
 - Observed in: `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMosyleManager`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MosyleManager`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1777,12 +1779,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_remoteactions_restart_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d`
 
-- Go wrapper: `client.Silver.AppsMosyleManager.PostRemoteactionsRestartDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MosyleManager.PostRemoteactionsRestartDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.mosyle_manager", "post_remoteactions_restart_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d", opts, out)`
 - HTTP route: `POST /apps/mosyleManager/api/mosyleManager/remoteactions/RestartDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D`
 - Observed in: `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMosyleManager`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MosyleManager`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1800,12 +1802,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_remoteactions_shutdown_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d`
 
-- Go wrapper: `client.Silver.AppsMosyleManager.PostRemoteactionsShutdownDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MosyleManager.PostRemoteactionsShutdownDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.mosyle_manager", "post_remoteactions_shutdown_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d", opts, out)`
 - HTTP route: `POST /apps/mosyleManager/api/mosyleManager/remoteactions/ShutdownDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D`
 - Observed in: `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMosyleManager`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MosyleManager`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1823,12 +1825,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_remoteactions_wipe_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d`
 
-- Go wrapper: `client.Silver.AppsMosyleManager.PostRemoteactionsWipeDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.MosyleManager.PostRemoteactionsWipeDeviceExecuteMac268d3c3f77455eb19299A92e984d642d(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.mosyle_manager", "post_remoteactions_wipe_device_execute_mac268d3c3f_7745_5eb1_9299_a92e984d642d", opts, out)`
 - HTTP route: `POST /apps/mosyleManager/api/mosyleManager/remoteactions/WipeDevice/execute/mac268D3C3F-7745-5EB1-9299-A92E984D642D`
 - Observed in: `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsMosyleManager`.
+HAR-derived undocumented POST route for `client.Silver.Apps.MosyleManager`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1848,16 +1850,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `password_reset`
 
-Password Reset service available at `client.Silver.AppsPasswordReset`.
+Password Reset service available at `client.Silver.Apps.PasswordReset`.
 
 ### `get_user_setup`
 
-- Go wrapper: `client.Silver.AppsPasswordReset.GetUserSetup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PasswordReset.GetUserSetup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.password_reset", "get_user_setup", opts, out)`
 - HTTP route: `GET /apps/passwordReset/api/user/{user_id}/setup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPasswordReset`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PasswordReset`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1877,16 +1879,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_fee_tracker`
 
-Payments Fee Tracker service available at `client.Silver.AppsPaymentsFeeTracker`.
+Payments Fee Tracker service available at `client.Silver.Apps.PaymentsFeeTracker`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsFeeTracker.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsFeeTracker.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_fee_tracker", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsFeeTracker/api/sync/options`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsFeeTracker`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsFeeTracker`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1904,12 +1906,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsFeeTracker.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsFeeTracker.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_fee_tracker", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsFeeTracker/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsFeeTracker`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsFeeTracker`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1927,12 +1929,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsFeeTracker.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsFeeTracker.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_fee_tracker", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsFeeTracker/api/data/line-items/search`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`, `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsFeeTracker`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsFeeTracker`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1952,16 +1954,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_in_touch`
 
-Payments In Touch service available at `client.Silver.AppsPaymentsInTouch`.
+Payments In Touch service available at `client.Silver.Apps.PaymentsInTouch`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsInTouch.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsInTouch.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_in_touch", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsInTouch/api/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsInTouch`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsInTouch`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -1979,12 +1981,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsInTouch.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsInTouch.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_in_touch", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsInTouch/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsInTouch`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsInTouch`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2002,12 +2004,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsInTouch.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsInTouch.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_in_touch", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsInTouch/api/data/line-items/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsInTouch`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsInTouch`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2027,16 +2029,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_my_school_bucks`
 
-Payments My School Bucks service available at `client.Silver.AppsPaymentsMySchoolBucks`.
+Payments My School Bucks service available at `client.Silver.Apps.PaymentsMySchoolBucks`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsMySchoolBucks.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsMySchoolBucks.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_my_school_bucks", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsMySchoolBucks/api/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsMySchoolBucks`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsMySchoolBucks`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2054,12 +2056,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsMySchoolBucks.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsMySchoolBucks.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_my_school_bucks", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsMySchoolBucks/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsMySchoolBucks`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsMySchoolBucks`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2077,12 +2079,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsMySchoolBucks.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsMySchoolBucks.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_my_school_bucks", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsMySchoolBucks/api/data/line-items/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsMySchoolBucks`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsMySchoolBucks`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2102,16 +2104,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_square`
 
-Payments Square service available at `client.Silver.AppsPaymentsSquare`.
+Payments Square service available at `client.Silver.Apps.PaymentsSquare`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsSquare.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsSquare.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_square", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsSquare/api/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsSquare`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsSquare`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2129,12 +2131,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsSquare.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsSquare.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_square", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsSquare/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsSquare`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsSquare`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2152,12 +2154,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsSquare.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsSquare.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_square", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsSquare/api/data/line-items/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsSquare`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsSquare`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2177,16 +2179,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_stripe`
 
-Payments Stripe service available at `client.Silver.AppsPaymentsStripe`.
+Payments Stripe service available at `client.Silver.Apps.PaymentsStripe`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsStripe.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsStripe.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_stripe", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsStripe/api/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsStripe`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsStripe`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2204,12 +2206,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsStripe.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsStripe.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_stripe", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsStripe/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsStripe`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsStripe`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2227,12 +2229,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsStripe.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsStripe.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_stripe", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsStripe/api/data/line-items/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsStripe`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsStripe`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2252,16 +2254,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `payments_vanco`
 
-Payments Vanco service available at `client.Silver.AppsPaymentsVanco`.
+Payments Vanco service available at `client.Silver.Apps.PaymentsVanco`.
 
 ### `get_sync_options`
 
-- Go wrapper: `client.Silver.AppsPaymentsVanco.GetSyncOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsVanco.GetSyncOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_vanco", "get_sync_options", opts, out)`
 - HTTP route: `GET /apps/paymentsVanco/api/sync/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPaymentsVanco`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PaymentsVanco`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2279,12 +2281,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_item_types_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsVanco.PostLineItemTypesSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsVanco.PostLineItemTypesSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_vanco", "post_line_item_types_search", opts, out)`
 - HTTP route: `POST /apps/paymentsVanco/api/data/line-item-types/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsVanco`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsVanco`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2302,12 +2304,12 @@ This Silver route does not define inferred parameters.
 
 ### `post_line_items_search`
 
-- Go wrapper: `client.Silver.AppsPaymentsVanco.PostLineItemsSearch(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PaymentsVanco.PostLineItemsSearch(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.payments_vanco", "post_line_items_search", opts, out)`
 - HTTP route: `POST /apps/paymentsVanco/api/data/line-items/search`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsPaymentsVanco`.
+HAR-derived undocumented POST route for `client.Silver.Apps.PaymentsVanco`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2327,16 +2329,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `policy_agreements`
 
-Policy Agreements service available at `client.Silver.AppsPolicyAgreements`.
+Policy Agreements service available at `client.Silver.Apps.PolicyAgreements`.
 
 ### `get_users_acceptances_including_cleared`
 
-- Go wrapper: `client.Silver.AppsPolicyAgreements.GetUsersAcceptancesIncludingCleared(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.PolicyAgreements.GetUsersAcceptancesIncludingCleared(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.policy_agreements", "get_users_acceptances_including_cleared", opts, out)`
 - HTTP route: `GET /apps/policyAgreements/api/users/{user_id}/acceptances/including-cleared`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsPolicyAgreements`.
+HAR-derived undocumented GET route for `client.Silver.Apps.PolicyAgreements`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2356,7 +2358,9 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `registry`
 
-App Registry service available at `client.Silver.AppsRegistry`.
+App registry helpers are source SDK helpers only in the current Go reference.
+They are not exposed by the generated Go wrapper surface; use `Client.Request`
+with the documented route when implementing these workflows in Go.
 
 ### `list_apps`
 
@@ -2410,16 +2414,16 @@ Same request as `list_apps`, but returns validated raw JSON.
 
 ## `remote_beyond_trust`
 
-Remote Beyond Trust service available at `client.Silver.AppsRemoteBeyondTrust`.
+Remote Beyond Trust service available at `client.Silver.Apps.RemoteBeyondTrust`.
 
 ### `get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu`
 
-- Go wrapper: `client.Silver.AppsRemoteBeyondTrust.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.RemoteBeyondTrust.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.remote_beyond_trust", "get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu", opts, out)`
 - HTTP route: `GET /api/v1.0/apps/remoteBeyondTrust/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsRemoteBeyondTrust`.
+HAR-derived undocumented GET route for `client.Silver.Apps.RemoteBeyondTrust`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2439,16 +2443,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `remote_chrome`
 
-Remote Chrome service available at `client.Silver.AppsRemoteChrome`.
+Remote Chrome service available at `client.Silver.Apps.RemoteChrome`.
 
 ### `get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu`
 
-- Go wrapper: `client.Silver.AppsRemoteChrome.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.RemoteChrome.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.remote_chrome", "get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu", opts, out)`
 - HTTP route: `GET /api/v1.0/apps/remoteChrome/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsRemoteChrome`.
+HAR-derived undocumented GET route for `client.Silver.Apps.RemoteChrome`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2468,16 +2472,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `remote_team_viewer`
 
-Remote Team Viewer service available at `client.Silver.AppsRemoteTeamViewer`.
+Remote Team Viewer service available at `client.Silver.Apps.RemoteTeamViewer`.
 
 ### `get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu`
 
-- Go wrapper: `client.Silver.AppsRemoteTeamViewer.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.RemoteTeamViewer.GetDbBb6cece8E4f4E511A789005056bb000eStatu(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.remote_team_viewer", "get_db_bb6cece8_e4f4_e511_a789_005056bb000e_statu", opts, out)`
 - HTTP route: `GET /api/v1.0/apps/remoteTeamViewer/db/bb6cece8-e4f4-e511-a789-005056bb000e-Status/{bb6cece8_e4f4_e511_a789_005056bb000e_statu_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsRemoteTeamViewer`.
+HAR-derived undocumented GET route for `client.Silver.Apps.RemoteTeamViewer`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2497,16 +2501,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `spare_pool_management`
 
-Spare Pool Management service available at `client.Silver.AppsSparePoolManagement`.
+Spare Pool Management service available at `client.Silver.Apps.SparePoolManagement`.
 
 ### `get_pool_stats_today`
 
-- Go wrapper: `client.Silver.AppsSparePoolManagement.GetPoolStatsToday(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.SparePoolManagement.GetPoolStatsToday(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.spare_pool_management", "get_pool_stats_today", opts, out)`
 - HTTP route: `GET /apps/sparePoolManagement/api/pool/stats/today`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsSparePoolManagement`.
+HAR-derived undocumented GET route for `client.Silver.Apps.SparePoolManagement`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2524,12 +2528,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_ticket_pool`
 
-- Go wrapper: `client.Silver.AppsSparePoolManagement.GetTicketPool(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.SparePoolManagement.GetTicketPool(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.spare_pool_management", "get_ticket_pool", opts, out)`
 - HTTP route: `GET /apps/sparePoolManagement/api/ticket/{ticket_id}/pools/{pool_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsSparePoolManagement`.
+HAR-derived undocumented GET route for `client.Silver.Apps.SparePoolManagement`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2550,12 +2554,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_assets_deployments`
 
-- Go wrapper: `client.Silver.AppsSparePoolManagement.PostAssetsDeployments(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.SparePoolManagement.PostAssetsDeployments(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.spare_pool_management", "post_assets_deployments", opts, out)`
 - HTTP route: `POST /apps/sparePoolManagement/api/assets/deployments`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsSparePoolManagement`.
+HAR-derived undocumented POST route for `client.Silver.Apps.SparePoolManagement`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2575,12 +2579,12 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ### `post_groups`
 
-- Go wrapper: `client.Silver.AppsSparePoolManagement.PostGroups(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.SparePoolManagement.PostGroups(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.spare_pool_management", "post_groups", opts, out)`
 - HTTP route: `POST /apps/sparePoolManagement/api/groups`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsSparePoolManagement`.
+HAR-derived undocumented POST route for `client.Silver.Apps.SparePoolManagement`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2598,16 +2602,16 @@ This Silver route does not define inferred parameters.
 
 ## `trafera`
 
-Trafera service available at `client.Silver.AppsTrafera`.
+Trafera service available at `client.Silver.Apps.Trafera`.
 
 ### `get_parts`
 
-- Go wrapper: `client.Silver.AppsTrafera.GetParts(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.Trafera.GetParts(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.trafera", "get_parts", opts, out)`
 - HTTP route: `GET /apps/trafera/api/parts`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsTrafera`.
+HAR-derived undocumented GET route for `client.Silver.Apps.Trafera`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2625,12 +2629,12 @@ This Silver route does not define inferred parameters.
 
 ### `get_settings_options`
 
-- Go wrapper: `client.Silver.AppsTrafera.GetSettingsOptions(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.Trafera.GetSettingsOptions(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.trafera", "get_settings_options", opts, out)`
 - HTTP route: `GET /apps/trafera/api/settings/options`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsTrafera`.
+HAR-derived undocumented GET route for `client.Silver.Apps.Trafera`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2648,16 +2652,16 @@ This Silver route does not define inferred parameters.
 
 ## `widgets`
 
-Widgets service available at `client.Silver.AppsWidgets`.
+Widgets service available at `client.Silver.Apps.Widgets`.
 
 ### `get_endpoint`
 
-- Go wrapper: `client.Silver.AppsWidgets.GetEndpoint(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.Widgets.GetEndpoint(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.widgets", "get_endpoint", opts, out)`
 - HTTP route: `GET /api/v1.0/apps/widgets/{widget_id}`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.AppsWidgets`.
+HAR-derived undocumented GET route for `client.Silver.Apps.Widgets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
@@ -2677,16 +2681,16 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 
 ## `workspace_one`
 
-Workspace One service available at `client.Silver.AppsWorkspaceOne`.
+Workspace One service available at `client.Silver.Apps.WorkspaceOne`.
 
 ### `post_assets_lookup`
 
-- Go wrapper: `client.Silver.AppsWorkspaceOne.PostAssetsLookup(ctx, opts, out)`
+- Go wrapper: `client.Silver.Apps.WorkspaceOne.PostAssetsLookup(ctx, opts, out)`
 - Dynamic helper: `client.RequestSilver(ctx, "apps.workspace_one", "post_assets_lookup", opts, out)`
 - HTTP route: `POST /apps/workspaceOne/api/workspaceOne/data/assets/lookup`
 - Observed in: `demo.incidentiq.com.har`
 
-HAR-derived undocumented POST route for `client.Silver.AppsWorkspaceOne`.
+HAR-derived undocumented POST route for `client.Silver.Apps.WorkspaceOne`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 

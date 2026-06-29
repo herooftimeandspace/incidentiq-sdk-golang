@@ -47,8 +47,8 @@ func TestRequestSendsIncidentIQHeadersAndJSON(t *testing.T) {
 		if got, want := r.Header.Get("Authorization"), "Bearer token"; got != want {
 			t.Fatalf("Authorization = %q, want %q", got, want)
 		}
-		if got := r.Header.Get("Client"); got != "" {
-			t.Fatalf("Client header = %q, want absent", got)
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client header = %q, want %q", got, want)
 		}
 		if got, want := r.Header.Get("SiteId"), "site-1"; got != want {
 			t.Fatalf("SiteId = %q, want %q", got, want)
@@ -123,8 +123,8 @@ func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
 		if got, want := r.Header.Get("Authorization"), "Bearer token"; got != want {
 			t.Fatalf("Authorization = %q, want %q", got, want)
 		}
-		if got := r.Header.Get("Client"); got != "" {
-			t.Fatalf("Client = %q, want omitted", got)
+		if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+			t.Fatalf("Client = %q, want %q", got, want)
 		}
 		if got := r.Header.Get("SiteId"); got != "" {
 			t.Fatalf("SiteId = %q, want omitted", got)
@@ -175,6 +175,74 @@ func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
 	}
 	if payload["FileId"] != "file-123" {
 		t.Fatalf("payload = %#v, want FileId", payload)
+	}
+}
+
+func TestRequestRespectsExplicitClientHeader(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if got, want := r.Header.Get("Client"), "CustomClient"; got != want {
+			t.Fatalf("Client header = %q, want %q", got, want)
+		}
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if err := client.Request(context.Background(), "GET", "/users", RequestOptions{
+		Headers: map[string]string{"Client": "CustomClient"},
+	}, nil); err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+}
+
+func TestRequestSilverRetriesWithoutDefaultClientHeader(t *testing.T) {
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		switch attempts {
+		case 1:
+			if got, want := r.Header.Get("Client"), "ApiClient"; got != want {
+				t.Fatalf("first Client header = %q, want %q", got, want)
+			}
+			http.Error(w, "client header not accepted", http.StatusForbidden)
+		case 2:
+			if got := r.Header.Get("Client"); got != "" {
+				t.Fatalf("second Client header = %q, want omitted", got)
+			}
+			w.Header().Set("Content-Type", "application/json")
+			_, _ = w.Write([]byte(`{"ok":true}`))
+		default:
+			t.Fatalf("unexpected attempt %d", attempts)
+		}
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	if err := client.RequestSilver(context.Background(), "tickets", "get_ticket_status", RequestOptions{
+		PathParams: map[string]any{"ticket_id": "ticket-1"},
+	}, &payload); err != nil {
+		t.Fatalf("RequestSilver returned error: %v", err)
+	}
+	if attempts != 2 {
+		t.Fatalf("attempts = %d, want 2", attempts)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
 	}
 }
 

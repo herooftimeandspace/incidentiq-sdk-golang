@@ -1,10 +1,12 @@
-# `silver` Namespace
+# `Silver` Namespace
 
 Go client access: `client.Silver`
 
-Async client access: `client.Silver` with `await` on async methods.
-
-Silver routes are undocumented APIs observed in tenant HAR traffic. The SDK exposes them explicitly and separately because Golden Stoplight contracts are always preferred when they exist.
+Silver routes are undocumented APIs observed in tenant HAR traffic. The SDK exposes them
+explicitly and separately because Golden Stoplight contracts are always
+preferred when they exist. Silver requests send `Client: ApiClient` first and
+retry once without the SDK-provided `Client` header if the route rejects the
+documented header shape.
 
 | Namespace | Methods | Page |
 | --- | ---: | --- |

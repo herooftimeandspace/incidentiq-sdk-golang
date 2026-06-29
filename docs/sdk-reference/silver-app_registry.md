@@ -1,4 +1,4 @@
-# `silver.app_registry` Namespace
+# `Silver.app_registry` Namespace
 
 Go client access: `client.Silver.AppRegistry`
 

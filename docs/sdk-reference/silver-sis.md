@@ -1,4 +1,4 @@
-# `silver.sis` Namespace
+# `Silver.sis` Namespace
 
 Go client access: `client.Silver.Sis`
 

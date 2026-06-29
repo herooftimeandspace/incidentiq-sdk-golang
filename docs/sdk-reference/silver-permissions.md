@@ -1,4 +1,4 @@
-# `silver.permissions` Namespace
+# `Silver.permissions` Namespace
 
 Go client access: `client.Silver.Permissions`
 
