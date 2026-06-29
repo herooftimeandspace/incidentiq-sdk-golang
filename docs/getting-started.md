@@ -48,11 +48,6 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 }, &users)
 ```
 
-The SDK reads response bodies through a 4 MiB safety cap before JSON decoding
-or non-2xx `APIError` construction. Use `Config.MaxResponseBodyBytes` for a
-client-wide override or `RequestOptions.MaxResponseBodyBytes` for one request.
-Oversized responses return `*incidentiq.ResponseSizeError`.
-
 ## Golden And Silver Helpers
 
 Golden is the correct default SDK path. Golden methods are exposed directly on

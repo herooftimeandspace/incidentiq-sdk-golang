@@ -146,7 +146,7 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 
 func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, silver bool) error {
 	err := c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, true)
-	if err == nil || !silver || opts.OmitClientHeader || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
+	if err == nil || !silver || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
 		return err
 	}
 	return c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, false)
@@ -201,16 +201,16 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		cloned.Timeout = opts.Timeout
 		httpClient = &cloned
 	}
-	maxResponseBodyBytes, err := c.maxResponseBodyBytes(opts)
-	if err != nil {
-		return err
-	}
 	response, err := httpClient.Do(request)
 	if err != nil {
 		return err
 	}
 	defer response.Body.Close()
-	payload, err := readResponseBody(response.Body, maxResponseBodyBytes, method, path)
+	responseLimit := c.config.MaxResponseBytes
+	if opts.MaxResponseBodyBytes > 0 {
+		responseLimit = opts.MaxResponseBodyBytes
+	}
+	payload, err := readBoundedResponseBody(response.Body, responseLimit, method, path)
 	if err != nil {
 		return err
 	}
@@ -230,6 +230,18 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	return nil
 }
 
+func readBoundedResponseBody(body io.Reader, limit int64, method string, path string) ([]byte, error) {
+	limited := io.LimitReader(body, limit+1)
+	payload, err := io.ReadAll(limited)
+	if err != nil {
+		return nil, err
+	}
+	if int64(len(payload)) > limit {
+		return nil, &ResponseTooLargeError{Method: method, Path: path, Limit: limit}
+	}
+	return payload, nil
+}
+
 func hasHeader(headers map[string]string, name string) bool {
 	for key := range headers {
 		if strings.EqualFold(key, name) {
@@ -237,27 +249,6 @@ func hasHeader(headers map[string]string, name string) bool {
 		}
 	}
 	return false
-}
-
-func (c *Client) maxResponseBodyBytes(opts RequestOptions) (int64, error) {
-	if opts.MaxResponseBodyBytes < 0 {
-		return 0, &ValidationError{Message: "max_response_body_bytes must be zero or positive"}
-	}
-	if opts.MaxResponseBodyBytes > 0 {
-		return opts.MaxResponseBodyBytes, nil
-	}
-	return c.config.MaxResponseBodyBytes, nil
-}
-
-func readResponseBody(body io.Reader, limit int64, method string, path string) ([]byte, error) {
-	payload, err := io.ReadAll(io.LimitReader(body, limit+1))
-	if err != nil {
-		return nil, err
-	}
-	if int64(len(payload)) > limit {
-		return nil, &ResponseSizeError{Method: method, Path: path, Limit: limit}
-	}
-	return payload, nil
 }
 
 func isClientHeaderRejectionError(err error) bool {
