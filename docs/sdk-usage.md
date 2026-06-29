@@ -38,25 +38,26 @@ contract.
 
 ## Request Options
 
-Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, per-request timeout, per-request response-size limits, and explicit SDK header omission for HAR-validated Silver calls:
+Use `RequestOptions` for path parameters, query parameters, JSON bodies,
+headers, per-request timeouts, per-request response-size limits, and the small
+number of header compatibility switches needed by HAR-derived Silver routes:
 
 ```go
 err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
-	PathParams:           map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
-	Params:               map[string]string{"$s": "100"},
-	MaxResponseBodyBytes: 8 * 1024 * 1024,
+	PathParams: map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
+	Params:     map[string]string{"$s": "100"},
 }, &payload)
 ```
 
-Golden and default Silver requests send `Client: ApiClient`. Set
-`OmitClientHeader: true` only when a Silver route has been validated against
-browser HAR traffic that omits the `Client` header, such as profile photo
-uploads.
+`Config.MaxResponseBytes` defaults to 4 MiB, and the SDK rejects larger
+responses before decoding them or attaching them to an API error. Set
+`RequestOptions.MaxResponseBodyBytes` when a single call needs a tighter or
+larger nonzero limit.
 
-Responses are capped at 4 MiB by default before JSON decoding or API error body
-capture. Set `Config.MaxResponseBodyBytes` to change the client-wide cap or
-`RequestOptions.MaxResponseBodyBytes` to override it for one request. Oversized
-responses return `*incidentiq.ResponseSizeError`.
+Use `RequestOptions.OmitClientHeader` only when a Silver route is known from
+browser traffic to reject the SDK's default `Client: ApiClient` header on the
+first request. Use `RequestOptions.OmitSiteIDHeader` when the same route is
+known not to send `SiteId`.
 
 ## Low-Level Request API
 
