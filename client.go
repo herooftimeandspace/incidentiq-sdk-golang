@@ -146,7 +146,7 @@ func addQuery(rawURL string, params map[string]string) (string, error) {
 
 func (c *Client) doHTTPRequest(ctx context.Context, method string, path string, requestURL string, body []byte, contentType string, opts RequestOptions, out any, silver bool) error {
 	err := c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, true)
-	if err == nil || !silver || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
+	if err == nil || !silver || opts.OmitClientHeader || hasHeader(opts.Headers, "Client") || !isClientHeaderRejectionError(err) {
 		return err
 	}
 	return c.doHTTPRequestWithClientHeader(ctx, method, path, requestURL, body, contentType, opts, out, false)
@@ -210,7 +210,7 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	if opts.MaxResponseBodyBytes > 0 {
 		responseLimit = opts.MaxResponseBodyBytes
 	}
-	payload, err := readBoundedResponseBody(response.Body, responseLimit, method, path)
+	payload, err := readBoundedResponseBody(response.Body, responseLimit, method, path, response.StatusCode)
 	if err != nil {
 		return err
 	}
@@ -230,14 +230,14 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	return nil
 }
 
-func readBoundedResponseBody(body io.Reader, limit int64, method string, path string) ([]byte, error) {
+func readBoundedResponseBody(body io.Reader, limit int64, method string, path string, statusCode int) ([]byte, error) {
 	limited := io.LimitReader(body, limit+1)
 	payload, err := io.ReadAll(limited)
 	if err != nil {
 		return nil, err
 	}
 	if int64(len(payload)) > limit {
-		return nil, &ResponseTooLargeError{Method: method, Path: path, Limit: limit}
+		return nil, &ResponseTooLargeError{StatusCode: statusCode, Method: method, Path: path, Limit: limit}
 	}
 	return payload, nil
 }
@@ -320,6 +320,9 @@ func renderPath(pathTemplate string, pathParams map[string]any) (string, error) 
 }
 
 func isRetriableError(err error) bool {
+	if _, ok := err.(*ResponseTooLargeError); ok {
+		return false
+	}
 	if apiErr, ok := err.(*APIError); ok {
 		return shouldRetryStatus(apiErr.StatusCode)
 	}
