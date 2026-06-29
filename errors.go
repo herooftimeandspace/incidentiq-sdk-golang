@@ -28,12 +28,16 @@ func (e *ValidationError) Error() string {
 // bounded read limit before the SDK could safely decode or attach it to an API
 // error.
 type ResponseTooLargeError struct {
-	Method string
-	Path   string
-	Limit  int64
+	StatusCode int
+	Method     string
+	Path       string
+	Limit      int64
 }
 
 func (e *ResponseTooLargeError) Error() string {
+	if e.StatusCode > 0 {
+		return fmt.Sprintf("incidentiq %s %s response with HTTP %d exceeded %d byte limit", e.Method, e.Path, e.StatusCode, e.Limit)
+	}
 	return fmt.Sprintf("incidentiq %s %s response exceeded %d byte limit", e.Method, e.Path, e.Limit)
 }
 
