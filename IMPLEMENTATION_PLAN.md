@@ -17,7 +17,6 @@ Primary contract source is Incident IQ Stoplight Swagger 2.0 controller specs; A
   - `base_url` (tenant-specific, required unless provided by env)
   - `api_token`
   - `site_id` (optional/required depending on endpoint policy)
-  - `client_header` (default `ApiClient`)
   - `auth_mode` (default `bearer`; optional `raw` for compatibility)
 - Tenant URL env vars:
   - `INCIDENTIQ_BASE_URL` for normal SDK usage
@@ -47,7 +46,7 @@ Primary contract source is Incident IQ Stoplight Swagger 2.0 controller specs; A
 
 ## Test Plan
 - Unit tests:
-  - auth/header behavior (Bearer default, optional `site_id`/`client` behavior)
+  - auth/header behavior (Bearer default and optional `site_id` behavior)
   - request construction, retries, timeout, error propagation
   - schema loading/matching/ref resolution/validation
   - SDK generation + signatures + sync/async parity
@@ -79,4 +78,3 @@ Primary contract source is Incident IQ Stoplight Swagger 2.0 controller specs; A
 - Python 3.14+ required for runtime and CI.
 - Bearer token is default auth mode.
 - Tenant URL is always configurable per client instance and separately for integration smoke tests.
-

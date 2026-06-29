@@ -26,7 +26,6 @@ func TestConfigFromEnvUsesPythonVariableNames(t *testing.T) {
 	t.Setenv("INCIDENTIQ_BASE_URL", "https://example.incidentiq.com")
 	t.Setenv("INCIDENTIQ_API_TOKEN", "token")
 	t.Setenv("INCIDENTIQ_SITE_ID", "site")
-	t.Setenv("INCIDENTIQ_CLIENT_HEADER", "ApiClient")
 	t.Setenv("INCIDENTIQ_AUTH_MODE", "raw")
 	t.Setenv("INCIDENTIQ_APP_HEADERS_JSON", `{"X-App":"yes"}`)
 
