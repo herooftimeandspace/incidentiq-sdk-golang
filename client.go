@@ -201,12 +201,16 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		cloned.Timeout = opts.Timeout
 		httpClient = &cloned
 	}
+	maxResponseBodyBytes, err := c.maxResponseBodyBytes(opts)
+	if err != nil {
+		return err
+	}
 	response, err := httpClient.Do(request)
 	if err != nil {
 		return err
 	}
 	defer response.Body.Close()
-	payload, err := io.ReadAll(response.Body)
+	payload, err := readResponseBody(response.Body, maxResponseBodyBytes, method, path)
 	if err != nil {
 		return err
 	}
@@ -233,6 +237,27 @@ func hasHeader(headers map[string]string, name string) bool {
 		}
 	}
 	return false
+}
+
+func (c *Client) maxResponseBodyBytes(opts RequestOptions) (int64, error) {
+	if opts.MaxResponseBodyBytes < 0 {
+		return 0, &ValidationError{Message: "max_response_body_bytes must be zero or positive"}
+	}
+	if opts.MaxResponseBodyBytes > 0 {
+		return opts.MaxResponseBodyBytes, nil
+	}
+	return c.config.MaxResponseBodyBytes, nil
+}
+
+func readResponseBody(body io.Reader, limit int64, method string, path string) ([]byte, error) {
+	payload, err := io.ReadAll(io.LimitReader(body, limit+1))
+	if err != nil {
+		return nil, err
+	}
+	if int64(len(payload)) > limit {
+		return nil, &ResponseSizeError{Method: method, Path: path, Limit: limit}
+	}
+	return payload, nil
 }
 
 func isClientHeaderRejectionError(err error) bool {

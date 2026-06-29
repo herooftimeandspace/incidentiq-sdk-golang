@@ -81,6 +81,7 @@ func TestConfigNormalizationRejectsInvalidValues(t *testing.T) {
 		{name: "negative timeout", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", Timeout: -1}, want: "timeout must be greater than zero"},
 		{name: "negative backoff", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", BackoffBase: -1}, want: "backoff_base must be greater than zero"},
 		{name: "negative retries", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", MaxRetries: -1}, want: "max_retries must be zero or positive"},
+		{name: "negative response limit", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", MaxResponseBodyBytes: -1}, want: "max_response_body_bytes must be zero or positive"},
 		{name: "site header injection", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", SiteID: "site\r\nbad"}, want: "site_id must not contain CR or LF characters"},
 		{name: "app header key injection", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", AppHeaders: map[string]string{"X-Test\nBad": "yes"}}, want: "app_headers key must not contain CR or LF characters"},
 		{name: "app header value injection", config: Config{BaseURL: "https://example.incidentiq.com", APIToken: "token", AppHeaders: map[string]string{"X-Test": "yes\nbad"}}, want: "app_headers value must not contain CR or LF characters"},
@@ -92,6 +93,19 @@ func TestConfigNormalizationRejectsInvalidValues(t *testing.T) {
 				t.Fatalf("NewClient error = %v, want %q", err, tt.want)
 			}
 		})
+	}
+}
+
+func TestConfigNormalizationSetsDefaultResponseBodyLimit(t *testing.T) {
+	client, err := NewClient(Config{
+		BaseURL:  "https://example.incidentiq.com",
+		APIToken: "token",
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	if got, want := client.Config().MaxResponseBodyBytes, defaultMaxResponseBodyBytes; got != want {
+		t.Fatalf("MaxResponseBodyBytes = %d, want %d", got, want)
 	}
 }
 
