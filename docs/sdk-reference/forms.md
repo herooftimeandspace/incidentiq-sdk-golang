@@ -38,7 +38,7 @@ POST /api/v1.0/forms/submit
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `model` | `Model` | `body` | `yes` | `FormSubmission` | `FormSubmission` | Form submission infomation / parameters |
 

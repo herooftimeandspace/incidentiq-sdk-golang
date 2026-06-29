@@ -4,17 +4,16 @@ This repo is the Go companion to `herooftimeandspace/incident-py-q`.
 
 The copied Markdown files under this repo are intentionally retained so the Go
 SDK can be reviewed against the same product, contract, validation, and release
-documentation as the Python SDK. When the Python repo changes a shared contract
-or user-facing behavior, run `scripts/sync_from_incident_py_q.sh` and then update
+documentation as the source SDK. When the source repo changes a shared contract
+or user-facing behavior, run `scripts/sync_from_source_sdk.sh` and then update
 the Go runtime or generated wrappers until the tests prove parity again.
 
 ## Shared Runtime Behavior
 
-The Go client currently matches the Python SDK for the following runtime rules:
+The Go client currently matches the source SDK for the following runtime rules:
 
 - `INCIDENTIQ_*` environment variable names
 - bearer and raw authorization modes
-- `Client` header default value of `ApiClient`
 - optional `SiteId` header
 - HTTPS-only base URL validation
 - tenant root normalization to `/api/v1.0`
@@ -24,7 +23,7 @@ The Go client currently matches the Python SDK for the following runtime rules:
 
 ## Contract Artifacts
 
-The Go repo embeds these synced Python SDK artifacts:
+The Go repo embeds these synced source SDK artifacts:
 
 - `data/stoplight/controllers/*.json`
 - `data/postman/collection.json`

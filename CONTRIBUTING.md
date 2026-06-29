@@ -44,7 +44,7 @@ The current GitHub Actions workflow runs the same package test command.
 The runtime client and contract tests use bundled schema artifacts only. To refresh bundled upstream contracts from a sibling source checkout:
 
 ```bash
-./scripts/sync_from_incident_py_q.sh ../incident-py-q
+./scripts/sync_from_source_sdk.sh ../incident-py-q
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 

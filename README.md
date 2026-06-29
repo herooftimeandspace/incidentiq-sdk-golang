@@ -3,7 +3,7 @@
 `incidentiq-sdk-golang` is the Go SDK companion to
 [`herooftimeandspace/incident-py-q`](https://github.com/herooftimeandspace/incident-py-q).
 
-The project goal is functional parity with the Python SDK:
+The project goal is functional parity with the source SDK:
 
 - same Incident IQ runtime environment variables
 - same tenant URL normalization rules
@@ -106,7 +106,7 @@ artifacts until the Go SDK has its own generator parity.
 Refresh this repo from a sibling checkout:
 
 ```bash
-./scripts/sync_from_incident_py_q.sh ../incident-py-q
+./scripts/sync_from_source_sdk.sh ../incident-py-q
 ```
 
 That command copies:
@@ -130,7 +130,7 @@ GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ## Current Implementation Scope
 
 This initial Go SDK is already usable for low-level and inventory-backed calls.
-It does not yet generate one Go method per Python dynamic namespace method. The
+It does not yet generate one Go method per source dynamic namespace method. The
 bundled inventories are present so typed wrapper generation can be added without
 changing the runtime request semantics.
 

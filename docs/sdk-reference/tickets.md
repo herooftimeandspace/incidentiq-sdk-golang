@@ -33,7 +33,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 | `sla` | `Sla` | `body` | `yes` | `Sla` | `Sla` | - |
@@ -82,7 +82,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/cancel
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be canceling |
 | `cancel_options` | `CancelOptions` | `body` | `yes` | `TicketCancelOptions` | `TicketCancelOptions` | - |
@@ -122,7 +122,7 @@ POST /api/v1.0/tickets/EDE88D85-D6E4-E711-80C3-0003FF685BE7/issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that will have the team assigned to it removed |
 | `request` | `Request` | `body` | `yes` | `SetTicketIssueRequest` | `SetTicketIssueRequest` | Ticket Issue Request Object |
@@ -158,7 +158,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/status/requestor-res
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
 
@@ -193,7 +193,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/status/waiting-on-re
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
 
@@ -241,7 +241,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/close
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be closing |
 | `close_options` | `CloseOptions` | `body` | `yes` | `TicketCloseOptions` | `TicketCloseOptions` | - |
@@ -276,7 +276,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/confirm-issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be confirming issue of |
 
@@ -322,7 +322,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/copy
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 | `copy_options` | `CopyOptions` | `body` | `yes` | `CopyTicketOptions` | `CopyTicketOptions` | - |
@@ -412,7 +412,7 @@ POST /api/v1.0/tickets/new
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
 
@@ -448,7 +448,7 @@ DELETE /api/v1.0/tickets/9F326CEF-8390-4707-BA2F-EBD7A397AD65
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
 
@@ -478,7 +478,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -513,7 +513,7 @@ GET /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e/assets
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
 
@@ -548,7 +548,7 @@ GET /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e/sla
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
 
@@ -610,7 +610,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 | `original_ticket_id` | `OriginalTicketId` | `path` | `yes` | `str` | `-` | - |
@@ -640,7 +640,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -669,7 +669,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -698,7 +698,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -727,7 +727,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -756,7 +756,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -785,7 +785,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | - |
 
@@ -820,7 +820,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/unassign-sla
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket IDof the ticket that will have the SLA removed |
 
@@ -855,7 +855,7 @@ POST /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/unconfirm-issue
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be reversing the confirm of |
 
@@ -890,7 +890,7 @@ PUT /api/v1.0/tickets/c8aef633-a009-48b1-9187-15621defbba8/undelete
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we will be changing status of |
 
@@ -979,7 +979,7 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
 | `ticket` | `Ticket` | `body` | `yes` | `UpdateTicketRequest` | `UpdateTicketRequest` | Ticket detail parameters including optional associated entities such as assets or attachments |
@@ -1020,7 +1020,7 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
 | `assets` | `Assets` | `body` | `yes` | `list[Any]` | `-` | Asset ID values for the ticket being updated |
@@ -1079,7 +1079,7 @@ POST /api/v1.0/tickets/ac6cece8-e4f4-e511-a789-005056bb000e
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the ticket to update |
 | `values` | `Values` | `body` | `yes` | `list[Any]` | `-` | Custom field values for the ticket being updated |
@@ -1119,7 +1119,7 @@ POST /api/v1.0/tickets/{TicketId:guid}/subject
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID that we need to update |
 | `update` | `Update` | `body` | `yes` | `UpdateTicketSubjectRequest` | `UpdateTicketSubjectRequest` | - |

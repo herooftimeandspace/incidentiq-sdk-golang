@@ -28,7 +28,7 @@ The upload call can optionally validate tenant readback with `wait_for_consisten
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `user_id` | `user_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
 | `file` | `File` | `file` | `yes` | `str | PathLike[str]` | Multipart image field inferred from HAR observations for this undocumented Silver route. Pass a local image path in a common raster format such as JPG/JPEG, PNG, GIF, WEBP, or BMP and the SDK uses the largest centered square crop for non-square inputs, converts it inside `client.silver.profiles.post_profile_picture(...)` to PNG, downscales it if needed, and uploads a PNG no larger than 1 MB. |
@@ -68,7 +68,7 @@ This helper exists on the Silver surface because Incident IQ exposes profile-pic
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Description |
+| Go Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
 | `user_id` | `user_id` | `path` | `yes` | `str` | User identifier whose profile picture should be removed. |
 | `wait_for_consistency` | `wait_for_consistency` | `client` | `no` | `bool` | When `True`, poll user readback until `PhotoId` becomes `None` or raise `TimeoutError` if the tenant does not converge in time. |

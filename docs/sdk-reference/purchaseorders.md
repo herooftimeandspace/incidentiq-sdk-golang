@@ -40,7 +40,7 @@ DELETE /api/v1.0/purchaseorders/b199f092-e1a9-418b-8eef-f6e44e273539
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
 
@@ -76,7 +76,7 @@ GET /api/v1.0/purchaseorders/b199f092-e1a9-418b-8eef-f6e44e273539
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
 
@@ -140,7 +140,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `purchase_order_id` | `PurchaseOrderId` | `path` | `yes` | `str` | `-` | - |
 | `purchase_order` | `PurchaseOrder` | `body` | `yes` | `PurchaseOrder` | `PurchaseOrder` | - |

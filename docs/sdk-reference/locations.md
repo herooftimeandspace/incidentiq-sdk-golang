@@ -39,7 +39,7 @@ DELETE /api/v1.0/locations/d344d88d-d201-4c52-8d23-4371fa7179bb
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | - |
 
@@ -74,7 +74,7 @@ DELETE /api/v1.0/locations/rooms/dba9553e-c473-4863-b99f-2c5c54c73a1b
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_room_id` | `LocationRoomId` | `path` | `yes` | `str` | `-` | - |
 
@@ -143,7 +143,7 @@ GET /api/v1.0/locations/4fc0dc90-c40a-4012-b4e2-224ca02bdfb7
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | - |
 
@@ -178,7 +178,7 @@ GET /api/v1.0/locations/rooms/6983376d-8906-4c3b-95de-f252a11d9164
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_room_id` | `LocationRoomId` | `path` | `yes` | `str` | `-` | - |
 
@@ -213,7 +213,7 @@ GET /api/v1.0/locations/4fc0dc90-c40a-4012-b4e2-224ca02bdfb7/rooms
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | - |
 
@@ -248,7 +248,7 @@ GET /api/v1.0/locations/types/27c81cbe-fdc4-4d7f-9c1c-e0311de5f882
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_type_id` | `LocationTypeId` | `path` | `yes` | `str` | `-` | - |
 
@@ -344,7 +344,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_id` | `LocationId` | `path` | `yes` | `str` | `-` | - |
 | `location` | `Location` | `body` | `yes` | `Location` | `Location` | - |
@@ -374,7 +374,7 @@ No contract summary provided.
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `location_room_id` | `LocationRoomId` | `path` | `yes` | `str` | `-` | - |
 | `location_room` | `LocationRoom` | `body` | `yes` | `LocationRoom` | `LocationRoom` | - |

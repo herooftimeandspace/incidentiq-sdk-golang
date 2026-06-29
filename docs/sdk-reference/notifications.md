@@ -42,7 +42,7 @@ POST /api/v1.0/notifications
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `request_info` | `RequestInfo` | `body` | `yes` | `GetNotificationsRequest` | `GetNotificationsRequest` | - |
 
@@ -77,7 +77,7 @@ GET /api/v1.0/notifications/emails/for/ticket/ac6cece8-e4f4-e511-a789-005056bb00
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `ticket_id` | `TicketId` | `path` | `yes` | `str` | `-` | Ticket ID of the record to query |
 
@@ -244,7 +244,7 @@ POST /api/v1.0/notifications/ac6cece8-e4f4-e511-a789-005056bb000e/archive
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `notification_id` | `NotificationId` | `path` | `yes` | `str` | `-` | Notification ID of the record to modify |
 
@@ -279,7 +279,7 @@ POST /api/v1.0/notifications/ac6cece8-e4f4-e511-a789-005056bb000e/read
 
 #### Parameters
 
-| Python Arg | API Name | In | Required | Type | Schema / Model | Description |
+| Go Arg | API Name | In | Required | Type | Schema / Model | Description |
 | --- | --- | --- | --- | --- | --- | --- |
 | `notification_id` | `NotificationId` | `path` | `yes` | `str` | `-` | Notification ID of the record to modify |
 
