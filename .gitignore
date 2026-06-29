@@ -1,0 +1,8 @@
+.DS_Store
+bin/
+coverage.out
+dist/
+.gocache/
+.gomodcache/
+site/
+tmp/
