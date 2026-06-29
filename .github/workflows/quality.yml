@@ -21,13 +21,14 @@ jobs:
     steps:
       - name: Checkout
         if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Go
         if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+          cache: false
 
       - name: Verify authoritative dev push go-test
         if: github.event_name == 'pull_request' && github.base_ref == 'staging' && github.head_ref == 'dev'
@@ -111,21 +112,21 @@ jobs:
 
       - name: Upload go-test status badge artifact
         if: github.event_name == 'push'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: go-test-status-badge
           path: go-test-status.json
 
       - name: Upload coverage badge artifact
         if: github.event_name == 'push'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-badge
           path: coverage-badge.json
 
       - name: Upload coverage reports
         if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-reports
           path: |
@@ -141,23 +142,24 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+          cache: false
 
       - name: Download go-test status badge artifact
         if: needs.go-test.result == 'success'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: go-test-status-badge
           path: .
 
       - name: Download coverage badge artifact
         if: needs.go-test.result == 'success'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-badge
           path: .
