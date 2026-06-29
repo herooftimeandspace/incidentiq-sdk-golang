@@ -320,8 +320,8 @@ func renderPath(pathTemplate string, pathParams map[string]any) (string, error) 
 }
 
 func isRetriableError(err error) bool {
-	if _, ok := err.(*ResponseTooLargeError); ok {
-		return false
+	if sizeErr, ok := err.(*ResponseTooLargeError); ok {
+		return shouldRetryStatus(sizeErr.StatusCode)
 	}
 	if apiErr, ok := err.(*APIError); ok {
 		return shouldRetryStatus(apiErr.StatusCode)
