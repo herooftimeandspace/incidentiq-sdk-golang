@@ -38,7 +38,9 @@ contract.
 
 ## Request Options
 
-Use `RequestOptions` for path parameters, query parameters, JSON bodies, headers, and per-request timeout:
+Use `RequestOptions` for path parameters, query parameters, JSON bodies,
+headers, per-request timeouts, per-request response-size limits, and the small
+number of header compatibility switches needed by HAR-derived Silver routes:
 
 ```go
 err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
@@ -46,6 +48,16 @@ err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
 	Params:     map[string]string{"$s": "100"},
 }, &payload)
 ```
+
+`Config.MaxResponseBytes` defaults to 4 MiB, and the SDK rejects larger
+responses before decoding them or attaching them to an API error. Set
+`RequestOptions.MaxResponseBodyBytes` when a single call needs a tighter or
+larger nonzero limit.
+
+Use `RequestOptions.OmitClientHeader` only when a Silver route is known from
+browser traffic to reject the SDK's default `Client: ApiClient` header on the
+first request. Use `RequestOptions.OmitSiteIDHeader` when the same route is
+known not to send `SiteId`.
 
 ## Low-Level Request API
 

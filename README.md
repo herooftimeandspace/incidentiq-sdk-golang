@@ -101,6 +101,12 @@ same header shape; if the Silver route rejects it, the SDK retries once without
 the SDK-provided `Client` header because HAR-derived routes may not follow the
 documented Postman requirement.
 
+For browser-observed Silver routes that must omit compatibility headers on the
+first request, set `RequestOptions.OmitClientHeader` or
+`RequestOptions.OmitSiteIDHeader`. The SDK also bounds response body reads with
+`Config.MaxResponseBytes`, which defaults to 4 MiB. Use
+`RequestOptions.MaxResponseBodyBytes` for per-call response-size overrides.
+
 ```go
 var tickets map[string]any
 err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &tickets)

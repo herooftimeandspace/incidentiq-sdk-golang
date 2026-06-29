@@ -180,7 +180,7 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Authorization", authorizationValue(c.config.APIToken, c.config.AuthMode))
-	if includeClientHeader && !hasHeader(opts.Headers, "Client") {
+	if includeClientHeader && !opts.OmitClientHeader && !hasHeader(opts.Headers, "Client") {
 		request.Header.Set("Client", defaultClientHeader)
 	}
 	if c.config.SiteID != "" && !opts.OmitSiteIDHeader {
@@ -206,7 +206,11 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		return err
 	}
 	defer response.Body.Close()
-	payload, err := io.ReadAll(response.Body)
+	responseLimit := c.config.MaxResponseBytes
+	if opts.MaxResponseBodyBytes > 0 {
+		responseLimit = opts.MaxResponseBodyBytes
+	}
+	payload, err := readBoundedResponseBody(response.Body, responseLimit, method, path)
 	if err != nil {
 		return err
 	}
@@ -224,6 +228,18 @@ func (c *Client) sendOnce(ctx context.Context, method string, path string, reque
 		return &ValidationError{Message: fmt.Sprintf("response for %s %s was not valid JSON: %v", method, path, err)}
 	}
 	return nil
+}
+
+func readBoundedResponseBody(body io.Reader, limit int64, method string, path string) ([]byte, error) {
+	limited := io.LimitReader(body, limit+1)
+	payload, err := io.ReadAll(limited)
+	if err != nil {
+		return nil, err
+	}
+	if int64(len(payload)) > limit {
+		return nil, &ResponseTooLargeError{Method: method, Path: path, Limit: limit}
+	}
+	return payload, nil
 }
 
 func hasHeader(headers map[string]string, name string) bool {

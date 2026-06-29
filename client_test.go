@@ -178,6 +178,61 @@ func TestSilverProfilePictureWrapperSendsRawMultipartBody(t *testing.T) {
 	}
 }
 
+func TestSilverProfilePictureWrapperCanOmitClientHeaderOnFirstAttempt(t *testing.T) {
+	var body bytes.Buffer
+	writer := multipart.NewWriter(&body)
+	part, err := writer.CreateFormFile("File", "photo.jpg")
+	if err != nil {
+		t.Fatalf("CreateFormFile returned error: %v", err)
+	}
+	if _, err := part.Write([]byte("image-bytes")); err != nil {
+		t.Fatalf("write multipart part: %v", err)
+	}
+	if err := writer.Close(); err != nil {
+		t.Fatalf("close multipart writer: %v", err)
+	}
+
+	attempts := 0
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		attempts++
+		if got := r.Header.Get("Client"); got != "" {
+			t.Fatalf("Client = %q, want omitted on first upload attempt", got)
+		}
+		if got := r.Header.Get("SiteId"); got != "" {
+			t.Fatalf("SiteId = %q, want omitted", got)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(map[string]any{"FileId": "file-123"})
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		SiteID:     "site-1",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	if err := client.Silver.Profiles.PostProfilePicture(context.Background(), RequestOptions{
+		PathParams:       map[string]any{"user_id": "user-123"},
+		Body:             body.Bytes(),
+		ContentType:      writer.FormDataContentType(),
+		OmitClientHeader: true,
+		OmitSiteIDHeader: true,
+	}, &payload); err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+	if attempts != 1 {
+		t.Fatalf("attempts = %d, want exactly one first-attempt omission request", attempts)
+	}
+	if payload["FileId"] != "file-123" {
+		t.Fatalf("payload = %#v, want FileId", payload)
+	}
+}
+
 func TestRequestRespectsExplicitClientHeader(t *testing.T) {
 	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if got, want := r.Header.Get("Client"), "CustomClient"; got != want {
@@ -321,6 +376,83 @@ func TestRequestSilverDoesNotRetryWithoutClientHeaderForUnrelatedFailure(t *test
 	}
 	if attempts != 1 {
 		t.Fatalf("attempts = %d, want 1", attempts)
+	}
+}
+
+func TestRequestRejectsOversizedSuccessResponse(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"payload":"too-large"}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:          server.URL,
+		APIToken:         "token",
+		MaxResponseBytes: 10,
+		HTTPClient:       server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, &payload)
+	if err == nil {
+		t.Fatal("Request returned nil error, want response size error")
+	}
+	if _, ok := err.(*ResponseTooLargeError); !ok {
+		t.Fatalf("Request error = %T %v, want ResponseTooLargeError", err, err)
+	}
+}
+
+func TestRequestRejectsOversizedErrorResponse(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusBadGateway)
+		_, _ = w.Write([]byte("this error body is too large"))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:          server.URL,
+		APIToken:         "token",
+		MaxResponseBytes: 8,
+		HTTPClient:       server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{}, nil)
+	if err == nil {
+		t.Fatal("Request returned nil error, want response size error")
+	}
+	if _, ok := err.(*ResponseTooLargeError); !ok {
+		t.Fatalf("Request error = %T %v, want ResponseTooLargeError", err, err)
+	}
+}
+
+func TestRequestOptionOverridesResponseSizeLimit(t *testing.T) {
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:          server.URL,
+		APIToken:         "token",
+		MaxResponseBytes: 5,
+		HTTPClient:       server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	var payload map[string]any
+	err = client.Request(context.Background(), "GET", "/users", RequestOptions{MaxResponseBodyBytes: 32}, &payload)
+	if err != nil {
+		t.Fatalf("Request returned error: %v", err)
+	}
+	if payload["ok"] != true {
+		t.Fatalf("payload = %#v, want ok true", payload)
 	}
 }
 
