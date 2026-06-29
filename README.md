@@ -1,10 +1,14 @@
 # incidentiq-sdk-golang
 
 [![dev unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
+[![dev coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/dev/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
 [![staging unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
+[![staging coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/staging/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
 [![main unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
+[![main coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/main/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
 [![staging integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Astaging)
 [![main integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Amain)
+[![main docs](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/docs.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/docs.yml?query=branch%3Amain)
 
 `incidentiq-sdk-golang` is the Go SDK companion to
 [`herooftimeandspace/incident-py-q`](https://github.com/herooftimeandspace/incident-py-q).
@@ -169,12 +173,27 @@ The current parity surface is protected by tests for:
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
+Run the native Go coverage workflow locally:
+
+```bash
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
+go tool cover -func=coverage.out -o coverage-summary.txt
+go tool cover -html=coverage.out -o coverage.html
+go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 31.0 --output coverage-badge.json
+```
+
 The repo uses only the Go standard library for the runtime client.
 
 Regenerate wrappers after refreshing inventory snapshots:
 
 ```bash
 go generate ./...
+```
+
+Build the static documentation site that backs the `docs-build` workflow:
+
+```bash
+go run scripts/build_docs_site.go
 ```
 
 ## Promotion And Release Automation
@@ -190,6 +209,9 @@ The Go SDK follows the same branch promotion shape as `incident-py-q`:
   `semver:patch`, `semver:minor`, or `semver:major`.
 - merges to `main` create a GitHub Release and source archive tagged as the next
   semantic version.
+- `main` runs the docs workflow and publishes the generated Markdown site to
+  GitHub Pages.
+- Dependabot checks both Go modules and GitHub Actions weekly.
 
 The automation uses the repository `GITHUB_TOKEN`. It does not require a
 personal access token by default. Repository rules must allow GitHub

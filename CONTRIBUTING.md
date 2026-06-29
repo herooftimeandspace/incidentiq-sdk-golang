@@ -12,6 +12,16 @@ GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 
 The repo-local cache variables are useful on workstations where the default Go cache path is sandboxed or shared across projects.
 
+Run native Go coverage before changing shared request behavior, generated
+wrappers, or test infrastructure:
+
+```bash
+GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
+go tool cover -func=coverage.out -o coverage-summary.txt
+go tool cover -html=coverage.out -o coverage.html
+go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 31.0 --output coverage-badge.json
+```
+
 ## Branch Promotion Flow
 
 - Branch feature, bugfix, and chore work from `dev`.
@@ -30,9 +40,22 @@ Run all required checks before opening a pull request:
 GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
 ```
 
-The `quality` workflow runs the same package test command. The workflow also
-publishes branch status badge payloads to the `badges` branch for `dev`,
-`staging`, and `main`.
+The `quality` workflow runs `go vet ./...` plus the same package test command
+with native Go coverage enabled. It uploads `coverage.out`,
+`coverage-summary.txt`, and `coverage.html` as workflow artifacts. The workflow
+also publishes branch status and coverage badge payloads to the `badges` branch
+for `dev`, `staging`, and `main`. Coverage must stay at or above the current Go
+baseline of `31.0%`.
+
+Build the static docs site locally before changing contributor or reference
+Markdown:
+
+```bash
+go run scripts/build_docs_site.go
+```
+
+The `docs` workflow runs the same docs build for `main` pull requests and
+publishes the generated site plus the `main docs` badge after `main` pushes.
 
 ## Release Labels and Mainline Releases
 

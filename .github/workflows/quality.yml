@@ -84,9 +84,19 @@ jobs:
           echo "Timed out waiting for the authoritative dev push unit check for ${PR_HEAD_SHA}."
           exit 1
 
-      - name: Tests
+      - name: Go vet
         if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
-        run: go test ./...
+        run: go vet ./...
+
+      - name: Tests with native coverage
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        run: go test -covermode=atomic -coverprofile=coverage.out ./...
+
+      - name: Build coverage reports
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        run: |
+          go tool cover -func=coverage.out -o coverage-summary.txt
+          go tool cover -html=coverage.out -o coverage.html
 
       - name: Build unit status badge payload
         if: github.event_name == 'push'
@@ -96,12 +106,38 @@ jobs:
             --label "${GITHUB_REF_NAME} unit" \
             --output unit-status.json
 
+      - name: Build coverage badge payload
+        if: github.event_name == 'push'
+        run: |
+          go run scripts/build_badge_json.go coverage \
+            --coverage-file coverage.out \
+            --label "coverage ${GITHUB_REF_NAME}" \
+            --minimum 31.0 \
+            --output coverage-badge.json
+
       - name: Upload unit status badge artifact
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v7
         with:
           name: unit-status-badge
           path: unit-status.json
+
+      - name: Upload coverage badge artifact
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-badge
+          path: coverage-badge.json
+
+      - name: Upload coverage reports
+        if: github.event_name != 'pull_request' || github.base_ref != 'staging' || github.head_ref != 'dev'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-reports
+          path: |
+            coverage.out
+            coverage-summary.txt
+            coverage.html
 
   publish-badges:
     needs: unit
@@ -124,6 +160,13 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: unit-status-badge
+          path: .
+
+      - name: Download coverage badge artifact
+        if: needs.unit.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: coverage-badge
           path: .
 
       - name: Build unit status badge payload
@@ -166,8 +209,16 @@ jobs:
           mkdir -p "badges-work/branch-status/${GH_BRANCH}"
           cp unit-status.json "badges-work/branch-status/${GH_BRANCH}/unit.json"
 
+          if [ -f coverage-badge.json ]; then
+            mkdir -p "badges-work/branch-coverage/${GH_BRANCH}"
+            cp coverage-badge.json "badges-work/branch-coverage/${GH_BRANCH}/coverage.json"
+          fi
+
           cd badges-work
           git add "branch-status/${GH_BRANCH}/unit.json"
+          if [ -f "branch-coverage/${GH_BRANCH}/coverage.json" ]; then
+            git add "branch-coverage/${GH_BRANCH}/coverage.json"
+          fi
           if git diff --cached --quiet; then
             echo "No badge changes to publish."
             exit 0
