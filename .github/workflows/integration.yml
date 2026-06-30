@@ -37,7 +37,7 @@ jobs:
           for attempt in $(seq 1 "${max_attempts}"); do
             check_run="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${PR_HEAD_SHA}/check-runs?check_name=${CHECK_NAME}" \
               --jq '.check_runs
-                | map(select((.details_url // "") == ""))
+                | map(select(((.details_url // "") | contains("/actions/runs/") | not)))
                 | sort_by(.started_at)
                 | reverse
                 | .[0] // empty
