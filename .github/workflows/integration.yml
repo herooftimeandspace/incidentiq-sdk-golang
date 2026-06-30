@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  checks: read
 
 jobs:
   integration:
@@ -18,17 +19,71 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      checks: read
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
+      - name: Verify promotion-owned integration check
+        if: github.event_name == 'pull_request' && github.base_ref == 'main' && github.head_ref == 'promote/staging-to-main'
+        env:
+          CHECK_NAME: integration
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          max_attempts=30
+          sleep_seconds=10
+
+          for attempt in $(seq 1 "${max_attempts}"); do
+            check_run="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${PR_HEAD_SHA}/check-runs?check_name=${CHECK_NAME}" \
+              --jq '.check_runs
+                | map(select(((.details_url // "") | contains("/actions/runs/") | not)))
+                | sort_by(.started_at)
+                | reverse
+                | .[0] // empty
+                | if . == null then empty else [.id, .status, (.conclusion // ""), (.html_url // "")] | @tsv end' \
+              | head -n 1 \
+              || true)"
+
+            if [ -n "${check_run}" ]; then
+              IFS=$'\t' read -r check_id check_status check_conclusion check_url <<< "${check_run}"
+
+              if [ "${check_status}" = "completed" ] && [ "${check_conclusion}" = "success" ]; then
+                echo "Promotion-owned ${CHECK_NAME} check ${check_id} succeeded for ${PR_HEAD_SHA}."
+                echo "${check_url}"
+                exit 0
+              fi
+
+              if [ "${check_status}" = "completed" ]; then
+                echo "Promotion-owned ${CHECK_NAME} check ${check_id} concluded with ${check_conclusion}."
+                echo "${check_url}"
+                exit 1
+              fi
+
+              echo "Promotion-owned ${CHECK_NAME} check ${check_id} is ${check_status}; waiting (${attempt}/${max_attempts})."
+            else
+              echo "No promotion-owned ${CHECK_NAME} check is visible for ${PR_HEAD_SHA}; waiting (${attempt}/${max_attempts})."
+            fi
+
+            sleep "${sleep_seconds}"
+          done
+
+          echo "Timed out waiting for promotion-owned ${CHECK_NAME} check for ${PR_HEAD_SHA}."
+          exit 1
+
       - name: Checkout
+        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
         uses: actions/checkout@v7
 
       - name: Set up Go
+        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
         uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: false
 
       - name: Integration placeholder
+        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
         run: |
           echo "No live Go integration suite is defined yet; protected branch pushes are covered by unit."
 
