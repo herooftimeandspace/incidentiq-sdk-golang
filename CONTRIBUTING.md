@@ -54,6 +54,14 @@ with native Go coverage enabled. It uploads `coverage.out`,
 also publishes branch status and coverage badge payloads to the `badges` branch
 for `dev`, `staging`, and `main`.
 
+Feature, bugfix, and chore branches are validated through their pull requests.
+The workflow intentionally does not run full unit tests on every non-protected
+branch push, which avoids running the same Go test suite once for the branch
+push and again for the pull request. Push checks remain enabled for `dev`,
+`staging`, and `main` because those runs validate the integrated branch tip,
+publish branch badges, update the coverage ratchet source, and trigger the
+automated promotion workflow.
+
 Coverage must stay at or above the effective branch floor. The effective floor
 is the greater of:
 
@@ -84,11 +92,17 @@ publishes the generated site plus the `main docs` badge after `main` pushes.
   - `semver:major`
 - Automated promotion PRs copy the semver label from the associated source PR
   when one exists and otherwise default to `semver:patch`.
+- The `dev -> staging` promotion PR reuses the authoritative `dev` push `unit`
+  result instead of re-running the full unit suite on the promotion PR.
 - The promotion workflow reports the required `unit`, `integration`,
   `docs-build`, and `release-prep` checks directly on the Actions-authored
   `promote/staging-to-main` branch. This keeps the automated promotion path
   usable even when GitHub does not attach ordinary `pull_request` workflow runs
-  to the workflow-created promotion branch.
+  to the workflow-created promotion branch. The ordinary pull request workflows
+  do not duplicate that work on the promotion PR; they wait for the matching
+  promotion-owned check-run and fail closed if it is missing or failed. The
+  ordinary `release-prep` workflow also rechecks current labels and branch
+  ancestry because those inputs can change without a new promotion head commit.
 - Merging the prepared `promote/staging-to-main -> main` PR creates a GitHub
   Release, a `vMAJOR.MINOR.PATCH` tag, and a source archive.
 - Go module releases are tag-based. There is no package metadata file to bump in

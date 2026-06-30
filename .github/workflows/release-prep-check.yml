@@ -8,10 +8,15 @@ on:
 permissions:
   contents: read
   pull-requests: read
+  checks: read
 
 jobs:
   release-prep:
     name: release-prep
+    # The promotion workflow reports release-prep directly for the
+    # Actions-authored staging -> main PR after it creates the prepared merge
+    # branch. This job waits for that separate check-run instead of duplicating
+    # the same validation work.
     if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'promote/staging-to-main'
     runs-on: ubuntu-latest
     env:
@@ -19,6 +24,53 @@ jobs:
       GH_REPO: ${{ github.repository }}
       GH_PR_NUMBER: ${{ github.event.pull_request.number }}
     steps:
+      - name: Verify promotion-owned release-prep check
+        env:
+          CHECK_NAME: release-prep
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          max_attempts=30
+          sleep_seconds=10
+
+          for attempt in $(seq 1 "${max_attempts}"); do
+            check_run="$(gh api "repos/${GH_REPO}/commits/${PR_HEAD_SHA}/check-runs?check_name=${CHECK_NAME}" \
+              --jq '.check_runs
+                | map(select((.details_url // "") == ""))
+                | sort_by(.started_at)
+                | reverse
+                | .[0] // empty
+                | if . == null then empty else [.id, .status, (.conclusion // ""), (.html_url // "")] | @tsv end' \
+              | head -n 1 \
+              || true)"
+
+            if [ -n "${check_run}" ]; then
+              IFS=$'\t' read -r check_id check_status check_conclusion check_url <<< "${check_run}"
+
+              if [ "${check_status}" = "completed" ] && [ "${check_conclusion}" = "success" ]; then
+                echo "Promotion-owned ${CHECK_NAME} check ${check_id} succeeded for ${PR_HEAD_SHA}."
+                echo "${check_url}"
+                exit 0
+              fi
+
+              if [ "${check_status}" = "completed" ]; then
+                echo "Promotion-owned ${CHECK_NAME} check ${check_id} concluded with ${check_conclusion}."
+                echo "${check_url}"
+                exit 1
+              fi
+
+              echo "Promotion-owned ${CHECK_NAME} check ${check_id} is ${check_status}; waiting (${attempt}/${max_attempts})."
+            else
+              echo "No promotion-owned ${CHECK_NAME} check is visible for ${PR_HEAD_SHA}; waiting (${attempt}/${max_attempts})."
+            fi
+
+            sleep "${sleep_seconds}"
+          done
+
+          echo "Timed out waiting for promotion-owned ${CHECK_NAME} check for ${PR_HEAD_SHA}."
+          exit 1
+
       - name: Checkout promotion branch
         uses: actions/checkout@v7
         with:
@@ -31,7 +83,7 @@ jobs:
           go-version-file: go.mod
           cache: false
 
-      - name: Verify prepared promotion branch
+      - name: Verify current release-prep state
         run: |
           set -euo pipefail
 
