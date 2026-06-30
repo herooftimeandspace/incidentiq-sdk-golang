@@ -71,6 +71,19 @@ in this repository.
   the ordinary required PR checks. They exist so the Actions-authored
   `promote/staging-to-main` PR can satisfy required checks even when GitHub does
   not attach normal `pull_request` workflow runs to that workflow-created branch.
+- Do not add broad push-triggered unit runs for feature, bugfix, chore, or sync
+  branches. Pull requests validate those branches. Push-triggered unit runs are
+  reserved for `dev`, `staging`, and `main` because they validate the integrated
+  branch tip, publish badges, update coverage ratchets, and drive promotion.
+- Keep the ordinary pull request workflows from duplicating promotion-owned
+  checks on `promote/staging-to-main`. The `dev -> staging` promotion PR should
+  reuse the authoritative `dev` push `unit` result, and the `staging -> main`
+  promotion PR should rely on `.github/workflows/promotion.yml` to report
+  `unit`, `integration`, `docs-build`, and `release-prep`. Ordinary PR
+  workflows that expose those required context names must wait for the matching
+  promotion-owned check-run and fail closed if it is missing or failed. Keep a
+  live label and ancestry check in `release-prep` because those inputs can
+  change without a new promotion head commit.
 - The automation uses `GITHUB_TOKEN` by default. Do not introduce a personal
   access token unless GitHub repository rules make it unavoidable and the docs
   are updated with the reason.
