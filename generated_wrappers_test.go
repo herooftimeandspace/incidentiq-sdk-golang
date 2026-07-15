@@ -2,8 +2,12 @@ package incidentiq
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"os/exec"
+	"path/filepath"
 	"reflect"
 	"regexp"
 	"sort"
@@ -75,7 +79,7 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SilverInventory returned error: %v", err)
 	}
-	wantSilver := countByExportedNamespace(silver)
+	wantSilver := countGeneratedSilverByExportedNamespace(t, silver)
 	silverServices := reflect.TypeOf(*client.Silver)
 	for i := 0; i < silverServices.NumField(); i++ {
 		field := silverServices.Field(i)
@@ -83,7 +87,7 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 			appServices := field.Type.Elem()
 			for j := 0; j < appServices.NumField(); j++ {
 				appField := appServices.Field(j)
-				got := appField.Type.NumMethod()
+				got := generatedWrapperMethodCount(appField.Type)
 				key := field.Name + "." + appField.Name
 				if wantSilver[key] != got {
 					t.Fatalf("silver namespace %s has %d generated methods, want %d", key, got, wantSilver[key])
@@ -92,7 +96,7 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 			}
 			continue
 		}
-		got := field.Type.NumMethod()
+		got := generatedWrapperMethodCount(field.Type)
 		if wantSilver[field.Name] != got {
 			t.Fatalf("silver namespace %s has %d generated methods, want %d", field.Name, got, wantSilver[field.Name])
 		}
@@ -229,9 +233,89 @@ func TestGeneratedWrappersInvokeAllInventoryOperations(t *testing.T) {
 	if err != nil {
 		t.Fatalf("SilverInventory returned error: %v", err)
 	}
+	reserved := typedSilverMethodKeys(t)
 	for _, operation := range silver {
+		if reserved[operation.Namespace+"."+operation.Name] {
+			continue
+		}
 		service := silverServiceValue(t, client.Silver, operation.Namespace)
 		invokeGeneratedWrapper(t, "Silver."+operation.Namespace+"."+operation.Name, service, operation.Name, operation.Path)
+	}
+}
+
+// TestGeneratorOmitsFutureReservedTypedMethods simulates a source SDK sync that
+// introduces a method already implemented by a handwritten typed helper. It
+// runs the real generator in an isolated directory and proves that the method
+// remains in the public inventory without producing a duplicate generic method.
+func TestGeneratorOmitsFutureReservedTypedMethods(t *testing.T) {
+	temporaryRoot := t.TempDir()
+	for _, directory := range []string{"scripts", "data", "testdata/contract"} {
+		if err := os.MkdirAll(filepath.Join(temporaryRoot, directory), 0o755); err != nil {
+			t.Fatalf("create generator fixture directory %s: %v", directory, err)
+		}
+	}
+	for _, path := range []string{
+		"scripts/generate_wrappers.go",
+		"data/typed_silver_methods.json",
+		"testdata/contract/golden_sdk_inventory.json",
+		"testdata/contract/silver_sdk_inventory.json",
+	} {
+		copyGeneratorFixtureFile(t, path, filepath.Join(temporaryRoot, path))
+	}
+
+	var silver []SilverOperation
+	fixturePath := filepath.Join(temporaryRoot, "testdata/contract/silver_sdk_inventory.json")
+	payload, err := os.ReadFile(fixturePath)
+	if err != nil {
+		t.Fatalf("read synthetic Silver inventory: %v", err)
+	}
+	if err := json.Unmarshal(payload, &silver); err != nil {
+		t.Fatalf("parse synthetic Silver inventory: %v", err)
+	}
+	silver = append(silver, SilverOperation{
+		HTTPMethod: "POST",
+		Name:       "add_user_room",
+		Namespace:  "users",
+		Path:       "/api/v1.0/users/{user_id}/rooms/{location_room_id}",
+		Provenance: "silver",
+		Sources:    []string{"synthetic-source-sync"},
+	})
+	payload, err = json.MarshalIndent(silver, "", "  ")
+	if err != nil {
+		t.Fatalf("encode synthetic Silver inventory: %v", err)
+	}
+	if err := os.WriteFile(fixturePath, append(payload, '\n'), 0o644); err != nil {
+		t.Fatalf("write synthetic Silver inventory: %v", err)
+	}
+
+	command := exec.Command("go", "run", "scripts/generate_wrappers.go")
+	command.Dir = temporaryRoot
+	if output, err := command.CombinedOutput(); err != nil {
+		t.Fatalf("run generator with synthetic source sync: %v\n%s", err, output)
+	}
+	generated, err := os.ReadFile(filepath.Join(temporaryRoot, "generated_wrappers.go"))
+	if err != nil {
+		t.Fatalf("read synthetic generated wrappers: %v", err)
+	}
+	source := string(generated)
+	if strings.Contains(source, "func (s *SilverUsersService) AddUserRoom(ctx context.Context, opts RequestOptions") {
+		t.Fatal("generator emitted a generic AddUserRoom method reserved for the typed helper")
+	}
+	if !strings.Contains(source, `"users.add_user_room"`) {
+		t.Fatal("generator removed the reserved operation from SilverInventory")
+	}
+}
+
+// copyGeneratorFixtureFile copies one repository-owned generator input into an
+// isolated test directory so the real generator cannot alter the checkout.
+func copyGeneratorFixtureFile(t *testing.T, sourcePath, destinationPath string) {
+	t.Helper()
+	payload, err := os.ReadFile(sourcePath)
+	if err != nil {
+		t.Fatalf("read generator fixture %s: %v", sourcePath, err)
+	}
+	if err := os.WriteFile(destinationPath, payload, 0o644); err != nil {
+		t.Fatalf("write generator fixture %s: %v", destinationPath, err)
 	}
 }
 
@@ -258,6 +342,57 @@ func countByExportedNamespace[T inventoryOperation](operations []T) map[string]i
 		counts[testExportedName(namespace)]++
 	}
 	return counts
+}
+
+// countGeneratedSilverByExportedNamespace excludes methods whose names are
+// reserved for handwritten typed helpers. The generator consumes the same
+// registry, preventing a future source inventory sync from emitting duplicate
+// methods with unsafe generic signatures.
+func countGeneratedSilverByExportedNamespace(t *testing.T, operations []SilverOperation) map[string]int {
+	t.Helper()
+	reserved := typedSilverMethodKeys(t)
+	counts := map[string]int{}
+	for _, operation := range operations {
+		if reserved[operation.Namespace+"."+operation.Name] {
+			continue
+		}
+		if parent, child, ok := strings.Cut(operation.Namespace, "."); ok {
+			counts[testExportedName(parent)+"."+testExportedName(child)]++
+			continue
+		}
+		counts[testExportedName(operation.Namespace)]++
+	}
+	return counts
+}
+
+func typedSilverMethodKeys(t *testing.T) map[string]bool {
+	t.Helper()
+	var methods []struct {
+		Namespace string `json:"namespace"`
+		Name      string `json:"name"`
+	}
+	if err := readEmbeddedJSON("data/typed_silver_methods.json", &methods); err != nil {
+		t.Fatalf("read typed Silver method registry: %v", err)
+	}
+	keys := make(map[string]bool, len(methods))
+	for _, method := range methods {
+		keys[method.Namespace+"."+method.Name] = true
+	}
+	return keys
+}
+
+// generatedWrapperMethodCount counts only the uniform inventory-generated
+// wrapper signature. Handwritten typed helpers may share a generated service
+// type without being mistaken for generated inventory operations.
+func generatedWrapperMethodCount(serviceType reflect.Type) int {
+	count := 0
+	for index := 0; index < serviceType.NumMethod(); index++ {
+		method := serviceType.Method(index)
+		if method.Type.NumIn() == 4 && method.Type.NumOut() == 1 {
+			count++
+		}
+	}
+	return count
 }
 
 var testNonIdentifier = regexp.MustCompile(`[^0-9A-Za-z]+`)
