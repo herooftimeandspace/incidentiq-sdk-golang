@@ -152,6 +152,14 @@ This method is intentionally kept on the Silver surface because bundled Stopligh
 - Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
+#### Room association mutations
+
+The SDK also exposes named Silver helpers for the web-client room association
+routes: `AddUserRoom`, `SetUserRooms`, and `RemoveUserRoom`. Their exact request
+shapes, response limitations, retry behavior, and required read-before-write
+and read-after-write workflow are documented in
+[User room associations](../user-room-associations.md).
+
 ---
 
 ### `post_is_online_list`
