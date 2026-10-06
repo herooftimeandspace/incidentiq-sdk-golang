@@ -1,34 +1,38 @@
-# `Silver.search` Namespace
+# `silver.search` Namespace
 
-Go client access: `client.Silver.Search`
+Sync client access: `client.silver.search`
 
+Async client access: `client.silver.search` with `await` on method calls.
 
-These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
+These methods are Silver because the published contract does not document them directly, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
 ## Methods
 
 ### `post_scan`
 
-- Go wrapper: `client.Silver.Search.PostScan(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "search", "post_scan", opts, out)`
+Provenance: Silver (HAR-derived undocumented route)
+
+- Sync: `client.silver.search.post_scan(limit=..., query=..., timeout=None)`
+- Async: `await client.silver.search.post_scan(limit=..., query=..., timeout=None)`
+- Raw payload: `client.silver.search.post_scan.raw(limit=..., query=..., timeout=None)`
 - HTTP route: `POST /api/v1.0/search/scan`
 - Observed in: `Chromebook-asset-actions.har`, `apple-asset-actions.har`
 
-HAR-derived undocumented POST route for `client.Silver.Search`.
+HAR-derived undocumented POST route for `client.silver.search`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| RequestOptions Field | API Name | In | Required | Type | Description |
+| Python Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `JSON` | `Limit` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
-| `JSON` | `Query` | `body` | `yes` | `string` | Body field inferred from HAR observations for this undocumented Silver route. |
+| `limit` | `Limit` | `body` | `yes` | `int` | Body field inferred from HAR observations for this undocumented Silver route. |
+| `query` | `Query` | `body` | `yes` | `str` | Body field inferred from HAR observations for this undocumented Silver route. |
 
 #### Returns
 
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
+- Typed call return: `dict[str, Any] | list[Any] | None`
+- Raw payload return: `dict[str, Any] | list[Any] | None`
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
