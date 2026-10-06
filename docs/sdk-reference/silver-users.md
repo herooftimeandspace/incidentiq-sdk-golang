@@ -64,3 +64,17 @@ Migrated from the previous Golden SDK. The published Golden OpenAPI contract no 
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
+
+---
+
+### Room association mutations
+
+The SDK also exposes named Silver helpers for the web-client room association
+routes: `AddUserRoom`, `SetUserRooms`, and `RemoveUserRoom`. These are
+hand-written Go methods on `client.Silver.Users`, not generated wrappers, so
+they survive contract syncs. Their exact request shapes, response limitations,
+retry behavior, and required read-before-write and read-after-write workflow are
+documented in [User room associations](../user-room-associations.md).
+
+Note that the read side, `get_user_rooms`, moved onto the Golden surface in the
+OpenAPI contract migration and is now `client.Users.GetUserRooms`.

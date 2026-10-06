@@ -1,0 +1,17 @@
+{
+  "source_url": "https://demo.incidentiq.com/media/compiled/jsSpark.1784035480019.js",
+  "observed_at": "2026-07-14",
+  "source_sha256": "e334853c22386f5f600c2cfd302eb8d5f4cd6811afd3578e1cd5cab3545aaafd",
+  "classification": "silver-live-client-observation",
+  "service_contract": {
+    "add": "POST /users/{user_id}/rooms/{location_room_id} with no body",
+    "replace": "POST /users/{user_id}/rooms with a JSON array of LocationRoomId strings",
+    "remove": "DELETE /users/{user_id}/rooms/{location_room_id} with no body"
+  },
+  "sanitized_evidence": [
+    "AddLocationRoomToUser(roomId, userId) posts to /users/{userId}/rooms/{roomId} with no body.",
+    "SetLocationRoomsForUser(roomIds, userId) posts roomIds to /users/{userId}/rooms.",
+    "RemoveLocationRoomFromUser(roomId, userId) deletes /users/{userId}/rooms/{roomId}.",
+    "The user editor builds roomIds from UserLocationRooms by selecting LocationRoomId before calling SetLocationRoomsForUser."
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "namespace": "users",
+    "name": "add_user_room"
+  },
+  {
+    "namespace": "users",
+    "name": "remove_user_room"
+  },
+  {
+    "namespace": "users",
+    "name": "set_user_rooms"
+  }
+]
