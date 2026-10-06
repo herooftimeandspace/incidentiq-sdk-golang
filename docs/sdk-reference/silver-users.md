@@ -65,8 +65,6 @@ Migrated from the previous Golden SDK. The published Golden OpenAPI contract no 
 
 ---
 
----
-
 ### Room association mutations
 
 The SDK also exposes named Silver helpers for the web-client room association

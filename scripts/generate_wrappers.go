@@ -362,6 +362,10 @@ func writeSilverRoot(out *bytes.Buffer, groups []namespaceGroup) {
 	for _, group := range append(topLevel, flattenNestedGroups(nested)...) {
 		fmt.Fprintf(out, "type %s struct { client *Client }\n\n", group.StructName)
 		for _, op := range group.Operations {
+			// Inert against the current inventory: the OpenAPI contract
+			// migration left none of the reserved names in Silver. The guard
+			// stays so a later sync that reintroduces one cannot emit a
+			// generic wrapper beside the handwritten typed helper.
 			if typedSilverMethods[op.Namespace+"."+op.Name] {
 				continue
 			}
