@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   promote-dev-to-staging:
+    timeout-minutes: 12
     if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'dev'
     runs-on: ubuntu-latest
     steps:
@@ -113,18 +114,18 @@ jobs:
           promotion_sha="$(git rev-parse HEAD)"
           echo "Reporting promotion-owned checks for PR #${promotion_pr} at ${promotion_sha}."
 
-          run_reported_check() {
-            local name="$1"
-            local script="$2"
-            local log_file
-            local check_id
-            local started_at
-            local completed_at
-            local conclusion="success"
+          declare -A CHECK_IDS
 
-            log_file="$(mktemp)"
+          # Announce every check-run as in_progress before running any of them.
+          # The ordinary PR workflows wait on these check-runs and fail closed on
+          # a timeout, so a check that only appears once its turn comes would be
+          # invisible for as long as the checks ahead of it take to run.
+          open_check() {
+            local name="$1"
+            local started_at
+
             started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-            check_id="$(gh api \
+            CHECK_IDS["${name}"]="$(gh api \
               --method POST \
               "repos/${GH_REPO}/check-runs" \
               -f "name=${name}" \
@@ -132,6 +133,23 @@ jobs:
               -f "status=in_progress" \
               -f "started_at=${started_at}" \
               --jq '.id')"
+            echo "Opened ${name} as check-run ${CHECK_IDS[${name}]}."
+          }
+
+          run_reported_check() {
+            local name="$1"
+            local script="$2"
+            local log_file
+            local check_id
+            local completed_at
+            local conclusion="success"
+
+            log_file="$(mktemp)"
+            check_id="${CHECK_IDS[${name}]:-}"
+            if [ -z "${check_id}" ]; then
+              echo "No check-run was opened for ${name}; call open_check first."
+              return 1
+            fi
 
             echo "Running ${name} as check-run ${check_id}."
             if ! bash -eo pipefail -c "${script}" >"${log_file}" 2>&1; then
@@ -139,7 +157,7 @@ jobs:
             fi
 
             completed_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-            gh api \
+            if ! gh api \
               --method PATCH \
               "repos/${GH_REPO}/check-runs/${check_id}" \
               -f "status=completed" \
@@ -148,7 +166,12 @@ jobs:
               -f "output[title]=${name}" \
               -f "output[summary]=Promotion workflow reported ${name} with conclusion ${conclusion}." \
               -f "output[text]=$(tail -c 60000 "${log_file}")" \
-              >/dev/null
+              >/dev/null; then
+              echo "Failed to complete check-run ${check_id} for ${name}; it would stay in_progress."
+              cat "${log_file}"
+              rm -f "${log_file}"
+              return 1
+            fi
 
             echo "Finished ${name} with ${conclusion}."
             cat "${log_file}"
@@ -210,6 +233,10 @@ jobs:
           echo "Promotion branch contains both the dev and staging tips."
           '
 
+          open_check "unit"
+          open_check "integration"
+          open_check "promotion-head"
+
           run_reported_check "unit" "${unit_script}" || failures=1
           run_reported_check "integration" "${integration_script}" || failures=1
           run_reported_check "promotion-head" "${promotion_head_script}" || failures=1
@@ -220,6 +247,7 @@ jobs:
           fi
 
   promote-staging-to-main:
+    timeout-minutes: 12
     if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'staging'
     runs-on: ubuntu-latest
     steps:
@@ -312,18 +340,18 @@ jobs:
           promotion_sha="$(git rev-parse HEAD)"
           echo "Reporting promotion-owned checks for PR #${promotion_pr} at ${promotion_sha}."
 
-          run_reported_check() {
-            local name="$1"
-            local script="$2"
-            local log_file
-            local check_id
-            local started_at
-            local completed_at
-            local conclusion="success"
+          declare -A CHECK_IDS
 
-            log_file="$(mktemp)"
+          # Announce every check-run as in_progress before running any of them.
+          # The ordinary PR workflows wait on these check-runs and fail closed on
+          # a timeout, so a check that only appears once its turn comes would be
+          # invisible for as long as the checks ahead of it take to run.
+          open_check() {
+            local name="$1"
+            local started_at
+
             started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-            check_id="$(gh api \
+            CHECK_IDS["${name}"]="$(gh api \
               --method POST \
               "repos/${GH_REPO}/check-runs" \
               -f "name=${name}" \
@@ -331,6 +359,23 @@ jobs:
               -f "status=in_progress" \
               -f "started_at=${started_at}" \
               --jq '.id')"
+            echo "Opened ${name} as check-run ${CHECK_IDS[${name}]}."
+          }
+
+          run_reported_check() {
+            local name="$1"
+            local script="$2"
+            local log_file
+            local check_id
+            local completed_at
+            local conclusion="success"
+
+            log_file="$(mktemp)"
+            check_id="${CHECK_IDS[${name}]:-}"
+            if [ -z "${check_id}" ]; then
+              echo "No check-run was opened for ${name}; call open_check first."
+              return 1
+            fi
 
             echo "Running ${name} as check-run ${check_id}."
             if ! bash -eo pipefail -c "${script}" >"${log_file}" 2>&1; then
@@ -338,7 +383,7 @@ jobs:
             fi
 
             completed_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-            gh api \
+            if ! gh api \
               --method PATCH \
               "repos/${GH_REPO}/check-runs/${check_id}" \
               -f "status=completed" \
@@ -347,7 +392,12 @@ jobs:
               -f "output[title]=${name}" \
               -f "output[summary]=Promotion workflow reported ${name} with conclusion ${conclusion}." \
               -f "output[text]=$(tail -c 60000 "${log_file}")" \
-              >/dev/null
+              >/dev/null; then
+              echo "Failed to complete check-run ${check_id} for ${name}; it would stay in_progress."
+              cat "${log_file}"
+              rm -f "${log_file}"
+              return 1
+            fi
 
             echo "Finished ${name} with ${conclusion}."
             cat "${log_file}"
@@ -428,6 +478,11 @@ jobs:
           desired_version="$(go run scripts/release_tools.go bump --part "${part}" --current-version "${current_version}")"
           echo "Promotion branch is fully prepared for v${desired_version}."
           '
+
+          open_check "unit"
+          open_check "integration"
+          open_check "docs-build"
+          open_check "release-prep"
 
           run_reported_check "unit" "${unit_script}" || failures=1
           run_reported_check "integration" "${integration_script}" || failures=1
