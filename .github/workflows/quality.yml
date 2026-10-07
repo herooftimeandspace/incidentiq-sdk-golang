@@ -11,7 +11,6 @@ on:
 permissions:
   contents: read
   checks: read
-  actions: read
 
 jobs:
   unit:
@@ -20,133 +19,30 @@ jobs:
     permissions:
       contents: read
       checks: read
-      actions: read
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Verify promotion-owned unit check
-        if: github.event_name == 'pull_request' && github.base_ref == 'main' && github.head_ref == 'promote/staging-to-main'
-        env:
-          CHECK_NAME: unit
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -euo pipefail
-
-          max_attempts=90
-          sleep_seconds=10
-
-          for attempt in $(seq 1 "${max_attempts}"); do
-            check_run="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${PR_HEAD_SHA}/check-runs?check_name=${CHECK_NAME}" \
-              --jq '.check_runs
-                | map(select(((.details_url // "") | contains("/actions/runs/") | not)))
-                | sort_by(.started_at)
-                | reverse
-                | .[0] // empty
-                | if . == null then empty else [.id, .status, (.conclusion // ""), (.html_url // "")] | @tsv end' \
-              | head -n 1 \
-              || true)"
-
-            if [ -n "${check_run}" ]; then
-              IFS=$'\t' read -r check_id check_status check_conclusion check_url <<< "${check_run}"
-
-              if [ "${check_status}" = "completed" ] && [ "${check_conclusion}" = "success" ]; then
-                echo "Promotion-owned ${CHECK_NAME} check ${check_id} succeeded for ${PR_HEAD_SHA}."
-                echo "${check_url}"
-                exit 0
-              fi
-
-              if [ "${check_status}" = "completed" ]; then
-                echo "Promotion-owned ${CHECK_NAME} check ${check_id} concluded with ${check_conclusion}."
-                echo "${check_url}"
-                exit 1
-              fi
-
-              echo "Promotion-owned ${CHECK_NAME} check ${check_id} is ${check_status}; waiting (${attempt}/${max_attempts})."
-            else
-              echo "No promotion-owned ${CHECK_NAME} check is visible for ${PR_HEAD_SHA}; waiting (${attempt}/${max_attempts})."
-            fi
-
-            sleep "${sleep_seconds}"
-          done
-
-          echo "Timed out waiting for promotion-owned ${CHECK_NAME} check for ${PR_HEAD_SHA}."
-          exit 1
-
       - name: Checkout
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         uses: actions/checkout@v7
 
       - name: Set up Go
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
           cache: false
 
-      - name: Verify promotion-owned unit check for dev to staging
-        if: github.event_name == 'pull_request' && github.base_ref == 'staging' && github.head_ref == 'promote/dev-to-staging'
-        env:
-          CHECK_NAME: unit
-          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -euo pipefail
-
-          max_attempts=90
-          sleep_seconds=10
-
-          for attempt in $(seq 1 "${max_attempts}"); do
-            check_run="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${PR_HEAD_SHA}/check-runs?check_name=${CHECK_NAME}" \
-              --jq '.check_runs
-                | map(select(((.details_url // "") | contains("/actions/runs/") | not)))
-                | sort_by(.started_at)
-                | reverse
-                | .[0] // empty
-                | if . == null then empty else [.id, .status, (.conclusion // ""), (.html_url // "")] | @tsv end' \
-              | head -n 1 \
-              || true)"
-
-            if [ -n "${check_run}" ]; then
-              IFS=$'\t' read -r check_id check_status check_conclusion check_url <<< "${check_run}"
-
-              if [ "${check_status}" = "completed" ] && [ "${check_conclusion}" = "success" ]; then
-                echo "Promotion-owned ${CHECK_NAME} check ${check_id} succeeded for ${PR_HEAD_SHA}."
-                echo "${check_url}"
-                exit 0
-              fi
-
-              if [ "${check_status}" = "completed" ]; then
-                echo "Promotion-owned ${CHECK_NAME} check ${check_id} concluded with ${check_conclusion}."
-                echo "${check_url}"
-                exit 1
-              fi
-
-              echo "Promotion-owned ${CHECK_NAME} check ${check_id} is ${check_status}; waiting (${attempt}/${max_attempts})."
-            else
-              echo "No promotion-owned ${CHECK_NAME} check is visible for ${PR_HEAD_SHA}; waiting (${attempt}/${max_attempts})."
-            fi
-
-            sleep "${sleep_seconds}"
-          done
-
-          echo "Timed out waiting for promotion-owned ${CHECK_NAME} check for ${PR_HEAD_SHA}."
-          exit 1
-
       - name: Go vet
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         run: go vet ./...
 
       - name: Tests with native coverage
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         run: go test -covermode=atomic -coverprofile=coverage.out ./...
 
       - name: Build coverage reports
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         run: |
           go tool cover -func=coverage.out -o coverage-summary.txt
           go tool cover -html=coverage.out -o coverage.html
 
       - name: Fetch coverage ratchet floor
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         env:
           COVERAGE_FLOOR_BRANCH: ${{ github.base_ref || github.ref_name }}
         run: |
@@ -171,7 +67,6 @@ jobs:
             --output unit-status.json
 
       - name: Build coverage badge payload
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         run: |
           set -euo pipefail
 
@@ -208,7 +103,6 @@ jobs:
           path: coverage-badge.json
 
       - name: Upload coverage reports
-        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         uses: actions/upload-artifact@v7
         with:
           name: coverage-reports
