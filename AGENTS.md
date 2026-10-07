@@ -68,14 +68,15 @@ in this repository.
   editing CI.
 - Keep the promotion-owned `unit`, `integration`, `docs-build`, and
   `release-prep` check reports in `.github/workflows/promotion.yml` aligned with
-  the ordinary required PR checks. They exist so the Actions-authored
-  `promote/staging-to-main` PR can satisfy required checks even when GitHub does
-  not attach normal `pull_request` workflow runs to that workflow-created branch.
-  The `dev -> staging` leg is the same shape: keep its promotion-owned `unit`
-  and `integration` reports aligned with the required checks on `staging`.
-  `promotion-head` is reported on that leg too but is deliberately advisory,
-  not a required context, so it diagnoses an incomplete promotion without
-  blocking a merge the ruleset already guards.
+  the ordinary required PR checks. They exist so the Actions-authored promotion
+  PRs can satisfy required checks at all. A PR opened with `GITHUB_TOKEN` leaves
+  its `pull_request` runs parked at `action_required`, and a branch pushed with
+  `GITHUB_TOKEN` produces no `push` run either, so an API check-run posted by
+  the promotion job is the only producer that always reports. Do not try to
+  replace it with a push-triggered run on `promote/*`; that run never fires.
+  `promotion-head` is reported on the `dev -> staging` leg as well, but is
+  deliberately advisory rather than a required context, so it diagnoses an
+  incomplete promotion without blocking a merge the ruleset already guards.
 - Do not add broad push-triggered unit runs for feature, bugfix, chore, or sync
   branches. Pull requests validate those branches. Push-triggered unit runs are
   reserved for `dev`, `staging`, and `main` because they validate the integrated
@@ -89,16 +90,22 @@ in this repository.
   commits a base branch accumulates never flow back to its source. Promoting
   `dev` directly therefore opened every `dev -> staging` PR `BEHIND` and
   required a manual staging-into-dev sync first.
-- Keep the ordinary pull request workflows from duplicating promotion-owned
-  checks on `promote/dev-to-staging` and `promote/staging-to-main`. Both
-  promotion PRs rely on `.github/workflows/promotion.yml` to report their
-  checks: `unit` and `integration` (plus the advisory `promotion-head`) for
-  `dev -> staging`, and `unit`, `integration`, `docs-build`, and `release-prep`
-  for `staging -> main`. Ordinary PR workflows that expose those required context
-  names must wait for the matching promotion-owned check-run and fail closed if
-  it is missing or failed. Keep a live label and ancestry check in
-  `release-prep`, and a live ancestry check in `promotion-head`, because those
-  inputs can change without a new promotion head commit.
+- Never make one producer of a required context wait for another. The ordinary
+  PR workflows used to block on the matching promotion-owned check-run; when
+  those parked `pull_request` runs were approved and actually executed, the
+  waiters never observed the promotion-owned check-run and timed out, so every
+  required context carried both a FAILURE and a SUCCESS and the PR was blocked
+  on a rollup failure. The promotion-owned check-run was present on the head
+  commit the whole time but was not returned by that commit's check-runs
+  listing; the exact listing semantics are not fully established, which is
+  itself a reason not to build a wait on them.
+- Instead, let both producers do real work and agree. If a promotion PR's
+  `pull_request` runs stay parked, the promotion-owned check-runs carry the
+  required contexts. If someone approves them, they run the same validation and
+  report it honestly. Either path merges, and a genuine failure still blocks.
+- Keep a live label and ancestry check in `release-prep`, and a live ancestry
+  check in `promotion-head`, because those inputs can change without a new
+  promotion head commit.
 - The automation uses `GITHUB_TOKEN` by default. Do not introduce a personal
   access token unless GitHub repository rules make it unavoidable and the docs
   are updated with the reason.

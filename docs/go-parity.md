@@ -177,13 +177,25 @@ branch, so promoting `dev` directly opened every `dev -> staging` PR `BEHIND`
 even when `git diff dev...staging` was empty. Building the head from the base
 tip removes the problem at its source.
 
-Because PRs opened with `GITHUB_TOKEN` do not trigger `pull_request` workflow
-runs, `.github/workflows/promotion.yml` reports the required checks itself,
-against the promotion branch head: `unit` and `integration` for
-`dev -> staging`; `unit`, `integration`, `docs-build`, and `release-prep` for
-`staging -> main`. The ordinary PR workflows expose the same context names
-and fail closed if the matching promotion-owned check-run is missing or failed,
-so they can never substitute a weaker result for a promotion-owned one.
+A PR opened with `GITHUB_TOKEN` leaves its `pull_request` runs parked at
+`action_required`, and a branch pushed with `GITHUB_TOKEN` produces no `push`
+run either. So `.github/workflows/promotion.yml` reports the required checks
+itself, as API check-runs against the promotion branch head: `unit` and
+`integration` for `dev -> staging`; `unit`, `integration`, `docs-build`, and
+`release-prep` for `staging -> main`.
+
+The ordinary PR workflows expose the same context names. They are **not**
+gated and do **not** wait for the promotion-owned check-run. If they stay
+parked, the promotion-owned results carry the contexts. If someone approves
+them, they run the same validation and report it honestly. Either path merges,
+and a real failure still blocks.
+
+An earlier design had those workflows block until the promotion-owned check-run
+appeared. That deadlocked the first time the parked runs were approved: the
+waiters never observed the promotion-owned check-run — it was present on the
+head commit but absent from that commit's check-runs listing — so every
+required context ended up carrying both a FAILURE and a SUCCESS, and GitHub
+blocked on the failure. Raising the timeout only made it fail slower.
 
 The `dev -> staging` leg also reports `promotion-head`. It is **advisory**: it
 is not a required context on `staging`, so it cannot block a merge. It exists to
