@@ -158,3 +158,48 @@ To check a method yourself rather than trusting this table, look the route up by
 HTTP method and path in `testdata/contract/golden_sdk_inventory.json` and
 `testdata/contract/silver_sdk_inventory.json`; Golden paths gained the
 `/api/v1.0` prefix in this migration, so compare paths with that prefix stripped.
+
+## Promotion Branch Shape
+
+Both promotion legs run through a dedicated branch rather than promoting a
+long-lived branch as the PR head:
+
+| Leg | PR head | Built from |
+|---|---|---|
+| `dev -> staging` | `promote/dev-to-staging` | `staging` tip, then merges the `dev` tip |
+| `staging -> main` | `promote/staging-to-main` | `main` tip, then merges the `staging` tip |
+
+`staging` and `main` both enforce `strict_required_status_checks_policy`. That
+policy is **topological**: it asks whether the head branch contains the base
+tip, not whether the two trees agree. A base branch accumulates a merge commit
+every time a promotion PR lands, and that commit never flows back to the source
+branch, so promoting `dev` directly opened every `dev -> staging` PR `BEHIND`
+even when `git diff dev...staging` was empty. Building the head from the base
+tip removes the problem at its source.
+
+Because PRs opened with `GITHUB_TOKEN` do not trigger `pull_request` workflow
+runs, `.github/workflows/promotion.yml` reports the required checks itself,
+against the promotion branch head: `unit` and `integration` for
+`dev -> staging`; `unit`, `integration`, `docs-build`, and `release-prep` for
+`staging -> main`. The ordinary PR workflows expose the same context names
+and fail closed if the matching promotion-owned check-run is missing or failed,
+so they can never substitute a weaker result for a promotion-owned one.
+
+The `dev -> staging` leg also reports `promotion-head`. It is **advisory**: it
+is not a required context on `staging`, so it cannot block a merge. It exists to
+make one case loud — if two `dev` pushes race and the promotion branch is
+force-pushed back to the older tip, `promotion-head` fails because the head no
+longer contains `origin/dev`. Merge safety itself is covered by the ruleset,
+which refuses a head behind `staging`, and by `unit` being computed on that same
+head.
+
+`promotion-head` and `release-prep` re-check branch ancestry live, because the
+base branch can move without producing a new promotion head commit.
+
+Note that `CONTRIBUTING.md`, `CHANGELOG.md`, and `README.md` are synced verbatim
+from the source SDK by `scripts/sync_from_source_sdk.sh`, which copies both
+`<source>/*.md` and `<source>/docs/*.md`. Go-specific workflow notes belong here
+or in `AGENTS.md`, not in those files, or the next sync silently reverts them.
+This file survives only because the source SDK has no `docs/go-parity.md`; the
+filename is the protection, so do not rename it to something the source SDK
+might also use.

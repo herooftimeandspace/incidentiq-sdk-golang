@@ -71,19 +71,34 @@ in this repository.
   the ordinary required PR checks. They exist so the Actions-authored
   `promote/staging-to-main` PR can satisfy required checks even when GitHub does
   not attach normal `pull_request` workflow runs to that workflow-created branch.
+  The `dev -> staging` leg is the same shape: keep its promotion-owned `unit`
+  and `integration` reports aligned with the required checks on `staging`.
+  `promotion-head` is reported on that leg too but is deliberately advisory,
+  not a required context, so it diagnoses an incomplete promotion without
+  blocking a merge the ruleset already guards.
 - Do not add broad push-triggered unit runs for feature, bugfix, chore, or sync
   branches. Pull requests validate those branches. Push-triggered unit runs are
   reserved for `dev`, `staging`, and `main` because they validate the integrated
   branch tip, publish badges, update coverage ratchets, and drive promotion.
+- Promote through a dedicated branch on both legs: `dev -> staging` uses
+  `promote/dev-to-staging` and `staging -> main` uses `promote/staging-to-main`.
+  Each promotion branch is built from the base tip and then merges the source
+  tip, so it is never behind its base. Do not promote a long-lived branch
+  (`dev`, `staging`) as the PR head. `staging` and `main` both enforce
+  `strict_required_status_checks_policy`, which is topological, and the merge
+  commits a base branch accumulates never flow back to its source. Promoting
+  `dev` directly therefore opened every `dev -> staging` PR `BEHIND` and
+  required a manual staging-into-dev sync first.
 - Keep the ordinary pull request workflows from duplicating promotion-owned
-  checks on `promote/staging-to-main`. The `dev -> staging` promotion PR should
-  reuse the authoritative `dev` push `unit` result, and the `staging -> main`
-  promotion PR should rely on `.github/workflows/promotion.yml` to report
-  `unit`, `integration`, `docs-build`, and `release-prep`. Ordinary PR
-  workflows that expose those required context names must wait for the matching
-  promotion-owned check-run and fail closed if it is missing or failed. Keep a
-  live label and ancestry check in `release-prep` because those inputs can
-  change without a new promotion head commit.
+  checks on `promote/dev-to-staging` and `promote/staging-to-main`. Both
+  promotion PRs rely on `.github/workflows/promotion.yml` to report their
+  checks: `unit` and `integration` (plus the advisory `promotion-head`) for
+  `dev -> staging`, and `unit`, `integration`, `docs-build`, and `release-prep`
+  for `staging -> main`. Ordinary PR workflows that expose those required context
+  names must wait for the matching promotion-owned check-run and fail closed if
+  it is missing or failed. Keep a live label and ancestry check in
+  `release-prep`, and a live ancestry check in `promotion-head`, because those
+  inputs can change without a new promotion head commit.
 - The automation uses `GITHUB_TOKEN` by default. Do not introduce a personal
   access token unless GitHub repository rules make it unavoidable and the docs
   are updated with the reason.
