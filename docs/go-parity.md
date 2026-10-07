@@ -179,16 +179,27 @@ tip removes the problem at its source.
 
 Because PRs opened with `GITHUB_TOKEN` do not trigger `pull_request` workflow
 runs, `.github/workflows/promotion.yml` reports the required checks itself,
-against the promotion branch head: `unit`, `integration`, and `promotion-head`
-for `dev -> staging`; `unit`, `integration`, `docs-build`, and `release-prep`
-for `staging -> main`. The ordinary PR workflows expose the same context names
+against the promotion branch head: `unit` and `integration` for
+`dev -> staging`; `unit`, `integration`, `docs-build`, and `release-prep` for
+`staging -> main`. The ordinary PR workflows expose the same context names
 and fail closed if the matching promotion-owned check-run is missing or failed,
 so they can never substitute a weaker result for a promotion-owned one.
+
+The `dev -> staging` leg also reports `promotion-head`. It is **advisory**: it
+is not a required context on `staging`, so it cannot block a merge. It exists to
+make one case loud — if two `dev` pushes race and the promotion branch is
+force-pushed back to the older tip, `promotion-head` fails because the head no
+longer contains `origin/dev`. Merge safety itself is covered by the ruleset,
+which refuses a head behind `staging`, and by `unit` being computed on that same
+head.
 
 `promotion-head` and `release-prep` re-check branch ancestry live, because the
 base branch can move without producing a new promotion head commit.
 
 Note that `CONTRIBUTING.md`, `CHANGELOG.md`, and `README.md` are synced verbatim
-from the source SDK by `scripts/sync_from_source_sdk.sh`. Go-specific workflow
-notes belong here or in `AGENTS.md`, not in those files, or the next sync
-silently reverts them.
+from the source SDK by `scripts/sync_from_source_sdk.sh`, which copies both
+`<source>/*.md` and `<source>/docs/*.md`. Go-specific workflow notes belong here
+or in `AGENTS.md`, not in those files, or the next sync silently reverts them.
+This file survives only because the source SDK has no `docs/go-parity.md`; the
+filename is the protection, so do not rename it to something the source SDK
+might also use.

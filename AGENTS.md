@@ -71,9 +71,11 @@ in this repository.
   the ordinary required PR checks. They exist so the Actions-authored
   `promote/staging-to-main` PR can satisfy required checks even when GitHub does
   not attach normal `pull_request` workflow runs to that workflow-created branch.
-  The `dev -> staging` leg is the same shape: keep its promotion-owned `unit`,
-  `integration`, and `promotion-head` reports in `promote/dev-to-staging`
-  aligned with the required checks on `staging`.
+  The `dev -> staging` leg is the same shape: keep its promotion-owned `unit`
+  and `integration` reports aligned with the required checks on `staging`.
+  `promotion-head` is reported on that leg too but is deliberately advisory,
+  not a required context, so it diagnoses an incomplete promotion without
+  blocking a merge the ruleset already guards.
 - Do not add broad push-triggered unit runs for feature, bugfix, chore, or sync
   branches. Pull requests validate those branches. Push-triggered unit runs are
   reserved for `dev`, `staging`, and `main` because they validate the integrated
@@ -90,9 +92,9 @@ in this repository.
 - Keep the ordinary pull request workflows from duplicating promotion-owned
   checks on `promote/dev-to-staging` and `promote/staging-to-main`. Both
   promotion PRs rely on `.github/workflows/promotion.yml` to report their
-  checks: `unit`, `integration`, and `promotion-head` for `dev -> staging`, and
-  `unit`, `integration`, `docs-build`, and `release-prep` for
-  `staging -> main`. Ordinary PR workflows that expose those required context
+  checks: `unit` and `integration` (plus the advisory `promotion-head`) for
+  `dev -> staging`, and `unit`, `integration`, `docs-build`, and `release-prep`
+  for `staging -> main`. Ordinary PR workflows that expose those required context
   names must wait for the matching promotion-owned check-run and fail closed if
   it is missing or failed. Keep a live label and ancestry check in
   `release-prep`, and a live ancestry check in `promotion-head`, because those
