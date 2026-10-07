@@ -1,232 +1,253 @@
-# incidentiq-sdk-golang
+# incident-py-q
 
-[![dev unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/dev/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
-[![dev coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/dev/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Adev)
-[![staging unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
-[![staging coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/staging/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Astaging)
-[![main unit](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/unit.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
-[![main coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-coverage/main/coverage.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/quality.yml?query=branch%3Amain)
-[![staging integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/staging/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Astaging)
-[![main integration](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/integration.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/integration.yml?query=branch%3Amain)
-[![main docs](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/herooftimeandspace/incidentiq-sdk-golang/badges/branch-status/main/docs.json)](https://github.com/herooftimeandspace/incidentiq-sdk-golang/actions/workflows/docs.yml?query=branch%3Amain)
+| Main | Staging | Dev | License |
+| --- | --- | --- | --- |
+| [![Main coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-coverage%2Fmain%2Fcoverage.json)](https://raw.githubusercontent.com/herooftimeandspace/incident-py-q/badges/branch-coverage/main/coverage.json) | [![Staging coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-coverage%2Fstaging%2Fcoverage.json)](https://raw.githubusercontent.com/herooftimeandspace/incident-py-q/badges/branch-coverage/staging/coverage.json) | [![Dev coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-coverage%2Fdev%2Fcoverage.json)](https://raw.githubusercontent.com/herooftimeandspace/incident-py-q/badges/branch-coverage/dev/coverage.json) | [![License repo](https://img.shields.io/github/license/herooftimeandspace/incident-py-q?label=license%20repo)](LICENSE) |
+| [![Main unit](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fmain%2Funit.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/quality.yml?query=branch%3Amain) | [![Staging unit](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fstaging%2Funit.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/quality.yml?query=branch%3Astaging) | [![Dev unit](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fdev%2Funit.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/quality.yml?query=branch%3Adev) |  |
+| [![Main integration](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fmain%2Fintegration.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/integration.yml?query=branch%3Amain) | [![Staging integration](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fstaging%2Fintegration.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/integration.yml?query=branch%3Astaging) |  |  |
+| [![Main docs](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fherooftimeandspace%2Fincident-py-q%2Fbadges%2Fbranch-status%2Fmain%2Fdocs.json)](https://github.com/herooftimeandspace/incident-py-q/actions/workflows/docs.yml?query=branch%3Amain) |  |  |  |
 
-`incidentiq-sdk-golang` is the Go SDK companion to
-[`herooftimeandspace/incident-py-q`](https://github.com/herooftimeandspace/incident-py-q).
+Contract-driven Incident IQ Python SDK (distribution: `incident-py-q`, import: `incident_py_q`).
 
-The project goal is functional parity with the source SDK:
+Coverage and phase-status badges are published by CI to a dedicated `badges` branch so protected branches (`main`, `staging`, `dev`) never require bot commits for badge refreshes.
 
-- same Incident IQ runtime environment variables
-- same tenant URL normalization rules
-- same bearer/raw authorization behavior
-- same auth and optional `SiteId` header behavior
-- same Golden Stoplight contract artifacts
-- same Silver HAR-derived inventory artifacts
-- same retry policy for idempotent requests
-- generated Go wrappers for every bundled Golden and Silver inventory entry
-- same low-level request escape hatch for routes that need direct access
-- same Markdown documentation set, kept in this repo so Go-specific updates can be made beside the shared source material
+The package ships:
+- sync and async clients (`Client`, `AsyncClient`)
+- strict runtime response validation against bundled Incident IQ contracts
+- dynamic SDK namespaces generated from schema operations
+- schema sync tooling for the published Incident IQ OpenAPI contract
+- contract/unit/integration tests, docs site tooling, and CI workflows
+
+## Requirements
+
+- Python `3.14+`
 
 ## Install
 
 ```bash
-go get github.com/herooftimeandspace/incidentiq-sdk-golang
+python -m pip install incident-py-q
 ```
 
-## Quick Start
+Development install:
 
-```go
-package main
+```bash
+python -m pip install -e '.[dev]'
+```
 
-import (
-	"context"
-	"fmt"
-	"log"
+## Authentication and Tenant URL
 
-	incidentiq "github.com/herooftimeandspace/incidentiq-sdk-golang"
+Default auth mode is bearer token:
+
+```text
+Authorization: Bearer <token>
+```
+
+Each client requires a tenant-specific base URL. You may pass either the tenant root
+(`https://your-tenant.incidentiq.com`) or an explicit API prefix such as
+`https://your-tenant.incidentiq.com/api/v1.0`. Bare tenant roots are normalized to
+`/api/v1.0`. Golden contract paths are tenant-absolute (`/api/v1.0/...`), and Silver
+routes that include an absolute tenant path such as `/api/v1.0/...`, `/services/...`,
+`/apps/...`, or `/pub/...` are sent from the tenant origin so they do not accidentally
+inherit the base URL prefix twice.
+
+Runtime environment variables:
+- `INCIDENTIQ_BASE_URL` (required unless passed explicitly)
+- `INCIDENTIQ_API_TOKEN` (required unless passed explicitly)
+- `INCIDENTIQ_SITE_ID` (optional)
+- `INCIDENTIQ_CLIENT_HEADER` (optional, default `ApiClient`)
+- `INCIDENTIQ_AUTH_MODE` (optional, default `bearer`, supported: `bearer`, `raw`)
+- `INCIDENTIQ_APP_HEADERS_JSON` (optional JSON object string for app-path calls)
+
+Security hardening rules:
+- `INCIDENTIQ_BASE_URL` must use `https`
+- base URLs with embedded credentials, query strings, or fragments are rejected
+- `client_header` and `site_id` values cannot contain CR/LF characters
+- timeout and retry tuning values must stay within safe positive/non-negative bounds
+
+Integration/smoke environment variables:
+- `INCIDENTIQ_TEST_BASE_URL` (required for integration tests)
+- `INCIDENTIQ_TEST_API_TOKEN` (required for integration tests)
+- `INCIDENTIQ_TEST_SITE_ID` (optional)
+- `INCIDENTIQ_TEST_CLIENT_HEADER` (optional, default `ApiClient`)
+- `INCIDENTIQ_TEST_AUTH_MODE` (optional, default `bearer`)
+- `INCIDENTIQ_TEST_APP_HEADERS_JSON` (optional JSON object string for app-path integration calls)
+- optional app lookup smoke identifiers for Intune, Mosyle, and Google Device Data
+
+## SDK-First Quick Start
+
+```python
+from incident_py_q import Client
+
+client = Client(
+    base_url="https://your-tenant.incidentiq.com",
+    api_token="your-token",
 )
 
-func main() {
-	client, err := incidentiq.NewClient(incidentiq.Config{
-		BaseURL:  "https://your-tenant.incidentiq.com",
-		APIToken: "your-token",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var payload map[string]any
-	err = client.Request(context.Background(), "GET", "/users/{UserId}", incidentiq.RequestOptions{
-		PathParams: map[string]any{
-			"UserId": "00000000-0000-0000-0000-000000000000",
-		},
-	}, &payload)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(payload)
-}
+users = client.users.get_users_legacy()
+users_raw = client.users.get_users_legacy.raw()
 ```
 
-## Environment Configuration
+Async:
 
-`NewClientFromEnv` uses the same runtime variables as `incident-py-q`:
+```python
+import asyncio
+from incident_py_q import AsyncClient
 
-- `INCIDENTIQ_BASE_URL`
-- `INCIDENTIQ_API_TOKEN`
-- `INCIDENTIQ_SITE_ID`
-- `INCIDENTIQ_AUTH_MODE`
-- `INCIDENTIQ_APP_HEADERS_JSON`
+async def main() -> None:
+    async with AsyncClient(
+        base_url="https://your-tenant.incidentiq.com",
+        api_token="your-token",
+    ) as client:
+        payload = await client.users.get_users_legacy.raw()
+        print(type(payload))
 
-Tenant roots such as `https://your-tenant.incidentiq.com` are normalized to
-`https://your-tenant.incidentiq.com/api/v1.0`. Absolute tenant paths beginning
-with `/api/`, `/services/`, `/apps/`, `/img/`, or `/s/` are sent from the tenant
-origin so Silver routes do not accidentally inherit the Golden `/api/v1.0`
-prefix.
-
-## Golden And Silver Calls
-
-The SDK embeds the same inventories generated by `incident-py-q`. Golden refers
-to the golden SDK path and is the correct default API surface for supported SDK
-calls. Golden methods are exposed directly on
-`client.<Namespace>.<Method>`.
-
-Silver is a separate namespace for quasi-supported API calls derived from
-live site interaction HARs. Silver methods are exposed under
-`client.Silver.<Namespace>.<Method>` and app-specific routes are exposed under
-`client.Silver.Apps.<AppNamespace>.<Method>`.
-
-All requests send `Client: ApiClient` by default. Silver requests first try that
-same header shape; if the Silver route rejects it, the SDK retries once without
-the SDK-provided `Client` header because HAR-derived routes may not follow the
-documented Postman requirement.
-
-For browser-observed Silver routes that must omit compatibility headers on the
-first request, set `RequestOptions.OmitClientHeader` or
-`RequestOptions.OmitSiteIDHeader`. The SDK also bounds response body reads with
-`Config.MaxResponseBytes`, which defaults to 4 MiB. Use
-`RequestOptions.MaxResponseBodyBytes` for per-call response-size overrides.
-
-```go
-var tickets map[string]any
-err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &tickets)
+asyncio.run(main())
 ```
 
-```go
-var status map[string]any
-err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"ticket_id": "ticket-guid"},
-}, &status)
+Low-level request API:
+
+```python
+payload = client.request(
+    "GET",
+    "/users/{UserId}",
+    path_params={"UserId": "00000000-0000-0000-0000-000000000000"},
+)
 ```
 
-Use `Request` directly when you already know the route or need a temporary escape
-hatch:
+Undocumented app-path APIs:
 
-```go
-err := client.Request(ctx, "POST", "/services/tickets/-/-/AssignedToMe_Unassigned", incidentiq.RequestOptions{
-	JSON: map[string]any{"OnlyOpen": true},
-}, &queue)
+```python
+apps = client.apps.registry.list_apps()
+intune_lookup = client.apps.microsoft_intune.lookup_asset(
+    asset_id="asset-guid",
+    serial_number="SER123",
+)
+google_actions = client.apps.google_device_data.list_remote_actions()
 ```
 
-## Sync Contract With incident-py-q
+Current-user assigned/open ticket queue:
 
-`incident-py-q` remains the source repo for the shared docs and contract
-artifacts until the Go SDK has its own generator parity.
+```python
+from incident_py_q import Client
 
-Refresh this repo from a sibling checkout:
+with Client.from_env() as client:
+    tickets = client.silver.tickets.list_current_user_assigned_tickets(
+        page_size=100,
+        sort_by="TicketModifiedDate",
+        sort_direction="Descending",
+    )
+    agent_tickets = client.silver.tickets.list_assigned_tickets_for_agent(
+        agent_user_id="00000000-0000-0000-0000-000000000000",
+        schema="Open",
+        page_size=100,
+    )
+    statuses = client.tickets.get_ticket_statuses.raw()
+    print(tickets, agent_tickets, statuses)
+```
+
+`list_current_user_assigned_tickets(...)` is a read-only Silver helper around the
+UI-observed `POST /services/tickets/-/-/AssignedToMe_Unassigned` queue. That
+queue can include both current-user assigned rows and unassigned rows, and some
+tenants resolve the assigned-to-me portion differently between ticket queue rows
+and dashboard count summaries. Use
+`client.silver.analytics.get_agent_current_stats(...)` when you need the
+tenant's authoritative assigned-to-me and unassigned counts, and use this helper
+when you need the queue rows. See `examples/current_user_assigned_tickets.py` for
+a report that also fetches recent ticket actions and comments.
+
+For service-account automation, use
+`client.silver.tickets.list_assigned_tickets_for_agent(...)` instead. It queries
+`POST /services/tickets` with `Schema` set to `Open` or `All` and
+`Filters=[{"Facet": "agent", "Id": agent_user_id}]`, so the target agent is
+explicit and does not depend on the authenticated SDK user's current session.
+Live validation for issue #87 showed `schema="Open"` matched the expected open
+ticket UI count. `schema="All"` returned the API's broader all-schema result,
+which was one row higher than the stated UI/history total, so treat `All` as API
+history rather than an exact UI badge count until Incident IQ publishes the UI
+exclusion rule.
+
+## Validation Strategy
+
+- Runtime uses bundled schemas only, never network fetches during requests.
+- Success JSON responses are validated against operation response schema.
+- Schema violations raise `ValueError` (`SchemaValidationError` subtype).
+- App-path calls under `client.apps.*` are validated against bundled HAR-derived schemas.
+
+## Development Commands
 
 ```bash
-./scripts/sync_from_source_sdk.sh ../incident-py-q
+python scripts/run_local_ci.py --target dev
+python scripts/run_local_ci.py --target staging
+python scripts/run_local_ci.py --target main
 ```
 
-That command copies:
+Branch targets map directly to the GitHub Actions gates:
+- `dev`: audit, Ruff, mypy, non-integration tests with coverage, and wheel build
+- `staging`: everything in `dev`, plus live integration tests
+- `main`: everything in `staging`, plus docs generation
 
-- root Markdown files
-- `docs/**/*.md`
-- `LICENSE`
-- Golden Stoplight controller JSON
-- Postman collection JSON
-- source manifest JSON
-- app schema JSON
-- Silver inventory JSON
-- Golden, Silver, and merged SDK inventory snapshots
+## Schema Sync
 
-After every sync, run:
+Refresh bundled contracts from official upstream sources:
 
 ```bash
-GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
+python scripts/sync_schemas.py
+python scripts/update_sdk_inventory.py
+python scripts/reconcile_silver_inventory.py
+python scripts/extract_har_app_inventory.py <intune.har> <mosyle.har> <google.har>
 ```
 
-## Current Implementation Scope
+`sync_schemas.py` pulls the published OpenAPI contract, `update_sdk_inventory.py`
+regenerates the Golden/Silver/merged inventory snapshots, and
+`reconcile_silver_inventory.py` drops bundled Silver routes the contract now
+documents. Golden always wins a route-level conflict with Silver.
 
-This Go SDK is usable for generated Golden wrappers, generated Silver namespace
-wrappers, inventory-backed calls, and low-level route calls.
+Bundled source tree:
+- `src/incident_py_q/data/openapi/openapi-spec.json` (Golden contract, primary)
+- `src/incident_py_q/data/openapi/metadata.json` (sync provenance)
+- `src/incident_py_q/data/source_manifest.json` (source manifest)
+- `src/incident_py_q/data/silver_inventory.json` (Silver inventory: HAR-derived + migrated routes)
+- `src/incident_py_q/data/legacy/contract.json` (schemas for routes migrated off Golden)
+- `src/incident_py_q/data/legacy/aliases.json` (deprecated method-name aliases)
+- `src/incident_py_q/data/app_schemas.json` (HAR-derived app-path schemas)
 
-The current parity surface is protected by tests for:
+## Upgrading from the pre-OpenAPI SDK
 
-- config and environment variable names
-- HTTPS-only base URL normalization
-- auth and optional `SiteId` headers
-- path parameter escaping
-- Golden-prefix versus tenant-root URL construction
-- idempotent retry handling for retryable status codes
-- embedded Golden and Silver inventory loading
-- generated wrapper inventory coverage
+The Golden contract moved to the published OpenAPI document, which renamed most operations
+and stopped documenting 64 routes. Those routes moved to `client.silver.*` rather than being
+dropped, and every previous method name still works as a deprecated alias that forwards to its
+new location and emits a `DeprecationWarning`.
 
-## Development
+One legacy name could not be preserved: `client.tickets.assign_ticket` now reaches a different
+operation than it used to. `incident_py_q.legacy_alias_conflicts()` reports it at runtime.
+
+See [docs/migration-openapi.md](docs/migration-openapi.md) for the full mapping. To find every
+call site that needs updating:
+
+```python
+import warnings
+
+warnings.simplefilter("error", DeprecationWarning)
+```
+
+Regenerate the compatibility bundle from the pre-migration commit with:
 
 ```bash
-GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...
+python scripts/build_legacy_compat.py --from-ref <commit>
 ```
 
-Run the native Go coverage workflow locally:
+## Versioning and Stability
+
+- The package follows semantic versioning.
+- `incident_py_q.__version__` matches package metadata version.
+- Generated SDK surface is semver-significant and protected by golden tests.
+- Promotion into `main` requires exactly one release label: `semver:patch`, `semver:minor`, or `semver:major`.
+- Promotion workflows propagate the source PR's semver label when one is present and otherwise default the promotion PR to `semver:patch`.
+
+## Documentation
+
+Project docs are built with MkDocs Material and pdoc:
 
 ```bash
-GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test -covermode=atomic -coverprofile=coverage.out ./...
-go tool cover -func=coverage.out -o coverage-summary.txt
-go tool cover -html=coverage.out -o coverage.html
-go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
+python scripts/build_docs.py
 ```
-
-Coverage is ratcheted by branch. The `95.0%` value is the permanent minimum,
-but the effective floor is higher when the branch already publishes a higher
-coverage badge. Pull requests are checked against the current badge for their
-base branch, and direct pushes are checked against the current badge for the
-same branch before a new badge is published. If coverage was previously
-`97.10%`, new code must include enough tests to keep coverage at `97.10%` or
-higher.
-
-The repo uses only the Go standard library for the runtime client.
-
-Regenerate wrappers after refreshing inventory snapshots:
-
-```bash
-go generate ./...
-```
-
-Build the static documentation site that backs the `docs-build` workflow:
-
-```bash
-go run scripts/build_docs_site.go
-```
-
-## Promotion And Release Automation
-
-The Go SDK follows the same branch promotion shape as `incident-py-q`:
-
-- `dev` is the normal integration branch.
-- successful `quality` push checks on `dev` create or refresh a `dev -> staging`
-  promotion PR.
-- successful `quality` push checks on `staging` create or refresh a
-  `promote/staging-to-main -> main` promotion PR.
-- every promotion PR carries exactly one release label:
-  `semver:patch`, `semver:minor`, or `semver:major`.
-- merges to `main` create a GitHub Release and source archive tagged as the next
-  semantic version.
-- `main` runs the docs workflow and publishes the generated Markdown site to
-  GitHub Pages.
-- Dependabot checks both Go modules and GitHub Actions weekly.
-
-The automation uses the repository `GITHUB_TOKEN`. It does not require a
-personal access token by default. Repository rules must allow GitHub
-Actions-authored branches and pull requests for fully automatic promotion.
