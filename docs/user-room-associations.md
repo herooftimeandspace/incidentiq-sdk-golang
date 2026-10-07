@@ -1,18 +1,26 @@
 # User Room Associations
 
-Incident IQ's web client exposes a Silver capability for reading and changing
-the location rooms assigned to a user. These routes are not present in the
-bundled Golden Stoplight contracts, so they remain under `client.Silver.Users`
-and must not be presented as Golden `client.Users` methods.
+Incident IQ's web client exposes a capability for reading and changing the
+location rooms assigned to a user.
+
+The OpenAPI contract migration changed where these live. The read route is now
+documented Golden: `client.Users.GetUserRooms`. The contract also documents
+Golden mutation routes (`Users.AddRoomToUser`, `Users.SetUserRooms`,
+`Users.RemoveRoomFromUser`). The handwritten Silver helpers described below are
+kept because they carry stricter behavior than the generated Golden wrappers:
+typed ID arguments, body rejection, and a deliberate opt-out of Silver's
+retry-without-`Client` fallback so an ambiguous rejection cannot duplicate a
+write. Choose the Golden wrappers for an ordinary call and these helpers when
+you want those guarantees.
 
 ## SDK methods and endpoints
 
 | Operation | Go method | HTTP request | Request body |
 | --- | --- | --- | --- |
-| Read current associations | `GetUserRooms` | `GET /api/v1.0/users/{user_id}/rooms` | None; the generated Silver wrapper also requires the observed `$s` query parameter. |
-| Add one association | `AddUserRoom` | `POST /api/v1.0/users/{user_id}/rooms/{location_room_id}` | None. |
-| Replace all associations | `SetUserRooms` | `POST /api/v1.0/users/{user_id}/rooms` | A JSON array of location room ID strings, for example `["room-id-1", "room-id-2"]`. |
-| Remove one association | `RemoveUserRoom` | `DELETE /api/v1.0/users/{user_id}/rooms/{location_room_id}` | None. |
+| Read current associations | `client.Users.GetUserRooms` (Golden) | `GET /api/v1.0/users/{UserId}/rooms` | None. `$p` (page index) and `$s` (page size) are optional query parameters. |
+| Add one association | `client.Silver.Users.AddUserRoom` | `POST /api/v1.0/users/{user_id}/rooms/{location_room_id}` | None. |
+| Replace all associations | `client.Silver.Users.SetUserRooms` | `POST /api/v1.0/users/{user_id}/rooms` | A JSON array of location room ID strings, for example `["room-id-1", "room-id-2"]`. |
+| Remove one association | `client.Silver.Users.RemoveUserRoom` | `DELETE /api/v1.0/users/{user_id}/rooms/{location_room_id}` | None. |
 
 The handwritten mutation helpers accept stable IDs as typed arguments and own
 their route parameters. `AddUserRoom` and `RemoveUserRoom` reject any caller
@@ -49,8 +57,8 @@ unrelated user data.
 
 ```go
 var before map[string]any
-err := client.Silver.Users.GetUserRooms(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"user_id": userID},
+err := client.Users.GetUserRooms(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"UserId": userID},
 	Params:     map[string]string{"$s": "100"},
 }, &before)
 if err != nil {
@@ -69,8 +77,8 @@ if err != nil {
 }
 
 var after map[string]any
-err = client.Silver.Users.GetUserRooms(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"user_id": userID},
+err = client.Users.GetUserRooms(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"UserId": userID},
 	Params:     map[string]string{"$s": "100"},
 }, &after)
 if err != nil {

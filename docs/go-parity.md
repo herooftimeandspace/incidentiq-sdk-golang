@@ -17,7 +17,7 @@ The Go client currently matches the source SDK for the following runtime rules:
 - optional `SiteId` header
 - HTTPS-only base URL validation
 - tenant root normalization to `/api/v1.0`
-- tenant-root handling for `/api/`, `/services/`, `/apps/`, `/img/`, and `/s/`
+- tenant-root handling for `/api/`, `/services/`, `/apps/`, `/img/`, `/s/`, and `/pub/`
 - JSON object and array response decoding
 - retry behavior for idempotent methods and retryable HTTP statuses
 - Golden wrappers directly on `client.<Namespace>.<Method>` as the correct default SDK path
@@ -27,8 +27,10 @@ The Go client currently matches the source SDK for the following runtime rules:
 
 The Go repo embeds these synced source SDK artifacts:
 
-- `data/stoplight/controllers/*.json`
-- `data/postman/collection.json`
+- `data/openapi/openapi-spec.json`
+- `data/openapi/metadata.json`
+- `data/legacy/aliases.json`
+- `data/legacy/contract.json`
 - `data/source_manifest.json`
 - `data/app_schemas.json`
 - `data/silver_inventory.json`
@@ -50,3 +52,109 @@ Regenerate wrappers after refreshing inventories:
 ```bash
 go generate ./...
 ```
+
+## OpenAPI Contract Migration
+
+The Golden contract source moved from the Stoplight controller sync and the
+APIHub Postman collection to the published Incident IQ OpenAPI 3.0 document.
+`CHANGELOG.md` describes that migration in the source SDK's terms. The Go SDK
+mirrors it with these differences:
+
+- **Deprecation signalling.** Go has no runtime deprecation warning, so every
+  legacy name is emitted as a forwarding method carrying a `// Deprecated:` doc
+  comment. `go doc`, editors, and `staticcheck` surface it; nothing is logged at
+  runtime.
+- **Alias coverage.** All 114 aliases from `data/legacy/aliases.json` are
+  generated: 50 renamed Golden methods and 64 routes that moved to Silver.
+  The alias layer covers pre-migration **Golden** names only. Silver method
+  names are not aliased; see *Removed Silver methods* below. The
+  six legacy namespaces the new contract dropped (`alerts`, `forms`,
+  `manufacturers`, `notifications`, `parts`, `purchaseorders`) still exist on
+  `Client` and hold only deprecated forwarders into `client.Silver`.
+- **Aliases never shadow generated methods.** The generator emits contract
+  operations first and skips any alias whose exported name is already taken.
+- **Conflict discovery.** `LegacyAliasConflicts()` is the Go equivalent of
+  `incident_py_q.legacy_alias_conflicts()`.
+- **No response validation.** `data/legacy/contract.json` is embedded for
+  parity, but the Go SDK unmarshals into `out any` and performs no
+  response-schema validation, so that bundle currently has no functional
+  consumer here.
+
+### `Tickets.AssignTicket` changed meaning
+
+This is the one name that could not be aliased, because the new contract gives
+it to a different operation:
+
+| | |
+|---|---|
+| Before | `POST /tickets/{TicketId}/sla` — assign an **SLA** |
+| Now | `POST /api/v1.0/tickets/{ticketId}/assign` — assign the **ticket** |
+| Previous behavior moved to | `Tickets.AssignTicketSla` |
+
+This compiles unchanged and silently does something different at runtime.
+Callers of `client.Tickets.AssignTicket` that meant to assign an SLA must move
+to `client.Tickets.AssignTicketSla`.
+
+### Removed Silver methods
+
+The alias layer does not cover Silver. 45 `client.Silver.<Namespace>.<Method>`
+methods that existed before the migration are gone, and every one of them is a
+compile error for existing callers.
+
+40 are still reachable after a hand edit, because the published contract now
+documents the route and it moved onto the Golden surface (sometimes under a
+different name). 5 are gone outright: the route is in neither contract. That
+removal happened upstream in `incident-py-q`, not here.
+
+| Removed | Now |
+|---|---|
+| `Silver.Analytics.GetAssetSummaryStats` | `Analytics.GetAssetSummaryStats` |
+| `Silver.Analytics.GetRequestorSummaryStats` | `Analytics.GetRequestorSummaryStats` |
+| `Silver.Assets.GetAssetBySerial` | `Assets.GetAssetBySerial` |
+| `Silver.Assets.GetAssetFiles` | `Assets.GetAssetFiles` |
+| `Silver.Assets.GetAssetVerifications` | `Assets.GetAssetVerificationsForAsset` |
+| `Silver.Assets.GetStatsLocations` | `Assets.GetAssetStatsByLocation` |
+| `Silver.Assets.GetType` | `Assets.GetAssetType` |
+| `Silver.Assets.PostCheckoutsTransactionsQueryGet` | `Assets.GetAssetCheckoutTransactions` |
+| `Silver.Audits.GetPoliciesSchedulesForAsset` | `Audits.GetAssetAuditPolicySchedulesForAsset` |
+| `Silver.Categories.GetOfFilters` | `Categories.ListFilterCategories` |
+| `Silver.Categories.GetOfModels` | `Categories.ListModelCategories` |
+| `Silver.CustomFields.PostForAsset` | `CustomFields.GetCustomFieldsForAsset` |
+| `Silver.CustomFields.PostForTicket` | `CustomFields.GetCustomFieldsForTicket` |
+| `Silver.CustomFields.PostForUser` | `CustomFields.GetCustomFieldsForUser` |
+| `Silver.Files.GetEntity` | `Files.GetFilesForEntity` |
+| `Silver.Filters.GetForEntitytype` | `Filters.ListFiltersForEntityType` |
+| `Silver.Filters.GetSet` | `Filters.GetFilterSet` |
+| `Silver.Labor.GetRatesUser2` | `Labor.GetUserLaborRates` |
+| `Silver.Labor.PostTypes` | `Labor.QueryLaborTypes` |
+| `Silver.Models.GetAll` | `Models.ListAllModelsGet` |
+| `Silver.Models.GetAppsAeriesSis` | *(route no longer in either contract)* |
+| `Silver.Models.GetAppsGoogleDeviceData` | *(route no longer in either contract)* |
+| `Silver.Models.GetAppsMicrosoftIntune` | *(route no longer in either contract)* |
+| `Silver.Models.GetAppsSubticketsForIT` | *(route no longer in either contract)* |
+| `Silver.Models.PostAvailableToSite` | `Models.GetModelsAvailableToSite` |
+| `Silver.Models.PostEndpoint` | `Models.SearchModels` |
+| `Silver.Sites.GetDeployments` | *(route no longer in either contract)* |
+| `Silver.Sites.PostRoles` | `Sites.ListRolesFiltered` |
+| `Silver.Subtasks.GetSubtask` | `Subtasks.GetSubtasksForTicket` |
+| `Silver.Surveys.GetResponsesTicket` | `Surveys.GetSurveyResponseForTicket` |
+| `Silver.Teams.GetEndpoint` | `Teams.ListTeams` |
+| `Silver.Tickets.GetTicketActivities` | `Tickets.GetTicketActivities` |
+| `Silver.Tickets.GetTicketKbArticles` | `Tickets.GetTicketKbArticles` |
+| `Silver.Tickets.GetTicketNextSteps` | `Tickets.GetTicketNextSteps` |
+| `Silver.Tickets.GetTicketStatus` | `Tickets.GetTicketStatus` |
+| `Silver.Tickets.PostEndpoint` | `Tickets.SearchTickets` |
+| `Silver.Tickets.PostTicketTimeline` | `Tickets.ListTicketTimeline` |
+| `Silver.Users.GetMyShortcuts` | `Users.GetMyShortcuts` |
+| `Silver.Users.GetShortcutsAvailable` | `Users.GetAvailableShortcuts` |
+| `Silver.Users.GetSimple` | `Users.GetSimpleUser` |
+| `Silver.Users.GetUserOptions` | `Users.GetUserOptions` |
+| `Silver.Users.GetUserRelationships` | `Users.GetUserRelationships` |
+| `Silver.Users.GetUserRooms` | `Users.GetUserRooms` |
+| `Silver.Views.GetView` | `Views.GetViewDefinition` |
+| `Silver.Views.GetView2` | `Views.GetViewDefinition` |
+
+To check a method yourself rather than trusting this table, look the route up by
+HTTP method and path in `testdata/contract/golden_sdk_inventory.json` and
+`testdata/contract/silver_sdk_inventory.json`; Golden paths gained the
+`/api/v1.0` prefix in this migration, so compare paths with that prefix stripped.

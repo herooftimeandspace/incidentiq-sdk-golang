@@ -8,7 +8,12 @@ if [[ ! -d "${source_repo}/.git" ]]; then
   exit 1
 fi
 
-mkdir -p docs/sdk-reference data/stoplight/controllers data/postman testdata/contract
+# The source SDK adds and removes reference pages as the contract changes, so
+# the local copy is replaced wholesale rather than merged. The Stoplight and
+# Postman trees are retired; drop them so a re-sync over an old checkout is
+# idempotent.
+rm -rf docs/sdk-reference data/stoplight data/postman
+mkdir -p docs/sdk-reference data/openapi data/legacy testdata/contract
 
 cp "${source_repo}/"*.md .
 cp "${source_repo}/LICENSE" .
@@ -17,9 +22,8 @@ cp "${source_repo}/docs/sdk-reference/"*.md docs/sdk-reference/
 cp "${source_repo}/src/incident_py_q/data/app_schemas.json" data/
 cp "${source_repo}/src/incident_py_q/data/silver_inventory.json" data/
 cp "${source_repo}/src/incident_py_q/data/source_manifest.json" data/
-cp "${source_repo}/src/incident_py_q/data/postman/collection.json" data/postman/
-cp "${source_repo}/src/incident_py_q/data/stoplight/metadata.json" data/stoplight/
-cp "${source_repo}/src/incident_py_q/data/stoplight/controllers/"*.json data/stoplight/controllers/
+cp "${source_repo}/src/incident_py_q/data/openapi/"*.json data/openapi/
+cp "${source_repo}/src/incident_py_q/data/legacy/"*.json data/legacy/
 cp "${source_repo}/tests/contract/"*_sdk_inventory.json testdata/contract/
 
 echo "synced docs and contract artifacts from ${source_repo}"

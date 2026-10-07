@@ -61,7 +61,16 @@ func TestGeneratedWrapperMethodCountsMatchSourceInventories(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GoldenInventory returned error: %v", err)
 	}
+	aliases, err := LegacyAliases()
+	if err != nil {
+		t.Fatalf("LegacyAliases returned error: %v", err)
+	}
+	// Golden services carry their generated methods plus a deprecated
+	// forwarder for every legacy name the contract migration renamed.
 	wantGolden := countByExportedNamespace(golden)
+	for _, alias := range aliases {
+		wantGolden[testExportedName(alias.LegacyNamespace)]++
+	}
 	goldenServices := reflect.TypeOf(client.generatedClientServices)
 	for i := 0; i < goldenServices.NumField(); i++ {
 		field := goldenServices.Field(i)
@@ -174,7 +183,7 @@ func TestGeneratedGoldenWrapperUsesDirectClientNamespace(t *testing.T) {
 
 func TestGeneratedSilverWrapperUsesSilverNamespace(t *testing.T) {
 	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if got, want := r.URL.Path, "/api/v1.0/tickets/ticket-1/status"; got != want {
+		if got, want := r.URL.Path, "/api/v1.0/parts/part-1"; got != want {
 			t.Fatalf("path = %q, want %q", got, want)
 		}
 		w.Header().Set("Content-Type", "application/json")
@@ -190,14 +199,14 @@ func TestGeneratedSilverWrapperUsesSilverNamespace(t *testing.T) {
 	if err != nil {
 		t.Fatalf("NewClient returned error: %v", err)
 	}
-	if client.Silver == nil || client.Silver.Tickets == nil {
-		t.Fatal("client.Silver.Tickets was nil")
+	if client.Silver == nil || client.Silver.Parts == nil {
+		t.Fatal("client.Silver.Parts was nil")
 	}
 	var payload map[string]any
-	if err := client.Silver.Tickets.GetTicketStatus(context.Background(), RequestOptions{
-		PathParams: map[string]any{"ticket_id": "ticket-1"},
+	if err := client.Silver.Parts.GetPart(context.Background(), RequestOptions{
+		PathParams: map[string]any{"part_id": "part-1"},
 	}, &payload); err != nil {
-		t.Fatalf("GetTicketStatus returned error: %v", err)
+		t.Fatalf("GetPart returned error: %v", err)
 	}
 	if payload["ok"] != true {
 		t.Fatalf("payload = %#v, want ok true", payload)
@@ -249,7 +258,7 @@ func TestGeneratedWrappersInvokeAllInventoryOperations(t *testing.T) {
 // remains in the public inventory without producing a duplicate generic method.
 func TestGeneratorOmitsFutureReservedTypedMethods(t *testing.T) {
 	temporaryRoot := t.TempDir()
-	for _, directory := range []string{"scripts", "data", "testdata/contract"} {
+	for _, directory := range []string{"scripts", "data", "data/legacy", "testdata/contract"} {
 		if err := os.MkdirAll(filepath.Join(temporaryRoot, directory), 0o755); err != nil {
 			t.Fatalf("create generator fixture directory %s: %v", directory, err)
 		}
@@ -257,6 +266,7 @@ func TestGeneratorOmitsFutureReservedTypedMethods(t *testing.T) {
 	for _, path := range []string{
 		"scripts/generate_wrappers.go",
 		"data/typed_silver_methods.json",
+		"data/legacy/aliases.json",
 		"testdata/contract/golden_sdk_inventory.json",
 		"testdata/contract/silver_sdk_inventory.json",
 	} {
@@ -468,4 +478,143 @@ func testExportedName(value string) string {
 		return "N" + name
 	}
 	return name
+}
+
+// TestLegacyAliasesForwardToMigratedOperations is the regression guard for the
+// deprecated compatibility layer: every alias must exist as a real method and
+// must reach the route the migration moved it to.
+func TestLegacyAliasesForwardToMigratedOperations(t *testing.T) {
+	var requestedPath string
+	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestedPath = r.URL.Path
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"ok":true}`))
+	}))
+	defer server.Close()
+
+	client, err := NewClient(Config{
+		BaseURL:    server.URL,
+		APIToken:   "token",
+		HTTPClient: server.Client(),
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+
+	golden, err := GoldenInventory()
+	if err != nil {
+		t.Fatalf("GoldenInventory returned error: %v", err)
+	}
+	silver, err := SilverInventory()
+	if err != nil {
+		t.Fatalf("SilverInventory returned error: %v", err)
+	}
+	goldenPaths := map[string]string{}
+	for _, operation := range golden {
+		goldenPaths[operation.Namespace+"."+operation.Name] = operation.Path
+	}
+	silverPaths := map[string]string{}
+	for _, operation := range silver {
+		silverPaths[operation.Namespace+"."+operation.Name] = operation.Path
+	}
+
+	aliases, err := LegacyAliases()
+	if err != nil {
+		t.Fatalf("LegacyAliases returned error: %v", err)
+	}
+	if len(aliases) == 0 {
+		t.Fatal("LegacyAliases returned no aliases")
+	}
+
+	for _, alias := range aliases {
+		target := alias.TargetNamespace + "." + alias.TargetName
+		var wantPath string
+		switch alias.Surface {
+		case "golden":
+			wantPath = goldenPaths[target]
+		case "silver":
+			wantPath = silverPaths[target]
+		default:
+			t.Fatalf("alias %s.%s has unknown surface %q", alias.LegacyNamespace, alias.LegacyName, alias.Surface)
+		}
+		if wantPath == "" {
+			t.Fatalf("alias %s.%s targets unknown %s operation %s", alias.LegacyNamespace, alias.LegacyName, alias.Surface, target)
+		}
+
+		label := "alias " + alias.LegacyNamespace + "." + alias.LegacyName
+		service := reflect.ValueOf(client.generatedClientServices).FieldByName(testExportedName(alias.LegacyNamespace))
+		requestedPath = ""
+		invokeGeneratedWrapper(t, label, service, alias.LegacyName, wantPath)
+
+		expanded := testPathParamPattern.ReplaceAllString(wantPath, "value")
+		if requestedPath != expanded {
+			t.Fatalf("%s requested %q, want %q", label, requestedPath, expanded)
+		}
+	}
+}
+
+// TestLegacyAliasConflictsAreNotAliased pins the one pre-migration name the new
+// contract reassigned to a different operation. It must keep the new meaning.
+func TestLegacyAliasConflictsAreNotAliased(t *testing.T) {
+	conflicts, err := LegacyAliasConflicts()
+	if err != nil {
+		t.Fatalf("LegacyAliasConflicts returned error: %v", err)
+	}
+	if len(conflicts) == 0 {
+		t.Fatal("LegacyAliasConflicts returned no conflicts")
+	}
+
+	aliases, err := LegacyAliases()
+	if err != nil {
+		t.Fatalf("LegacyAliases returned error: %v", err)
+	}
+	golden, err := GoldenInventory()
+	if err != nil {
+		t.Fatalf("GoldenInventory returned error: %v", err)
+	}
+
+	for _, conflict := range conflicts {
+		for _, alias := range aliases {
+			if alias.LegacyNamespace == conflict.LegacyNamespace && alias.LegacyName == conflict.LegacyName {
+				t.Fatalf("conflicting name %s.%s was aliased", conflict.LegacyNamespace, conflict.LegacyName)
+			}
+		}
+
+		var found bool
+		for _, operation := range golden {
+			if operation.Namespace == conflict.LegacyNamespace && operation.Name == conflict.LegacyName {
+				found = true
+				if got, want := operation.Method+" "+operation.Path, conflict.NowResolvesToRoute; got != want {
+					t.Fatalf("%s.%s resolves to %q, want %q", conflict.LegacyNamespace, conflict.LegacyName, got, want)
+				}
+			}
+		}
+		if !found {
+			t.Fatalf("conflicting name %s.%s is not a generated Golden operation", conflict.LegacyNamespace, conflict.LegacyName)
+		}
+
+		namespace, name, ok := strings.Cut(conflict.PreviousBehaviorMovedTo, ".")
+		if !ok {
+			t.Fatalf("conflict %s.%s has malformed previous_behavior_moved_to %q", conflict.LegacyNamespace, conflict.LegacyName, conflict.PreviousBehaviorMovedTo)
+		}
+		service := reflect.ValueOf(newInventoryTestClient(t).generatedClientServices).FieldByName(testExportedName(namespace))
+		if !service.IsValid() || service.IsNil() {
+			t.Fatalf("missing Golden namespace %s for relocated behavior", namespace)
+		}
+		if !service.MethodByName(testExportedName(name)).IsValid() {
+			t.Fatalf("relocated behavior %s is missing its wrapper method", conflict.PreviousBehaviorMovedTo)
+		}
+	}
+}
+
+func newInventoryTestClient(t *testing.T) *Client {
+	t.Helper()
+	client, err := NewClient(Config{
+		BaseURL:  "https://example.incidentiq.com",
+		APIToken: "token",
+	})
+	if err != nil {
+		t.Fatalf("NewClient returned error: %v", err)
+	}
+	return client
 }

@@ -2,12 +2,12 @@
 
 ## Requirements
 
-- Go version declared in `go.mod`
+- Python `3.14+`
 
 ## Install
 
 ```bash
-go get github.com/herooftimeandspace/incidentiq-sdk-golang
+python -m pip install incident-py-q
 ```
 
 ## Environment Variables
@@ -16,54 +16,75 @@ Runtime:
 - `INCIDENTIQ_BASE_URL`
 - `INCIDENTIQ_API_TOKEN`
 - `INCIDENTIQ_SITE_ID` (optional)
+- `INCIDENTIQ_CLIENT_HEADER` (optional, default `ApiClient`)
 - `INCIDENTIQ_AUTH_MODE` (optional, default `bearer`)
 - `INCIDENTIQ_APP_HEADERS_JSON` (optional JSON object string for app-path calls)
 
 `INCIDENTIQ_BASE_URL` may be either the tenant root, such as `https://your-tenant.incidentiq.com`, or an explicit API prefix such as `https://your-tenant.incidentiq.com/api/v1.0`. Bare tenant roots are normalized to `/api/v1.0` for Golden routes.
 
-Future integration smoke tests should use:
+Integration smoke tests:
 - `INCIDENTIQ_TEST_BASE_URL`
 - `INCIDENTIQ_TEST_API_TOKEN`
 - `INCIDENTIQ_TEST_SITE_ID` (optional)
+- `INCIDENTIQ_TEST_CLIENT_HEADER` (optional)
 - `INCIDENTIQ_TEST_AUTH_MODE` (optional)
 - `INCIDENTIQ_TEST_APP_HEADERS_JSON` (optional JSON object string)
+- Optional app lookup smoke identifiers:
+  - `INCIDENTIQ_TEST_INTUNE_ASSET_ID` / `INCIDENTIQ_TEST_INTUNE_ASSET_SERIAL` / `INCIDENTIQ_TEST_INTUNE_ASSET_TAG`
+  - `INCIDENTIQ_TEST_MOSYLE_ASSET_ID` / `INCIDENTIQ_TEST_MOSYLE_ASSET_SERIAL` / `INCIDENTIQ_TEST_MOSYLE_ASSET_TAG`
+  - `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_ID` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_SERIAL` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_TAG`
 
-## Client From Env
+## Sync Client
 
-```go
-client, err := incidentiq.NewClientFromEnv()
-if err != nil {
-	return err
-}
+```python
+from incident_py_q import Client
+
+client = Client.from_env()
+users = client.users.get_users_legacy()
+client.close()
 ```
 
-## Low-Level Request
+## Async Client
 
-```go
-var users map[string]any
-err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
-	PathParams: map[string]any{
-		"UserId": "00000000-0000-0000-0000-000000000000",
-	},
-}, &users)
+```python
+import asyncio
+from incident_py_q import AsyncClient
+
+async def main() -> None:
+    async with AsyncClient.from_env() as client:
+        users = await client.users.get_users_legacy()
+        print(users)
+
+asyncio.run(main())
 ```
 
-## Golden And Silver Helpers
+## Silver Namespace
 
-Golden is the correct default SDK path. Golden methods are exposed directly on
-the client:
+Golden methods stay on `client.<namespace>.*`. Undocumented supplementary routes are exposed under `client.silver.*`.
 
-```go
-var statuses map[string]any
-err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &statuses)
+The legacy app-path alias still exists on `client.apps`, but the preferred explicit path is `client.silver.apps`:
+
+```python
+apps = client.silver.apps.registry.list_apps()
+intune = client.silver.apps.microsoft_intune.lookup_asset(
+    asset_id="asset-guid",
+    serial_number="SER123",
+)
+serial_lookup = client.silver.assets.get_asset_by_serial(serial="SER123")
+assigned = client.silver.tickets.list_current_user_assigned_tickets()
+agent_assigned = client.silver.tickets.list_assigned_tickets_for_agent(
+    agent_user_id="agent-guid",
+    schema="Open",
+)
 ```
 
-Silver is a separate namespace for quasi-supported API calls derived from live
-site interaction HARs. The exported Go accessor is `client.Silver`:
+The assigned-ticket helper wraps Incident IQ's `AssignedToMe_Unassigned` queue,
+which can include unassigned rows. For count-only dashboards, prefer
+`client.silver.analytics.get_agent_current_stats(...)` so assigned-to-me and
+unassigned totals stay separate.
 
-```go
-var status map[string]any
-err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"ticket_id": "ticket-guid"},
-}, &status)
-```
+When a service account is authenticated, "current user" means that service
+account. Use `list_assigned_tickets_for_agent(...)` for human-agent reports that
+must not depend on the authenticated session. The explicit-agent helper uses the
+validated `POST /services/tickets` services query with an `agent` facet filter
+and supports `schema="Open"` and `schema="All"`.

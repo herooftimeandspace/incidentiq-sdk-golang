@@ -8,3 +8,4 @@ dist/
 .gomodcache/
 site/
 tmp/
+coverage-badge.json
