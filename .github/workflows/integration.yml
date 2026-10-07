@@ -24,7 +24,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Verify promotion-owned integration check
-        if: github.event_name == 'pull_request' && github.base_ref == 'main' && github.head_ref == 'promote/staging-to-main'
+        if: github.event_name == 'pull_request' && ((github.base_ref == 'main' && github.head_ref == 'promote/staging-to-main') || (github.base_ref == 'staging' && github.head_ref == 'promote/dev-to-staging'))
         env:
           CHECK_NAME: integration
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
@@ -72,18 +72,18 @@ jobs:
           exit 1
 
       - name: Checkout
-        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
+        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         uses: actions/checkout@v7
 
       - name: Set up Go
-        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
+        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
           cache: false
 
       - name: Integration placeholder
-        if: github.event_name != 'pull_request' || github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'
+        if: github.event_name != 'pull_request' || ((github.base_ref != 'staging' || github.head_ref != 'promote/dev-to-staging') && (github.base_ref != 'main' || github.head_ref != 'promote/staging-to-main'))
         run: |
           echo "No live Go integration suite is defined yet; protected branch pushes are covered by unit."
 

@@ -15,10 +15,10 @@ jobs:
     if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'dev'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source branch
+      - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v7
@@ -32,18 +32,45 @@ jobs:
           GH_REPO: ${{ github.repository }}
           GH_SHA: ${{ github.event.workflow_run.head_sha }}
           GH_URL: ${{ github.event.workflow_run.html_url }}
+          GH_PROMOTION_REF: promote/dev-to-staging
         run: |
           set -euo pipefail
 
-          git fetch origin staging
+          git fetch origin dev staging
           resolved_label="$(go run scripts/release_tools.go resolve-promotion-semver --repo "${GH_REPO}" --sha "${GH_SHA}" --base-ref dev)"
-          existing_pr="$(gh pr list --repo "${GH_REPO}" --base staging --head dev --state open --json number --jq '.[0].number')"
+
+          if [ "$(git rev-list --count origin/staging.."${GH_SHA}")" = "0" ]; then
+            echo "No commits between staging and dev; skipping dev -> staging promotion PR."
+            exit 0
+          fi
+
+          # Promote through a dedicated branch that already contains the staging
+          # tip. staging accumulates merge commits that never flow back into dev,
+          # and the staging ruleset enforces strict_required_status_checks_policy,
+          # which is topological. Promoting `dev` itself therefore opened BEHIND
+          # on every cycle and needed a manual staging -> dev sync first.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "${GH_PROMOTION_REF}" origin/staging
+          git merge --no-ff --no-edit "${GH_SHA}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GH_REPO}.git" \
+            "HEAD:refs/heads/${GH_PROMOTION_REF}" \
+            --force
+
+          existing_pr="$(gh pr list --repo "${GH_REPO}" --base staging --head "${GH_PROMOTION_REF}" --state open --json number --jq '.[0].number')"
           title="Promote dev to staging"
           body="$(printf '%s\n' \
             'Automated promotion PR from dev to staging.' \
             '' \
             "Source commit: ${GH_SHA}" \
             "Source workflow: ${GH_URL}" \
+            '' \
+            'This PR promotes dev through the promote/dev-to-staging branch, which already' \
+            'contains the staging tip, so it is never behind its base.' \
+            '' \
+            'The unit and integration checks on this PR are reported by the promotion' \
+            'workflow against this branch head, because PRs opened with GITHUB_TOKEN do' \
+            'not trigger pull_request workflow runs.' \
             '' \
             'This workflow uses the repository GITHUB_TOKEN instead of a personal access token.')"
 
@@ -58,18 +85,139 @@ jobs:
             exit 0
           fi
 
-          if [ "$(git rev-list --count origin/staging..HEAD)" = "0" ]; then
-            echo "No commits between staging and dev; skipping dev -> staging promotion PR."
-            exit 0
-          fi
-
           gh pr create \
             --repo "${GH_REPO}" \
             --base staging \
-            --head dev \
+            --head "${GH_PROMOTION_REF}" \
             --title "${title}" \
             --body "${body}" \
             --label "${resolved_label}"
+
+      - name: Run and report promotion PR checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GH_PROMOTION_REF: promote/dev-to-staging
+        run: |
+          set -euo pipefail
+
+          promotion_pr="$(gh pr list --repo "${GH_REPO}" --base staging --head "${GH_PROMOTION_REF}" --state open --json number --jq '.[0].number')"
+          if [ -z "${promotion_pr}" ]; then
+            echo "No open dev -> staging promotion PR found; skipping promotion-owned check reports."
+            exit 0
+          fi
+          export promotion_pr
+
+          git fetch origin dev staging "${GH_PROMOTION_REF}"
+          git checkout "origin/${GH_PROMOTION_REF}"
+          promotion_sha="$(git rev-parse HEAD)"
+          echo "Reporting promotion-owned checks for PR #${promotion_pr} at ${promotion_sha}."
+
+          run_reported_check() {
+            local name="$1"
+            local script="$2"
+            local log_file
+            local check_id
+            local started_at
+            local completed_at
+            local conclusion="success"
+
+            log_file="$(mktemp)"
+            started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            check_id="$(gh api \
+              --method POST \
+              "repos/${GH_REPO}/check-runs" \
+              -f "name=${name}" \
+              -f "head_sha=${promotion_sha}" \
+              -f "status=in_progress" \
+              -f "started_at=${started_at}" \
+              --jq '.id')"
+
+            echo "Running ${name} as check-run ${check_id}."
+            if ! bash -eo pipefail -c "${script}" >"${log_file}" 2>&1; then
+              conclusion="failure"
+            fi
+
+            completed_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+            gh api \
+              --method PATCH \
+              "repos/${GH_REPO}/check-runs/${check_id}" \
+              -f "status=completed" \
+              -f "conclusion=${conclusion}" \
+              -f "completed_at=${completed_at}" \
+              -f "output[title]=${name}" \
+              -f "output[summary]=Promotion workflow reported ${name} with conclusion ${conclusion}." \
+              -f "output[text]=$(tail -c 60000 "${log_file}")" \
+              >/dev/null
+
+            echo "Finished ${name} with ${conclusion}."
+            cat "${log_file}"
+            rm -f "${log_file}"
+
+            if [ "${conclusion}" != "success" ]; then
+              return 1
+            fi
+            return 0
+          }
+
+          failures=0
+
+          unit_script='
+          set -euo pipefail
+          go vet ./...
+          go test -covermode=atomic -coverprofile=coverage.out ./...
+          go tool cover -func=coverage.out -o coverage-summary.txt
+          go tool cover -html=coverage.out -o coverage.html
+          badge_path="branch-coverage/staging/coverage.json"
+          if gh api "repos/${GH_REPO}/contents/${badge_path}?ref=badges" --jq ".content" > coverage-floor.b64 2>/tmp/coverage-floor.err; then
+            base64 -d coverage-floor.b64 > coverage-floor.json
+            echo "Using coverage floor from badges:${badge_path}"
+            cat coverage-floor.json
+          else
+            echo "No existing coverage floor found at badges:${badge_path}; using the static floor."
+            cat /tmp/coverage-floor.err
+          fi
+          args=(
+            coverage
+            --coverage-file coverage.out
+            --label "coverage staging"
+            --minimum 95.0
+            --output coverage-badge.json
+          )
+          if [ -f coverage-floor.json ]; then
+            args+=(--minimum-badge-file coverage-floor.json)
+          fi
+          go run scripts/build_badge_json.go "${args[@]}"
+          tail -n 5 coverage-summary.txt
+          '
+
+          integration_script='
+          set -euo pipefail
+          echo "No live Go integration suite is defined yet; protected branch pushes are covered by unit."
+          '
+
+          promotion_head_script='
+          set -euo pipefail
+          git fetch origin dev staging
+          if ! git merge-base --is-ancestor origin/dev HEAD; then
+            echo "Prepared promotion head does not contain the latest dev tip."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor origin/staging HEAD; then
+            echo "Prepared promotion head does not contain the latest staging tip."
+            exit 1
+          fi
+          echo "Promotion branch contains both the dev and staging tips."
+          '
+
+          run_reported_check "unit" "${unit_script}" || failures=1
+          run_reported_check "integration" "${integration_script}" || failures=1
+          run_reported_check "promotion-head" "${promotion_head_script}" || failures=1
+
+          if [ "${failures}" != "0" ]; then
+            echo "One or more promotion-owned checks failed."
+            exit 1
+          fi
 
   promote-staging-to-main:
     if: github.event.workflow_run.name == 'quality' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'staging'
