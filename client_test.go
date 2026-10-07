@@ -288,8 +288,8 @@ func TestRequestSilverRetriesWithoutDefaultClientHeader(t *testing.T) {
 		t.Fatalf("NewClient returned error: %v", err)
 	}
 	var payload map[string]any
-	if err := client.RequestSilver(context.Background(), "tickets", "get_ticket_status", RequestOptions{
-		PathParams: map[string]any{"ticket_id": "ticket-1"},
+	if err := client.RequestSilver(context.Background(), "parts", "get_part", RequestOptions{
+		PathParams: map[string]any{"part_id": "part-1"},
 	}, &payload); err != nil {
 		t.Fatalf("RequestSilver returned error: %v", err)
 	}
@@ -550,8 +550,8 @@ func TestRequestSilverDoesNotFallbackWhenClientHeaderAlreadyOmitted(t *testing.T
 	if err != nil {
 		t.Fatalf("NewClient returned error: %v", err)
 	}
-	err = client.RequestSilver(context.Background(), "tickets", "get_ticket_status", RequestOptions{
-		PathParams:       map[string]any{"ticket_id": "ticket-1"},
+	err = client.RequestSilver(context.Background(), "parts", "get_part", RequestOptions{
+		PathParams:       map[string]any{"part_id": "part-1"},
 		OmitClientHeader: true,
 	}, nil)
 	if err == nil {
@@ -661,12 +661,18 @@ func TestInventoriesLoadFromPythonSDKArtifacts(t *testing.T) {
 	if len(silver) == 0 {
 		t.Fatal("SilverInventory returned no operations")
 	}
-	controllers, err := StoplightControllerNames()
+	metadata, err := OpenAPIContractMetadata()
 	if err != nil {
-		t.Fatalf("StoplightControllerNames returned error: %v", err)
+		t.Fatalf("OpenAPIContractMetadata returned error: %v", err)
 	}
-	if len(controllers) == 0 {
-		t.Fatal("StoplightControllerNames returned no controllers")
+	if metadata.OperationCount != len(golden) {
+		t.Fatalf("metadata.OperationCount = %d, want %d", metadata.OperationCount, len(golden))
+	}
+	if metadata.SchemaCount == 0 || metadata.SpecURL == "" || metadata.SyncedAt == "" {
+		t.Fatalf("metadata = %#v, want populated schema count, spec URL and sync timestamp", metadata)
+	}
+	if len(metadata.UpstreamProfile) == 0 {
+		t.Fatal("metadata.UpstreamProfile was empty")
 	}
 }
 
@@ -712,7 +718,7 @@ func TestRequestGoldenLooksUpInventoryOperation(t *testing.T) {
 		t.Fatalf("NewClient returned error: %v", err)
 	}
 	var payload map[string]any
-	if err := client.RequestGolden(context.Background(), "users", "get_users_legacy", RequestOptions{}, &payload); err != nil {
+	if err := client.RequestGolden(context.Background(), "users", "search_users_legacy_get", RequestOptions{}, &payload); err != nil {
 		t.Fatalf("RequestGolden returned error: %v", err)
 	}
 	if payload["ok"] != true {

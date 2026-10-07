@@ -14,7 +14,7 @@ import (
 
 const defaultClientHeader = "ApiClient"
 
-var tenantRootPathPrefixes = []string{"/api/", "/services/", "/apps/", "/img/", "/s/"}
+var tenantRootPathPrefixes = []string{"/api/", "/services/", "/apps/", "/img/", "/s/", "/pub/"}
 
 // Client is the shared entry point for Incident IQ HTTP calls.
 type Client struct {
