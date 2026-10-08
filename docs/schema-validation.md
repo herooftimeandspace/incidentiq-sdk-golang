@@ -14,15 +14,25 @@ Legacy contract corpus:
   the published contract no longer documents. Those routes moved to the Silver
   surface during the OpenAPI migration.
 
-Bundled assets are embedded into the module with `go:embed`:
-- `data/openapi/openapi-spec.json`
-- `data/openapi/metadata.json`
-- `data/legacy/contract.json`
-- `data/legacy/aliases.json`
-- `data/source_manifest.json`
-- `data/app_schemas.json`
-- `data/silver_inventory.json`
-- `data/typed_silver_methods.json`
+## Bundled Artifacts
+
+This list is the single owner; other documents link here rather than repeating
+it. Everything below is embedded into the module with `go:embed`:
+
+| Path | Contents |
+| --- | --- |
+| `data/openapi/openapi-spec.json` | Golden contract, primary |
+| `data/openapi/metadata.json` | Sync provenance |
+| `data/source_manifest.json` | Source manifest |
+| `data/silver_inventory.json` | Silver inventory: HAR-derived and migrated routes |
+| `data/legacy/contract.json` | Schemas for routes migrated off Golden |
+| `data/legacy/aliases.json` | Deprecated method-name aliases |
+| `data/app_schemas.json` | HAR-derived app-path schemas |
+| `data/typed_silver_methods.json` | Routes with hand-written typed helpers |
+| `testdata/contract/golden_sdk_inventory.json` | Golden-surface drift snapshot |
+| `testdata/contract/silver_sdk_inventory.json` | Silver-surface drift snapshot |
+| `testdata/contract/merged_sdk_inventory.json` | Combined drift snapshot |
+| `testdata/contract/user_room_mutation_observation.json` | Observed request shape for the typed user-room helpers |
 
 Nothing is fetched over the network at runtime.
 

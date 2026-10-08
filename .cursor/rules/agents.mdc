@@ -1,0 +1,11 @@
+---
+description: Repository-wide instructions for any AI coding agent in incidentiq-sdk-golang
+alwaysApply: true
+---
+
+The canonical agent contract for this repository is [AGENTS.md](mdc:AGENTS.md).
+
+Read it and follow it. Do not maintain separate instructions in this file:
+`CLAUDE.md`, `GEMINI.md`, `CONVENTIONS.md`, `.clinerules`, and `.windsurfrules`
+are symlinks to `AGENTS.md`, and this file and
+`.github/copilot-instructions.md` are pointers to it.

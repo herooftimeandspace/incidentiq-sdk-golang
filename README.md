@@ -194,21 +194,19 @@ See [`client.Silver.Users`](docs/sdk-reference/silver-users.md).
 ## Development Commands
 
 ```bash
-go generate ./...
-go vet ./...
-go test -covermode=atomic -coverprofile=coverage.out ./...
-go tool cover -func=coverage.out -o coverage-summary.txt
-go run scripts/build_badge_json.go coverage --coverage-file coverage.out --label "coverage local" --minimum 95.0 --output coverage-badge.json
-go run scripts/build_docs_site.go
+scripts/verify.sh
 ```
 
-Set `GOCACHE="$(pwd)/.gocache"` and `GOMODCACHE="$(pwd)/.gomodcache"` to keep
-build caches inside the checkout.
+That is the whole local gate: generated-output check, `go vet`, tests with
+native coverage, the coverage floor, and the docs site build. Pass `--quick` to
+skip the docs site. It sets `GOCACHE` and `GOMODCACHE` inside the checkout.
 
 Branch targets map to the GitHub Actions gates:
-- `dev`: `unit` (vet, tests, coverage ratchet)
+- `dev`: `unit` (generated output, vet, tests, coverage ratchet)
 - `staging`: `unit` plus `integration` against a live tenant
 - `main`: `unit`, `integration`, `docs-build`, and `release-prep`
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the promotion flow and release labels.
 
 ## Generated Code
 
@@ -225,17 +223,9 @@ regenerated without the other.
 ## Contract Artifacts
 
 The contracts are shared with the `herooftimeandspace/incident-py-q` SDK and are
-embedded in this module:
-
-- `data/openapi/openapi-spec.json` (Golden contract, primary)
-- `data/openapi/metadata.json` (sync provenance)
-- `data/source_manifest.json` (source manifest)
-- `data/silver_inventory.json` (Silver inventory: HAR-derived + migrated routes)
-- `data/legacy/contract.json` (schemas for routes migrated off Golden)
-- `data/legacy/aliases.json` (deprecated method-name aliases)
-- `data/app_schemas.json` (HAR-derived app-path schemas)
-- `data/typed_silver_methods.json` (routes with hand-written typed helpers)
-- `testdata/contract/*_sdk_inventory.json` (golden-surface drift snapshots)
+embedded in this module. See
+[docs/schema-validation.md](docs/schema-validation.md#bundled-artifacts) for what
+each artifact holds.
 
 Refresh them from a local checkout of the source SDK and regenerate:
 
