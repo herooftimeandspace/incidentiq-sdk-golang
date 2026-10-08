@@ -101,7 +101,7 @@ mechanism, read the file directly.
 
 | Skill | Read it when |
 | --- | --- |
-| `.agents/skills/pr-review-safety/SKILL.md` | before pushing, opening or updating a PR, resolving review feedback, or judging merge readiness |
+| `.agents/skills/pr-review-safety/SKILL.md` | before pushing, opening or updating a PR, resolving review feedback, or judging merge readiness. It requires an independent pre-push review before any push |
 | `.agents/skills/scheduled-orchestration/SKILL.md` | scheduled or heartbeat-style issue/PR sweeps, isolated branch selection, promotion coordination |
 
 This repository has policy skills only, not a local scheduled-runner

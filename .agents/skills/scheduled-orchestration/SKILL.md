@@ -66,7 +66,8 @@ before write actions.
      a linked PR, or implemented-in-main evidence.
 4. Act on one safe unit:
    - Fix actionable feedback on a branch from `dev`.
-   - Run `scripts/verify.sh`, then open or update a PR.
+   - Run `scripts/verify.sh`, then the required independent pre-push review
+     from `pr-review-safety`, then open or update a PR.
    - Merge only when `pr-review-safety` says the PR is merge-ready.
 
 ## Reporting

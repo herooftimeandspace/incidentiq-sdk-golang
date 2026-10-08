@@ -17,12 +17,31 @@ labels, comments, linked PRs, and current review-thread state.
 
 Run `scripts/verify.sh` and fix what it reports. Do not push on a failing gate.
 
-An **independent pre-push review** is recommended practice, not a gate. A second
-agent, a different model, or a fresh context reading the PR-ready diff catches
-real defects that the author's context hides. Nothing blocks on it, and no CI
-check encodes it.
+An **independent pre-push review is required** before pushing code to GitHub,
+opening a PR, or updating a PR branch. It is part of verification, not a
+summary step: a reviewer that did not write the change catches defects the
+author's own context hides.
 
-When you do run one:
+This applies to human- and agent-authored branches. It does **not** apply to
+the Actions-authored promotion chain (`promote/dev-to-staging`,
+`promote/staging-to-main`), which has no agent in the loop and could not comply;
+that content is gated by required checks, the live label and ancestry checks in
+`release-prep` and `promotion-head`, and the branch ruleset.
+
+**The minimum compliant form is a fresh context with no implementation history
+reading the PR-ready diff.** A separate agent or a different model is better,
+but a new session that did not write the change already satisfies this. Every
+harness can do that, which is what makes this gate different from a hosted
+review product: it needs no vendor, no installation, and no CI check. Do not
+encode it as a GitHub Actions check-run; see **Merge Readiness** for why an
+AI-review signoff bridge is forbidden.
+
+Because the floor is that low, declining the gate is reserved for cases where
+even a fresh context is impossible. If that happens, say so in the **PR body**
+— not only in your own transcript — and treat the PR as needing the human
+approver to accept the absence explicitly before it can merge.
+
+Running it:
 
 - The reviewer must be independent of the implementation work.
 - Ask it to find reasons the branch should **not** be pushed yet.
@@ -56,6 +75,12 @@ Every PR except a promotion PR is merge-ready when **all** of these hold:
 - A **human has approved** the PR.
 - No open review thread is current and unaddressed.
 - No reviewer has requested changes.
+- The independent pre-push review ran on the current head, and its actionable
+  findings are fixed or recorded as accepted risk **in the PR body or a PR
+  comment**, where the human approver can see them. A record that exists only
+  in an agent's transcript does not count, and leaves a later reviewer unable
+  to confirm the gate ran at all. If the review was declined under the rule in
+  **Before Pushing**, the human approver must accept that absence explicitly.
 
 **Promotion PRs are not human-gated.** A promotion PR is one whose head is
 `promote/dev-to-staging` or `promote/staging-to-main`; judge it by that head
@@ -163,6 +188,12 @@ claims to clear. Record and compare:
 A removed reaction, a stale comment, an old approval, or a missing comment is
 not current signoff. When a signal predates the current head, request a fresh
 review instead of treating it as clearance.
+
+The same test applies to the pre-push review. A push that changes behavior,
+interfaces, or policy re-triggers it. A push that cannot change what a reviewer
+would conclude — a rebase with no content change, a commit-message edit, a
+formatting-only fixup — does not; say which case it is when you push on top of
+a completed review.
 
 ## Review Output
 
