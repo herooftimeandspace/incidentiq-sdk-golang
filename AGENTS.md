@@ -50,7 +50,11 @@ in this repository.
 - Run `go generate ./...` after changing wrapper generation, reference-doc
   generation, or bundled inventory files. It regenerates both
   `generated_wrappers.go` and `docs/sdk-reference/`, and both must be committed
-  together.
+  together. `scripts/check_generated.sh` enforces this: it regenerates and fails
+  when either path changes. Every producer of the `unit` check calls it —
+  `.github/workflows/quality.yml` and both promotion-owned `unit_script` blocks
+  in `.github/workflows/promotion.yml` — so the gate lives in one file rather
+  than being copied into three and drifting.
 - Run `GOCACHE="$(pwd)/.gocache" GOMODCACHE="$(pwd)/.gomodcache" go test ./...`
   after code, generator, contract, or documentation changes that affect the
   public SDK surface.
