@@ -1,8 +1,12 @@
 # Changelog
 
-Version history is tracked in `CHANGELOG.md` in the repository root.
+Version history is tracked in [`CHANGELOG.md`](../CHANGELOG.md) in the
+repository root, and per-release notes are generated on the
+[GitHub Releases](https://github.com/herooftimeandspace/incidentiq-sdk-golang/releases)
+page.
 
-Current release line:
+Releases are published as `vX.Y.Z` Git tags, which is what `go get` resolves:
 
-- `0.1.0` (2026-03-11): initial public release with sync/async clients, schema runtime,
-  dynamic SDK, contract tests, docs tooling, and CI workflows.
+```bash
+go get github.com/herooftimeandspace/incidentiq-sdk-golang@v0.1.9
+```

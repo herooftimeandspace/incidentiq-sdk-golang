@@ -2,89 +2,111 @@
 
 ## Requirements
 
-- Python `3.14+`
+- Go `1.26.4+` (the toolchain version in `go.mod`)
+
+The module has no third-party dependencies.
 
 ## Install
 
 ```bash
-python -m pip install incident-py-q
+go get github.com/herooftimeandspace/incidentiq-sdk-golang
+```
+
+```go
+import incidentiq "github.com/herooftimeandspace/incidentiq-sdk-golang"
 ```
 
 ## Environment Variables
 
-Runtime:
+Runtime, read by `incidentiq.ConfigFromEnv(false)` and `incidentiq.NewClientFromEnv()`:
 - `INCIDENTIQ_BASE_URL`
 - `INCIDENTIQ_API_TOKEN`
 - `INCIDENTIQ_SITE_ID` (optional)
-- `INCIDENTIQ_CLIENT_HEADER` (optional, default `ApiClient`)
 - `INCIDENTIQ_AUTH_MODE` (optional, default `bearer`)
 - `INCIDENTIQ_APP_HEADERS_JSON` (optional JSON object string for app-path calls)
 
-`INCIDENTIQ_BASE_URL` may be either the tenant root, such as `https://your-tenant.incidentiq.com`, or an explicit API prefix such as `https://your-tenant.incidentiq.com/api/v1.0`. Bare tenant roots are normalized to `/api/v1.0` for Golden routes.
+`INCIDENTIQ_BASE_URL` may be either the tenant root, such as
+`https://your-tenant.incidentiq.com`, or an explicit API prefix such as
+`https://your-tenant.incidentiq.com/api/v1.0`. Bare tenant roots are normalized
+to `/api/v1.0` for Golden routes.
 
-Integration smoke tests:
+Integration smoke tests, read by `incidentiq.ConfigFromEnv(true)`:
 - `INCIDENTIQ_TEST_BASE_URL`
 - `INCIDENTIQ_TEST_API_TOKEN`
 - `INCIDENTIQ_TEST_SITE_ID` (optional)
-- `INCIDENTIQ_TEST_CLIENT_HEADER` (optional)
 - `INCIDENTIQ_TEST_AUTH_MODE` (optional)
 - `INCIDENTIQ_TEST_APP_HEADERS_JSON` (optional JSON object string)
-- Optional app lookup smoke identifiers:
-  - `INCIDENTIQ_TEST_INTUNE_ASSET_ID` / `INCIDENTIQ_TEST_INTUNE_ASSET_SERIAL` / `INCIDENTIQ_TEST_INTUNE_ASSET_TAG`
-  - `INCIDENTIQ_TEST_MOSYLE_ASSET_ID` / `INCIDENTIQ_TEST_MOSYLE_ASSET_SERIAL` / `INCIDENTIQ_TEST_MOSYLE_ASSET_TAG`
-  - `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_ID` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_SERIAL` / `INCIDENTIQ_TEST_GOOGLE_DEVICE_ASSET_TAG`
 
-## Sync Client
+## Creating a Client
 
-```python
-from incident_py_q import Client
+From explicit configuration:
 
-client = Client.from_env()
-users = client.users.get_users_legacy()
-client.close()
+```go
+client, err := incidentiq.NewClient(incidentiq.Config{
+	BaseURL:  "https://your-tenant.incidentiq.com",
+	APIToken: os.Getenv("INCIDENTIQ_API_TOKEN"),
+	SiteID:   "optional-site-id",
+	Timeout:  30 * time.Second,
+})
 ```
 
-## Async Client
+From the environment:
 
-```python
-import asyncio
-from incident_py_q import AsyncClient
-
-async def main() -> None:
-    async with AsyncClient.from_env() as client:
-        users = await client.users.get_users_legacy()
-        print(users)
-
-asyncio.run(main())
+```go
+client, err := incidentiq.NewClientFromEnv()
 ```
+
+`Client` holds no resources of its own, so there is nothing to close. Supply
+your own `*http.Client` through `Config.HTTPClient` when you need custom
+transport behavior.
+
+## Making a Call
+
+```go
+var ticket map[string]any
+err := client.Tickets.GetTicket(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"ticketId": ticketID},
+}, &ticket)
+```
+
+Cancellation and deadlines come from `ctx`. `RequestOptions.Timeout` bounds a
+single call independently of the client-wide timeout.
+
+## Handling Errors
+
+```go
+var apiErr *incidentiq.APIError
+if errors.As(err, &apiErr) {
+	log.Printf("incident iq returned %d: %s", apiErr.StatusCode, apiErr.Message)
+}
+```
+
+- `*incidentiq.APIError` — a non-2xx response
+- `*incidentiq.ValidationError` — a bad argument caught before the request
+- `*incidentiq.ConfigurationError` — invalid client configuration
+- `*incidentiq.ResponseTooLargeError` — the response exceeded the size limit
 
 ## Silver Namespace
 
-Golden methods stay on `client.<namespace>.*`. Undocumented supplementary routes are exposed under `client.silver.*`.
+Golden methods stay on `client.<Namespace>.<Method>`. Quasi-supported routes
+derived from live site interaction HARs are exposed under `client.Silver`, with
+app routes nested one level deeper:
 
-The legacy app-path alias still exists on `client.apps`, but the preferred explicit path is `client.silver.apps`:
+```go
+err := client.Silver.AppRegistry.GetApp(ctx, incidentiq.RequestOptions{
+	PathParams: map[string]any{"app_key": appKey},
+}, &app)
 
-```python
-apps = client.silver.apps.registry.list_apps()
-intune = client.silver.apps.microsoft_intune.lookup_asset(
-    asset_id="asset-guid",
-    serial_number="SER123",
-)
-serial_lookup = client.silver.assets.get_asset_by_serial(serial="SER123")
-assigned = client.silver.tickets.list_current_user_assigned_tickets()
-agent_assigned = client.silver.tickets.list_assigned_tickets_for_agent(
-    agent_user_id="agent-guid",
-    schema="Open",
-)
+err = client.Silver.Apps.GoogleDeviceData.GetSyncHistory(ctx, incidentiq.RequestOptions{}, &history)
 ```
 
-The assigned-ticket helper wraps Incident IQ's `AssignedToMe_Unassigned` queue,
-which can include unassigned rows. For count-only dashboards, prefer
-`client.silver.analytics.get_agent_current_stats(...)` so assigned-to-me and
-unassigned totals stay separate.
+App routes usually need tenant app headers. Set them once on `Config.AppHeaders`
+(or `INCIDENTIQ_APP_HEADERS_JSON`), or per call in `opts.Headers`.
 
-When a service account is authenticated, "current user" means that service
-account. Use `list_assigned_tickets_for_agent(...)` for human-agent reports that
-must not depend on the authenticated session. The explicit-agent helper uses the
-validated `POST /services/tickets` services query with an `agent` facet filter
-and supports `schema="Open"` and `schema="All"`.
+A few Silver routes have hand-written typed helpers instead of generic wrappers:
+
+```go
+err := client.Silver.Users.SetUserRooms(ctx, userID, []string{roomID}, incidentiq.RequestOptions{}, nil)
+```
+
+See [user room associations](user-room-associations.md).

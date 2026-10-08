@@ -2,11 +2,19 @@
 
 This repo is the Go companion to `herooftimeandspace/incident-py-q`.
 
-The copied Markdown files under this repo are intentionally retained so the Go
-SDK can be reviewed against the same product, contract, validation, and release
-documentation as the source SDK. When the source repo changes a shared contract
-or user-facing behavior, run `scripts/sync_from_source_sdk.sh` and then update
-the Go runtime or generated wrappers until the tests prove parity again.
+Parity is defined at the **contract and wire** level, not at the documentation
+level. The two SDKs share the bundled contract artifacts, so they call the same
+routes with the same environment variables, authentication headers, URL
+normalization rules, and retry policy. Everything above that line — the API
+shape, the documentation, and the tooling — is this repository's own and is
+written for Go.
+
+When the source repo changes a shared contract, run
+`scripts/sync_from_source_sdk.sh`, then `go generate ./...`, and update the Go
+runtime until the tests prove parity again. The sync script copies
+machine-readable artifacts only; it never overwrites Markdown.
+
+This page records where the Go SDK deliberately differs.
 
 ## Shared Runtime Behavior
 
@@ -75,10 +83,24 @@ mirrors it with these differences:
   operations first and skips any alias whose exported name is already taken.
 - **Conflict discovery.** `LegacyAliasConflicts()` is the Go equivalent of
   `incident_py_q.legacy_alias_conflicts()`.
-- **No response validation.** `data/legacy/contract.json` is embedded for
-  parity, but the Go SDK unmarshals into `out any` and performs no
-  response-schema validation, so that bundle currently has no functional
-  consumer here.
+- **No response validation.** `data/legacy/contract.json` and
+  `data/app_schemas.json` are embedded for parity, but the Go SDK unmarshals
+  into `out any` and performs no response-schema validation, so those bundles
+  currently have no functional consumer here. `Config.ValidateResponses` is
+  reserved for that behavior and is inert today.
+- **No logging.** The source SDK logs through the standard `logging` module with
+  header redaction. The Go SDK emits nothing and installs no logger; wrap
+  `Config.HTTPClient` with your own `RoundTripper` to observe requests, and do
+  your own redaction.
+- **No configurable client header.** The source SDK reads
+  `INCIDENTIQ_CLIENT_HEADER`. The Go client always sends the constant
+  `Client: ApiClient`, and a caller overrides it per request through
+  `RequestOptions.Headers` or suppresses it with
+  `RequestOptions.OmitClientHeader`.
+- **No typed response models or pagination helper.** The source SDK returns
+  Pydantic models and offers `iter_pages(...)`. Every Go wrapper decodes into
+  the caller's `out` value, and paging is driven by the route's own query
+  parameters.
 
 ### `Tickets.AssignTicket` changed meaning
 
@@ -99,65 +121,11 @@ to `client.Tickets.AssignTicketSla`.
 
 The alias layer does not cover Silver. 45 `client.Silver.<Namespace>.<Method>`
 methods that existed before the migration are gone, and every one of them is a
-compile error for existing callers.
-
-40 are still reachable after a hand edit, because the published contract now
-documents the route and it moved onto the Golden surface (sometimes under a
-different name). 5 are gone outright: the route is in neither contract. That
-removal happened upstream in `incident-py-q`, not here.
-
-| Removed | Now |
-|---|---|
-| `Silver.Analytics.GetAssetSummaryStats` | `Analytics.GetAssetSummaryStats` |
-| `Silver.Analytics.GetRequestorSummaryStats` | `Analytics.GetRequestorSummaryStats` |
-| `Silver.Assets.GetAssetBySerial` | `Assets.GetAssetBySerial` |
-| `Silver.Assets.GetAssetFiles` | `Assets.GetAssetFiles` |
-| `Silver.Assets.GetAssetVerifications` | `Assets.GetAssetVerificationsForAsset` |
-| `Silver.Assets.GetStatsLocations` | `Assets.GetAssetStatsByLocation` |
-| `Silver.Assets.GetType` | `Assets.GetAssetType` |
-| `Silver.Assets.PostCheckoutsTransactionsQueryGet` | `Assets.GetAssetCheckoutTransactions` |
-| `Silver.Audits.GetPoliciesSchedulesForAsset` | `Audits.GetAssetAuditPolicySchedulesForAsset` |
-| `Silver.Categories.GetOfFilters` | `Categories.ListFilterCategories` |
-| `Silver.Categories.GetOfModels` | `Categories.ListModelCategories` |
-| `Silver.CustomFields.PostForAsset` | `CustomFields.GetCustomFieldsForAsset` |
-| `Silver.CustomFields.PostForTicket` | `CustomFields.GetCustomFieldsForTicket` |
-| `Silver.CustomFields.PostForUser` | `CustomFields.GetCustomFieldsForUser` |
-| `Silver.Files.GetEntity` | `Files.GetFilesForEntity` |
-| `Silver.Filters.GetForEntitytype` | `Filters.ListFiltersForEntityType` |
-| `Silver.Filters.GetSet` | `Filters.GetFilterSet` |
-| `Silver.Labor.GetRatesUser2` | `Labor.GetUserLaborRates` |
-| `Silver.Labor.PostTypes` | `Labor.QueryLaborTypes` |
-| `Silver.Models.GetAll` | `Models.ListAllModelsGet` |
-| `Silver.Models.GetAppsAeriesSis` | *(route no longer in either contract)* |
-| `Silver.Models.GetAppsGoogleDeviceData` | *(route no longer in either contract)* |
-| `Silver.Models.GetAppsMicrosoftIntune` | *(route no longer in either contract)* |
-| `Silver.Models.GetAppsSubticketsForIT` | *(route no longer in either contract)* |
-| `Silver.Models.PostAvailableToSite` | `Models.GetModelsAvailableToSite` |
-| `Silver.Models.PostEndpoint` | `Models.SearchModels` |
-| `Silver.Sites.GetDeployments` | *(route no longer in either contract)* |
-| `Silver.Sites.PostRoles` | `Sites.ListRolesFiltered` |
-| `Silver.Subtasks.GetSubtask` | `Subtasks.GetSubtasksForTicket` |
-| `Silver.Surveys.GetResponsesTicket` | `Surveys.GetSurveyResponseForTicket` |
-| `Silver.Teams.GetEndpoint` | `Teams.ListTeams` |
-| `Silver.Tickets.GetTicketActivities` | `Tickets.GetTicketActivities` |
-| `Silver.Tickets.GetTicketKbArticles` | `Tickets.GetTicketKbArticles` |
-| `Silver.Tickets.GetTicketNextSteps` | `Tickets.GetTicketNextSteps` |
-| `Silver.Tickets.GetTicketStatus` | `Tickets.GetTicketStatus` |
-| `Silver.Tickets.PostEndpoint` | `Tickets.SearchTickets` |
-| `Silver.Tickets.PostTicketTimeline` | `Tickets.ListTicketTimeline` |
-| `Silver.Users.GetMyShortcuts` | `Users.GetMyShortcuts` |
-| `Silver.Users.GetShortcutsAvailable` | `Users.GetAvailableShortcuts` |
-| `Silver.Users.GetSimple` | `Users.GetSimpleUser` |
-| `Silver.Users.GetUserOptions` | `Users.GetUserOptions` |
-| `Silver.Users.GetUserRelationships` | `Users.GetUserRelationships` |
-| `Silver.Users.GetUserRooms` | `Users.GetUserRooms` |
-| `Silver.Views.GetView` | `Views.GetViewDefinition` |
-| `Silver.Views.GetView2` | `Views.GetViewDefinition` |
-
-To check a method yourself rather than trusting this table, look the route up by
-HTTP method and path in `testdata/contract/golden_sdk_inventory.json` and
-`testdata/contract/silver_sdk_inventory.json`; Golden paths gained the
-`/api/v1.0` prefix in this migration, so compare paths with that prefix stripped.
+compile error for existing callers. 40 are still reachable after a hand edit,
+because the published contract now documents the route and it moved onto the
+Golden surface; 5 are gone outright. That removal happened upstream in
+`incident-py-q`, not here. The full table is in
+[migration-openapi.md](migration-openapi.md#removed-silver-methods).
 
 ## Promotion Branch Shape
 
@@ -208,10 +176,21 @@ head.
 `promotion-head` and `release-prep` re-check branch ancestry live, because the
 base branch can move without producing a new promotion head commit.
 
-Note that `CONTRIBUTING.md`, `CHANGELOG.md`, and `README.md` are synced verbatim
-from the source SDK by `scripts/sync_from_source_sdk.sh`, which copies both
-`<source>/*.md` and `<source>/docs/*.md`. Go-specific workflow notes belong here
-or in `AGENTS.md`, not in those files, or the next sync silently reverts them.
-This file survives only because the source SDK has no `docs/go-parity.md`; the
-filename is the protection, so do not rename it to something the source SDK
-might also use.
+## Documentation Is Not Synced
+
+The documentation in this repository used to be copied verbatim from the source
+SDK, which meant the README, contributor docs, and SDK reference described a
+Python package with sync and async clients, `.raw(...)` calls, and `Python Arg`
+parameter tables — none of which exist here. Go-specific edits were silently
+reverted by the next sync.
+
+That is no longer the case:
+
+- `scripts/sync_from_source_sdk.sh` copies contract artifacts only.
+- `docs/sdk-reference/` is generated from those artifacts by
+  `scripts/generate_sdk_reference.go`, in Go terms.
+- `TestGeneratedReferenceIsGoShaped` fails if the Python call shape reappears in
+  the reference pages, and `TestGeneratedReferenceMatchesWrappers` fails if the
+  reference and the wrappers disagree about the method surface.
+
+Write Go-specific notes wherever they belong. Nothing is overwritten by a sync.
