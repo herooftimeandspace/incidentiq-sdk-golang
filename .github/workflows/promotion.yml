@@ -187,6 +187,7 @@ jobs:
 
           unit_script='
           set -euo pipefail
+          scripts/check_generated.sh
           go vet ./...
           go test -covermode=atomic -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out -o coverage-summary.txt
@@ -413,6 +414,7 @@ jobs:
 
           unit_script='
           set -euo pipefail
+          scripts/check_generated.sh
           go vet ./...
           go test -covermode=atomic -coverprofile=coverage.out ./...
           go tool cover -func=coverage.out -o coverage-summary.txt

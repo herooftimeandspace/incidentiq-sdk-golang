@@ -1,23 +1,37 @@
 # API Reference
 
-Static package API pages are generated with `pdoc`.
+There are two layers of reference documentation.
 
-Runtime-generated namespace methods such as `client.tickets.get_ticket(...)` are
-documented separately under the generated SDK reference pages.
+## Package API
 
-Golden contract methods are documented under the generated Golden namespace pages.
-Silver HAR-derived methods are documented under the generated [`silver` overview](sdk-reference/silver.md).
-The legacy app alias under `client.apps.*` is documented on the generated
-[`apps` Silver namespace page](sdk-reference/apps.md).
-
-Build locally:
+The hand-written Go API — `Client`, `Config`, `RequestOptions`, the error types,
+and the embedded-contract accessors — is documented in the source as Go doc
+comments:
 
 ```bash
-python scripts/generate_api_docs.py
-python scripts/generate_sdk_reference.py
+go doc github.com/herooftimeandspace/incidentiq-sdk-golang
+go doc github.com/herooftimeandspace/incidentiq-sdk-golang.RequestOptions
 ```
 
-Then open:
-- [`incident_py_q` module](api/incident_py_q.html)
+The same pages render on [pkg.go.dev](https://pkg.go.dev/github.com/herooftimeandspace/incidentiq-sdk-golang)
+for published tags.
+
+## Generated Namespace Methods
+
+The generated wrappers — `client.Tickets.GetTicket(...)` and the rest — are
+documented under the generated SDK reference pages, which carry each route, its
+parameters, and the `RequestOptions` field that supplies them.
+
 - [SDK reference index](sdk-reference/index.md)
 - [Silver overview](sdk-reference/silver.md)
+
+Regenerate them with:
+
+```bash
+go generate ./...
+```
+
+Golden methods are documented on their own namespace pages and are the correct
+default SDK path. Silver HAR-derived methods are documented under the
+[`silver` overview](sdk-reference/silver.md), with app routes on their nested
+`client.Silver.Apps.<AppNamespace>` pages.

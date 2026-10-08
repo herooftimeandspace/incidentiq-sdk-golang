@@ -31,6 +31,9 @@ jobs:
           go-version-file: go.mod
           cache: false
 
+      - name: Generated output is up to date
+        run: scripts/check_generated.sh
+
       - name: Go vet
         run: go vet ./...
 
