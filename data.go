@@ -9,7 +9,7 @@ import (
 var embeddedData embed.FS
 
 // GoldenOperation describes one OpenAPI-derived SDK operation from the
-// Python SDK's golden inventory.
+// source SDK's golden inventory.
 type GoldenOperation struct {
 	Method      string `json:"method"`
 	Name        string `json:"name"`
@@ -18,7 +18,7 @@ type GoldenOperation struct {
 	Path        string `json:"path"`
 }
 
-// SilverOperation describes one HAR-derived route from the Python SDK's Silver
+// SilverOperation describes one HAR-derived route from the source SDK's Silver
 // inventory. These routes are useful live API helpers but are intentionally
 // marked as inferred rather than official documented contracts.
 type SilverOperation struct {
@@ -30,7 +30,7 @@ type SilverOperation struct {
 	Sources    []string `json:"sources"`
 }
 
-// GoldenInventory returns the bundled Python SDK Golden operation inventory.
+// GoldenInventory returns the bundled Golden operation inventory.
 func GoldenInventory() ([]GoldenOperation, error) {
 	var inventory []GoldenOperation
 	if err := readEmbeddedJSON("testdata/contract/golden_sdk_inventory.json", &inventory); err != nil {
@@ -39,7 +39,7 @@ func GoldenInventory() ([]GoldenOperation, error) {
 	return inventory, nil
 }
 
-// SilverInventory returns the bundled Python SDK Silver operation inventory.
+// SilverInventory returns the bundled Silver operation inventory.
 func SilverInventory() ([]SilverOperation, error) {
 	var inventory []SilverOperation
 	if err := readEmbeddedJSON("testdata/contract/silver_sdk_inventory.json", &inventory); err != nil {
