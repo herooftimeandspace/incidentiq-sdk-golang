@@ -60,6 +60,12 @@ func collectMarkdownFiles() ([]string, error) {
 			}
 			return nil
 		}
+		// The agent-contract aliases (CLAUDE.md, GEMINI.md, CONVENTIONS.md)
+		// are symlinks to AGENTS.md. Publishing them would put three
+		// identical copies in the site index.
+		if entry.Type()&os.ModeSymlink != 0 {
+			return nil
+		}
 		if strings.EqualFold(filepath.Ext(path), ".md") {
 			files = append(files, strings.TrimPrefix(filepath.ToSlash(path), "./"))
 		}

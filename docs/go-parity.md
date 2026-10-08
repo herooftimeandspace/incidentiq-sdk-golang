@@ -33,18 +33,8 @@ The Go client currently matches the source SDK for the following runtime rules:
 
 ## Contract Artifacts
 
-The Go repo embeds these synced source SDK artifacts:
-
-- `data/openapi/openapi-spec.json`
-- `data/openapi/metadata.json`
-- `data/legacy/aliases.json`
-- `data/legacy/contract.json`
-- `data/source_manifest.json`
-- `data/app_schemas.json`
-- `data/silver_inventory.json`
-- `testdata/contract/golden_sdk_inventory.json`
-- `testdata/contract/silver_sdk_inventory.json`
-- `testdata/contract/merged_sdk_inventory.json`
+The Go module embeds the same contract artifacts as the source SDK. The list is
+in [schema-validation.md](schema-validation.md#bundled-artifacts).
 
 ## Generated Wrapper Surface
 
@@ -129,52 +119,8 @@ Golden surface; 5 are gone outright. That removal happened upstream in
 
 ## Promotion Branch Shape
 
-Both promotion legs run through a dedicated branch rather than promoting a
-long-lived branch as the PR head:
-
-| Leg | PR head | Built from |
-|---|---|---|
-| `dev -> staging` | `promote/dev-to-staging` | `staging` tip, then merges the `dev` tip |
-| `staging -> main` | `promote/staging-to-main` | `main` tip, then merges the `staging` tip |
-
-`staging` and `main` both enforce `strict_required_status_checks_policy`. That
-policy is **topological**: it asks whether the head branch contains the base
-tip, not whether the two trees agree. A base branch accumulates a merge commit
-every time a promotion PR lands, and that commit never flows back to the source
-branch, so promoting `dev` directly opened every `dev -> staging` PR `BEHIND`
-even when `git diff dev...staging` was empty. Building the head from the base
-tip removes the problem at its source.
-
-A PR opened with `GITHUB_TOKEN` leaves its `pull_request` runs parked at
-`action_required`, and a branch pushed with `GITHUB_TOKEN` produces no `push`
-run either. So `.github/workflows/promotion.yml` reports the required checks
-itself, as API check-runs against the promotion branch head: `unit` and
-`integration` for `dev -> staging`; `unit`, `integration`, `docs-build`, and
-`release-prep` for `staging -> main`.
-
-The ordinary PR workflows expose the same context names. They are **not**
-gated and do **not** wait for the promotion-owned check-run. If they stay
-parked, the promotion-owned results carry the contexts. If someone approves
-them, they run the same validation and report it honestly. Either path merges,
-and a real failure still blocks.
-
-An earlier design had those workflows block until the promotion-owned check-run
-appeared. That deadlocked the first time the parked runs were approved: the
-waiters never observed the promotion-owned check-run — it was present on the
-head commit but absent from that commit's check-runs listing — so every
-required context ended up carrying both a FAILURE and a SUCCESS, and GitHub
-blocked on the failure. Raising the timeout only made it fail slower.
-
-The `dev -> staging` leg also reports `promotion-head`. It is **advisory**: it
-is not a required context on `staging`, so it cannot block a merge. It exists to
-make one case loud — if two `dev` pushes race and the promotion branch is
-force-pushed back to the older tip, `promotion-head` fails because the head no
-longer contains `origin/dev`. Merge safety itself is covered by the ruleset,
-which refuses a head behind `staging`, and by `unit` being computed on that same
-head.
-
-`promotion-head` and `release-prep` re-check branch ancestry live, because the
-base branch can move without producing a new promotion head commit.
+Promotion mechanics are not a Go-versus-Python parity topic. They are documented
+in [project-docs.md](project-docs.md#promotion-automation).
 
 ## Documentation Is Not Synced
 
