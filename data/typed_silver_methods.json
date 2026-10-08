@@ -1,14 +1,29 @@
 [
   {
     "namespace": "users",
-    "name": "add_user_room"
+    "name": "add_user_room",
+    "go_name": "AddUserRoom",
+    "http_method": "POST",
+    "route": "/api/v1.0/users/{user_id}/rooms/{location_room_id}",
+    "signature": "AddUserRoom(ctx context.Context, userID string, locationRoomID string, opts incidentiq.RequestOptions, out any) error",
+    "summary": "Adds one location-room association to a user. Rejects a request body and disables the Silver retry-without-Client fallback so an ambiguous rejection cannot duplicate the write."
   },
   {
     "namespace": "users",
-    "name": "remove_user_room"
+    "name": "remove_user_room",
+    "go_name": "RemoveUserRoom",
+    "http_method": "DELETE",
+    "route": "/api/v1.0/users/{user_id}/rooms/{location_room_id}",
+    "signature": "RemoveUserRoom(ctx context.Context, userID string, locationRoomID string, opts incidentiq.RequestOptions, out any) error",
+    "summary": "Removes one location-room association from a user."
   },
   {
     "namespace": "users",
-    "name": "set_user_rooms"
+    "name": "set_user_rooms",
+    "go_name": "SetUserRooms",
+    "http_method": "POST",
+    "route": "/api/v1.0/users/{user_id}/rooms",
+    "signature": "SetUserRooms(ctx context.Context, userID string, locationRoomIDs []string, opts incidentiq.RequestOptions, out any) error",
+    "summary": "Replaces every location-room association for a user. The method owns the JSON body, so a nil slice is rejected and an empty non-nil slice clears all associations."
   }
 ]

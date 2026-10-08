@@ -19,5 +19,10 @@ Maintainers will acknowledge receipt, assess severity, and coordinate a fix/rele
 ## Secret Handling
 
 - Never commit `INCIDENTIQ_API_TOKEN` or `INCIDENTIQ_TEST_API_TOKEN`.
-- Never log Authorization header values.
-- Use `.env.example` as the template for local setup.
+- The SDK emits no logs, so it cannot leak an `Authorization` header on its own.
+  If you wrap `Config.HTTPClient` with your own `RoundTripper`, redact the
+  `Authorization` header before logging a request.
+- `Config.APIToken` is returned by `Client.Config()`. Do not log that value or
+  the struct that carries it.
+- Keep tenant credentials in the environment (`INCIDENTIQ_*`) rather than in
+  source, and keep integration credentials in repository secrets.

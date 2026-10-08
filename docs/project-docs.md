@@ -3,11 +3,26 @@
 Core repository documents:
 
 - `README.md`: user-facing overview and quickstart.
-- `CONTRIBUTING.md`: local setup, validation gates, and schema sync workflow.
+- `CONTRIBUTING.md`: local setup, validation gates, and contract sync workflow.
 - `SECURITY.md`: private reporting and secret handling expectations.
 - `IMPLEMENTATION_PLAN.md`: committed execution plan for this repository.
+- `AGENTS.md`: repository-specific rules for automated contributors.
+- `docs/go-parity.md`: where this SDK deliberately differs from the source SDK.
 
-These files are maintained in the repository root and versioned with code changes.
+These files are maintained in the repository root and versioned with code
+changes. None of them are synced from another repository: documentation here
+describes the Go API, the Go toolchain, and this repository's own CI.
+
+## Generated Documentation
+
+| Output | Generator | Committed |
+| --- | --- | --- |
+| `docs/sdk-reference/` | `scripts/generate_sdk_reference.go` (`go generate ./...`) | yes |
+| `site/` | `scripts/build_docs_site.go` | no (gitignored; built in CI and published to Pages) |
+
+`build_docs_site.go` copies every Markdown file in the repository into `site/`
+and writes a static `index.html` listing them, so GitHub Pages publishes the
+same documentation tree contributors read in the checkout.
 
 ## Promotion automation
 
@@ -19,36 +34,42 @@ can expire this way now.
 
 ### How the required checks are satisfied
 
-`staging` and `main` require the `unit` and `integration` checks. GitHub
-deliberately does not fire `pull_request` workflows for pull requests opened with
-`github.token`, to prevent recursive runs, so a promotion PR receives no
-`pull_request` check runs at all.
+`staging` and `main` require the promotion checks, and GitHub deliberately does
+not fire `pull_request` workflows for pull requests opened with `github.token`,
+to prevent recursive runs. A branch pushed with `github.token` produces no
+`push` run either.
 
-That is fine, because **status checks are scoped to the head commit, not to the
-event that produced them**. Both workflows therefore also run on pushes to the
-branches that become promotion PR heads:
+So `.github/workflows/promotion.yml` reports the required contexts itself, as
+API check-runs against the promotion branch head: `unit` and `integration` for
+`dev -> staging`; `unit`, `integration`, `docs-build`, and `release-prep` for
+`staging -> main`.
 
-| Promotion PR | Head branch | Checks come from |
-| --- | --- | --- |
-| `dev` → `staging` | `dev` | push to `dev` |
-| `staging` → `main` | `promote/staging-to-main` | push to that branch (including release-prep's version bump) |
+The ordinary PR workflows expose the same context names. They are **not** gated
+and do **not** wait for the promotion-owned check-run. If the `pull_request`
+runs stay parked at `action_required`, the promotion-owned results carry the
+contexts. If someone approves them, they run the same validation and report it
+honestly. Either path merges, and a real failure still blocks.
 
-### Live integration tests are unchanged
+`promotion-head` is also reported on the `dev -> staging` leg. It is advisory
+rather than required, so it diagnoses an incomplete promotion without blocking a
+merge the ruleset already guards.
+
+### Live integration tests
 
 `integration.yml` runs live tests only on pushes to `staging` and `main`, on
-manual dispatch, and on the weekly schedule. On `dev` and promotion-branch
-pushes — exactly as on pull requests before — it records an `integration` check
-without calling the tenant. This relocates where the check is produced; it does
-not weaken the gate, because the `integration` check on a promotion PR was
-already a no-op. Integration badges are published only from runs that actually
-executed live tests.
+manual dispatch, and on the weekly schedule. Elsewhere it records an
+`integration` check without calling the tenant. Integration badges are published
+only from runs that actually executed live tests.
 
 ### Consequences to keep in mind
 
-- Adding a branch to the push triggers of `quality.yml` or `integration.yml`
-  changes which commits carry required checks. Removing `dev` or
-  `promote/staging-to-main` would silently strand promotion PRs with missing
-  checks.
+- Promotion runs through a dedicated branch on both legs (`promote/dev-to-staging`
+  and `promote/staging-to-main`), each built from the base tip. Promoting a
+  long-lived branch as the PR head opens it `BEHIND` under
+  `strict_required_status_checks_policy`. See [go-parity.md](go-parity.md).
+- Do not add broad push-triggered unit runs for feature, bugfix, chore, or sync
+  branches. Pull requests validate those. Push-triggered runs are reserved for
+  `dev`, `staging`, and `main`, which publish badges and drive promotion.
 - `promotion.yml` is `workflow_run`-triggered and `release-prep.yml` is
   `pull_request_target`-triggered, so GitHub always runs the copy of those files
   on the **default branch**. Changes to them take effect only once merged to
