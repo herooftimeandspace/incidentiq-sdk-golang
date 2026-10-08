@@ -1,224 +1,110 @@
-# `Silver.tickets` Namespace
+# `silver.tickets` Namespace
 
-Go client access: `client.Silver.Tickets`
+Sync client access: `client.silver.tickets`
 
+Async client access: `client.silver.tickets` with `await` on method calls.
 
-These methods are Silver because Stoplight does not publish direct Golden contracts for them, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
+These methods are Silver because the published contract does not document them directly, or because the SDK intentionally wraps a narrower Silver workflow around existing Golden operations. They remain separate so undocumented or convenience behavior never overrides the documented SDK surface.
 
 ## Methods
 
-### `get_ticket_activities`
-
-- Go wrapper: `client.Silver.Tickets.GetTicketActivities(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "get_ticket_activities", opts, out)`
-- HTTP route: `GET /api/v1.0/tickets/{ticket_id}/activities`
-- Observed in: `demo.incidentiq.com.har`
-
-HAR-derived undocumented GET route for `client.Silver.Tickets`.
-
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
-
-#### Parameters
-
-| RequestOptions Field | API Name | In | Required | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `PathParams["ticket_id"]` | `ticket_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-
-#### Returns
-
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
-
----
-
-### `get_ticket_kb_articles`
-
-- Go wrapper: `client.Silver.Tickets.GetTicketKbArticles(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "get_ticket_kb_articles", opts, out)`
-- HTTP route: `GET /api/v1.0/tickets/{ticket_id}/kb-articles`
-- Observed in: `demo.incidentiq.com.har`
-
-HAR-derived undocumented GET route for `client.Silver.Tickets`.
-
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
-
-#### Parameters
-
-| RequestOptions Field | API Name | In | Required | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `PathParams["ticket_id"]` | `ticket_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-
-#### Returns
-
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
-
----
-
-### `get_ticket_next_steps`
-
-- Go wrapper: `client.Silver.Tickets.GetTicketNextSteps(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "get_ticket_next_steps", opts, out)`
-- HTTP route: `GET /api/v1.0/tickets/{ticket_id}/next-steps`
-- Observed in: `demo.incidentiq.com.har`
-
-HAR-derived undocumented GET route for `client.Silver.Tickets`.
-
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
-
-#### Parameters
-
-| RequestOptions Field | API Name | In | Required | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `PathParams["ticket_id"]` | `ticket_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-
-#### Returns
-
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
-
----
-
-### `get_ticket_status`
-
-- Go wrapper: `client.Silver.Tickets.GetTicketStatus(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "get_ticket_status", opts, out)`
-- HTTP route: `GET /api/v1.0/tickets/{ticket_id}/status`
-- Observed in: `demo.incidentiq.com.har`
-
-HAR-derived undocumented GET route for `client.Silver.Tickets`.
-
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
-
-#### Parameters
-
-| RequestOptions Field | API Name | In | Required | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `PathParams["ticket_id"]` | `ticket_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-
-#### Returns
-
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
-
----
-
 ### `get_wizards_site`
 
-- Go wrapper: `client.Silver.Tickets.GetWizardsSite(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "get_wizards_site", opts, out)`
+Provenance: Silver (HAR-derived undocumented route)
+
+- Sync: `client.silver.tickets.get_wizards_site(site_id=..., s=..., timeout=None)`
+- Async: `await client.silver.tickets.get_wizards_site(site_id=..., s=..., timeout=None)`
+- Raw payload: `client.silver.tickets.get_wizards_site.raw(site_id=..., s=..., timeout=None)`
 - HTTP route: `GET /api/v1.0/tickets/wizards/site/{site_id}`
 - Observed in: `apple-asset-actions.har`, `demo.incidentiq.com.har`
 
-HAR-derived undocumented GET route for `client.Silver.Tickets`.
+HAR-derived undocumented GET route for `client.silver.tickets`.
 
 This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
 
 #### Parameters
 
-| RequestOptions Field | API Name | In | Required | Type | Description |
+| Python Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `PathParams["site_id"]` | `site_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
-| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
+| `site_id` | `site_id` | `path` | `yes` | `str` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `s` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
 
 #### Returns
 
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
+- Typed call return: `dict[str, Any] | list[Any] | None`
+- Raw payload return: `dict[str, Any] | list[Any] | None`
 - Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
 
 ---
 
-### `post_endpoint`
+### `list_assigned_tickets_for_agent`
 
-- Go wrapper: `client.Silver.Tickets.PostEndpoint(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "post_endpoint", opts, out)`
-- HTTP route: `POST /api/v1.0/tickets`
-- Observed in: `demo.incidentiq.com.har`
+Provenance: Silver manual helper
 
-HAR-derived undocumented POST route for `client.Silver.Tickets`.
+- Sync: `client.silver.tickets.list_assigned_tickets_for_agent(agent_user_id=..., schema="Open", page_size=100, sort_by="TicketModifiedDate", sort_direction="Descending", timeout=None)`
+- Async: `await client.silver.tickets.list_assigned_tickets_for_agent(agent_user_id=..., schema="Open", page_size=100, sort_by="TicketModifiedDate", sort_direction="Descending", timeout=None)`
+- Raw payload: No public `.raw(...)`; the helper returns the raw JSON-compatible payload directly.
+- Backing routes: `POST /services/tickets with Schema Open/All and agent facet filter`
 
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
+List tickets assigned to an explicit Incident IQ agent user id.
 
-#### Parameters
+This helper exists for service-account automation where the authenticated SDK user is not the human agent whose status report is being generated. `list_current_user_assigned_tickets(...)` resolves the Incident IQ current-user queue from the active session, so a service account can see the service account's queue instead of the target agent's queue. This helper sends the validated `POST /services/tickets` read-only services query with `Schema` set to `Open` or `All` and a single `Filters` entry of `{"Facet": "agent", "Id": "<agent_user_id>"}`. The helper always sends the UI-style `Client: WebBrowser` header because that is the validated services shape for the explicit agent facet. Live validation for issue #87 showed `schema="Open"` matched the expected open-ticket UI count for the target agent. The same validation showed `schema="All"` returned one more row than the stated UI/history total, so the SDK documents `All` as the API all-schema result while the exact UI exclusion rule remains tenant/product behavior outside the checked-in contract.
 
-| RequestOptions Field | API Name | In | Required | Type | Description |
-| --- | --- | --- | --- | --- | --- |
-| `Params["$o"]` | `$o` | `query` | `yes` | `string` | Query parameter inferred from HAR observations for this undocumented Silver route. |
-| `Params["$s"]` | `$s` | `query` | `yes` | `int` | Query parameter inferred from HAR observations for this undocumented Silver route. |
-| `JSON` | `json_body` | `body` | `yes` | `map[string]any` | Request body observed in HAR traffic. The SDK uses a single `json_body` payload because the Silver route carries a complex undocumented schema. |
+#### Examples
 
-#### Returns
-
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
-
----
-
-### `post_ticket_timeline`
-
-- Go wrapper: `client.Silver.Tickets.PostTicketTimeline(ctx, opts, out)`
-- Dynamic helper: `client.RequestSilver(ctx, "tickets", "post_ticket_timeline", opts, out)`
-- HTTP route: `POST /api/v1.0/tickets/{ticket_id}/timeline`
-- Observed in: `demo.incidentiq.com.har`
-
-HAR-derived undocumented POST route for `client.Silver.Tickets`.
-
-This method is intentionally kept on the Silver surface because bundled Stoplight controller contracts do not define this route. Golden Stoplight operations remain the preferred contract source whenever they exist, so Silver only supplements gaps observed in tenant HAR traffic.
+- Open tickets for an agent: `client.silver.tickets.list_assigned_tickets_for_agent(agent_user_id="agent-guid", schema="Open", page_size=100, timeout=None)`
+- All assigned-agent history: `client.silver.tickets.list_assigned_tickets_for_agent(agent_user_id="agent-guid", schema="All", page_size=1000, timeout=None)`
+- Async open tickets: `await client.silver.tickets.list_assigned_tickets_for_agent(agent_user_id="agent-guid", schema="Open", timeout=None)`
 
 #### Parameters
 
-| RequestOptions Field | API Name | In | Required | Type | Description |
+| Python Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `PathParams["ticket_id"]` | `ticket_id` | `path` | `yes` | `string` | Path parameter inferred from HAR observations. This route remains on the Silver surface because Stoplight does not publish a Golden contract for it. |
+| `agent_user_id` | `Filters[0].Id` | `body` | `yes` | `str` | Incident IQ `UserId` for the agent whose assigned tickets should be returned. |
+| `schema` | `Schema` | `body` | `no` | `str` | Services ticket schema selector. Supported values are `Open` and `All`. |
+| `page_size` | `$s` | `query` | `no` | `int` | Maximum number of ticket rows to return from the services query. |
+| `sort_by` | `$o` | `query` | `no` | `str` | Incident IQ ticket field used for ordering returned rows. |
+| `sort_direction` | `$d` | `query` | `no` | `str` | Sort direction, either `Ascending` or `Descending`. |
 
 #### Returns
 
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
-- Response model: Raw JSON payload only; this Silver route has no Golden schema contract.
+- Typed call return: `dict[str, Any] | list[Any] | None`
+- Raw payload return: `dict[str, Any] | list[Any] | None`
+- Response model: Raw JSON payload only; this manual helper has no typed response model.
 
 ---
 
 ### `list_current_user_assigned_tickets`
 
-- Source SDK helper `tickets.list_current_user_assigned_tickets` is not exposed by the generated Go wrapper surface.
+Provenance: Silver manual helper
+
+- Sync: `client.silver.tickets.list_current_user_assigned_tickets(page_size=100, sort_by="TicketModifiedDate", sort_direction="Descending", timeout=None)`
+- Async: `await client.silver.tickets.list_current_user_assigned_tickets(page_size=100, sort_by="TicketModifiedDate", sort_direction="Descending", timeout=None)`
+- Raw payload: No public `.raw(...)`; the helper returns the raw JSON-compatible payload directly.
 - Backing routes: `POST /services/tickets/-/-/AssignedToMe_Unassigned`, `POST /services/tickets/-/-/AssignedToMe_Unassigned with configured Client header`, `POST /services/tickets/-/-/AssignedToMe_Unassigned with legacy o/d sort query`, `POST /services/tickets with AssignedToMe_Unassigned schema body`
 
-List the current user's UI-style assigned/open ticket queue through the `AssignedToMe_Unassigned` services route.
+List the UI-style `AssignedToMe_Unassigned` open-ticket queue used for assigned-to-me and unassigned work.
 
-This helper exists because tenant analytics summaries and saved-view routes can return zero rows for current-user ticket queues even when the Incident IQ web UI shows assigned work. The bundled Postman corpus includes the UI-observed `/services/tickets/-/-/AssignedToMe_Unassigned` route for open assigned tickets, so the SDK exposes a narrow read-only helper around that route instead of asking callers to construct a services URL by hand. The route uses POST for query semantics and some tenants only expose it to the UI-style `Client: WebBrowser` header, so the helper sends that header with page size, sort field, and sort direction parameters and does not send a mutation body. If the UI-shaped request returns 404, the helper retries once with the caller's configured client header for older tenants that accepted the pre-0.2.5 SDK request shape, then tries the Postman-observed legacy sort-query spelling that uses `$s`, `o`, and `d`. Some tenants, including WUSD as validated for issue #73, do not expose the direct queue route but do expose the same queue through `POST /services/tickets` with `{"Schema": "AssignedToMe_Unassigned"}`, so that schema body is the final read-only fallback.
+This helper exists because saved-view routes can return zero rows for current-user ticket queues even when the Incident IQ web UI shows queue work, while analytics summaries expose counts but not ticket rows. The UI-observed `/services/tickets/-/-/AssignedToMe_Unassigned` route serves the combined assigned-to-me/unassigned open queue, so the SDK exposes a narrow read-only helper around that route instead of asking callers to construct a services URL by hand. The route uses POST for query semantics and some tenants only expose it to the UI-style `Client: WebBrowser` header, so the helper sends that header with page size, sort field, and sort direction parameters and does not send a mutation body. If the UI-shaped request returns 404, the helper retries once with the caller's configured client header for older tenants that accepted the pre-0.2.5 SDK request shape, then tries the Postman-observed legacy sort-query spelling that uses `$s`, `o`, and `d`. Some tenants, including WUSD as validated for issues #73 and #83, do not expose the direct queue route but do expose the same queue through `POST /services/tickets` with `{"Schema": "AssignedToMe_Unassigned"}`, so that schema body is the final read-only fallback. On WUSD, live validation for issue #83 showed the tenant's authoritative `client.silver.analytics.get_agent_current_stats(...)` assigned-to-me count can differ from this queue response; use that analytics helper for counts and this ticket helper for queue rows.
 
 #### Examples
 
-```go
-var payload map[string]any
-err := client.Request(ctx, "POST", "/services/tickets/-/-/AssignedToMe_Unassigned", incidentiq.RequestOptions{
-	Params: map[string]string{
-		"$s": "100",
-		"$o": "TicketPriority",
-		"$d": "Descending",
-	},
-}, &payload)
-```
+- Default UI queue: `client.silver.tickets.list_current_user_assigned_tickets(timeout=None)`
+- Priority order: `client.silver.tickets.list_current_user_assigned_tickets(page_size=100, sort_by="TicketPriority", sort_direction="Descending", timeout=None)`
+- Async default queue: `await client.silver.tickets.list_current_user_assigned_tickets(timeout=None)`
 
 #### Parameters
 
-| RequestOptions Field | API Name | In | Required | Type | Description |
+| Python Arg | API Name | In | Required | Type | Description |
 | --- | --- | --- | --- | --- | --- |
-| `Params["$s"]` | `$s` | `query` | `no` | `int` | Maximum number of ticket rows to return from the queue. |
-| `Params["$o"]` | `$o` | `query` | `no` | `string` | Incident IQ ticket field used for ordering returned rows. |
-| `Params["$d"]` | `$d` | `query` | `no` | `string` | Sort direction, either `Ascending` or `Descending`. |
+| `page_size` | `$s` | `query` | `no` | `int` | Maximum number of ticket rows to return from the queue. |
+| `sort_by` | `$o` | `query` | `no` | `str` | Incident IQ ticket field used for ordering returned rows. |
+| `sort_direction` | `$d` | `query` | `no` | `str` | Sort direction, either `Ascending` or `Descending`. |
 
 #### Returns
 
-- Go wrapper return: `error`; decoded `map[string]any | []any | nil` responses are written into `out`.
-- Decoded response: caller-provided `out` receives `map[string]any | []any | nil` when the route returns JSON.
+- Typed call return: `dict[str, Any] | list[Any] | None`
+- Raw payload return: `dict[str, Any] | list[Any] | None`
 - Response model: Raw JSON payload only; this manual helper has no typed response model.
 
 ---

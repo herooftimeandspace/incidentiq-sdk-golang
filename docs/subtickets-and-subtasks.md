@@ -11,9 +11,9 @@ needed to add the missing operation safely.
 | --- | --- | --- | --- |
 | `client.Tickets.CreateTicket` | `POST /api/v1.0/tickets/new` | Golden | Creates an ordinary ticket. The bundled `UpdateTicketRequest` schema has assignee, team, affected-user, `Subject`, `IssueDescription`, product, issue, and location fields, but no parent-ticket linkage field. |
 | `client.Tickets.CopyTicket` | `POST /api/v1.0/tickets/{TicketId}/copy` | Golden | Creates ordinary ticket copies and can request a named workpackage. Its `CopyTicketOptions` contract has no subtask or parent-child linkage fields, and its response is `ListGetResponseOfTicket`, not a subtask model. |
-| `client.Silver.Subtasks.GetSubtask` | `GET /api/v1.0/subtasks/{subtask_id}` | Silver | Read-only. It does not establish a POST route or creation payload. |
+| `client.Subtasks.GetSubtasksForTicket` | `GET /api/v1.0/subtasks/{id}` | Golden | Read-only. It does not establish a creation payload. The OpenAPI contract migration moved this route onto Golden; it was `client.Silver.Subtasks.GetSubtask` before. |
 | `client.Silver.Tasks.GetEndpoint` | `GET /api/v1.0/tasks` | Silver | Read-only task listing observed in HAR traffic. It does not establish a creation route or payload. |
-| `client.Silver.Models.GetAppsSubticketsForIT` | `GET /api/v1.0/models/apps/subticketsForIT` | Silver | Read-only application metadata. It is not a subticket creation operation. |
+| *(removed)* | `GET /api/v1.0/models/apps/subticketsForIT` | — | Read-only application metadata, previously `client.Silver.Models.GetAppsSubticketsForIT`. The OpenAPI contract migration dropped this route upstream; it is in neither contract and has no wrapper. It was not a subticket creation operation either way. |
 
 The published `CreateTicket` response is `ItemCreateResponseOfTicket`, whose
 `Item` is a ticket record. That contract does not define a parent-ticket field

@@ -5,769 +5,4301 @@ package incidentiq
 import "context"
 
 type generatedClientServices struct {
-	Alerts         *GoldenAlertsService
-	Analytics      *GoldenAnalyticsService
-	Assets         *GoldenAssetsService
-	CustomFields   *GoldenCustomFieldsService
-	Forms          *GoldenFormsService
-	Issues         *GoldenIssuesService
-	Locations      *GoldenLocationsService
-	Manufacturers  *GoldenManufacturersService
-	Metrics        *GoldenMetricsService
-	Notifications  *GoldenNotificationsService
-	Parts          *GoldenPartsService
-	Purchaseorders *GoldenPurchaseordersService
-	Slas           *GoldenSlasService
-	Tickets        *GoldenTicketsService
-	Users          *GoldenUsersService
+	Alerts          *GoldenAlertsService
+	Analytics       *GoldenAnalyticsService
+	Assets          *GoldenAssetsService
+	Audits          *GoldenAuditsService
+	Categories      *GoldenCategoriesService
+	CustomFields    *GoldenCustomFieldsService
+	CustomFieldsNew *GoldenCustomFieldsNewService
+	Events          *GoldenEventsService
+	Files           *GoldenFilesService
+	Filter          *GoldenFilterService
+	Filters         *GoldenFiltersService
+	Forms           *GoldenFormsService
+	FundingSources  *GoldenFundingSourcesService
+	Global          *GoldenGlobalService
+	Inventory       *GoldenInventoryService
+	Invoicing       *GoldenInvoicingService
+	Issues          *GoldenIssuesService
+	Labor           *GoldenLaborService
+	Locations       *GoldenLocationsService
+	Manufacturers   *GoldenManufacturersService
+	Metrics         *GoldenMetricsService
+	Models          *GoldenModelsService
+	Notifications   *GoldenNotificationsService
+	Organizations   *GoldenOrganizationsService
+	Parts           *GoldenPartsService
+	Products        *GoldenProductsService
+	Pub             *GoldenPubService
+	PurchaseOrders  *GoldenPurchaseOrdersService
+	Purchaseorders  *GoldenPurchaseordersService
+	Resolutions     *GoldenResolutionsService
+	Shortcuts       *GoldenShortcutsService
+	Sites           *GoldenSitesService
+	Slas            *GoldenSlasService
+	Subtasks        *GoldenSubtasksService
+	Subtickets      *GoldenSubticketsService
+	Suppliers       *GoldenSuppliersService
+	Surveys         *GoldenSurveysService
+	Tags            *GoldenTagsService
+	Teams           *GoldenTeamsService
+	Tickets         *GoldenTicketsService
+	Users           *GoldenUsersService
+	Views           *GoldenViewsService
+	Workflows       *GoldenWorkflowsService
 }
 
 type GoldenAlertsService struct{ client *Client }
 
+// Deprecated: use Silver.Alerts.QueueNotification instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAlertsService) QueueNotification(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/alerts/new", opts, out)
+	return s.client.Silver.Alerts.QueueNotification(ctx, opts, out)
 }
 
 type GoldenAnalyticsService struct{ client *Client }
 
+func (s *GoldenAnalyticsService) GetAssetAuditPolicyPeriodsByStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/audit-policies/by-schedule-period-status/{AssetAuditPolicyScheduleId}", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetAuditPolicyPeriodsByStatusForAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/audit-policies/by-schedule-period-status/{AssetAuditPolicyScheduleId}/for-asset/{AssetId}", opts, out)
+}
+
 func (s *GoldenAnalyticsService) GetAssetCountsByAuditPolicyCoverage(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-audit-policy-coverage", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-policy-coverage", opts, out)
 }
 
 func (s *GoldenAnalyticsService) GetAssetCountsByAuditPolicyScheduleStatus(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-audit-policy-schedule-status/{AssetAuditPolicyScheduleId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-policy-schedule-status/{AssetAuditPolicyScheduleId}", opts, out)
 }
 
 func (s *GoldenAnalyticsService) GetAssetCountsByAuditPolicyStatus(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-audit-policy-status/{AssetAuditPolicyId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-policy-status/{AssetAuditPolicyId}", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetCountsByAuditPolicyVerificationLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-policy-verification-location/{AssetAuditPolicyId}", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetCountsByAuditPolicyVerificationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-policy-verification-type/{AssetAuditPolicyId}", opts, out)
 }
 
 func (s *GoldenAnalyticsService) GetAssetCountsByAuditStatus(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-audit-status", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-audit-status", opts, out)
 }
 
+func (s *GoldenAnalyticsService) GetAssetCountsByStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-status", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/asset/{AssetId}/summary-stats", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetVerificationCountsByLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-verification-location", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetAssetVerificationCountsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/assets/by-verification-type", opts, out)
+}
+
+func (s *GoldenAnalyticsService) GetRequestorSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/analytics/requestor/{UserId}/summary-stats", opts, out)
+}
+
+// Deprecated: use Analytics.GetAssetVerificationCountsByLocation instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetAssetCountsByVerificationLocation(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-verification-location", opts, out)
+	return s.client.Analytics.GetAssetVerificationCountsByLocation(ctx, opts, out)
 }
 
+// Deprecated: use Analytics.GetAssetVerificationCountsByType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetAssetCountsByVerificationType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/assets/by-verification-type", opts, out)
+	return s.client.Analytics.GetAssetVerificationCountsByType(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Analytics.GetReport instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetReport(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/reports/{ReportId}", opts, out)
+	return s.client.Silver.Analytics.GetReport(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Analytics.GetReportElements instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetReportElements(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/reports/elements/{ReportId}", opts, out)
+	return s.client.Silver.Analytics.GetReportElements(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Analytics.GetReportQueries instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetReportQueries(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/reports/queries/{ReportId}", opts, out)
+	return s.client.Silver.Analytics.GetReportQueries(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Analytics.GetReports instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenAnalyticsService) GetReports(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/analytics/reports", opts, out)
+	return s.client.Silver.Analytics.GetReports(ctx, opts, out)
 }
 
 type GoldenAssetsService struct{ client *Client }
 
+func (s *GoldenAssetsService) AddAssetFavorite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/favorites/{assetId}/{userId}", opts, out)
+}
+
+func (s *GoldenAssetsService) AddAssetFiles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/files/new", opts, out)
+}
+
+func (s *GoldenAssetsService) AddLinkedAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/linked/to/{assetId}", opts, out)
+}
+
 func (s *GoldenAssetsService) AddManufacturerToSite(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/manufacturers/{ManufacturerId}/site", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/manufacturers/{ManufacturerId}/site", opts, out)
 }
 
-func (s *GoldenAssetsService) AddManufacturerToSite2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/manufacturers/{ManufacturerId}/site/{IncludeAllModels}", opts, out)
+func (s *GoldenAssetsService) BulkCreateAssetVerifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/verifications/new", opts, out)
 }
 
-func (s *GoldenAssetsService) AddUserFavoriteAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/favorites/{AssetId}/{UserId}", opts, out)
+func (s *GoldenAssetsService) BulkDeleteAssetVerifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/verifications/ids/delete", opts, out)
 }
 
-func (s *GoldenAssetsService) CreateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/status/types/new", opts, out)
+func (s *GoldenAssetsService) BulkDeleteLinkedAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/linked/to", opts, out)
+}
+
+func (s *GoldenAssetsService) CheckinAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/checkin", opts, out)
+}
+
+func (s *GoldenAssetsService) CheckoutOrTransferAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/checkout-or-transfer", opts, out)
+}
+
+func (s *GoldenAssetsService) CountAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/count", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/new", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateAssetType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/types/new", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateAssetVerification(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/verifications/new", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateAssetView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/views/new", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateManufacturer(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/manufacturers/new", opts, out)
+}
+
+func (s *GoldenAssetsService) CreateMyClassesAssetVerification(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/my-classes/verifications/new", opts, out)
 }
 
 func (s *GoldenAssetsService) DeleteAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/assets/{AssetId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/{assetId}", opts, out)
 }
 
-func (s *GoldenAssetsService) DeleteAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/assets/funding/types/{AssetFundingTypeId}", opts, out)
+func (s *GoldenAssetsService) DeleteAssetCheckout(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/checkouts/{assetCheckoutId}/delete", opts, out)
 }
 
-func (s *GoldenAssetsService) DeleteAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/assets/status/types/{AssetStatusTypeId}", opts, out)
+func (s *GoldenAssetsService) DeleteAssetCheckoutsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/checkouts/ids/delete", opts, out)
+}
+
+func (s *GoldenAssetsService) DeleteAssetCheckoutsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/checkouts/query/delete", opts, out)
+}
+
+func (s *GoldenAssetsService) DeleteAssetFile(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/{assetId}/files/{fileId}", opts, out)
+}
+
+func (s *GoldenAssetsService) DeleteAssetView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/views/{viewId}", opts, out)
+}
+
+func (s *GoldenAssetsService) DeleteLinkedAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/linked/to/{assetId}", opts, out)
 }
 
 func (s *GoldenAssetsService) DeleteManufacturer(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/assets/manufacturers/{ManufacturerId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/manufacturers/{ManufacturerId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/{AssetId}", opts, out)
+func (s *GoldenAssetsService) ExchangeAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/exchange", opts, out)
+}
+
+func (s *GoldenAssetsService) ExportAssetsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/export/{assetTypeId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GenerateAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/generate-asset-tag", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAggregatedAssetCostValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/aggregate-cost-values", opts, out)
 }
 
 func (s *GoldenAssetsService) GetAssetActivities(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/{AssetId}/activities", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/activities", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetFavorites(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/favorites/{UserId}", opts, out)
+func (s *GoldenAssetsService) GetAssetById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetFavorites2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/favorites/{UserId}/{All}", opts, out)
+func (s *GoldenAssetsService) GetAssetBySerial(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/serial/{serial}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/funding/types/{AssetFundingTypeId}", opts, out)
+func (s *GoldenAssetsService) GetAssetChange(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/changes/{assetChangeId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetFundingTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/funding/types", opts, out)
+func (s *GoldenAssetsService) GetAssetChangePost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/changes/{assetChangeId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetFundingTypes2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/funding/types", opts, out)
+func (s *GoldenAssetsService) GetAssetCheckout(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/checkouts/{assetCheckoutId}/get", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetCheckoutForOwner(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/checkouts/owner/{ownerId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetCheckoutPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/{assetCheckoutId}/get", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetCheckoutTransactions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/transactions/query/get", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetCheckoutsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/ids/get", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetCheckoutsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/query/get", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetFiles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/files", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetIdsForFilterSets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/ids/for/filtersets", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetInventoryType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/inventory/types/{assetInventoryTypeId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetStatsByLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/stats/locations", opts, out)
 }
 
 func (s *GoldenAssetsService) GetAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/status/types/{AssetStatusTypeId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/status/types/{assetStatusTypeId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetStatusTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/status/types", opts, out)
+func (s *GoldenAssetsService) GetAssetTotalCost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/total-cost", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetStatusTypes2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/status/types", opts, out)
+func (s *GoldenAssetsService) GetAssetType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/types/{assetTypeId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssets(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets", opts, out)
+func (s *GoldenAssetsService) GetAssetValuation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/valuation", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsByAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/assetstatustype/{AssetStatusTypeId}", opts, out)
+func (s *GoldenAssetsService) GetAssetVerificationsForAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/verifications", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/assettag/{AssetTag}", opts, out)
+func (s *GoldenAssetsService) GetAssetView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/views/{viewId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsByLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/rooms/{LocationRoomId}", opts, out)
+func (s *GoldenAssetsService) GetAssetsByName(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/by-assetname", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsBySerial(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/serial/{Serial}", opts, out)
+func (s *GoldenAssetsService) GetAssetsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/of/{assetTypeId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsByStorageUnitNumber(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/storageunit/{LocationId}/{StorageUnitNumber}", opts, out)
+func (s *GoldenAssetsService) GetAssetsByTypeAndLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/of/{assetTypeId}/at/{locationId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetAssetsCount(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/count", opts, out)
+func (s *GoldenAssetsService) GetAssetsForUserByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/of/{assetTypeId}/for/{userId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAssetsForUserCurrent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/for/{userId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetAvailableAssetCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/categories/site", opts, out)
+}
+
+func (s *GoldenAssetsService) GetFacilityAssetsByLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/facility/at/{locationId}", opts, out)
 }
 
 func (s *GoldenAssetsService) GetGlobalManufacturers(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/manufacturers/global", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/manufacturers/global", opts, out)
 }
 
-func (s *GoldenAssetsService) GetGlobalManufacturers2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/manufacturers/global", opts, out)
+func (s *GoldenAssetsService) GetLinkedAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/linked/to/{assetId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetManufacturer(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/manufacturers/{ManufacturerId}", opts, out)
+func (s *GoldenAssetsService) GetManufacturerById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/manufacturers/{ManufacturerId}", opts, out)
 }
 
-func (s *GoldenAssetsService) GetSpareAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/spares/assettag/{AssetTag}", opts, out)
+func (s *GoldenAssetsService) GetManufacturers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/manufacturers", opts, out)
 }
 
-func (s *GoldenAssetsService) GetUserAssets(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/for/{UserId}", opts, out)
+func (s *GoldenAssetsService) GetModelVisibility(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/{assetId}/{modelId}/visibility", opts, out)
 }
 
-func (s *GoldenAssetsService) GetUserAssets2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/for/{UserId}/{All}", opts, out)
+func (s *GoldenAssetsService) GetMyAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/for/me", opts, out)
+}
+
+func (s *GoldenAssetsService) GetMyAssetsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/of/{assetTypeId}/for/me", opts, out)
+}
+
+func (s *GoldenAssetsService) GetNSAAssetAverageCost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/nsa/average-cost/{assetId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetOverdueAssetCheckouts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/checkouts/user-ids", opts, out)
+}
+
+func (s *GoldenAssetsService) GetPopularCategoriesForRoles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/categories/popular/for-roles", opts, out)
+}
+
+func (s *GoldenAssetsService) GetRecentAssetCheckoutTransactions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/transactions/recent-activity", opts, out)
+}
+
+func (s *GoldenAssetsService) GetSuggestedCategoriesForUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/models/categories/suggested/{UserId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetSuggestedOnlineSystemsForUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/models/online-systems/suggested/{UserId}", opts, out)
+}
+
+func (s *GoldenAssetsService) GetUserFavoriteAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/favorites/{userId}", opts, out)
+}
+
+func (s *GoldenAssetsService) KeywordSearchAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/search", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAllAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetFundingTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/funding/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetInventoryTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/inventory/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetInventoryTypesPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/inventory/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetStatusTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/status/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetStatusTypesPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/status/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetTypesPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/types", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetViews(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/views", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetsByRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/rooms/{locationRoomId}", opts, out)
+}
+
+func (s *GoldenAssetsService) ListAssetsByStorageUnit(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/storageunit/{locationId}/{storageUnitNumber}", opts, out)
+}
+
+func (s *GoldenAssetsService) MergeAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/merge/{slaveAssetId}/into/{masterAssetId}", opts, out)
+}
+
+func (s *GoldenAssetsService) QueryAssetChanges(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/changes/query", opts, out)
+}
+
+func (s *GoldenAssetsService) RemoveAssetFavorite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/favorites/remove/{assetId}/{userId}", opts, out)
+}
+
+func (s *GoldenAssetsService) RemoveAssetOwner(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/remove-owner", opts, out)
 }
 
 func (s *GoldenAssetsService) RemoveManufacturerFromSite(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/assets/manufacturers/{ManufacturerId}/site", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/manufacturers/{ManufacturerId}/site", opts, out)
 }
 
-func (s *GoldenAssetsService) RemoveUserFavoriteAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/favorites/remove/{AssetId}/{UserId}", opts, out)
+func (s *GoldenAssetsService) RemoveUserAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/assets/{assetId}/for/{userId}", opts, out)
 }
 
-func (s *GoldenAssetsService) SearchAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/assettag/search/{AssetTag}", opts, out)
+func (s *GoldenAssetsService) SearchAssetVerifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/verifications", opts, out)
+}
+
+func (s *GoldenAssetsService) SearchAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets", opts, out)
 }
 
 func (s *GoldenAssetsService) SearchAssetsBySerial(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/assets/serial/search/{Serial}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/assets/serial/search/{serial}", opts, out)
+}
+
+func (s *GoldenAssetsService) SearchGlobalManufacturers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/manufacturers/global", opts, out)
+}
+
+func (s *GoldenAssetsService) SearchManufacturers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/manufacturers", opts, out)
+}
+
+func (s *GoldenAssetsService) SetAssetLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/location", opts, out)
+}
+
+func (s *GoldenAssetsService) SetAssetOwner(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/owner", opts, out)
+}
+
+func (s *GoldenAssetsService) SetAssetOwnerAdvancedDeploymentSwap(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/owner/requestor/swap", opts, out)
+}
+
+func (s *GoldenAssetsService) SetAssetStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/status/{assetStatusTypeId}", opts, out)
+}
+
+func (s *GoldenAssetsService) TakeAssetOwnership(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}/take-ownership", opts, out)
+}
+
+func (s *GoldenAssetsService) UndeleteAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/assets/{assetId}/undelete", opts, out)
+}
+
+func (s *GoldenAssetsService) UndoAssetExchangeTransaction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/undo-exchange-transaction", opts, out)
 }
 
 func (s *GoldenAssetsService) UpdateAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/{AssetId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/{assetId}", opts, out)
 }
 
-func (s *GoldenAssetsService) UpdateAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/funding/types/{AssetFundingTypeId}", opts, out)
+func (s *GoldenAssetsService) UpdateAssetCheckoutsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/ids/update", opts, out)
 }
 
-func (s *GoldenAssetsService) UpdateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/status/types/{AssetStatusTypeId}", opts, out)
+func (s *GoldenAssetsService) UpdateAssetCheckoutsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/query/update", opts, out)
+}
+
+func (s *GoldenAssetsService) UpdateAssetExchangeTransaction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/checkouts/update-exchange-transaction", opts, out)
+}
+
+func (s *GoldenAssetsService) UpdateAssetType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/types/{assetTypeId}", opts, out)
+}
+
+func (s *GoldenAssetsService) UpdateAssetView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/views/{viewId}", opts, out)
+}
+
+func (s *GoldenAssetsService) UpdateAssetViewSort(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/views/{viewId}/sort", opts, out)
 }
 
 func (s *GoldenAssetsService) UpdateManufacturer(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/assets/manufacturers/{ManufacturerId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/manufacturers/{ManufacturerId}", opts, out)
+}
+
+func (s *GoldenAssetsService) UpdateMyClassesAssetVerification(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/assets/my-classes/verifications/{assetVerificationId}", opts, out)
+}
+
+// Deprecated: use Silver.Assets.AddManufacturerToSite2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) AddManufacturerToSite2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.AddManufacturerToSite2(ctx, opts, out)
+}
+
+// Deprecated: use Assets.AddAssetFavorite instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) AddUserFavoriteAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.AddAssetFavorite(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.CreateAssetStatusType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) CreateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.CreateAssetStatusType(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.DeleteAssetFundingType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) DeleteAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.DeleteAssetFundingType(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.DeleteAssetStatusType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) DeleteAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.DeleteAssetStatusType(ctx, opts, out)
+}
+
+// Deprecated: use Assets.GetAssetById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.GetAssetById(ctx, opts, out)
+}
+
+// Deprecated: use Assets.GetUserFavoriteAssets instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetFavorites(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.GetUserFavoriteAssets(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetAssetFavorites2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetFavorites2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetAssetFavorites2(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetAssetFundingType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetAssetFundingType(ctx, opts, out)
+}
+
+// Deprecated: use Assets.ListAssetFundingTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetFundingTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.ListAssetFundingTypes(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetAssetFundingTypes2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetFundingTypes2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetAssetFundingTypes2(ctx, opts, out)
+}
+
+// Deprecated: use Assets.ListAssetStatusTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetStatusTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.ListAssetStatusTypes(ctx, opts, out)
+}
+
+// Deprecated: use Assets.ListAssetStatusTypesPost instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetStatusTypes2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.ListAssetStatusTypesPost(ctx, opts, out)
+}
+
+// Deprecated: use Assets.SearchAssets instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.SearchAssets(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetAssetsByAssetStatusType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsByAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetAssetsByAssetStatusType(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetAssetsByAssetTag instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetAssetsByAssetTag(ctx, opts, out)
+}
+
+// Deprecated: use Assets.ListAssetsByRoom instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsByLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.ListAssetsByRoom(ctx, opts, out)
+}
+
+// Deprecated: use Assets.GetAssetBySerial instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsBySerial(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.GetAssetBySerial(ctx, opts, out)
+}
+
+// Deprecated: use Assets.ListAssetsByStorageUnit instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsByStorageUnitNumber(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.ListAssetsByStorageUnit(ctx, opts, out)
+}
+
+// Deprecated: use Assets.CountAssets instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetAssetsCount(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.CountAssets(ctx, opts, out)
+}
+
+// Deprecated: use Assets.SearchGlobalManufacturers instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetGlobalManufacturers2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.SearchGlobalManufacturers(ctx, opts, out)
+}
+
+// Deprecated: use Assets.GetManufacturerById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetManufacturer(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.GetManufacturerById(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetSpareAssetsByAssetTag instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetSpareAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetSpareAssetsByAssetTag(ctx, opts, out)
+}
+
+// Deprecated: use Assets.GetAssetsForUserCurrent instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetUserAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.GetAssetsForUserCurrent(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.GetUserAssets2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) GetUserAssets2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.GetUserAssets2(ctx, opts, out)
+}
+
+// Deprecated: use Assets.RemoveAssetFavorite instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) RemoveUserFavoriteAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Assets.RemoveAssetFavorite(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.SearchAssetsByAssetTag instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) SearchAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.SearchAssetsByAssetTag(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.UpdateAssetFundingType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) UpdateAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.UpdateAssetFundingType(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Assets.UpdateAssetStatusType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenAssetsService) UpdateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Assets.UpdateAssetStatusType(ctx, opts, out)
+}
+
+type GoldenAuditsService struct{ client *Client }
+
+func (s *GoldenAuditsService) AddAssetToAuditPolicy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/{AssetAuditPolicyId}/add/asset/{AssetId}", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicies(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/{AssetAuditPolicyId}", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicyAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/{AssetAuditPolicyId}/assets", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicySchedule(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/schedules/{AssetAuditPolicyScheduleId}", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicyScheduleAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/schedule/{AssetAuditPolicyScheduleId}/assets", opts, out)
+}
+
+func (s *GoldenAuditsService) GetAssetAuditPolicySchedulesForAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/audits/policies/schedules/for-asset/{AssetId}", opts, out)
+}
+
+type GoldenCategoriesService struct{ client *Client }
+
+func (s *GoldenCategoriesService) CreateAssetCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/for/assets/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) CreateCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) CreateIssueCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/for/issue/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) CreateKbCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/for/kb/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) CreateModelCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/for/model/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) CreateRoleCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/for/roles/new", opts, out)
+}
+
+func (s *GoldenCategoriesService) DeleteCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/categories/{CategoryId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) GetCategoryById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/{CategoryId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) GetCategoryByIdAndType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/v2/{CategoryId}/{CategoryTypeId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) GetCategoryEntityTypeLinks(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/{CategoryTypeId}/link/{EntityTypeId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) LinkCategoryToApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/{CategoryId}/link/app/{AppId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListAppCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/apps", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListAppCategoryLinks(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/app-links", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListAssetCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/assets", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListCategoriesForApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/app/{AppId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListCategoriesV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/v2", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListFilterCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/filters", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListIssueCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/issues", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListKbCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/kb", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListModelCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/models", opts, out)
+}
+
+func (s *GoldenCategoriesService) ListRoleCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/categories/of/roles", opts, out)
+}
+
+func (s *GoldenCategoriesService) SearchCategoriesV1(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories", opts, out)
+}
+
+func (s *GoldenCategoriesService) SearchCategoriesV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/v2", opts, out)
+}
+
+func (s *GoldenCategoriesService) SetCategorySortOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/{CategoryId}/sortorder/{SortOrder}", opts, out)
+}
+
+func (s *GoldenCategoriesService) UndeleteCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/categories/{CategoryId}/undelete", opts, out)
+}
+
+func (s *GoldenCategoriesService) UnlinkCategoryFromApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/categories/{CategoryId}/link/app/{AppId}", opts, out)
+}
+
+func (s *GoldenCategoriesService) UpdateCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/categories/{CategoryId}", opts, out)
 }
 
 type GoldenCustomFieldsService struct{ client *Client }
 
+func (s *GoldenCustomFieldsService) BatchCreateCustomFieldEntityMappings(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/entity-mappings/batch", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) BatchCreateCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types/new/batch", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) BatchDeleteCustomFieldEntityMappings(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/entity-mappings/batch", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) BatchUpdateCustomFieldProduct(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/product/update/batch", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) BatchUpdateCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types/update/batch", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) CheckCustomFieldMappingCompatibility(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/entity-mappings/check-field-compatibility", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) CreateCustomFieldBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/new", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) CreateCustomFieldType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types/new", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) DeleteAssetInventoryActionCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/values/for/asset-inventory-actions/delete", opts, out)
+}
+
 func (s *GoldenCustomFieldsService) DeleteCustomField(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/custom-fields/{CustomFieldId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/{customFieldId}", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) DeleteCustomFieldType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/custom-fields/types/{CustomFieldTypeId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/types/{customFieldTypeId}", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) DeleteCustomFields(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/custom-fields", opts, out)
+func (s *GoldenCustomFieldsService) DeleteCustomFieldValuesForAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/values/for/assets/delete", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomField(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/{CustomFieldId}", opts, out)
+func (s *GoldenCustomFieldsService) DeleteCustomFieldValuesForEvents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/values/for/events/delete", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomFieldType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/types/{CustomFieldTypeId}", opts, out)
+func (s *GoldenCustomFieldsService) DeleteCustomFieldValuesForTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/values/for/tickets/delete", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/types", opts, out)
+func (s *GoldenCustomFieldsService) DeleteCustomFieldValuesForUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/custom-fields/values/for/users/delete", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomFieldTypes2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/custom-fields/types", opts, out)
+func (s *GoldenCustomFieldsService) GetAssetCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/assets/values", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetAssetInventoryActionCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/values/for/asset-inventory-action/{id}", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/{customFieldId}", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldEntityMappingEntityTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/entity-mappings/entity-types", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldEntityMappings(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/entity-mappings", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldMappingCompatibleFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/entity-mappings/compatible-fields", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldTypeById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/types/{customFieldTypeId}", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) GetCustomFieldValuesForAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/values/for/asset/{AssetId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/values/for/asset/{assetId}", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) GetCustomFieldValuesForTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/values/for/ticket/{TicketId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/values/for/ticket/{ticketId}", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) GetCustomFieldValuesForUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields/values/for/user/{UserId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/values/for/user/{userId}", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomFields(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/custom-fields", opts, out)
+func (s *GoldenCustomFieldsService) GetCustomFieldsForAsset(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/asset", opts, out)
 }
 
-func (s *GoldenCustomFieldsService) GetCustomFields2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/custom-fields", opts, out)
+func (s *GoldenCustomFieldsService) GetCustomFieldsForAssetInventoryAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/asset-inventory-action", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/event", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForInventoryItem(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/inventory-item", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/location", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/location-room", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/organization", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/ticket", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetCustomFieldsForUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/for/user", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetEventCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/events/values", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetTicketCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/tickets/values", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) GetUserCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/users/values", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) ListCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/custom-fields/types", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) LookupSiteBySearchableValue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/complex/lookup-site-by-searchable-value", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) ReorderCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types/re-order", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) ReorderCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/re-order", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) SearchCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) SearchCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) UpdateCustomField(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/custom-fields/{CustomFieldId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/{customFieldId}", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpdateCustomFieldProduct(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/{customFieldId}/product", opts, out)
 }
 
 func (s *GoldenCustomFieldsService) UpdateCustomFieldType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/custom-fields/types/{CustomFieldTypeId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/types/{customFieldTypeId}", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpsertAssetCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/values/for/assets", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpsertAssetInventoryActionCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/values/for/asset-inventory-actions", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpsertEventCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/values/for/events", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpsertTicketCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/values/for/tickets", opts, out)
+}
+
+func (s *GoldenCustomFieldsService) UpsertUserCustomFieldValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields/values/for/users", opts, out)
+}
+
+// Deprecated: use Silver.CustomFields.DeleteCustomFields instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) DeleteCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.CustomFields.DeleteCustomFields(ctx, opts, out)
+}
+
+// Deprecated: use CustomFields.GetCustomFieldById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomField(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.CustomFields.GetCustomFieldById(ctx, opts, out)
+}
+
+// Deprecated: use CustomFields.GetCustomFieldTypeById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomFieldType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.CustomFields.GetCustomFieldTypeById(ctx, opts, out)
+}
+
+// Deprecated: use CustomFields.ListCustomFieldTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomFieldTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.CustomFields.ListCustomFieldTypes(ctx, opts, out)
+}
+
+// Deprecated: use CustomFields.SearchCustomFieldTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomFieldTypes2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.CustomFields.SearchCustomFieldTypes(ctx, opts, out)
+}
+
+// Deprecated: use Silver.CustomFields.GetCustomFields instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.CustomFields.GetCustomFields(ctx, opts, out)
+}
+
+// Deprecated: use CustomFields.SearchCustomFields instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenCustomFieldsService) GetCustomFields2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.CustomFields.SearchCustomFields(ctx, opts, out)
+}
+
+type GoldenCustomFieldsNewService struct{ client *Client }
+
+func (s *GoldenCustomFieldsNewService) ListCustomFieldTypesNew(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/custom-fields-new/types", opts, out)
+}
+
+type GoldenEventsService struct{ client *Client }
+
+func (s *GoldenEventsService) AddEventSeriesDates(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/series/add-dates", opts, out)
+}
+
+func (s *GoldenEventsService) CalculateEventFees(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/{EventId}/calculate-fees", opts, out)
+}
+
+func (s *GoldenEventsService) CreateEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/new", opts, out)
+}
+
+func (s *GoldenEventsService) CreateEventSeries(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/series/new", opts, out)
+}
+
+func (s *GoldenEventsService) CreateEventType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/types", opts, out)
+}
+
+func (s *GoldenEventsService) CreateEventTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/types/ids", opts, out)
+}
+
+func (s *GoldenEventsService) CreateEvents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/ids", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/{EventId}", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEventType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/types/{EventTypeId}", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEventTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/types/ids", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEventTypesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/types/query", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEventsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/ids", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteEventsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/query", opts, out)
+}
+
+func (s *GoldenEventsService) DeleteRecurringEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/events/{EventId}/{instance}", opts, out)
+}
+
+func (s *GoldenEventsService) GetAvailableRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/available/rooms", opts, out)
+}
+
+func (s *GoldenEventsService) GetAvailableTimes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/available/times", opts, out)
+}
+
+func (s *GoldenEventsService) GetEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/{EventId}", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventAttachments(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/{EventId}/attachments", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventFeePackage(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/{EventId}/fee-package", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventRecurrence(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/recurrence", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/types/{EventTypeId}", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/types/ids", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventTypesByQueryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/types/query", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventTypesByQueryPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/types/query", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/ids/get", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventsByQueryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/query", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventsByQueryPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/query", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventsByQueryWithDeletedGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/query/withdeleted", opts, out)
+}
+
+func (s *GoldenEventsService) GetEventsByQueryWithDeletedPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/query/withdeleted", opts, out)
+}
+
+func (s *GoldenEventsService) GetUserEventsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/for/{UserId}", opts, out)
+}
+
+func (s *GoldenEventsService) GetUserEventsPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/for/{UserId}", opts, out)
+}
+
+func (s *GoldenEventsService) ProjectEvents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/project-events", opts, out)
+}
+
+func (s *GoldenEventsService) SaveEventAttachments(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/{EventId}/attachments", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEvent(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/{EventId}/update", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEventType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/types/{EventTypeId}/update", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEventTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/types/ids/update", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEventTypesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/types/query/update", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEventsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/ids/update", opts, out)
+}
+
+func (s *GoldenEventsService) UpdateEventsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/events/query/update", opts, out)
+}
+
+func (s *GoldenEventsService) ValidateSchedule(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/events/validate-schedule", opts, out)
+}
+
+func (s *GoldenEventsService) ValidateSchedulesAll(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/validate-schedules-all", opts, out)
+}
+
+func (s *GoldenEventsService) ValidateSchedulesCalendarConflicts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/validate-schedules-calendar-conflicts", opts, out)
+}
+
+func (s *GoldenEventsService) ValidateSchedulesConflictingEvents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/validate-schedules-conflicting-events", opts, out)
+}
+
+func (s *GoldenEventsService) ValidateSchedulesPlaceReservations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/events/validate-schedules-place-reservations", opts, out)
+}
+
+type GoldenFilesService struct{ client *Client }
+
+func (s *GoldenFilesService) AddFileToEntity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/{FileId}/entity/{EntityTypeId}/{EntityId}", opts, out)
+}
+
+func (s *GoldenFilesService) ConvertToExcel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/convert-to-excel", opts, out)
+}
+
+func (s *GoldenFilesService) DeleteFile(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/files/{FileId}", opts, out)
+}
+
+func (s *GoldenFilesService) DownloadFile(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/{FileId}", opts, out)
+}
+
+func (s *GoldenFilesService) GetExcelFile(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/excel/{FileId}", opts, out)
+}
+
+func (s *GoldenFilesService) GetFileAttachmentContentTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/file-attachment-content-types", opts, out)
+}
+
+func (s *GoldenFilesService) GetFileBase64(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/base64/{FileId}", opts, out)
+}
+
+func (s *GoldenFilesService) GetFileDetails(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/{FileId}/details", opts, out)
+}
+
+func (s *GoldenFilesService) GetFileInline(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/{FileId}/inline", opts, out)
+}
+
+func (s *GoldenFilesService) GetFilesForEntity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/files/entity/{EntityTypeId}/{EntityId}", opts, out)
+}
+
+func (s *GoldenFilesService) ParseBarcode(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/barcode/parse", opts, out)
+}
+
+func (s *GoldenFilesService) ParseExcelColumnUniqueValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/{FileId}/parse-excel/worksheet/{WorksheetIndex}/column/{ColumnIndex}/values", opts, out)
+}
+
+func (s *GoldenFilesService) ParseFileAsExcel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/{FileId}/parse-excel/{MaxRows}", opts, out)
+}
+
+func (s *GoldenFilesService) RemoveFileFromEntity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/files/{FileId}/entity/{EntityTypeId}/{EntityId}", opts, out)
+}
+
+func (s *GoldenFilesService) UploadFile(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files", opts, out)
+}
+
+func (s *GoldenFilesService) UploadFileBase64(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/base64/save", opts, out)
+}
+
+func (s *GoldenFilesService) UploadFileReturnUrl(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/files/return-as-url", opts, out)
+}
+
+type GoldenFilterService struct{ client *Client }
+
+func (s *GoldenFilterService) GetFilterByKeyAndProductId(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filter/for/product/{filterKey}", opts, out)
+}
+
+type GoldenFiltersService struct{ client *Client }
+
+func (s *GoldenFiltersService) CreateFilter(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/new", opts, out)
+}
+
+func (s *GoldenFiltersService) CreateFilterById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/label/{filterId}/values", opts, out)
+}
+
+func (s *GoldenFiltersService) CreateFilterSet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/sets/new", opts, out)
+}
+
+func (s *GoldenFiltersService) DeleteFilter(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/filters/{FilterId}", opts, out)
+}
+
+func (s *GoldenFiltersService) DeleteFilterByOriginId(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/filters/{SiteId}/origin/{OriginId}", opts, out)
+}
+
+func (s *GoldenFiltersService) DeleteFilterSetValue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/filters/sets/values/{FilterSetValueId}", opts, out)
+}
+
+func (s *GoldenFiltersService) GetCustomFieldFilterSetsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/custom-fields/sets/ids/get", opts, out)
+}
+
+func (s *GoldenFiltersService) GetCustomFieldFilterValueLabels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/label/{filterId}/for/custom-field/{customFieldTypeId}/values", opts, out)
+}
+
+func (s *GoldenFiltersService) GetFilterSet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters/sets/{filterId}", opts, out)
+}
+
+func (s *GoldenFiltersService) GetFilterSetValues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters/sets/{filterId}/values", opts, out)
+}
+
+func (s *GoldenFiltersService) GetFilterSetsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/sets/ids/get", opts, out)
+}
+
+func (s *GoldenFiltersService) GetFilterSetsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters/sets/for/type/{FilterSetType}", opts, out)
+}
+
+func (s *GoldenFiltersService) GetFilterValueLabel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters/label/{FilterId}/{Value}", opts, out)
+}
+
+func (s *GoldenFiltersService) ListFilters(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters", opts, out)
+}
+
+func (s *GoldenFiltersService) ListFiltersForEntityType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/filters/for/entitytype/{entityTypeId}", opts, out)
+}
+
+func (s *GoldenFiltersService) SaveFilterValuesForKbArticles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/values/for/kb-articles", opts, out)
+}
+
+func (s *GoldenFiltersService) SaveFilterValuesForViews(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/values/for/views", opts, out)
+}
+
+func (s *GoldenFiltersService) UpdateFilter(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/filters/{FilterId}", opts, out)
 }
 
 type GoldenFormsService struct{ client *Client }
 
+// Deprecated: use Silver.Forms.SubmitForm instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenFormsService) SubmitForm(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/forms/submit", opts, out)
+	return s.client.Silver.Forms.SubmitForm(ctx, opts, out)
+}
+
+type GoldenFundingSourcesService struct{ client *Client }
+
+func (s *GoldenFundingSourcesService) CreateFundingSource(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/funding-sources/new", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) CreateFundingSources(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/funding-sources/ids", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) DeleteFundingSource(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/funding-sources/{FundingSourceId}/delete", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) DeleteFundingSourcesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/funding-sources/ids", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) DeleteFundingSourcesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/funding-sources/query", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) GetFundingSourceById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/funding-sources/{FundingSourceId}", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) GetFundingSourcesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/funding-sources/ids", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) GetFundingSourcesLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/funding-sources/query", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) SearchFundingSources(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/funding-sources/query", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) UpdateFundingSource(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/funding-sources/{FundingSourceId}/update", opts, out)
+}
+
+func (s *GoldenFundingSourcesService) UpdateFundingSourcesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/funding-sources/query/update", opts, out)
+}
+
+type GoldenGlobalService struct{ client *Client }
+
+func (s *GoldenGlobalService) GetTicketStatsGlobal(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/global/tickets/stats", opts, out)
+}
+
+func (s *GoldenGlobalService) SearchTicketsGlobal(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/global/tickets", opts, out)
+}
+
+type GoldenInventoryService struct{ client *Client }
+
+func (s *GoldenInventoryService) CreateInventoriesBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/ids", opts, out)
+}
+
+func (s *GoldenInventoryService) CreateInventory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/new", opts, out)
+}
+
+func (s *GoldenInventoryService) CreateInventoryAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions", opts, out)
+}
+
+func (s *GoldenInventoryService) CreateInventoryActionsBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/ids/new", opts, out)
+}
+
+func (s *GoldenInventoryService) CreateInventoryItem(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items", opts, out)
+}
+
+func (s *GoldenInventoryService) CreateInventoryItemsBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/ids/new", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/actions/{InventoryActionId}", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryActionsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/actions/ids", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryActionsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/actions/query", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryItem(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/items/{InventoryItemId}", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryItemsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/items/ids", opts, out)
+}
+
+func (s *GoldenInventoryService) DeleteInventoryItemsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/inventory/items/query", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/actions/{InventoryActionId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryActionPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/{InventoryActionId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryActionsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/ids", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryActionsTimeline(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/actions/timeline", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryActionsTimelinePost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/timeline", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/inventories/{InventoryId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryByIdPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/{InventoryId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/{InventoryId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryCategorySummary(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/category-summary", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryItemById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/items/{InventoryItemId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryItemByIdPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/{InventoryItemId}", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryItemsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/ids", opts, out)
+}
+
+func (s *GoldenInventoryService) GetInventoryLocationCategorySummary(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/location-category-summary", opts, out)
+}
+
+func (s *GoldenInventoryService) ListInventories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/inventories", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventoryActions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/query", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventoryActionsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/actions/query", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventoryByIdPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/{InventoryId}", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventoryItems(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/query", opts, out)
+}
+
+func (s *GoldenInventoryService) QueryInventoryItemsLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/inventory/items/query", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoriesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/ids/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoriesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/query/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/inventories/{InventoryId}/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/{InventoryActionId}/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryActionsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/ids/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryActionsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/actions/query/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryItem(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/{InventoryItemId}/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryItemsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/ids/update", opts, out)
+}
+
+func (s *GoldenInventoryService) UpdateInventoryItemsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/inventory/items/query/update", opts, out)
+}
+
+type GoldenInvoicingService struct{ client *Client }
+
+func (s *GoldenInvoicingService) CreateVendor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/invoicing/vendors/new", opts, out)
+}
+
+func (s *GoldenInvoicingService) DeleteVendor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/invoicing/vendors/{id}", opts, out)
+}
+
+func (s *GoldenInvoicingService) GetAllVendors(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/invoicing/vendors", opts, out)
+}
+
+func (s *GoldenInvoicingService) GetVendorById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/invoicing/vendors/{id}", opts, out)
+}
+
+func (s *GoldenInvoicingService) SearchVendors(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/invoicing/vendors", opts, out)
+}
+
+func (s *GoldenInvoicingService) UpdateVendor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/invoicing/vendors/{id}", opts, out)
 }
 
 type GoldenIssuesService struct{ client *Client }
 
+func (s *GoldenIssuesService) AddIssueToModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/link/new", opts, out)
+}
+
+func (s *GoldenIssuesService) CreateIssue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/new", opts, out)
+}
+
+func (s *GoldenIssuesService) CreateIssueType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/types/new", opts, out)
+}
+
 func (s *GoldenIssuesService) DeleteIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/issues/{IssueId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/issues/{issueId}", opts, out)
 }
 
 func (s *GoldenIssuesService) DeleteIssueType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/issues/types/{IssueTypeId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/issues/types/{issueTypeId}", opts, out)
 }
 
 func (s *GoldenIssuesService) GetAvailableIssues(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/issues/site", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/site", opts, out)
 }
 
-func (s *GoldenIssuesService) GetIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/issues/{IssueId}", opts, out)
+func (s *GoldenIssuesService) GetIssueById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/{issueId}", opts, out)
 }
 
-func (s *GoldenIssuesService) GetIssueType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/issues/types/{IssueTypeId}", opts, out)
+func (s *GoldenIssuesService) GetIssueRoles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/{issueId}/roles", opts, out)
 }
 
-func (s *GoldenIssuesService) GetIssueTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/issues/types", opts, out)
+func (s *GoldenIssuesService) GetIssueTypeById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/types/{issueTypeId}", opts, out)
 }
 
-func (s *GoldenIssuesService) GetIssueTypesSimple(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/issues/types", opts, out)
+func (s *GoldenIssuesService) GetIssuesForModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/for/models/{modelId}", opts, out)
+}
+
+func (s *GoldenIssuesService) GetIssuesForModelCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/model-categories", opts, out)
+}
+
+func (s *GoldenIssuesService) GetIssuesForModelCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/for/model-categories/{categoryId}", opts, out)
+}
+
+func (s *GoldenIssuesService) GetIssuesForModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models", opts, out)
+}
+
+func (s *GoldenIssuesService) GetModelsForIssue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/models/{issueId}", opts, out)
+}
+
+func (s *GoldenIssuesService) LinkIssueToApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/{issueId}/link/app/{appId}", opts, out)
+}
+
+func (s *GoldenIssuesService) LinkModelIssueToApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/{modelIssueId}/link/app/{appId}", opts, out)
+}
+
+func (s *GoldenIssuesService) ListGlobalIssueTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/types/global", opts, out)
+}
+
+func (s *GoldenIssuesService) ListIssueTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues/types", opts, out)
+}
+
+func (s *GoldenIssuesService) ListIssues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/issues", opts, out)
+}
+
+func (s *GoldenIssuesService) RemoveIssueFromModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/issues/for/models/link/{modelIssueId}", opts, out)
+}
+
+func (s *GoldenIssuesService) RemoveIssuesFromModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/link/remove", opts, out)
+}
+
+func (s *GoldenIssuesService) SaveIssueOptionsForSite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/{issueId}/site", opts, out)
+}
+
+func (s *GoldenIssuesService) SearchIssueTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/types", opts, out)
+}
+
+func (s *GoldenIssuesService) SearchIssues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues", opts, out)
+}
+
+func (s *GoldenIssuesService) SearchModelIssues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/link", opts, out)
+}
+
+func (s *GoldenIssuesService) SetAppModelIssueNameOverride(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/{modelIssueId}/link/app/{appId}/name", opts, out)
+}
+
+func (s *GoldenIssuesService) SetIssueSortOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/{issueId}/sortorder/{sortOrder}", opts, out)
+}
+
+func (s *GoldenIssuesService) UnlinkIssueFromApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/issues/{issueId}/link/app/{appId}", opts, out)
+}
+
+func (s *GoldenIssuesService) UnlinkModelIssueFromApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/issues/for/models/{modelIssueId}/link/app/{appId}", opts, out)
 }
 
 func (s *GoldenIssuesService) UpdateIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/issues/{IssueId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/{issueId}", opts, out)
 }
 
 func (s *GoldenIssuesService) UpdateIssueType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/issues/types/{IssueTypeId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/types/{issueTypeId}", opts, out)
+}
+
+func (s *GoldenIssuesService) UpdateModelIssuesToMatchCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/issues/for/models/{modelId}/match/category", opts, out)
+}
+
+// Deprecated: use Issues.GetIssueById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenIssuesService) GetIssue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Issues.GetIssueById(ctx, opts, out)
+}
+
+// Deprecated: use Issues.GetIssueTypeById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenIssuesService) GetIssueType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Issues.GetIssueTypeById(ctx, opts, out)
+}
+
+// Deprecated: use Issues.SearchIssueTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenIssuesService) GetIssueTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Issues.SearchIssueTypes(ctx, opts, out)
+}
+
+// Deprecated: use Issues.ListIssueTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenIssuesService) GetIssueTypesSimple(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Issues.ListIssueTypes(ctx, opts, out)
+}
+
+type GoldenLaborService struct{ client *Client }
+
+func (s *GoldenLaborService) CreateLaborRate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/rates/new", opts, out)
+}
+
+func (s *GoldenLaborService) CreateLaborType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/types/new", opts, out)
+}
+
+func (s *GoldenLaborService) DeleteLaborRate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/labor/rates/{UserLaborRateId}", opts, out)
+}
+
+func (s *GoldenLaborService) DeleteLaborType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/labor/types/{LaborTypeId}", opts, out)
+}
+
+func (s *GoldenLaborService) GetLaborActivityByTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/rates/tickets", opts, out)
+}
+
+func (s *GoldenLaborService) GetLaborActivityByTicketsGroupedByUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/rates-by-user/tickets", opts, out)
+}
+
+func (s *GoldenLaborService) GetLaborRate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/labor/rates/{UserLaborRateId}", opts, out)
+}
+
+func (s *GoldenLaborService) GetLaborType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/labor/types/{LaborTypeId}", opts, out)
+}
+
+func (s *GoldenLaborService) GetUserLaborRates(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/labor/rates/user/{UserId}", opts, out)
+}
+
+func (s *GoldenLaborService) GetUsersLaborTicketActivityActions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/rates", opts, out)
+}
+
+func (s *GoldenLaborService) ListLaborTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/labor/types", opts, out)
+}
+
+func (s *GoldenLaborService) QueryLaborTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/types", opts, out)
+}
+
+func (s *GoldenLaborService) UpdateLaborRate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/rates/{UserLaborRateId}", opts, out)
+}
+
+func (s *GoldenLaborService) UpdateLaborType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/labor/types/{LaborTypeId}", opts, out)
 }
 
 type GoldenLocationsService struct{ client *Client }
 
-func (s *GoldenLocationsService) DeleteLocation(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/locations/{LocationId}", opts, out)
+func (s *GoldenLocationsService) CreateLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms", opts, out)
+}
+
+func (s *GoldenLocationsService) CreateLocationRoomsBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/new/batch", opts, out)
+}
+
+func (s *GoldenLocationsService) CreateLocationV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/new", opts, out)
 }
 
 func (s *GoldenLocationsService) DeleteLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/locations/rooms/{LocationRoomId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/locations/rooms/{roomId}", opts, out)
 }
 
-func (s *GoldenLocationsService) GetAllLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/rooms", opts, out)
+func (s *GoldenLocationsService) DeleteLocationRoomsBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/locations/rooms/delete/batch", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocation(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/{LocationId}", opts, out)
+func (s *GoldenLocationsService) DeleteLocationV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/locations/{LocationId}/delete", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/rooms/{LocationRoomId}", opts, out)
+func (s *GoldenLocationsService) GetAddressByIdV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/address/{AddressId}", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/{LocationId}/rooms", opts, out)
+func (s *GoldenLocationsService) GetAllLocationRoomStatusTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/status-types", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocationType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/types/{LocationTypeId}", opts, out)
+func (s *GoldenLocationsService) GetAllSiteLocationsFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/all", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocationTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/types", opts, out)
+func (s *GoldenLocationsService) GetAllSiteLocationsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/all", opts, out)
 }
 
-func (s *GoldenLocationsService) GetLocations(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/locations/all", opts, out)
+func (s *GoldenLocationsService) GetLocationAddressV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/{LocationId}/address", opts, out)
 }
 
-func (s *GoldenLocationsService) UpdateLocation(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/locations/{LocationId}", opts, out)
+func (s *GoldenLocationsService) GetLocationByIdV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/{LocationId}", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationFloorplansV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/{locationId}/floorplans", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationIdsForFilterSetsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/ids/for/filtersets", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationImagesV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/{locationId}/images", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationRoomAvailableTimes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/{locationRoomId}/available-times", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationRoomById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/{roomId}", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationRoomImages(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/{locationRoomId}/images", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationRoomLayouts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/{locationRoomId}/layouts", opts, out)
+}
+
+func (s *GoldenLocationsService) GetLocationRoomStatusTypeById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/rooms/status-types/{statusTypeId}", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsManageFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/manage", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsManageV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/manage", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsViewFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/view", opts, out)
+}
+
+func (s *GoldenLocationsService) GetMyLocationsViewV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/view", opts, out)
+}
+
+func (s *GoldenLocationsService) GetSiteLocationsBySiteIdFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/all/{siteId}", opts, out)
+}
+
+func (s *GoldenLocationsService) GetSiteLocationsBySiteIdV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/locations/all/{siteId}", opts, out)
+}
+
+func (s *GoldenLocationsService) MigrateLocationV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/migrate", opts, out)
+}
+
+func (s *GoldenLocationsService) QueryLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/query", opts, out)
+}
+
+func (s *GoldenLocationsService) QueryLocationRoomsByLocationId(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/{locationId}/rooms", opts, out)
+}
+
+func (s *GoldenLocationsService) QueryLocationRoomsForUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/for/user", opts, out)
+}
+
+func (s *GoldenLocationsService) UndeleteLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/{roomId}/undelete", opts, out)
+}
+
+func (s *GoldenLocationsService) UndeleteLocationV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v2.0/locations/{LocationId}/undelete", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationFloorplansV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/{locationId}/floorplans", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationImagesV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/{locationId}/images", opts, out)
 }
 
 func (s *GoldenLocationsService) UpdateLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/locations/rooms/{LocationRoomId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/{roomId}", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationRoomAvailableTimes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/{locationRoomId}/available-times", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationRoomImages(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/{locationRoomId}/images", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationRoomLayouts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/{locationRoomId}/layouts", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationRoomsBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/rooms/update/batch", opts, out)
+}
+
+func (s *GoldenLocationsService) UpdateLocationV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/locations/{LocationId}/update", opts, out)
+}
+
+// Deprecated: use Silver.Locations.DeleteLocation instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) DeleteLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.DeleteLocation(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Locations.GetAllLocationRooms instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetAllLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.GetAllLocationRooms(ctx, opts, out)
+}
+
+// Deprecated: use Locations.GetLocationByIdV2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Locations.GetLocationByIdV2(ctx, opts, out)
+}
+
+// Deprecated: use Locations.GetLocationRoomById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocationRoom(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Locations.GetLocationRoomById(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Locations.GetLocationRooms instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.GetLocationRooms(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Locations.GetLocationType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.GetLocationType(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Locations.GetLocationTypes instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocationTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.GetLocationTypes(ctx, opts, out)
+}
+
+// Deprecated: use Locations.GetAllSiteLocationsV2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) GetLocations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Locations.GetAllSiteLocationsV2(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Locations.UpdateLocation instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenLocationsService) UpdateLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Silver.Locations.UpdateLocation(ctx, opts, out)
 }
 
 type GoldenManufacturersService struct{ client *Client }
 
+// Deprecated: use Silver.Manufacturers.AddManufacturerToSite3 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) AddManufacturerToSite3(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/manufacturers/{ManufacturerId}/site", opts, out)
+	return s.client.Silver.Manufacturers.AddManufacturerToSite3(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.AddManufacturerToSite4 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) AddManufacturerToSite4(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/manufacturers/{ManufacturerId}/site/{IncludeAllModels}", opts, out)
+	return s.client.Silver.Manufacturers.AddManufacturerToSite4(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.DeleteManufacturer2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) DeleteManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/manufacturers/{ManufacturerId}", opts, out)
+	return s.client.Silver.Manufacturers.DeleteManufacturer2(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.GetGlobalManufacturers3 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) GetGlobalManufacturers3(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/manufacturers/global", opts, out)
+	return s.client.Silver.Manufacturers.GetGlobalManufacturers3(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.GetGlobalManufacturers4 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) GetGlobalManufacturers4(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/manufacturers/global", opts, out)
+	return s.client.Silver.Manufacturers.GetGlobalManufacturers4(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.GetManufacturer2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) GetManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/manufacturers/{ManufacturerId}", opts, out)
+	return s.client.Silver.Manufacturers.GetManufacturer2(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.RemoveManufacturerFromSite2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) RemoveManufacturerFromSite2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/manufacturers/{ManufacturerId}/site", opts, out)
+	return s.client.Silver.Manufacturers.RemoveManufacturerFromSite2(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Manufacturers.UpdateManufacturer2 instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenManufacturersService) UpdateManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/manufacturers/{ManufacturerId}", opts, out)
+	return s.client.Silver.Manufacturers.UpdateManufacturer2(ctx, opts, out)
 }
 
 type GoldenMetricsService struct{ client *Client }
 
+func (s *GoldenMetricsService) CreateMetric(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/metrics/new", opts, out)
+}
+
+func (s *GoldenMetricsService) CreateMetricById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/metrics/for/sla/{id}", opts, out)
+}
+
+func (s *GoldenMetricsService) DeleteMetricMetrics(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/metrics/{id}", opts, out)
+}
+
+func (s *GoldenMetricsService) GetMetricById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/metrics/types/{typeId}", opts, out)
+}
+
+func (s *GoldenMetricsService) ListMetricMetrics(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/metrics", opts, out)
+}
+
+func (s *GoldenMetricsService) ListMetrics(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/metrics/types", opts, out)
+}
+
+// Deprecated: use Metrics.DeleteMetricMetrics instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) DeleteMetric(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/metrics/{MetricId}", opts, out)
+	return s.client.Metrics.DeleteMetricMetrics(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Metrics.DeleteMetricType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) DeleteMetricType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/metrics/types/{MetricTypeId}", opts, out)
+	return s.client.Silver.Metrics.DeleteMetricType(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Metrics.GetMetric instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) GetMetric(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/metrics/{MetricId}", opts, out)
+	return s.client.Silver.Metrics.GetMetric(ctx, opts, out)
 }
 
+// Deprecated: use Metrics.GetMetricById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) GetMetricType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/metrics/types/{MetricTypeId}", opts, out)
+	return s.client.Metrics.GetMetricById(ctx, opts, out)
 }
 
+// Deprecated: use Metrics.ListMetrics instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) GetMetricTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/metrics/types", opts, out)
+	return s.client.Metrics.ListMetrics(ctx, opts, out)
 }
 
+// Deprecated: use Metrics.ListMetricMetrics instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) GetMetrics(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/metrics", opts, out)
+	return s.client.Metrics.ListMetricMetrics(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Metrics.GetMetricsForSla instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) GetMetricsForSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/metrics/for/sla/{SlaId}", opts, out)
+	return s.client.Silver.Metrics.GetMetricsForSla(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Metrics.UpdateMetric instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) UpdateMetric(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/metrics/{MetricId}", opts, out)
+	return s.client.Silver.Metrics.UpdateMetric(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Metrics.UpdateMetricType instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) UpdateMetricType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/metrics/types/{MetricTypeId}", opts, out)
+	return s.client.Silver.Metrics.UpdateMetricType(ctx, opts, out)
 }
 
+// Deprecated: use Metrics.CreateMetricById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenMetricsService) UpdateMetricsForSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/metrics/for/sla/{SlaId}", opts, out)
+	return s.client.Metrics.CreateMetricById(ctx, opts, out)
+}
+
+type GoldenModelsService struct{ client *Client }
+
+func (s *GoldenModelsService) CreateModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/new", opts, out)
+}
+
+func (s *GoldenModelsService) DeleteModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/models/{ModelId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetAppModelDetails(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/{ModelId}/link/app/{AppId}/details", opts, out)
+}
+
+func (s *GoldenModelsService) GetGlobalModelsByManufacturer(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/global/for/manufacturer/{ManufacturerId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetGlobalModelsByManufacturerGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/global/for/manufacturer/{ManufacturerId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/{ModelId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelCounts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/counts", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelCountsByCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/category/{CategoryId}/counts", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelCountsByCategoryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/category/{CategoryId}/counts", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelMappings(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/alias-mapping", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsAvailableToSite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/available/to/site", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsAvailableToSiteV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/available/to/siteV2", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/category/{CategoryId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategoryForMyRole(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/category/{CategoryId}/for/role", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategoryForMyRoleGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/category/{CategoryId}/for/role", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategoryForRole(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/category/{CategoryId}/for/role/{RoleId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategoryForRoleGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/category/{CategoryId}/for/role/{RoleId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByCategoryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/category/{CategoryId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByManufacturer(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/manufacturer/{ManufacturerId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsByManufacturerGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/manufacturer/{ManufacturerId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/apps/{AppId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForAppGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/apps/{AppId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForMyRole(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/role", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForMyRoleGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/role", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForRole(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/for/role/{RoleId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetModelsForRoleGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/for/role/{RoleId}", opts, out)
+}
+
+func (s *GoldenModelsService) GetPopularModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/popular", opts, out)
+}
+
+func (s *GoldenModelsService) LinkModelToApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/{ModelId}/link/app/{AppId}", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllGlobalModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/all/global", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllGlobalModelsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/all/global", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/all", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllModelsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/all", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllSiteModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/all/sites", opts, out)
+}
+
+func (s *GoldenModelsService) ListAllSiteModelsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models/all/sites", opts, out)
+}
+
+func (s *GoldenModelsService) ListModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/models", opts, out)
+}
+
+func (s *GoldenModelsService) RemoveModelFromSite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/models/{ModelId}/site", opts, out)
+}
+
+func (s *GoldenModelsService) SearchModels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models", opts, out)
+}
+
+func (s *GoldenModelsService) SetModelSiteVisibility(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/{ModelId}/site", opts, out)
+}
+
+func (s *GoldenModelsService) UnlinkModelFromApp(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/models/{ModelId}/link/app/{AppId}", opts, out)
+}
+
+func (s *GoldenModelsService) UpdateAppModelDetails(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/{ModelId}/link/app/{AppId}/details", opts, out)
+}
+
+func (s *GoldenModelsService) UpdateModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/{ModelId}", opts, out)
+}
+
+func (s *GoldenModelsService) UpdateModelSiteLinking(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/models/site", opts, out)
 }
 
 type GoldenNotificationsService struct{ client *Client }
 
+// Deprecated: use Silver.Notifications.GetNotifications instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) GetNotifications(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/notifications", opts, out)
+	return s.client.Silver.Notifications.GetNotifications(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.GetTicketEmails instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) GetTicketEmails(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/notifications/emails/for/ticket/{TicketId}", opts, out)
+	return s.client.Silver.Notifications.GetTicketEmails(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.GetUnarchivedNotifications instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) GetUnarchivedNotifications(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/notifications/unarchived", opts, out)
+	return s.client.Silver.Notifications.GetUnarchivedNotifications(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.GetUnreadNotifications instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) GetUnreadNotifications(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/notifications/unread", opts, out)
+	return s.client.Silver.Notifications.GetUnreadNotifications(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.MarkAllNotificationsArchived instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) MarkAllNotificationsArchived(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/notifications/all-archive", opts, out)
+	return s.client.Silver.Notifications.MarkAllNotificationsArchived(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.MarkAllNotificationsRead instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) MarkAllNotificationsRead(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/notifications/all-read", opts, out)
+	return s.client.Silver.Notifications.MarkAllNotificationsRead(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.MarkNotificationArchived instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) MarkNotificationArchived(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/notifications/{NotificationId}/archive", opts, out)
+	return s.client.Silver.Notifications.MarkNotificationArchived(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Notifications.MarkNotificationRead instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenNotificationsService) MarkNotificationRead(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/notifications/{NotificationId}/read", opts, out)
+	return s.client.Silver.Notifications.MarkNotificationRead(ctx, opts, out)
+}
+
+type GoldenOrganizationsService struct{ client *Client }
+
+func (s *GoldenOrganizationsService) CreateOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/new", opts, out)
+}
+
+func (s *GoldenOrganizationsService) CreateOrganizationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/types", opts, out)
+}
+
+func (s *GoldenOrganizationsService) CreateOrganizationTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/types/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) CreateOrganizationUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/users", opts, out)
+}
+
+func (s *GoldenOrganizationsService) CreateOrganizationUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/users/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) CreateOrganizations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/{OrganizationId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/types/{OrganizationTypeId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/types/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationTypesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/types/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/users/{OrganizationUserId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationUsersByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/users/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationUsersByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/users/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) DeleteOrganizationsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/organizations/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetDefaultOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/default", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetMyOrganizationsGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/my", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetMyOrganizationsPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/my", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/{OrganizationId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationAttachments(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/{OrganizationId}/attachments", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/types/{OrganizationTypeId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/types/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationTypesByQueryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/types/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationTypesByQueryPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/types/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/users/{OrganizationUserId}", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationUsersByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/users/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationUsersByQueryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/users/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationUsersByQueryPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/users/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/ids", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationsByQueryGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationsByQueryPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/query", opts, out)
+}
+
+func (s *GoldenOrganizationsService) GetOrganizationsForContactEmail(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/for/contact", opts, out)
+}
+
+func (s *GoldenOrganizationsService) SaveOrganizationAttachments(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/organizations/{OrganizationId}/attachments", opts, out)
+}
+
+func (s *GoldenOrganizationsService) SearchOrganizations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/organizations/search", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganization(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/{OrganizationId}/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/types/{OrganizationTypeId}/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationTypesByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/types/ids/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationTypesByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/types/query/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/users/{OrganizationUserId}/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationUsersByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/users/ids/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationUsersByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/users/query/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/ids/update", opts, out)
+}
+
+func (s *GoldenOrganizationsService) UpdateOrganizationsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/organizations/query/update", opts, out)
 }
 
 type GoldenPartsService struct{ client *Client }
 
+// Deprecated: use Silver.Parts.DeletePart instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) DeletePart(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/parts/{PartId}", opts, out)
+	return s.client.Silver.Parts.DeletePart(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.DeletePartSupplier instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) DeletePartSupplier(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/parts/suppliers/{PartSupplierId}", opts, out)
+	return s.client.Silver.Parts.DeletePartSupplier(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.GetPart instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) GetPart(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/parts/{PartId}", opts, out)
+	return s.client.Silver.Parts.GetPart(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.GetPartSupplier instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) GetPartSupplier(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/parts/suppliers/{PartSupplierId}", opts, out)
+	return s.client.Silver.Parts.GetPartSupplier(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.GetPartSuppliers instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) GetPartSuppliers(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/parts/suppliers", opts, out)
+	return s.client.Silver.Parts.GetPartSuppliers(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.GetParts instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) GetParts(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/parts", opts, out)
+	return s.client.Silver.Parts.GetParts(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.UpdatePart instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) UpdatePart(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/parts/{PartId}", opts, out)
+	return s.client.Silver.Parts.UpdatePart(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Parts.UpdatePartSupplier instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPartsService) UpdatePartSupplier(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/parts/suppliers/{PartSupplierId}", opts, out)
+	return s.client.Silver.Parts.UpdatePartSupplier(ctx, opts, out)
+}
+
+type GoldenProductsService struct{ client *Client }
+
+func (s *GoldenProductsService) ListProducts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/products/all", opts, out)
+}
+
+type GoldenPubService struct{ client *Client }
+
+func (s *GoldenPubService) SearchSparePoolAssets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/pub/iq-modules-assets-search/v1/assets", opts, out)
+}
+
+type GoldenPurchaseOrdersService struct{ client *Client }
+
+func (s *GoldenPurchaseOrdersService) CreatePurchaseOrderInventory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/purchase-orders/new", opts, out)
+}
+
+func (s *GoldenPurchaseOrdersService) GetPurchaseOrderByIdInventory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/purchase-orders/{PurchaseOrderId}", opts, out)
+}
+
+func (s *GoldenPurchaseOrdersService) QueryPurchaseOrders(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/purchase-orders/query", opts, out)
+}
+
+func (s *GoldenPurchaseOrdersService) UpdatePurchaseOrderInventory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/purchase-orders/{PurchaseOrderId}/update", opts, out)
 }
 
 type GoldenPurchaseordersService struct{ client *Client }
 
+// Deprecated: use Silver.Purchaseorders.DeletePurchaseOrder instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPurchaseordersService) DeletePurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/purchaseorders/{PurchaseOrderId}", opts, out)
+	return s.client.Silver.Purchaseorders.DeletePurchaseOrder(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Purchaseorders.GetPurchaseOrder instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPurchaseordersService) GetPurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/purchaseorders/{PurchaseOrderId}", opts, out)
+	return s.client.Silver.Purchaseorders.GetPurchaseOrder(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Purchaseorders.GetPurchaseOrders instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPurchaseordersService) GetPurchaseOrders(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/purchaseorders", opts, out)
+	return s.client.Silver.Purchaseorders.GetPurchaseOrders(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Purchaseorders.UpdatePurchaseOrder instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenPurchaseordersService) UpdatePurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/purchaseorders/{PurchaseOrderId}", opts, out)
+	return s.client.Silver.Purchaseorders.UpdatePurchaseOrder(ctx, opts, out)
+}
+
+type GoldenResolutionsService struct{ client *Client }
+
+func (s *GoldenResolutionsService) GetCloseReasonTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/resolutions/close-reason-types", opts, out)
+}
+
+func (s *GoldenResolutionsService) GetResolutionAction(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/resolutions/actions/{actionId}", opts, out)
+}
+
+func (s *GoldenResolutionsService) ListResolutionActions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/resolutions/actions", opts, out)
+}
+
+type GoldenShortcutsService struct{ client *Client }
+
+func (s *GoldenShortcutsService) GetShortcut(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/shortcuts/{ShortcutId}", opts, out)
+}
+
+type GoldenSitesService struct{ client *Client }
+
+func (s *GoldenSitesService) GetMySiteSettings(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/my/settings", opts, out)
+}
+
+func (s *GoldenSitesService) GetRoleById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/roles/{RoleId}", opts, out)
+}
+
+func (s *GoldenSitesService) GetSiteByUrl(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/{siteUrl}", opts, out)
+}
+
+func (s *GoldenSitesService) GetSiteSettingsById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/{SiteId}/settings", opts, out)
+}
+
+func (s *GoldenSitesService) ListRoles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/roles", opts, out)
+}
+
+func (s *GoldenSitesService) ListRolesFiltered(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/sites/roles", opts, out)
+}
+
+func (s *GoldenSitesService) ListRolesWithPermissionPolicies(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites/roles/with-permission-policies", opts, out)
+}
+
+func (s *GoldenSitesService) ListSites(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/sites", opts, out)
 }
 
 type GoldenSlasService struct{ client *Client }
 
 func (s *GoldenSlasService) ActivateSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/slas/{SlaId}/activate", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/slas/{SlaId}/activate", opts, out)
+}
+
+func (s *GoldenSlasService) AddSlaDaysToDate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/slas/date/{date}/add-days/{days}", opts, out)
+}
+
+func (s *GoldenSlasService) CreateSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/slas/new", opts, out)
 }
 
 func (s *GoldenSlasService) DeactivateSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/slas/{SlaId}/deactivate", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/slas/{SlaId}/deactivate", opts, out)
 }
 
+func (s *GoldenSlasService) DeleteSlaById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/slas/{id}", opts, out)
+}
+
+func (s *GoldenSlasService) ListSlas(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/slas", opts, out)
+}
+
+// Deprecated: use Slas.DeleteSlaById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenSlasService) DeleteSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/slas/{SlaId}", opts, out)
+	return s.client.Slas.DeleteSlaById(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Slas.GetSla instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenSlasService) GetSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/slas/{SlaId}", opts, out)
+	return s.client.Silver.Slas.GetSla(ctx, opts, out)
 }
 
+// Deprecated: use Slas.ListSlas instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenSlasService) GetSlas(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/slas", opts, out)
+	return s.client.Slas.ListSlas(ctx, opts, out)
 }
 
+// Deprecated: use Silver.Slas.UpdateSla instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenSlasService) UpdateSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/slas/{SlaId}", opts, out)
+	return s.client.Silver.Slas.UpdateSla(ctx, opts, out)
+}
+
+type GoldenSubtasksService struct{ client *Client }
+
+func (s *GoldenSubtasksService) AssignSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{subtaskId}/assign/{userId}", opts, out)
+}
+
+func (s *GoldenSubtasksService) AssignSubtasksToGroup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/group/assign", opts, out)
+}
+
+func (s *GoldenSubtasksService) CompleteSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{subtaskId}/complete", opts, out)
+}
+
+func (s *GoldenSubtasksService) ConvertSubtaskToTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{ticketSubtaskId}/convert", opts, out)
+}
+
+func (s *GoldenSubtasksService) CreateSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/create", opts, out)
+}
+
+func (s *GoldenSubtasksService) CreateSubtaskGroup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/group/new", opts, out)
+}
+
+func (s *GoldenSubtasksService) DeleteSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/subtasks/{id}", opts, out)
+}
+
+func (s *GoldenSubtasksService) DeleteSubtaskGroup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/subtasks/group/{subtaskGroupId}", opts, out)
+}
+
+func (s *GoldenSubtasksService) DuplicateSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{ticketSubtaskId}/duplicate", opts, out)
+}
+
+func (s *GoldenSubtasksService) GetMySubtaskGroups(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks/my/groups", opts, out)
+}
+
+func (s *GoldenSubtasksService) GetSubtaskSourceTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks/{ticketId}/sourceTicket", opts, out)
+}
+
+func (s *GoldenSubtasksService) GetSubtasksForTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks/{id}", opts, out)
+}
+
+func (s *GoldenSubtasksService) GetUserSubtaskGroups(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks/{userId}/groups", opts, out)
+}
+
+func (s *GoldenSubtasksService) GetUserSubtasks(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/subtasks", opts, out)
+}
+
+func (s *GoldenSubtasksService) RemoveSubtaskGroupFromTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/group/remove/{subtaskGroupId}/{ticketId}", opts, out)
+}
+
+func (s *GoldenSubtasksService) RevertSubtaskCompletion(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{ticketSubtaskId}/revert", opts, out)
+}
+
+func (s *GoldenSubtasksService) UnassignSubtask(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/{ticketSubtaskId}/unassign", opts, out)
+}
+
+func (s *GoldenSubtasksService) UngroupSubtaskGroupFromTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/group/ungroup/{subtaskGroupId}/{ticketId}", opts, out)
+}
+
+func (s *GoldenSubtasksService) UpdateSubtaskGroup(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/group/{subtaskGroupId}", opts, out)
+}
+
+func (s *GoldenSubtasksService) UpdateSubtaskSortOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/subtasks/update-sort", opts, out)
+}
+
+type GoldenSubticketsService struct{ client *Client }
+
+func (s *GoldenSubticketsService) DeleteSubticket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/subtickets/{ticketId}", opts, out)
+}
+
+type GoldenSuppliersService struct{ client *Client }
+
+func (s *GoldenSuppliersService) CreateSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/suppliers", opts, out)
+}
+
+func (s *GoldenSuppliersService) CreateSuppliersBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/suppliers/ids/new", opts, out)
+}
+
+func (s *GoldenSuppliersService) DeleteSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/suppliers/{supplierId}", opts, out)
+}
+
+func (s *GoldenSuppliersService) DeleteSuppliersByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/suppliers/query", opts, out)
+}
+
+func (s *GoldenSuppliersService) GetSupplierById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/suppliers/{supplierId}", opts, out)
+}
+
+func (s *GoldenSuppliersService) GetSupplierByIdPost(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/suppliers/{supplierId}", opts, out)
+}
+
+func (s *GoldenSuppliersService) GetSuppliersByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/suppliers/query", opts, out)
+}
+
+func (s *GoldenSuppliersService) GetSuppliersByQueryLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/suppliers/query", opts, out)
+}
+
+func (s *GoldenSuppliersService) UpdateSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/suppliers/{supplierId}/update", opts, out)
+}
+
+type GoldenSurveysService struct{ client *Client }
+
+func (s *GoldenSurveysService) ActivateSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/{SurveyId}/activate", opts, out)
+}
+
+func (s *GoldenSurveysService) CreateSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/surveys/new", opts, out)
+}
+
+func (s *GoldenSurveysService) DeactivateSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/{SurveyId}/deactivate", opts, out)
+}
+
+func (s *GoldenSurveysService) DeleteSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/surveys/{SurveyId}", opts, out)
+}
+
+func (s *GoldenSurveysService) DismissSurveyForTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/surveys/{SurveyId}/dismiss/ticket/{TicketId}", opts, out)
+}
+
+func (s *GoldenSurveysService) GetMyPendingSurveys(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/my/pending", opts, out)
+}
+
+func (s *GoldenSurveysService) GetPendingSurveys(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/{UserId}/pending", opts, out)
+}
+
+func (s *GoldenSurveysService) GetSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/{SurveyId}", opts, out)
+}
+
+func (s *GoldenSurveysService) GetSurveyResponseForTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/responses/ticket/{TicketId}", opts, out)
+}
+
+func (s *GoldenSurveysService) GetSurveyResponses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/responses/{SurveyId}", opts, out)
+}
+
+func (s *GoldenSurveysService) GetSurveyRules(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys/{SurveyId}/rules", opts, out)
+}
+
+func (s *GoldenSurveysService) GetSurveys(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/surveys", opts, out)
+}
+
+func (s *GoldenSurveysService) SaveSurveyResponseForTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/surveys/responses/ticket/{TicketId}", opts, out)
+}
+
+func (s *GoldenSurveysService) UpdateSurvey(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/surveys/{SurveyId}", opts, out)
+}
+
+type GoldenTagsService struct{ client *Client }
+
+func (s *GoldenTagsService) CreateTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tags", opts, out)
+}
+
+func (s *GoldenTagsService) CreateTags(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tags/ids/new", opts, out)
+}
+
+func (s *GoldenTagsService) DeleteTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tags/{TagId}", opts, out)
+}
+
+func (s *GoldenTagsService) DeleteTagsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tags/ids", opts, out)
+}
+
+func (s *GoldenTagsService) DeleteTagsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tags/query", opts, out)
+}
+
+func (s *GoldenTagsService) GetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tags/{TagId}", opts, out)
+}
+
+func (s *GoldenTagsService) GetTagsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tags/ids", opts, out)
+}
+
+func (s *GoldenTagsService) GetTagsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tags/query", opts, out)
+}
+
+func (s *GoldenTagsService) GetTagsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tags/of/type/{tagTypeId}", opts, out)
+}
+
+func (s *GoldenTagsService) SearchTagsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tags/query", opts, out)
+}
+
+func (s *GoldenTagsService) SearchTagsByType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tags/of/type/{tagTypeId}", opts, out)
+}
+
+func (s *GoldenTagsService) UndeleteTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tags/{TagId}/undelete", opts, out)
+}
+
+func (s *GoldenTagsService) UpdateTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tags/{TagId}/update", opts, out)
+}
+
+func (s *GoldenTagsService) UpdateTagsByIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tags/ids/update", opts, out)
+}
+
+func (s *GoldenTagsService) UpdateTagsByQuery(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tags/query/update", opts, out)
+}
+
+type GoldenTeamsService struct{ client *Client }
+
+func (s *GoldenTeamsService) AddTeamMember(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/{teamId}/members/{userId}", opts, out)
+}
+
+func (s *GoldenTeamsService) AddTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/members", opts, out)
+}
+
+func (s *GoldenTeamsService) ClearTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/{teamId}/clear-members", opts, out)
+}
+
+func (s *GoldenTeamsService) CreateTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/new", opts, out)
+}
+
+func (s *GoldenTeamsService) DeleteTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/teams/{teamId}", opts, out)
+}
+
+func (s *GoldenTeamsService) DeleteTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/teams/members", opts, out)
+}
+
+func (s *GoldenTeamsService) GetTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/{teamId}", opts, out)
+}
+
+func (s *GoldenTeamsService) ListAllTeams(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/all", opts, out)
+}
+
+func (s *GoldenTeamsService) ListMyTeams(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/my", opts, out)
+}
+
+func (s *GoldenTeamsService) ListPagedTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/{teamId}/paged-members", opts, out)
+}
+
+func (s *GoldenTeamsService) ListTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/{teamId}/members", opts, out)
+}
+
+func (s *GoldenTeamsService) ListTeamProductIds(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/products/all/ids", opts, out)
+}
+
+func (s *GoldenTeamsService) ListTeamProducts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams/products/all", opts, out)
+}
+
+func (s *GoldenTeamsService) ListTeams(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/teams", opts, out)
+}
+
+func (s *GoldenTeamsService) RemoveTeamMember(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/teams/{teamId}/members/{userId}", opts, out)
+}
+
+func (s *GoldenTeamsService) UndeleteTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/teams/{teamId}/undelete", opts, out)
+}
+
+func (s *GoldenTeamsService) UpdateTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/teams/{teamId}", opts, out)
+}
+
+func (s *GoldenTeamsService) UpdateTeamMembers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/teams/members", opts, out)
 }
 
 type GoldenTicketsService struct{ client *Client }
 
+func (s *GoldenTicketsService) AddTicketFollowerTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/followers/team/{teamId}", opts, out)
+}
+
+func (s *GoldenTicketsService) AddTicketFollowerUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/followers/user/{userId}", opts, out)
+}
+
+func (s *GoldenTicketsService) AddTicketTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/tags/{tagId}", opts, out)
+}
+
 func (s *GoldenTicketsService) AssignTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/sla", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/assign", opts, out)
+}
+
+func (s *GoldenTicketsService) AssignTicketSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/sla", opts, out)
 }
 
 func (s *GoldenTicketsService) CancelTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/cancel", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/cancel", opts, out)
+}
+
+func (s *GoldenTicketsService) ChangeTicketActivityVisibility(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/activities/{ticketActivityId}/visibility", opts, out)
+}
+
+func (s *GoldenTicketsService) ChangeTicketApprover(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/workflow/approval/change", opts, out)
 }
 
 func (s *GoldenTicketsService) ChangeTicketIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/issue", opts, out)
-}
-
-func (s *GoldenTicketsService) ChangeTicketToRequestorResponded(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/status/requestor-responded", opts, out)
-}
-
-func (s *GoldenTicketsService) ChangeTicketToWaitingOnRequestor(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/status/waiting-on-requestor", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/issue", opts, out)
 }
 
 func (s *GoldenTicketsService) CloseTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/close", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/close", opts, out)
 }
 
 func (s *GoldenTicketsService) ConfirmTicketIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/confirm-issue", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/confirm-issue", opts, out)
 }
 
 func (s *GoldenTicketsService) CopyTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/copy", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/copy", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateSimpleTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/simple/new", opts, out)
 }
 
 func (s *GoldenTicketsService) CreateTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/new", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/new", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateTicketActivity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/activities/new", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateTicketActivityBatch(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/activities/new-batch", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateTicketNextStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/next-steps/new", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateTicketNextStepTemplate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/next-step/templates/new", opts, out)
+}
+
+func (s *GoldenTicketsService) CreateTicketView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/views/new", opts, out)
 }
 
 func (s *GoldenTicketsService) DeleteTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/tickets/{TicketId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/{ticketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) DeleteTicketActivity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/activities/{ticketActivityId}", opts, out)
+}
+
+func (s *GoldenTicketsService) DeleteTicketNextStepTemplate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/next-step/templates/{TicketNextStepTemplateId}", opts, out)
+}
+
+func (s *GoldenTicketsService) DeleteTicketView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/views/{viewId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetActivitiesForTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/activities", opts, out)
+}
+
+func (s *GoldenTicketsService) GetAllWorkflowStatuses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/workflows/statuses", opts, out)
+}
+
+func (s *GoldenTicketsService) GetRelatedTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/related-tickets", opts, out)
+}
+
+func (s *GoldenTicketsService) GetSimilarTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/get-similar-tickets", opts, out)
 }
 
 func (s *GoldenTicketsService) GetTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/tickets/{TicketId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketActivities(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/activities", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketActivityById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/activities/{ticketActivityId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketApprovals(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/approvals", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketAssetGroups(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/assetgroups", opts, out)
 }
 
 func (s *GoldenTicketsService) GetTicketAssets(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/tickets/{TicketId}/assets", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/assets", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketAssetsByModel(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/assets", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketCount(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/count", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketDueDateReminders(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/due-dates/reminders/{ticketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/fields", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketFollowers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/followers", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketIdsForFilterSets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/ids/for/filtersets", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketKbArticles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/kb-articles", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketLocationTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/locationtypes", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketLocations(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/locations", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketNextStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/next-steps/{nextStepId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketNextStepTemplate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/next-step/templates/{TicketNextStepTemplateId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketNextStepType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/next-step/types/{ticketNextStepTypeId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketNextSteps(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/next-steps", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketRoles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/roles", opts, out)
 }
 
 func (s *GoldenTicketsService) GetTicketSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/tickets/{TicketId}/sla", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/sla", opts, out)
 }
 
-func (s *GoldenTicketsService) GetTicketStatuses(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/tickets/statuses", opts, out)
+func (s *GoldenTicketsService) GetTicketSources(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/sources", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/status", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketStatusById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/statuses/{statusId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketTeams(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/teams", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketTimeline(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/timeline", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{ticketId}/users", opts, out)
+}
+
+func (s *GoldenTicketsService) GetTicketView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/views/{viewId}", opts, out)
+}
+
+func (s *GoldenTicketsService) GetWorkflowStatuses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/{workflowId}/statuses", opts, out)
+}
+
+func (s *GoldenTicketsService) GetWorkflowStepStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/workflow/steps/{workflowStepId}", opts, out)
+}
+
+func (s *GoldenTicketsService) HasActiveEvents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/active-events/{ticketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketNextStepTemplates(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/next-step/templates", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketNextStepTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/next-step/types", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketPriorityLevels(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/priorities", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketSlas(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/slas", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketStatuses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/statuses", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketTimeline(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/timeline", opts, out)
+}
+
+func (s *GoldenTicketsService) ListTicketViews(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/views", opts, out)
+}
+
+func (s *GoldenTicketsService) ListWizardCategories(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/tickets/wizards/categories", opts, out)
+}
+
+func (s *GoldenTicketsService) LogSupportTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/support/{ticketId}/{siteId}", opts, out)
 }
 
 func (s *GoldenTicketsService) MarkTicketAsDuplicate(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/mark-as-duplicate/{OriginalTicketId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/mark-as-duplicate/{duplicateOfTicketId}", opts, out)
 }
 
 func (s *GoldenTicketsService) MarkTicketNotSensitive(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/mark-not-sensitive", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/mark-not-sensitive", opts, out)
 }
 
 func (s *GoldenTicketsService) MarkTicketNotUrgent(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/mark-not-urgent", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/mark-not-urgent", opts, out)
 }
 
 func (s *GoldenTicketsService) MarkTicketSensitive(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/mark-sensitive", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/mark-sensitive", opts, out)
 }
 
 func (s *GoldenTicketsService) MarkTicketUrgent(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/mark-urgent", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/mark-urgent", opts, out)
 }
 
-func (s *GoldenTicketsService) UnAssignTicketFromTeam(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/unassign/team", opts, out)
+func (s *GoldenTicketsService) ProcessTicketApproval(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/workflow/approval/response", opts, out)
 }
 
-func (s *GoldenTicketsService) UnAssignTicketFromUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/unassign/user", opts, out)
+func (s *GoldenTicketsService) ProcessTicketWorkflowApproval(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/workflow/approval/{workflowStepId}/{userId}", opts, out)
 }
 
-func (s *GoldenTicketsService) UnAssignTicketSla(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/unassign-sla", opts, out)
+func (s *GoldenTicketsService) RemoveTicketFollowerTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/{ticketId}/followers/team/{teamId}", opts, out)
 }
 
-func (s *GoldenTicketsService) UnConfirmTicketIssue(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/unconfirm-issue", opts, out)
+func (s *GoldenTicketsService) RemoveTicketFollowerUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/{ticketId}/followers/user/{userId}", opts, out)
+}
+
+func (s *GoldenTicketsService) RemoveTicketTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/tickets/{ticketId}/tags/{tagId}", opts, out)
+}
+
+func (s *GoldenTicketsService) ResolveTicketNextStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/next-steps/{ticketNextStepId}/resolve", opts, out)
+}
+
+func (s *GoldenTicketsService) SaveTicketDueDateReminders(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/due-dates/reminders", opts, out)
+}
+
+func (s *GoldenTicketsService) SearchTicketNextSteps(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/next-steps", opts, out)
+}
+
+func (s *GoldenTicketsService) SearchTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets", opts, out)
+}
+
+func (s *GoldenTicketsService) SendTicketActivityNotification(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/activities/{activityId}/send-notification", opts, out)
+}
+
+func (s *GoldenTicketsService) SendTicketForApproval(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/workflow/approval", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketDueDate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/due-dates", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketNextStepResolvable(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/next-steps/{ticketNextStepId}/resolvable/{userResolvable}", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketOwnerAndFor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/owner/{ownerUserId}/for/{forUserId}", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketPriority(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/priority", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketRequestorResponded(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/status/requestor-responded", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/status/{statusId}", opts, out)
+}
+
+func (s *GoldenTicketsService) SetTicketWaitingOnRequestor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/status/waiting-on-requestor", opts, out)
+}
+
+func (s *GoldenTicketsService) StartTicket(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/start", opts, out)
+}
+
+func (s *GoldenTicketsService) UnassignTicketFromRelated(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/unassign/related/{relatedTicketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) UnassignTicketFromTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/unassign/team", opts, out)
+}
+
+func (s *GoldenTicketsService) UnassignTicketFromUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/unassign/user", opts, out)
+}
+
+func (s *GoldenTicketsService) UnassignTicketSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/unassign-sla", opts, out)
+}
+
+func (s *GoldenTicketsService) UnconfirmTicketIssue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/unconfirm-issue", opts, out)
 }
 
 func (s *GoldenTicketsService) UndeleteTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "PUT", "/tickets/{TicketId}/undelete", opts, out)
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tickets/{ticketId}/undelete", opts, out)
+}
+
+func (s *GoldenTicketsService) UndeleteTicketActivity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/tickets/activities/{ticketActivityId}/undelete", opts, out)
 }
 
 func (s *GoldenTicketsService) UpdateTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketActivity(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/activities/{ticketActivityId}", opts, out)
 }
 
 func (s *GoldenTicketsService) UpdateTicketAssets(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/assets", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/assets", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketAssetsByCategory(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/assets/{wizardCategoryId}", opts, out)
 }
 
 func (s *GoldenTicketsService) UpdateTicketCustomFields(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/custom-fields", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/custom-fields", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketDescription(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/description", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketNextStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/next-steps/{nextStepId}", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketNextStepTemplate(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/next-step/templates/{TicketNextStepTemplateId}", opts, out)
 }
 
 func (s *GoldenTicketsService) UpdateTicketSubject(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/tickets/{TicketId}/subject", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/subject", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketTags(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/{ticketId}/tags", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/views/{viewId}", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketViewSchedules(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/views/{viewId}/schedules", opts, out)
+}
+
+func (s *GoldenTicketsService) UpdateTicketViewSort(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/tickets/views/{viewId}/sort", opts, out)
+}
+
+// Deprecated: use Tickets.SetTicketRequestorResponded instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) ChangeTicketToRequestorResponded(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.SetTicketRequestorResponded(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.SetTicketWaitingOnRequestor instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) ChangeTicketToWaitingOnRequestor(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.SetTicketWaitingOnRequestor(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.ListTicketStatuses instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) GetTicketStatuses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.ListTicketStatuses(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.UnassignTicketFromTeam instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) UnAssignTicketFromTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.UnassignTicketFromTeam(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.UnassignTicketFromUser instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) UnAssignTicketFromUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.UnassignTicketFromUser(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.UnassignTicketSla instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) UnAssignTicketSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.UnassignTicketSla(ctx, opts, out)
+}
+
+// Deprecated: use Tickets.UnconfirmTicketIssue instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenTicketsService) UnConfirmTicketIssue(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Tickets.UnconfirmTicketIssue(ctx, opts, out)
 }
 
 type GoldenUsersService struct{ client *Client }
 
+func (s *GoldenUsersService) AddRoomToUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/rooms/{LocationRoomId}", opts, out)
+}
+
+func (s *GoldenUsersService) AwardAchievement(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/achievements/award/{AchievementId}", opts, out)
+}
+
+func (s *GoldenUsersService) BulkSetUserRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/rooms/set", opts, out)
+}
+
+func (s *GoldenUsersService) ChangeUserPassword(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/change-password", opts, out)
+}
+
+func (s *GoldenUsersService) CompleteExternalUserRegistration(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/external/complete-registration", opts, out)
+}
+
+func (s *GoldenUsersService) ConvertUserToLocal(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/convert/to/local/{UserId}", opts, out)
+}
+
+func (s *GoldenUsersService) CountUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/count", opts, out)
+}
+
 func (s *GoldenUsersService) CreateLocalUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users/local/new", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/local/new", opts, out)
+}
+
+func (s *GoldenUsersService) CreateLocalUserFromSis(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/local/from/sis/{SisUserId}", opts, out)
+}
+
+func (s *GoldenUsersService) CreateShellUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/shell/new", opts, out)
+}
+
+func (s *GoldenUsersService) CreateShortcut(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/shortcut/new", opts, out)
+}
+
+func (s *GoldenUsersService) CreateTempUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/local/temp", opts, out)
+}
+
+func (s *GoldenUsersService) CreateUserView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/views/new", opts, out)
+}
+
+func (s *GoldenUsersService) DeleteShortcut(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/users/shortcut/{ShortcutId}", opts, out)
 }
 
 func (s *GoldenUsersService) DeleteUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/users/{UserId}", opts, out)
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/users/{UserId}", opts, out)
 }
 
-func (s *GoldenUsersService) DeleteUserView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "DELETE", "/users/views/{ViewId}", opts, out)
+func (s *GoldenUsersService) DeleteUserById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/users/views/{viewId}", opts, out)
 }
 
-func (s *GoldenUsersService) GetAgents(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users/agents", opts, out)
+func (s *GoldenUsersService) DeleteUserV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/users/delete/{userId}", opts, out)
 }
 
-func (s *GoldenUsersService) GetAgentsLegacy(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/agents", opts, out)
+func (s *GoldenUsersService) DeleteUsersByIdsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/users/delete", opts, out)
 }
 
-func (s *GoldenUsersService) GetUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/{UserId}", opts, out)
+func (s *GoldenUsersService) DeleteUsersByQueryV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v2.0/users/delete/list", opts, out)
+}
+
+func (s *GoldenUsersService) GetAllUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/all", opts, out)
+}
+
+func (s *GoldenUsersService) GetAvailableShortcuts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/shortcuts/available", opts, out)
+}
+
+func (s *GoldenUsersService) GetCurrentUserLocationsFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/users/my/locations", opts, out)
+}
+
+func (s *GoldenUsersService) GetCurrentUserLocationsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/users/my/locations", opts, out)
+}
+
+func (s *GoldenUsersService) GetCurrentUserLocationsViewFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/users/my/locations/view", opts, out)
+}
+
+func (s *GoldenUsersService) GetCurrentUserLocationsViewV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/users/my/locations/view", opts, out)
+}
+
+func (s *GoldenUsersService) GetIntercomJwt(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/intercom/jwt", opts, out)
+}
+
+func (s *GoldenUsersService) GetMyOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/my/options", opts, out)
+}
+
+func (s *GoldenUsersService) GetMyShortcuts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/my/shortcuts", opts, out)
+}
+
+func (s *GoldenUsersService) GetMyStudentsWithTickets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/my/students/with/tickets", opts, out)
+}
+
+func (s *GoldenUsersService) GetSimpleUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/simple/{UserId}", opts, out)
+}
+
+func (s *GoldenUsersService) GetSiteSystemUserId(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/system-user/{SiteId}", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserAchievements(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/achievements", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserActivities(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/activities", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserAtAssociatedSite(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/at-associated-site/{SiteId}/{EmailAddress}/{ExternalId}", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserByEmail(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/by-email/{SiteId}/{EmailAddress}", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserByExternalEmail(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/external", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserById(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserByUsername(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/by-username/{SiteId}/{Username}", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserIdsForFilterSets(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/ids/for/filtersets", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserLocationsFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/users/{UserId}/locations", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserLocationsV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/users/{UserId}/locations", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserLocationsViewFilteredV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v2.0/users/{UserId}/locations/view", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserLocationsViewV2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v2.0/users/{UserId}/locations/view", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/options", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserRelationships(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/relationships", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/rooms", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserRoomsBulk(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/rooms/get", opts, out)
+}
+
+func (s *GoldenUsersService) GetUserShortcuts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/{UserId}/shortcuts", opts, out)
 }
 
 func (s *GoldenUsersService) GetUserView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/views/{ViewId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/views/{viewId}", opts, out)
 }
 
-func (s *GoldenUsersService) GetUserViews(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/views", opts, out)
+func (s *GoldenUsersService) GetUsersForMyClasses(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/for/sisclass/{SisClassId}", opts, out)
 }
 
-func (s *GoldenUsersService) GetUsers(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users", opts, out)
+func (s *GoldenUsersService) GetUsersForRequestorSwap(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/requestor/swap", opts, out)
 }
 
 func (s *GoldenUsersService) GetUsersForView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users/view/{ViewId}", opts, out)
-}
-
-func (s *GoldenUsersService) GetUsersLegacy(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/view/{ViewId}", opts, out)
 }
 
 func (s *GoldenUsersService) GetUsersPerGrade(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/stats/grades", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/stats/grades", opts, out)
 }
 
 func (s *GoldenUsersService) GetUsersPerLocation(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/stats/locations", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/stats/locations", opts, out)
 }
 
 func (s *GoldenUsersService) GetUsersWithLocationPermission(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "GET", "/users/location/{LocationId}", opts, out)
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/location/{LocationId}", opts, out)
+}
+
+func (s *GoldenUsersService) IsUserOnlineLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/is-online/{Source}/{UserId}", opts, out)
+}
+
+func (s *GoldenUsersService) ListAgents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/agents/list", opts, out)
+}
+
+func (s *GoldenUsersService) ListAgentsLegacyGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/agents/list", opts, out)
+}
+
+func (s *GoldenUsersService) ListUserViews(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/views", opts, out)
+}
+
+func (s *GoldenUsersService) ListUsersSimple(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/list", opts, out)
+}
+
+func (s *GoldenUsersService) MigrateUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/change", opts, out)
+}
+
+func (s *GoldenUsersService) RegisterExternalUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/external/register", opts, out)
+}
+
+func (s *GoldenUsersService) RemoveRoomFromUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/users/{UserId}/rooms/{LocationRoomId}", opts, out)
+}
+
+func (s *GoldenUsersService) ResetUserPassword(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/reset-password", opts, out)
+}
+
+func (s *GoldenUsersService) RestoreIIQAdminAccounts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/restore-account", opts, out)
+}
+
+func (s *GoldenUsersService) SearchAgents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/agents", opts, out)
+}
+
+func (s *GoldenUsersService) SearchAgentsLegacyGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/agents", opts, out)
+}
+
+func (s *GoldenUsersService) SearchUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users", opts, out)
+}
+
+func (s *GoldenUsersService) SearchUsersByKeyword(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/search/{Query}", opts, out)
+}
+
+func (s *GoldenUsersService) SearchUsersLegacyGet(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users", opts, out)
+}
+
+func (s *GoldenUsersService) SendUserHeartbeat(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/heartbeat", opts, out)
+}
+
+func (s *GoldenUsersService) SendWelcomePackage(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/send-welcome-package", opts, out)
+}
+
+func (s *GoldenUsersService) SendWelcomePackagesToEnabledRoles(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/send-welcome-packages-to-enabled-roles", opts, out)
+}
+
+func (s *GoldenUsersService) SetMyOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/my/options", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserActive(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/my/is-online/active", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserAway(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/my/is-online/away", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserInitialProduct(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/set-initial-product", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserOptions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/options", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserRole(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/role", opts, out)
+}
+
+func (s *GoldenUsersService) SetUserRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/rooms", opts, out)
+}
+
+func (s *GoldenUsersService) UndeleteUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "PUT", "/api/v1.0/users/{UserId}/undelete", opts, out)
+}
+
+func (s *GoldenUsersService) UpdateAllUsersOutOfOfficeStatus(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/users/out-of-office/update-all", opts, out)
+}
+
+func (s *GoldenUsersService) UpdateShortcut(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/shortcut/{ShortcutId}", opts, out)
 }
 
 func (s *GoldenUsersService) UpdateUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users/{UserId}", opts, out)
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}", opts, out)
 }
 
+func (s *GoldenUsersService) UpdateUserAuthenticationSource(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/{UserId}/authentication-source", opts, out)
+}
+
+func (s *GoldenUsersService) UpdateUserViewSort(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/users/views/{viewId}/sort", opts, out)
+}
+
+// Deprecated: use Users.DeleteUserById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) DeleteUserView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.DeleteUserById(ctx, opts, out)
+}
+
+// Deprecated: use Users.SearchAgents instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetAgents(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.SearchAgents(ctx, opts, out)
+}
+
+// Deprecated: use Users.SearchAgentsLegacyGet instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetAgentsLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.SearchAgentsLegacyGet(ctx, opts, out)
+}
+
+// Deprecated: use Users.GetUserById instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.GetUserById(ctx, opts, out)
+}
+
+// Deprecated: use Users.ListUserViews instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetUserViews(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.ListUserViews(ctx, opts, out)
+}
+
+// Deprecated: use Users.SearchUsers instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.SearchUsers(ctx, opts, out)
+}
+
+// Deprecated: use Users.SearchUsersLegacyGet instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
+func (s *GoldenUsersService) GetUsersLegacy(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Users.SearchUsersLegacyGet(ctx, opts, out)
+}
+
+// Deprecated: use Silver.Users.UpdateUserView instead. Renamed by the OpenAPI contract
+// migration; this forwarder will be removed in a future release.
 func (s *GoldenUsersService) UpdateUserView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.Request(ctx, "POST", "/users/views/{ViewId}", opts, out)
+	return s.client.Silver.Users.UpdateUserView(ctx, opts, out)
+}
+
+type GoldenViewsService struct{ client *Client }
+
+func (s *GoldenViewsService) CreateView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/new", opts, out)
+}
+
+func (s *GoldenViewsService) CreateViewTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/teams/new", opts, out)
+}
+
+func (s *GoldenViewsService) CreateViewUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/users/new", opts, out)
+}
+
+func (s *GoldenViewsService) DeleteViewTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/views/teams/{viewTeamId}", opts, out)
+}
+
+func (s *GoldenViewsService) DeleteViewUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/views/users/{viewUserId}", opts, out)
+}
+
+func (s *GoldenViewsService) GetViewDefinition(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/{viewId}", opts, out)
+}
+
+func (s *GoldenViewsService) GetViewFilters(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/{entityTypeId}/{viewId}/filters", opts, out)
+}
+
+func (s *GoldenViewsService) GetViewTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/teams/{viewTeamId}", opts, out)
+}
+
+func (s *GoldenViewsService) GetViewUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/users/{viewUserId}", opts, out)
+}
+
+func (s *GoldenViewsService) ListViewTeams(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/{viewId}/teams", opts, out)
+}
+
+func (s *GoldenViewsService) ListViewUsers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/{viewId}/users", opts, out)
+}
+
+func (s *GoldenViewsService) ListViewsAllProducts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/views/allproducts/{viewTypeId}", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewSchedules(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/{viewId}/schedules", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewSort(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/{viewId}/sort", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewTeam(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/teams/{viewTeamId}", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewTeamResponse(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/teams/{viewTeamId}/users/{viewUserId}/response/{response}", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewUser(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/users/{viewUserId}", opts, out)
+}
+
+func (s *GoldenViewsService) UpdateViewUserResponse(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/views/users/{viewUserId}/response/{response}", opts, out)
+}
+
+type GoldenWorkflowsService struct{ client *Client }
+
+func (s *GoldenWorkflowsService) CreateWorkflow(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/workflows/new", opts, out)
+}
+
+func (s *GoldenWorkflowsService) CreateWorkflowStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/workflows/steps/new", opts, out)
+}
+
+func (s *GoldenWorkflowsService) DeleteWorkflow(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/workflows/{workflowId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) DeleteWorkflowStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "DELETE", "/api/v1.0/workflows/steps/{workflowStepId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflow(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/{workflowId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowActionTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/actiontypes", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowActions(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/steps/{workflowStepId}/actions", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowApprovalTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/approvaltypes", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/{workflowId}/fields", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowLinkedIssues(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/{workflowId}/issues", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowNextSteps(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/steps/{workflowStepId}/nextsteps", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowNextStepsAsSteps(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/steps/{workflowStepId}/nextsteps/steps", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/steps/{workflowStepId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowSteps(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/steps", opts, out)
+}
+
+func (s *GoldenWorkflowsService) GetWorkflowStepsByWorkflow(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/{workflowId}/steps", opts, out)
+}
+
+func (s *GoldenWorkflowsService) ListWorkflows(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows", opts, out)
+}
+
+func (s *GoldenWorkflowsService) ListWorkflowsAllProducts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/allproducts", opts, out)
+}
+
+func (s *GoldenWorkflowsService) ListWorkflowsBySiteAndProduct(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "GET", "/api/v1.0/workflows/site/{siteId}/product/{productId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) UpdateWorkflow(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/workflows/{workflowId}", opts, out)
+}
+
+func (s *GoldenWorkflowsService) UpdateWorkflowStep(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.Request(ctx, "POST", "/api/v1.0/workflows/steps/{workflowStepId}", opts, out)
 }
 
 type SilverClient struct {
+	Alerts           *SilverAlertsService
 	Analytics        *SilverAnalyticsService
 	Api              *SilverApiService
 	AppRegistry      *SilverAppRegistryService
 	Assets           *SilverAssetsService
-	Audits           *SilverAuditsService
 	Calendars        *SilverCalendarsService
-	Categories       *SilverCategoriesService
 	CustomFields     *SilverCustomFieldsService
 	Dev              *SilverDevService
 	Entities         *SilverEntitiesService
-	Files            *SilverFilesService
 	Filters          *SilverFiltersService
 	FlowProcedures   *SilverFlowProceduresService
+	Forms            *SilverFormsService
 	Help             *SilverHelpService
 	Jobs             *SilverJobsService
 	Labor            *SilverLaborService
 	Layouts          *SilverLayoutsService
+	Locations        *SilverLocationsService
+	Manufacturers    *SilverManufacturersService
 	Maps             *SilverMapsService
-	Models           *SilverModelsService
+	Metrics          *SilverMetricsService
+	Notifications    *SilverNotificationsService
+	Parts            *SilverPartsService
 	Permissions      *SilverPermissionsService
 	PermissionsNext  *SilverPermissionsNextService
 	Products         *SilverProductsService
 	Profiles         *SilverProfilesService
+	Purchaseorders   *SilverPurchaseordersService
 	Resolutions      *SilverResolutionsService
 	Rules            *SilverRulesService
 	S                *SilverSService
@@ -776,15 +4308,12 @@ type SilverClient struct {
 	Session          *SilverSessionService
 	Settings         *SilverSettingsService
 	Sis              *SilverSisService
-	Sites            *SilverSitesService
-	Subtasks         *SilverSubtasksService
-	Surveys          *SilverSurveysService
+	Slas             *SilverSlasService
 	Tasks            *SilverTasksService
 	Teams            *SilverTeamsService
 	Tickets          *SilverTicketsService
 	TicketsTemplates *SilverTicketsTemplatesService
 	Users            *SilverUsersService
-	Views            *SilverViewsService
 	Apps             *SilverAppsClient
 }
 
@@ -817,6 +4346,12 @@ type SilverAppsClient struct {
 	WorkspaceOne          *SilverAppsWorkspaceOneService
 }
 
+type SilverAlertsService struct{ client *Client }
+
+func (s *SilverAlertsService) QueueNotification(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/alerts/new", opts, out, true)
+}
+
 type SilverAnalyticsService struct{ client *Client }
 
 func (s *SilverAnalyticsService) GetAgentCurrentStats(ctx context.Context, opts RequestOptions, out any) error {
@@ -827,12 +4362,20 @@ func (s *SilverAnalyticsService) GetAgentLocationStats(ctx context.Context, opts
 	return s.client.request(ctx, "GET", "/api/v1.0/analytics/agent-location-stats", opts, out, true)
 }
 
-func (s *SilverAnalyticsService) GetAssetSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/analytics/asset/{asset_id}/summary-stats", opts, out, true)
+func (s *SilverAnalyticsService) GetReport(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/reports/{report_id}", opts, out, true)
 }
 
-func (s *SilverAnalyticsService) GetRequestorSummaryStats(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/analytics/requestor/{requestor_id}/summary-stats", opts, out, true)
+func (s *SilverAnalyticsService) GetReportElements(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/reports/elements/{report_id}", opts, out, true)
+}
+
+func (s *SilverAnalyticsService) GetReportQueries(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/reports/queries/{report_id}", opts, out, true)
+}
+
+func (s *SilverAnalyticsService) GetReports(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/analytics/reports", opts, out, true)
 }
 
 type SilverApiService struct{ client *Client }
@@ -861,34 +4404,60 @@ func (s *SilverAppRegistryService) PostInstalled(ctx context.Context, opts Reque
 
 type SilverAssetsService struct{ client *Client }
 
-func (s *SilverAssetsService) GetAssetBySerial(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/assets/serial/{serial}", opts, out, true)
+func (s *SilverAssetsService) AddManufacturerToSite2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/manufacturers/{manufacturer_id}/site/{include_all_models}", opts, out, true)
 }
 
-func (s *SilverAssetsService) GetAssetFiles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/assets/{asset_id}/files", opts, out, true)
+func (s *SilverAssetsService) CreateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/status/types/new", opts, out, true)
 }
 
-func (s *SilverAssetsService) GetAssetVerifications(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/assets/{asset_id}/verifications", opts, out, true)
+func (s *SilverAssetsService) DeleteAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/assets/funding/types/{asset_funding_type_id}", opts, out, true)
 }
 
-func (s *SilverAssetsService) GetStatsLocations(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/assets/stats/locations", opts, out, true)
+func (s *SilverAssetsService) DeleteAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/assets/status/types/{asset_status_type_id}", opts, out, true)
 }
 
-func (s *SilverAssetsService) GetType(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/assets/types/{type_id}", opts, out, true)
+func (s *SilverAssetsService) GetAssetFavorites2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/favorites/{user_id}/{all}", opts, out, true)
 }
 
-func (s *SilverAssetsService) PostCheckoutsTransactionsQueryGet(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/assets/checkouts/transactions/query/get", opts, out, true)
+func (s *SilverAssetsService) GetAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/funding/types/{asset_funding_type_id}", opts, out, true)
 }
 
-type SilverAuditsService struct{ client *Client }
+func (s *SilverAssetsService) GetAssetFundingTypes2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/funding/types", opts, out, true)
+}
 
-func (s *SilverAuditsService) GetPoliciesSchedulesForAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/audits/policies/schedules/for-asset/{for_asset_id}", opts, out, true)
+func (s *SilverAssetsService) GetAssetsByAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/assetstatustype/{asset_status_type_id}", opts, out, true)
+}
+
+func (s *SilverAssetsService) GetAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/assettag/{asset_tag}", opts, out, true)
+}
+
+func (s *SilverAssetsService) GetSpareAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/spares/assettag/{asset_tag}", opts, out, true)
+}
+
+func (s *SilverAssetsService) GetUserAssets2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/for/{user_id}/{all}", opts, out, true)
+}
+
+func (s *SilverAssetsService) SearchAssetsByAssetTag(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/assets/assettag/search/{asset_tag}", opts, out, true)
+}
+
+func (s *SilverAssetsService) UpdateAssetFundingType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/funding/types/{asset_funding_type_id}", opts, out, true)
+}
+
+func (s *SilverAssetsService) UpdateAssetStatusType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/assets/status/types/{asset_status_type_id}", opts, out, true)
 }
 
 type SilverCalendarsService struct{ client *Client }
@@ -901,28 +4470,14 @@ func (s *SilverCalendarsService) PostEvents(ctx context.Context, opts RequestOpt
 	return s.client.request(ctx, "POST", "/api/v1.0/calendars/events", opts, out, true)
 }
 
-type SilverCategoriesService struct{ client *Client }
-
-func (s *SilverCategoriesService) GetOfFilters(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/categories/of/filters", opts, out, true)
-}
-
-func (s *SilverCategoriesService) GetOfModels(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/categories/of/models", opts, out, true)
-}
-
 type SilverCustomFieldsService struct{ client *Client }
 
-func (s *SilverCustomFieldsService) PostForAsset(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/asset", opts, out, true)
+func (s *SilverCustomFieldsService) DeleteCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/custom-fields", opts, out, true)
 }
 
-func (s *SilverCustomFieldsService) PostForTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/ticket", opts, out, true)
-}
-
-func (s *SilverCustomFieldsService) PostForUser(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/custom-fields/for/user", opts, out, true)
+func (s *SilverCustomFieldsService) GetCustomFields(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/custom-fields", opts, out, true)
 }
 
 type SilverDevService struct{ client *Client }
@@ -937,21 +4492,7 @@ func (s *SilverEntitiesService) GetTypesFieldsWithoptions(ctx context.Context, o
 	return s.client.request(ctx, "GET", "/api/v1.0/entities/types/{type_id}/fields/withoptions", opts, out, true)
 }
 
-type SilverFilesService struct{ client *Client }
-
-func (s *SilverFilesService) GetEntity(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/files/entity/{entity_id}/{n_888891ac_91aa_e711_80c2_100dffa00004_id}", opts, out, true)
-}
-
 type SilverFiltersService struct{ client *Client }
-
-func (s *SilverFiltersService) GetForEntitytype(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/filters/for/entitytype/{entitytype_id}", opts, out, true)
-}
-
-func (s *SilverFiltersService) GetSet(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/filters/sets/{set_id}", opts, out, true)
-}
 
 func (s *SilverFiltersService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "POST", "/api/v1.0/filters", opts, out, true)
@@ -961,6 +4502,12 @@ type SilverFlowProceduresService struct{ client *Client }
 
 func (s *SilverFlowProceduresService) PostAvailableCards(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "POST", "/api/v1.0/flow-procedures/available/cards", opts, out, true)
+}
+
+type SilverFormsService struct{ client *Client }
+
+func (s *SilverFormsService) SubmitForm(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/forms/submit", opts, out, true)
 }
 
 type SilverHelpService struct{ client *Client }
@@ -981,18 +4528,70 @@ func (s *SilverLaborService) GetRatesUser(ctx context.Context, opts RequestOptio
 	return s.client.request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}/{n_61757b5f_dd31_f111_8ef2_000d3a7cb1a2_id}/{n_88df910c_91aa_e711_80c2_0004ffa00010_id}", opts, out, true)
 }
 
-func (s *SilverLaborService) GetRatesUser2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/labor/rates/user/{user_id}", opts, out, true)
-}
-
-func (s *SilverLaborService) PostTypes(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/labor/types", opts, out, true)
-}
-
 type SilverLayoutsService struct{ client *Client }
 
 func (s *SilverLayoutsService) GetMyDashboard(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "GET", "/api/v1.0/layouts/my/dashboard", opts, out, true)
+}
+
+type SilverLocationsService struct{ client *Client }
+
+func (s *SilverLocationsService) DeleteLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/locations/{location_id}", opts, out, true)
+}
+
+func (s *SilverLocationsService) GetAllLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/locations/rooms", opts, out, true)
+}
+
+func (s *SilverLocationsService) GetLocationRooms(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/locations/{location_id}/rooms", opts, out, true)
+}
+
+func (s *SilverLocationsService) GetLocationType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/locations/types/{location_type_id}", opts, out, true)
+}
+
+func (s *SilverLocationsService) GetLocationTypes(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/locations/types", opts, out, true)
+}
+
+func (s *SilverLocationsService) UpdateLocation(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/locations/{location_id}", opts, out, true)
+}
+
+type SilverManufacturersService struct{ client *Client }
+
+func (s *SilverManufacturersService) AddManufacturerToSite3(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/manufacturers/{manufacturer_id}/site", opts, out, true)
+}
+
+func (s *SilverManufacturersService) AddManufacturerToSite4(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/manufacturers/{manufacturer_id}/site/{include_all_models}", opts, out, true)
+}
+
+func (s *SilverManufacturersService) DeleteManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/manufacturers/{manufacturer_id}", opts, out, true)
+}
+
+func (s *SilverManufacturersService) GetGlobalManufacturers3(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/manufacturers/global", opts, out, true)
+}
+
+func (s *SilverManufacturersService) GetGlobalManufacturers4(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/manufacturers/global", opts, out, true)
+}
+
+func (s *SilverManufacturersService) GetManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/manufacturers/{manufacturer_id}", opts, out, true)
+}
+
+func (s *SilverManufacturersService) RemoveManufacturerFromSite2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/manufacturers/{manufacturer_id}/site", opts, out, true)
+}
+
+func (s *SilverManufacturersService) UpdateManufacturer2(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/manufacturers/{manufacturer_id}", opts, out, true)
 }
 
 type SilverMapsService struct{ client *Client }
@@ -1001,34 +4600,94 @@ func (s *SilverMapsService) PostAssetsAll(ctx context.Context, opts RequestOptio
 	return s.client.request(ctx, "POST", "/api/v1.0/maps/assets/all", opts, out, true)
 }
 
-type SilverModelsService struct{ client *Client }
+type SilverMetricsService struct{ client *Client }
 
-func (s *SilverModelsService) GetAll(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/models/all", opts, out, true)
+func (s *SilverMetricsService) DeleteMetricType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/metrics/types/{metric_type_id}", opts, out, true)
 }
 
-func (s *SilverModelsService) GetAppsAeriesSis(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/aeriesSis", opts, out, true)
+func (s *SilverMetricsService) GetMetric(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/metrics/{metric_id}", opts, out, true)
 }
 
-func (s *SilverModelsService) GetAppsGoogleDeviceData(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/googleDeviceData", opts, out, true)
+func (s *SilverMetricsService) GetMetricsForSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/metrics/for/sla/{sla_id}", opts, out, true)
 }
 
-func (s *SilverModelsService) GetAppsMicrosoftIntune(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/microsoftIntune", opts, out, true)
+func (s *SilverMetricsService) UpdateMetric(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/metrics/{metric_id}", opts, out, true)
 }
 
-func (s *SilverModelsService) GetAppsSubticketsForIT(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/models/apps/subticketsForIT", opts, out, true)
+func (s *SilverMetricsService) UpdateMetricType(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/metrics/types/{metric_type_id}", opts, out, true)
 }
 
-func (s *SilverModelsService) PostAvailableToSite(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/models/available/to/site", opts, out, true)
+type SilverNotificationsService struct{ client *Client }
+
+func (s *SilverNotificationsService) GetNotifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/notifications", opts, out, true)
 }
 
-func (s *SilverModelsService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/models", opts, out, true)
+func (s *SilverNotificationsService) GetTicketEmails(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/notifications/emails/for/ticket/{ticket_id}", opts, out, true)
+}
+
+func (s *SilverNotificationsService) GetUnarchivedNotifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/notifications/unarchived", opts, out, true)
+}
+
+func (s *SilverNotificationsService) GetUnreadNotifications(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/notifications/unread", opts, out, true)
+}
+
+func (s *SilverNotificationsService) MarkAllNotificationsArchived(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/notifications/all-archive", opts, out, true)
+}
+
+func (s *SilverNotificationsService) MarkAllNotificationsRead(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/notifications/all-read", opts, out, true)
+}
+
+func (s *SilverNotificationsService) MarkNotificationArchived(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/notifications/{notification_id}/archive", opts, out, true)
+}
+
+func (s *SilverNotificationsService) MarkNotificationRead(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/notifications/{notification_id}/read", opts, out, true)
+}
+
+type SilverPartsService struct{ client *Client }
+
+func (s *SilverPartsService) DeletePart(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/parts/{part_id}", opts, out, true)
+}
+
+func (s *SilverPartsService) DeletePartSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/parts/suppliers/{part_supplier_id}", opts, out, true)
+}
+
+func (s *SilverPartsService) GetPart(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/parts/{part_id}", opts, out, true)
+}
+
+func (s *SilverPartsService) GetPartSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/parts/suppliers/{part_supplier_id}", opts, out, true)
+}
+
+func (s *SilverPartsService) GetPartSuppliers(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/parts/suppliers", opts, out, true)
+}
+
+func (s *SilverPartsService) GetParts(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/parts", opts, out, true)
+}
+
+func (s *SilverPartsService) UpdatePart(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/parts/{part_id}", opts, out, true)
+}
+
+func (s *SilverPartsService) UpdatePartSupplier(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/parts/suppliers/{part_supplier_id}", opts, out, true)
 }
 
 type SilverPermissionsService struct{ client *Client }
@@ -1057,6 +4716,24 @@ type SilverProfilesService struct{ client *Client }
 
 func (s *SilverProfilesService) PostProfilePicture(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "POST", "/api/v1.0/profiles/{user_id}/picture", opts, out, true)
+}
+
+type SilverPurchaseordersService struct{ client *Client }
+
+func (s *SilverPurchaseordersService) DeletePurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "DELETE", "/api/v1.0/purchaseorders/{purchase_order_id}", opts, out, true)
+}
+
+func (s *SilverPurchaseordersService) GetPurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/purchaseorders/{purchase_order_id}", opts, out, true)
+}
+
+func (s *SilverPurchaseordersService) GetPurchaseOrders(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/purchaseorders", opts, out, true)
+}
+
+func (s *SilverPurchaseordersService) UpdatePurchaseOrder(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/purchaseorders/{purchase_order_id}", opts, out, true)
 }
 
 type SilverResolutionsService struct{ client *Client }
@@ -1155,26 +4832,14 @@ func (s *SilverSisService) GetClassesForUser(ctx context.Context, opts RequestOp
 	return s.client.request(ctx, "GET", "/api/v1.0/sis/classes/for/user/{user_id}", opts, out, true)
 }
 
-type SilverSitesService struct{ client *Client }
+type SilverSlasService struct{ client *Client }
 
-func (s *SilverSitesService) GetDeployments(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/sites/deployments", opts, out, true)
+func (s *SilverSlasService) GetSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "GET", "/api/v1.0/slas/{sla_id}", opts, out, true)
 }
 
-func (s *SilverSitesService) PostRoles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/sites/roles", opts, out, true)
-}
-
-type SilverSubtasksService struct{ client *Client }
-
-func (s *SilverSubtasksService) GetSubtask(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/subtasks/{subtask_id}", opts, out, true)
-}
-
-type SilverSurveysService struct{ client *Client }
-
-func (s *SilverSurveysService) GetResponsesTicket(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/surveys/responses/ticket/{ticket_id}", opts, out, true)
+func (s *SilverSlasService) UpdateSla(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/slas/{sla_id}", opts, out, true)
 }
 
 type SilverTasksService struct{ client *Client }
@@ -1185,42 +4850,14 @@ func (s *SilverTasksService) GetEndpoint(ctx context.Context, opts RequestOption
 
 type SilverTeamsService struct{ client *Client }
 
-func (s *SilverTeamsService) GetEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/teams", opts, out, true)
-}
-
 func (s *SilverTeamsService) GetFor(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "GET", "/api/v1.0/teams/for/{for__id}", opts, out, true)
 }
 
 type SilverTicketsService struct{ client *Client }
 
-func (s *SilverTicketsService) GetTicketActivities(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/activities", opts, out, true)
-}
-
-func (s *SilverTicketsService) GetTicketKbArticles(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/kb-articles", opts, out, true)
-}
-
-func (s *SilverTicketsService) GetTicketNextSteps(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/next-steps", opts, out, true)
-}
-
-func (s *SilverTicketsService) GetTicketStatus(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/tickets/{ticket_id}/status", opts, out, true)
-}
-
 func (s *SilverTicketsService) GetWizardsSite(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "GET", "/api/v1.0/tickets/wizards/site/{site_id}", opts, out, true)
-}
-
-func (s *SilverTicketsService) PostEndpoint(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/tickets", opts, out, true)
-}
-
-func (s *SilverTicketsService) PostTicketTimeline(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "POST", "/api/v1.0/tickets/{ticket_id}/timeline", opts, out, true)
 }
 
 type SilverTicketsTemplatesService struct{ client *Client }
@@ -1231,42 +4868,12 @@ func (s *SilverTicketsTemplatesService) PostEndpoint(ctx context.Context, opts R
 
 type SilverUsersService struct{ client *Client }
 
-func (s *SilverUsersService) GetMyShortcuts(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/my/shortcuts", opts, out, true)
-}
-
-func (s *SilverUsersService) GetShortcutsAvailable(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/shortcuts/available", opts, out, true)
-}
-
-func (s *SilverUsersService) GetSimple(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/simple/{simple_id}", opts, out, true)
-}
-
-func (s *SilverUsersService) GetUserOptions(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/options", opts, out, true)
-}
-
-func (s *SilverUsersService) GetUserRelationships(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/relationships", opts, out, true)
-}
-
-func (s *SilverUsersService) GetUserRooms(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/users/{user_id}/rooms", opts, out, true)
-}
-
 func (s *SilverUsersService) PostIsOnlineList(ctx context.Context, opts RequestOptions, out any) error {
 	return s.client.request(ctx, "POST", "/api/v1.0/users/is-online/list", opts, out, true)
 }
 
-type SilverViewsService struct{ client *Client }
-
-func (s *SilverViewsService) GetView(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/views/{view_key}", opts, out, true)
-}
-
-func (s *SilverViewsService) GetView2(ctx context.Context, opts RequestOptions, out any) error {
-	return s.client.request(ctx, "GET", "/api/v1.0/views/{view_id}", opts, out, true)
+func (s *SilverUsersService) UpdateUserView(ctx context.Context, opts RequestOptions, out any) error {
+	return s.client.request(ctx, "POST", "/api/v1.0/users/views/{view_id}", opts, out, true)
 }
 
 type SilverAppsAeriesSisService struct{ client *Client }
@@ -1667,46 +5274,78 @@ func (s *SilverAppsWorkspaceOneService) PostAssetsLookup(ctx context.Context, op
 
 func wireGeneratedServices(client *Client) {
 	client.generatedClientServices = generatedClientServices{
-		Alerts:         &GoldenAlertsService{client: client},
-		Analytics:      &GoldenAnalyticsService{client: client},
-		Assets:         &GoldenAssetsService{client: client},
-		CustomFields:   &GoldenCustomFieldsService{client: client},
-		Forms:          &GoldenFormsService{client: client},
-		Issues:         &GoldenIssuesService{client: client},
-		Locations:      &GoldenLocationsService{client: client},
-		Manufacturers:  &GoldenManufacturersService{client: client},
-		Metrics:        &GoldenMetricsService{client: client},
-		Notifications:  &GoldenNotificationsService{client: client},
-		Parts:          &GoldenPartsService{client: client},
-		Purchaseorders: &GoldenPurchaseordersService{client: client},
-		Slas:           &GoldenSlasService{client: client},
-		Tickets:        &GoldenTicketsService{client: client},
-		Users:          &GoldenUsersService{client: client},
+		Alerts:          &GoldenAlertsService{client: client},
+		Analytics:       &GoldenAnalyticsService{client: client},
+		Assets:          &GoldenAssetsService{client: client},
+		Audits:          &GoldenAuditsService{client: client},
+		Categories:      &GoldenCategoriesService{client: client},
+		CustomFields:    &GoldenCustomFieldsService{client: client},
+		CustomFieldsNew: &GoldenCustomFieldsNewService{client: client},
+		Events:          &GoldenEventsService{client: client},
+		Files:           &GoldenFilesService{client: client},
+		Filter:          &GoldenFilterService{client: client},
+		Filters:         &GoldenFiltersService{client: client},
+		Forms:           &GoldenFormsService{client: client},
+		FundingSources:  &GoldenFundingSourcesService{client: client},
+		Global:          &GoldenGlobalService{client: client},
+		Inventory:       &GoldenInventoryService{client: client},
+		Invoicing:       &GoldenInvoicingService{client: client},
+		Issues:          &GoldenIssuesService{client: client},
+		Labor:           &GoldenLaborService{client: client},
+		Locations:       &GoldenLocationsService{client: client},
+		Manufacturers:   &GoldenManufacturersService{client: client},
+		Metrics:         &GoldenMetricsService{client: client},
+		Models:          &GoldenModelsService{client: client},
+		Notifications:   &GoldenNotificationsService{client: client},
+		Organizations:   &GoldenOrganizationsService{client: client},
+		Parts:           &GoldenPartsService{client: client},
+		Products:        &GoldenProductsService{client: client},
+		Pub:             &GoldenPubService{client: client},
+		PurchaseOrders:  &GoldenPurchaseOrdersService{client: client},
+		Purchaseorders:  &GoldenPurchaseordersService{client: client},
+		Resolutions:     &GoldenResolutionsService{client: client},
+		Shortcuts:       &GoldenShortcutsService{client: client},
+		Sites:           &GoldenSitesService{client: client},
+		Slas:            &GoldenSlasService{client: client},
+		Subtasks:        &GoldenSubtasksService{client: client},
+		Subtickets:      &GoldenSubticketsService{client: client},
+		Suppliers:       &GoldenSuppliersService{client: client},
+		Surveys:         &GoldenSurveysService{client: client},
+		Tags:            &GoldenTagsService{client: client},
+		Teams:           &GoldenTeamsService{client: client},
+		Tickets:         &GoldenTicketsService{client: client},
+		Users:           &GoldenUsersService{client: client},
+		Views:           &GoldenViewsService{client: client},
+		Workflows:       &GoldenWorkflowsService{client: client},
 	}
 	client.Silver = &SilverClient{
+		Alerts:           &SilverAlertsService{client: client},
 		Analytics:        &SilverAnalyticsService{client: client},
 		Api:              &SilverApiService{client: client},
 		AppRegistry:      &SilverAppRegistryService{client: client},
 		Assets:           &SilverAssetsService{client: client},
-		Audits:           &SilverAuditsService{client: client},
 		Calendars:        &SilverCalendarsService{client: client},
-		Categories:       &SilverCategoriesService{client: client},
 		CustomFields:     &SilverCustomFieldsService{client: client},
 		Dev:              &SilverDevService{client: client},
 		Entities:         &SilverEntitiesService{client: client},
-		Files:            &SilverFilesService{client: client},
 		Filters:          &SilverFiltersService{client: client},
 		FlowProcedures:   &SilverFlowProceduresService{client: client},
+		Forms:            &SilverFormsService{client: client},
 		Help:             &SilverHelpService{client: client},
 		Jobs:             &SilverJobsService{client: client},
 		Labor:            &SilverLaborService{client: client},
 		Layouts:          &SilverLayoutsService{client: client},
+		Locations:        &SilverLocationsService{client: client},
+		Manufacturers:    &SilverManufacturersService{client: client},
 		Maps:             &SilverMapsService{client: client},
-		Models:           &SilverModelsService{client: client},
+		Metrics:          &SilverMetricsService{client: client},
+		Notifications:    &SilverNotificationsService{client: client},
+		Parts:            &SilverPartsService{client: client},
 		Permissions:      &SilverPermissionsService{client: client},
 		PermissionsNext:  &SilverPermissionsNextService{client: client},
 		Products:         &SilverProductsService{client: client},
 		Profiles:         &SilverProfilesService{client: client},
+		Purchaseorders:   &SilverPurchaseordersService{client: client},
 		Resolutions:      &SilverResolutionsService{client: client},
 		Rules:            &SilverRulesService{client: client},
 		S:                &SilverSService{client: client},
@@ -1715,15 +5354,12 @@ func wireGeneratedServices(client *Client) {
 		Session:          &SilverSessionService{client: client},
 		Settings:         &SilverSettingsService{client: client},
 		Sis:              &SilverSisService{client: client},
-		Sites:            &SilverSitesService{client: client},
-		Subtasks:         &SilverSubtasksService{client: client},
-		Surveys:          &SilverSurveysService{client: client},
+		Slas:             &SilverSlasService{client: client},
 		Tasks:            &SilverTasksService{client: client},
 		Teams:            &SilverTeamsService{client: client},
 		Tickets:          &SilverTicketsService{client: client},
 		TicketsTemplates: &SilverTicketsTemplatesService{client: client},
 		Users:            &SilverUsersService{client: client},
-		Views:            &SilverViewsService{client: client},
 		Apps: &SilverAppsClient{
 			AeriesSis:             &SilverAppsAeriesSisService{client: client},
 			FileWave:              &SilverAppsFileWaveService{client: client},
@@ -1757,188 +5393,881 @@ func wireGeneratedServices(client *Client) {
 
 func GoldenWrapperInventory() []string {
 	return []string{
-		"alerts.queue_notification",
+		"analytics.get_asset_audit_policy_periods_by_status",
+		"analytics.get_asset_audit_policy_periods_by_status_for_asset",
 		"analytics.get_asset_counts_by_audit_policy_coverage",
 		"analytics.get_asset_counts_by_audit_policy_schedule_status",
 		"analytics.get_asset_counts_by_audit_policy_status",
+		"analytics.get_asset_counts_by_audit_policy_verification_location",
+		"analytics.get_asset_counts_by_audit_policy_verification_type",
 		"analytics.get_asset_counts_by_audit_status",
-		"analytics.get_asset_counts_by_verification_location",
-		"analytics.get_asset_counts_by_verification_type",
-		"analytics.get_report",
-		"analytics.get_report_elements",
-		"analytics.get_report_queries",
-		"analytics.get_reports",
+		"analytics.get_asset_counts_by_status_type",
+		"analytics.get_asset_summary_stats",
+		"analytics.get_asset_verification_counts_by_location",
+		"analytics.get_asset_verification_counts_by_type",
+		"analytics.get_requestor_summary_stats",
+		"assets.add_asset_favorite",
+		"assets.add_asset_files",
+		"assets.add_linked_assets",
 		"assets.add_manufacturer_to_site",
-		"assets.add_manufacturer_to_site2",
-		"assets.add_user_favorite_asset",
-		"assets.create_asset_status_type",
+		"assets.bulk_create_asset_verifications",
+		"assets.bulk_delete_asset_verifications",
+		"assets.bulk_delete_linked_assets",
+		"assets.checkin_asset",
+		"assets.checkout_or_transfer_asset",
+		"assets.count_assets",
+		"assets.create_asset",
+		"assets.create_asset_type",
+		"assets.create_asset_verification",
+		"assets.create_asset_view",
+		"assets.create_manufacturer",
+		"assets.create_my_classes_asset_verification",
 		"assets.delete_asset",
-		"assets.delete_asset_funding_type",
-		"assets.delete_asset_status_type",
+		"assets.delete_asset_checkout",
+		"assets.delete_asset_checkouts_by_ids",
+		"assets.delete_asset_checkouts_by_query",
+		"assets.delete_asset_file",
+		"assets.delete_asset_view",
+		"assets.delete_linked_assets",
 		"assets.delete_manufacturer",
-		"assets.get_asset",
+		"assets.exchange_asset",
+		"assets.export_assets_by_type",
+		"assets.generate_asset_tag",
+		"assets.get_aggregated_asset_cost_values",
 		"assets.get_asset_activities",
-		"assets.get_asset_favorites",
-		"assets.get_asset_favorites2",
-		"assets.get_asset_funding_type",
-		"assets.get_asset_funding_types",
-		"assets.get_asset_funding_types2",
+		"assets.get_asset_by_id",
+		"assets.get_asset_by_serial",
+		"assets.get_asset_change",
+		"assets.get_asset_change_post",
+		"assets.get_asset_checkout",
+		"assets.get_asset_checkout_for_owner",
+		"assets.get_asset_checkout_post",
+		"assets.get_asset_checkout_transactions",
+		"assets.get_asset_checkouts_by_ids",
+		"assets.get_asset_checkouts_by_query",
+		"assets.get_asset_files",
+		"assets.get_asset_ids_for_filter_sets",
+		"assets.get_asset_inventory_type",
+		"assets.get_asset_stats_by_location",
 		"assets.get_asset_status_type",
-		"assets.get_asset_status_types",
-		"assets.get_asset_status_types2",
-		"assets.get_assets",
-		"assets.get_assets_by_asset_status_type",
-		"assets.get_assets_by_asset_tag",
-		"assets.get_assets_by_location_room",
-		"assets.get_assets_by_serial",
-		"assets.get_assets_by_storage_unit_number",
-		"assets.get_assets_count",
+		"assets.get_asset_total_cost",
+		"assets.get_asset_type",
+		"assets.get_asset_valuation",
+		"assets.get_asset_verifications_for_asset",
+		"assets.get_asset_view",
+		"assets.get_assets_by_name",
+		"assets.get_assets_by_type",
+		"assets.get_assets_by_type_and_location",
+		"assets.get_assets_for_user_by_type",
+		"assets.get_assets_for_user_current",
+		"assets.get_available_asset_categories",
+		"assets.get_facility_assets_by_location",
 		"assets.get_global_manufacturers",
-		"assets.get_global_manufacturers2",
-		"assets.get_manufacturer",
-		"assets.get_spare_assets_by_asset_tag",
-		"assets.get_user_assets",
-		"assets.get_user_assets2",
+		"assets.get_linked_assets",
+		"assets.get_manufacturer_by_id",
+		"assets.get_manufacturers",
+		"assets.get_model_visibility",
+		"assets.get_my_assets",
+		"assets.get_my_assets_by_type",
+		"assets.get_n_s_a_asset_average_cost",
+		"assets.get_overdue_asset_checkouts",
+		"assets.get_popular_categories_for_roles",
+		"assets.get_recent_asset_checkout_transactions",
+		"assets.get_suggested_categories_for_user",
+		"assets.get_suggested_online_systems_for_user",
+		"assets.get_user_favorite_assets",
+		"assets.keyword_search_assets",
+		"assets.list_all_assets",
+		"assets.list_asset_funding_types",
+		"assets.list_asset_inventory_types",
+		"assets.list_asset_inventory_types_post",
+		"assets.list_asset_status_types",
+		"assets.list_asset_status_types_post",
+		"assets.list_asset_types",
+		"assets.list_asset_types_post",
+		"assets.list_asset_views",
+		"assets.list_assets_by_room",
+		"assets.list_assets_by_storage_unit",
+		"assets.merge_assets",
+		"assets.query_asset_changes",
+		"assets.remove_asset_favorite",
+		"assets.remove_asset_owner",
 		"assets.remove_manufacturer_from_site",
-		"assets.remove_user_favorite_asset",
-		"assets.search_assets_by_asset_tag",
+		"assets.remove_user_asset",
+		"assets.search_asset_verifications",
+		"assets.search_assets",
 		"assets.search_assets_by_serial",
+		"assets.search_global_manufacturers",
+		"assets.search_manufacturers",
+		"assets.set_asset_location",
+		"assets.set_asset_owner",
+		"assets.set_asset_owner_advanced_deployment_swap",
+		"assets.set_asset_status",
+		"assets.take_asset_ownership",
+		"assets.undelete_asset",
+		"assets.undo_asset_exchange_transaction",
 		"assets.update_asset",
-		"assets.update_asset_funding_type",
-		"assets.update_asset_status_type",
+		"assets.update_asset_checkouts_by_ids",
+		"assets.update_asset_checkouts_by_query",
+		"assets.update_asset_exchange_transaction",
+		"assets.update_asset_type",
+		"assets.update_asset_view",
+		"assets.update_asset_view_sort",
 		"assets.update_manufacturer",
+		"assets.update_my_classes_asset_verification",
+		"audits.add_asset_to_audit_policy",
+		"audits.get_asset_audit_policies",
+		"audits.get_asset_audit_policy",
+		"audits.get_asset_audit_policy_assets",
+		"audits.get_asset_audit_policy_schedule",
+		"audits.get_asset_audit_policy_schedule_assets",
+		"audits.get_asset_audit_policy_schedules_for_asset",
+		"categories.create_asset_category",
+		"categories.create_category",
+		"categories.create_issue_category",
+		"categories.create_kb_category",
+		"categories.create_model_category",
+		"categories.create_role_category",
+		"categories.delete_category",
+		"categories.get_category_by_id",
+		"categories.get_category_by_id_and_type",
+		"categories.get_category_entity_type_links",
+		"categories.link_category_to_app",
+		"categories.list_app_categories",
+		"categories.list_app_category_links",
+		"categories.list_asset_categories",
+		"categories.list_categories_for_app",
+		"categories.list_categories_v2",
+		"categories.list_filter_categories",
+		"categories.list_issue_categories",
+		"categories.list_kb_categories",
+		"categories.list_model_categories",
+		"categories.list_role_categories",
+		"categories.search_categories_v1",
+		"categories.search_categories_v2",
+		"categories.set_category_sort_order",
+		"categories.undelete_category",
+		"categories.unlink_category_from_app",
+		"categories.update_category",
+		"custom_fields.batch_create_custom_field_entity_mappings",
+		"custom_fields.batch_create_custom_field_types",
+		"custom_fields.batch_delete_custom_field_entity_mappings",
+		"custom_fields.batch_update_custom_field_product",
+		"custom_fields.batch_update_custom_field_types",
+		"custom_fields.check_custom_field_mapping_compatibility",
+		"custom_fields.create_custom_field_batch",
+		"custom_fields.create_custom_field_type",
+		"custom_fields.delete_asset_inventory_action_custom_field_values",
 		"custom_fields.delete_custom_field",
 		"custom_fields.delete_custom_field_type",
-		"custom_fields.delete_custom_fields",
-		"custom_fields.get_custom_field",
-		"custom_fields.get_custom_field_type",
-		"custom_fields.get_custom_field_types",
-		"custom_fields.get_custom_field_types2",
+		"custom_fields.delete_custom_field_values_for_assets",
+		"custom_fields.delete_custom_field_values_for_events",
+		"custom_fields.delete_custom_field_values_for_tickets",
+		"custom_fields.delete_custom_field_values_for_users",
+		"custom_fields.get_asset_custom_field_values",
+		"custom_fields.get_asset_inventory_action_custom_field_values",
+		"custom_fields.get_custom_field_by_id",
+		"custom_fields.get_custom_field_entity_mapping_entity_types",
+		"custom_fields.get_custom_field_entity_mappings",
+		"custom_fields.get_custom_field_mapping_compatible_fields",
+		"custom_fields.get_custom_field_type_by_id",
 		"custom_fields.get_custom_field_values_for_asset",
 		"custom_fields.get_custom_field_values_for_ticket",
 		"custom_fields.get_custom_field_values_for_user",
-		"custom_fields.get_custom_fields",
-		"custom_fields.get_custom_fields2",
+		"custom_fields.get_custom_fields_for_asset",
+		"custom_fields.get_custom_fields_for_asset_inventory_action",
+		"custom_fields.get_custom_fields_for_event",
+		"custom_fields.get_custom_fields_for_inventory_item",
+		"custom_fields.get_custom_fields_for_location",
+		"custom_fields.get_custom_fields_for_location_room",
+		"custom_fields.get_custom_fields_for_organization",
+		"custom_fields.get_custom_fields_for_ticket",
+		"custom_fields.get_custom_fields_for_user",
+		"custom_fields.get_event_custom_field_values",
+		"custom_fields.get_ticket_custom_field_values",
+		"custom_fields.get_user_custom_field_values",
+		"custom_fields.list_custom_field_types",
+		"custom_fields.lookup_site_by_searchable_value",
+		"custom_fields.reorder_custom_field_types",
+		"custom_fields.reorder_custom_fields",
+		"custom_fields.search_custom_field_types",
+		"custom_fields.search_custom_fields",
 		"custom_fields.update_custom_field",
+		"custom_fields.update_custom_field_product",
 		"custom_fields.update_custom_field_type",
-		"forms.submit_form",
+		"custom_fields.upsert_asset_custom_field_values",
+		"custom_fields.upsert_asset_inventory_action_custom_field_values",
+		"custom_fields.upsert_event_custom_field_values",
+		"custom_fields.upsert_ticket_custom_field_values",
+		"custom_fields.upsert_user_custom_field_values",
+		"custom_fields_new.list_custom_field_types_new",
+		"events.add_event_series_dates",
+		"events.calculate_event_fees",
+		"events.create_event",
+		"events.create_event_series",
+		"events.create_event_type",
+		"events.create_event_types",
+		"events.create_events",
+		"events.delete_event",
+		"events.delete_event_type",
+		"events.delete_event_types_by_ids",
+		"events.delete_event_types_by_query",
+		"events.delete_events_by_ids",
+		"events.delete_events_by_query",
+		"events.delete_recurring_event",
+		"events.get_available_rooms",
+		"events.get_available_times",
+		"events.get_event",
+		"events.get_event_attachments",
+		"events.get_event_fee_package",
+		"events.get_event_recurrence",
+		"events.get_event_type",
+		"events.get_event_types_by_ids",
+		"events.get_event_types_by_query_get",
+		"events.get_event_types_by_query_post",
+		"events.get_events_by_ids",
+		"events.get_events_by_query_get",
+		"events.get_events_by_query_post",
+		"events.get_events_by_query_with_deleted_get",
+		"events.get_events_by_query_with_deleted_post",
+		"events.get_user_events_get",
+		"events.get_user_events_post",
+		"events.project_events",
+		"events.save_event_attachments",
+		"events.update_event",
+		"events.update_event_type",
+		"events.update_event_types_by_ids",
+		"events.update_event_types_by_query",
+		"events.update_events_by_ids",
+		"events.update_events_by_query",
+		"events.validate_schedule",
+		"events.validate_schedules_all",
+		"events.validate_schedules_calendar_conflicts",
+		"events.validate_schedules_conflicting_events",
+		"events.validate_schedules_place_reservations",
+		"files.add_file_to_entity",
+		"files.convert_to_excel",
+		"files.delete_file",
+		"files.download_file",
+		"files.get_excel_file",
+		"files.get_file_attachment_content_types",
+		"files.get_file_base64",
+		"files.get_file_details",
+		"files.get_file_inline",
+		"files.get_files_for_entity",
+		"files.parse_barcode",
+		"files.parse_excel_column_unique_values",
+		"files.parse_file_as_excel",
+		"files.remove_file_from_entity",
+		"files.upload_file",
+		"files.upload_file_base64",
+		"files.upload_file_return_url",
+		"filter.get_filter_by_key_and_product_id",
+		"filters.create_filter",
+		"filters.create_filter_by_id",
+		"filters.create_filter_set",
+		"filters.delete_filter",
+		"filters.delete_filter_by_origin_id",
+		"filters.delete_filter_set_value",
+		"filters.get_custom_field_filter_sets_by_ids",
+		"filters.get_custom_field_filter_value_labels",
+		"filters.get_filter_set",
+		"filters.get_filter_set_values",
+		"filters.get_filter_sets_by_ids",
+		"filters.get_filter_sets_by_type",
+		"filters.get_filter_value_label",
+		"filters.list_filters",
+		"filters.list_filters_for_entity_type",
+		"filters.save_filter_values_for_kb_articles",
+		"filters.save_filter_values_for_views",
+		"filters.update_filter",
+		"funding_sources.create_funding_source",
+		"funding_sources.create_funding_sources",
+		"funding_sources.delete_funding_source",
+		"funding_sources.delete_funding_sources_by_ids",
+		"funding_sources.delete_funding_sources_by_query",
+		"funding_sources.get_funding_source_by_id",
+		"funding_sources.get_funding_sources_by_ids",
+		"funding_sources.get_funding_sources_legacy",
+		"funding_sources.search_funding_sources",
+		"funding_sources.update_funding_source",
+		"funding_sources.update_funding_sources_by_query",
+		"global_.get_ticket_stats_global",
+		"global_.search_tickets_global",
+		"inventory.create_inventories_batch",
+		"inventory.create_inventory",
+		"inventory.create_inventory_action",
+		"inventory.create_inventory_actions_batch",
+		"inventory.create_inventory_item",
+		"inventory.create_inventory_items_batch",
+		"inventory.delete_inventory_action",
+		"inventory.delete_inventory_actions_by_ids",
+		"inventory.delete_inventory_actions_by_query",
+		"inventory.delete_inventory_item",
+		"inventory.delete_inventory_items_by_ids",
+		"inventory.delete_inventory_items_by_query",
+		"inventory.get_inventory_action",
+		"inventory.get_inventory_action_post",
+		"inventory.get_inventory_actions_by_ids",
+		"inventory.get_inventory_actions_timeline",
+		"inventory.get_inventory_actions_timeline_post",
+		"inventory.get_inventory_by_id",
+		"inventory.get_inventory_by_id_post",
+		"inventory.get_inventory_by_query",
+		"inventory.get_inventory_category_summary",
+		"inventory.get_inventory_item_by_id",
+		"inventory.get_inventory_item_by_id_post",
+		"inventory.get_inventory_items_by_ids",
+		"inventory.get_inventory_location_category_summary",
+		"inventory.list_inventories",
+		"inventory.query_inventories",
+		"inventory.query_inventory_actions",
+		"inventory.query_inventory_actions_get",
+		"inventory.query_inventory_by_id_post",
+		"inventory.query_inventory_items",
+		"inventory.query_inventory_items_legacy",
+		"inventory.update_inventories_by_ids",
+		"inventory.update_inventories_by_query",
+		"inventory.update_inventory",
+		"inventory.update_inventory_action",
+		"inventory.update_inventory_actions_by_ids",
+		"inventory.update_inventory_actions_by_query",
+		"inventory.update_inventory_item",
+		"inventory.update_inventory_items_by_ids",
+		"inventory.update_inventory_items_by_query",
+		"invoicing.create_vendor",
+		"invoicing.delete_vendor",
+		"invoicing.get_all_vendors",
+		"invoicing.get_vendor_by_id",
+		"invoicing.search_vendors",
+		"invoicing.update_vendor",
+		"issues.add_issue_to_models",
+		"issues.create_issue",
+		"issues.create_issue_type",
 		"issues.delete_issue",
 		"issues.delete_issue_type",
 		"issues.get_available_issues",
-		"issues.get_issue",
-		"issues.get_issue_type",
-		"issues.get_issue_types",
-		"issues.get_issue_types_simple",
+		"issues.get_issue_by_id",
+		"issues.get_issue_roles",
+		"issues.get_issue_type_by_id",
+		"issues.get_issues_for_model",
+		"issues.get_issues_for_model_categories",
+		"issues.get_issues_for_model_category",
+		"issues.get_issues_for_models",
+		"issues.get_models_for_issue",
+		"issues.link_issue_to_app",
+		"issues.link_model_issue_to_app",
+		"issues.list_global_issue_types",
+		"issues.list_issue_types",
+		"issues.list_issues",
+		"issues.remove_issue_from_model",
+		"issues.remove_issues_from_models",
+		"issues.save_issue_options_for_site",
+		"issues.search_issue_types",
+		"issues.search_issues",
+		"issues.search_model_issues",
+		"issues.set_app_model_issue_name_override",
+		"issues.set_issue_sort_order",
+		"issues.unlink_issue_from_app",
+		"issues.unlink_model_issue_from_app",
 		"issues.update_issue",
 		"issues.update_issue_type",
-		"locations.delete_location",
+		"issues.update_model_issues_to_match_category",
+		"labor.create_labor_rate",
+		"labor.create_labor_type",
+		"labor.delete_labor_rate",
+		"labor.delete_labor_type",
+		"labor.get_labor_activity_by_tickets",
+		"labor.get_labor_activity_by_tickets_grouped_by_user",
+		"labor.get_labor_rate",
+		"labor.get_labor_type",
+		"labor.get_user_labor_rates",
+		"labor.get_users_labor_ticket_activity_actions",
+		"labor.list_labor_types",
+		"labor.query_labor_types",
+		"labor.update_labor_rate",
+		"labor.update_labor_type",
+		"locations.create_location_room",
+		"locations.create_location_rooms_batch",
+		"locations.create_location_v2",
 		"locations.delete_location_room",
-		"locations.get_all_location_rooms",
-		"locations.get_location",
-		"locations.get_location_room",
-		"locations.get_location_rooms",
-		"locations.get_location_type",
-		"locations.get_location_types",
-		"locations.get_locations",
-		"locations.update_location",
+		"locations.delete_location_rooms_batch",
+		"locations.delete_location_v2",
+		"locations.get_address_by_id_v2",
+		"locations.get_all_location_room_status_types",
+		"locations.get_all_site_locations_filtered_v2",
+		"locations.get_all_site_locations_v2",
+		"locations.get_location_address_v2",
+		"locations.get_location_by_id_v2",
+		"locations.get_location_floorplans_v2",
+		"locations.get_location_ids_for_filter_sets_v2",
+		"locations.get_location_images_v2",
+		"locations.get_location_room_available_times",
+		"locations.get_location_room_by_id",
+		"locations.get_location_room_images",
+		"locations.get_location_room_layouts",
+		"locations.get_location_room_status_type_by_id",
+		"locations.get_my_locations_filtered_v2",
+		"locations.get_my_locations_manage_filtered_v2",
+		"locations.get_my_locations_manage_v2",
+		"locations.get_my_locations_v2",
+		"locations.get_my_locations_view_filtered_v2",
+		"locations.get_my_locations_view_v2",
+		"locations.get_site_locations_by_site_id_filtered_v2",
+		"locations.get_site_locations_by_site_id_v2",
+		"locations.migrate_location_v2",
+		"locations.query_location_rooms",
+		"locations.query_location_rooms_by_location_id",
+		"locations.query_location_rooms_for_user",
+		"locations.undelete_location_room",
+		"locations.undelete_location_v2",
+		"locations.update_location_floorplans_v2",
+		"locations.update_location_images_v2",
 		"locations.update_location_room",
-		"manufacturers.add_manufacturer_to_site3",
-		"manufacturers.add_manufacturer_to_site4",
-		"manufacturers.delete_manufacturer2",
-		"manufacturers.get_global_manufacturers3",
-		"manufacturers.get_global_manufacturers4",
-		"manufacturers.get_manufacturer2",
-		"manufacturers.remove_manufacturer_from_site2",
-		"manufacturers.update_manufacturer2",
-		"metrics.delete_metric",
-		"metrics.delete_metric_type",
-		"metrics.get_metric",
-		"metrics.get_metric_type",
-		"metrics.get_metric_types",
-		"metrics.get_metrics",
-		"metrics.get_metrics_for_sla",
-		"metrics.update_metric",
-		"metrics.update_metric_type",
-		"metrics.update_metrics_for_sla",
-		"notifications.get_notifications",
-		"notifications.get_ticket_emails",
-		"notifications.get_unarchived_notifications",
-		"notifications.get_unread_notifications",
-		"notifications.mark_all_notifications_archived",
-		"notifications.mark_all_notifications_read",
-		"notifications.mark_notification_archived",
-		"notifications.mark_notification_read",
-		"parts.delete_part",
-		"parts.delete_part_supplier",
-		"parts.get_part",
-		"parts.get_part_supplier",
-		"parts.get_part_suppliers",
-		"parts.get_parts",
-		"parts.update_part",
-		"parts.update_part_supplier",
-		"purchaseorders.delete_purchase_order",
-		"purchaseorders.get_purchase_order",
-		"purchaseorders.get_purchase_orders",
-		"purchaseorders.update_purchase_order",
+		"locations.update_location_room_available_times",
+		"locations.update_location_room_images",
+		"locations.update_location_room_layouts",
+		"locations.update_location_rooms_batch",
+		"locations.update_location_v2",
+		"metrics.create_metric",
+		"metrics.create_metric_by_id",
+		"metrics.delete_metric_metrics",
+		"metrics.get_metric_by_id",
+		"metrics.list_metric_metrics",
+		"metrics.list_metrics",
+		"models.create_model",
+		"models.delete_model",
+		"models.get_app_model_details",
+		"models.get_global_models_by_manufacturer",
+		"models.get_global_models_by_manufacturer_get",
+		"models.get_model_by_id",
+		"models.get_model_counts",
+		"models.get_model_counts_by_category",
+		"models.get_model_counts_by_category_get",
+		"models.get_model_mappings",
+		"models.get_models_available_to_site",
+		"models.get_models_available_to_site_v2",
+		"models.get_models_by_category",
+		"models.get_models_by_category_for_my_role",
+		"models.get_models_by_category_for_my_role_get",
+		"models.get_models_by_category_for_role",
+		"models.get_models_by_category_for_role_get",
+		"models.get_models_by_category_get",
+		"models.get_models_by_manufacturer",
+		"models.get_models_by_manufacturer_get",
+		"models.get_models_for_app",
+		"models.get_models_for_app_get",
+		"models.get_models_for_my_role",
+		"models.get_models_for_my_role_get",
+		"models.get_models_for_role",
+		"models.get_models_for_role_get",
+		"models.get_popular_models",
+		"models.link_model_to_app",
+		"models.list_all_global_models",
+		"models.list_all_global_models_get",
+		"models.list_all_models",
+		"models.list_all_models_get",
+		"models.list_all_site_models",
+		"models.list_all_site_models_get",
+		"models.list_models",
+		"models.remove_model_from_site",
+		"models.search_models",
+		"models.set_model_site_visibility",
+		"models.unlink_model_from_app",
+		"models.update_app_model_details",
+		"models.update_model",
+		"models.update_model_site_linking",
+		"organizations.create_organization",
+		"organizations.create_organization_type",
+		"organizations.create_organization_types",
+		"organizations.create_organization_user",
+		"organizations.create_organization_users",
+		"organizations.create_organizations",
+		"organizations.delete_organization",
+		"organizations.delete_organization_type",
+		"organizations.delete_organization_types_by_ids",
+		"organizations.delete_organization_types_by_query",
+		"organizations.delete_organization_user",
+		"organizations.delete_organization_users_by_ids",
+		"organizations.delete_organization_users_by_query",
+		"organizations.delete_organizations_by_ids",
+		"organizations.delete_organizations_by_query",
+		"organizations.get_default_organization",
+		"organizations.get_my_organizations_get",
+		"organizations.get_my_organizations_post",
+		"organizations.get_organization",
+		"organizations.get_organization_attachments",
+		"organizations.get_organization_type",
+		"organizations.get_organization_types_by_ids",
+		"organizations.get_organization_types_by_query_get",
+		"organizations.get_organization_types_by_query_post",
+		"organizations.get_organization_user",
+		"organizations.get_organization_users_by_ids",
+		"organizations.get_organization_users_by_query_get",
+		"organizations.get_organization_users_by_query_post",
+		"organizations.get_organizations_by_ids",
+		"organizations.get_organizations_by_query_get",
+		"organizations.get_organizations_by_query_post",
+		"organizations.get_organizations_for_contact_email",
+		"organizations.save_organization_attachments",
+		"organizations.search_organizations",
+		"organizations.update_organization",
+		"organizations.update_organization_type",
+		"organizations.update_organization_types_by_ids",
+		"organizations.update_organization_types_by_query",
+		"organizations.update_organization_user",
+		"organizations.update_organization_users_by_ids",
+		"organizations.update_organization_users_by_query",
+		"organizations.update_organizations_by_ids",
+		"organizations.update_organizations_by_query",
+		"products.list_products",
+		"pub.search_spare_pool_assets",
+		"purchase_orders.create_purchase_order_inventory",
+		"purchase_orders.get_purchase_order_by_id_inventory",
+		"purchase_orders.query_purchase_orders",
+		"purchase_orders.update_purchase_order_inventory",
+		"resolutions.get_close_reason_types",
+		"resolutions.get_resolution_action",
+		"resolutions.list_resolution_actions",
+		"shortcuts.get_shortcut",
+		"sites.get_my_site_settings",
+		"sites.get_role_by_id",
+		"sites.get_site_by_url",
+		"sites.get_site_settings_by_id",
+		"sites.list_roles",
+		"sites.list_roles_filtered",
+		"sites.list_roles_with_permission_policies",
+		"sites.list_sites",
 		"slas.activate_sla",
+		"slas.add_sla_days_to_date",
+		"slas.create_sla",
 		"slas.deactivate_sla",
-		"slas.delete_sla",
-		"slas.get_sla",
-		"slas.get_slas",
-		"slas.update_sla",
+		"slas.delete_sla_by_id",
+		"slas.list_slas",
+		"subtasks.assign_subtask",
+		"subtasks.assign_subtasks_to_group",
+		"subtasks.complete_subtask",
+		"subtasks.convert_subtask_to_ticket",
+		"subtasks.create_subtask",
+		"subtasks.create_subtask_group",
+		"subtasks.delete_subtask",
+		"subtasks.delete_subtask_group",
+		"subtasks.duplicate_subtask",
+		"subtasks.get_my_subtask_groups",
+		"subtasks.get_subtask_source_ticket",
+		"subtasks.get_subtasks_for_ticket",
+		"subtasks.get_user_subtask_groups",
+		"subtasks.get_user_subtasks",
+		"subtasks.remove_subtask_group_from_ticket",
+		"subtasks.revert_subtask_completion",
+		"subtasks.unassign_subtask",
+		"subtasks.ungroup_subtask_group_from_ticket",
+		"subtasks.update_subtask_group",
+		"subtasks.update_subtask_sort_order",
+		"subtickets.delete_subticket",
+		"suppliers.create_supplier",
+		"suppliers.create_suppliers_batch",
+		"suppliers.delete_supplier",
+		"suppliers.delete_suppliers_by_query",
+		"suppliers.get_supplier_by_id",
+		"suppliers.get_supplier_by_id_post",
+		"suppliers.get_suppliers_by_query",
+		"suppliers.get_suppliers_by_query_legacy",
+		"suppliers.update_supplier",
+		"surveys.activate_survey",
+		"surveys.create_survey",
+		"surveys.deactivate_survey",
+		"surveys.delete_survey",
+		"surveys.dismiss_survey_for_ticket",
+		"surveys.get_my_pending_surveys",
+		"surveys.get_pending_surveys",
+		"surveys.get_survey",
+		"surveys.get_survey_response_for_ticket",
+		"surveys.get_survey_responses",
+		"surveys.get_survey_rules",
+		"surveys.get_surveys",
+		"surveys.save_survey_response_for_ticket",
+		"surveys.update_survey",
+		"tags.create_tag",
+		"tags.create_tags",
+		"tags.delete_tag",
+		"tags.delete_tags_by_ids",
+		"tags.delete_tags_by_query",
+		"tags.get_tag",
+		"tags.get_tags_by_ids",
+		"tags.get_tags_by_query",
+		"tags.get_tags_by_type",
+		"tags.search_tags_by_query",
+		"tags.search_tags_by_type",
+		"tags.undelete_tag",
+		"tags.update_tag",
+		"tags.update_tags_by_ids",
+		"tags.update_tags_by_query",
+		"teams.add_team_member",
+		"teams.add_team_members",
+		"teams.clear_team_members",
+		"teams.create_team",
+		"teams.delete_team",
+		"teams.delete_team_members",
+		"teams.get_team",
+		"teams.list_all_teams",
+		"teams.list_my_teams",
+		"teams.list_paged_team_members",
+		"teams.list_team_members",
+		"teams.list_team_product_ids",
+		"teams.list_team_products",
+		"teams.list_teams",
+		"teams.remove_team_member",
+		"teams.undelete_team",
+		"teams.update_team",
+		"teams.update_team_members",
+		"tickets.add_ticket_follower_team",
+		"tickets.add_ticket_follower_user",
+		"tickets.add_ticket_tag",
 		"tickets.assign_ticket",
+		"tickets.assign_ticket_sla",
 		"tickets.cancel_ticket",
+		"tickets.change_ticket_activity_visibility",
+		"tickets.change_ticket_approver",
 		"tickets.change_ticket_issue",
-		"tickets.change_ticket_to_requestor_responded",
-		"tickets.change_ticket_to_waiting_on_requestor",
 		"tickets.close_ticket",
 		"tickets.confirm_ticket_issue",
 		"tickets.copy_ticket",
+		"tickets.create_simple_ticket",
 		"tickets.create_ticket",
+		"tickets.create_ticket_activity",
+		"tickets.create_ticket_activity_batch",
+		"tickets.create_ticket_next_step",
+		"tickets.create_ticket_next_step_template",
+		"tickets.create_ticket_view",
 		"tickets.delete_ticket",
+		"tickets.delete_ticket_activity",
+		"tickets.delete_ticket_next_step_template",
+		"tickets.delete_ticket_view",
+		"tickets.get_activities_for_tickets",
+		"tickets.get_all_workflow_statuses",
+		"tickets.get_related_tickets",
+		"tickets.get_similar_tickets",
 		"tickets.get_ticket",
+		"tickets.get_ticket_activities",
+		"tickets.get_ticket_activity_by_id",
+		"tickets.get_ticket_approvals",
+		"tickets.get_ticket_asset_groups",
 		"tickets.get_ticket_assets",
+		"tickets.get_ticket_assets_by_model",
+		"tickets.get_ticket_count",
+		"tickets.get_ticket_due_date_reminders",
+		"tickets.get_ticket_fields",
+		"tickets.get_ticket_followers",
+		"tickets.get_ticket_ids_for_filter_sets",
+		"tickets.get_ticket_kb_articles",
+		"tickets.get_ticket_location_types",
+		"tickets.get_ticket_locations",
+		"tickets.get_ticket_next_step",
+		"tickets.get_ticket_next_step_template",
+		"tickets.get_ticket_next_step_type",
+		"tickets.get_ticket_next_steps",
+		"tickets.get_ticket_roles",
 		"tickets.get_ticket_sla",
-		"tickets.get_ticket_statuses",
+		"tickets.get_ticket_sources",
+		"tickets.get_ticket_status",
+		"tickets.get_ticket_status_by_id",
+		"tickets.get_ticket_teams",
+		"tickets.get_ticket_timeline",
+		"tickets.get_ticket_users",
+		"tickets.get_ticket_view",
+		"tickets.get_workflow_statuses",
+		"tickets.get_workflow_step_status",
+		"tickets.has_active_events",
+		"tickets.list_ticket_next_step_templates",
+		"tickets.list_ticket_next_step_types",
+		"tickets.list_ticket_priority_levels",
+		"tickets.list_ticket_slas",
+		"tickets.list_ticket_statuses",
+		"tickets.list_ticket_timeline",
+		"tickets.list_ticket_views",
+		"tickets.list_wizard_categories",
+		"tickets.log_support_ticket",
 		"tickets.mark_ticket_as_duplicate",
 		"tickets.mark_ticket_not_sensitive",
 		"tickets.mark_ticket_not_urgent",
 		"tickets.mark_ticket_sensitive",
 		"tickets.mark_ticket_urgent",
-		"tickets.un_assign_ticket_from_team",
-		"tickets.un_assign_ticket_from_user",
-		"tickets.un_assign_ticket_sla",
-		"tickets.un_confirm_ticket_issue",
+		"tickets.process_ticket_approval",
+		"tickets.process_ticket_workflow_approval",
+		"tickets.remove_ticket_follower_team",
+		"tickets.remove_ticket_follower_user",
+		"tickets.remove_ticket_tag",
+		"tickets.resolve_ticket_next_step",
+		"tickets.save_ticket_due_date_reminders",
+		"tickets.search_ticket_next_steps",
+		"tickets.search_tickets",
+		"tickets.send_ticket_activity_notification",
+		"tickets.send_ticket_for_approval",
+		"tickets.set_ticket_due_date",
+		"tickets.set_ticket_next_step_resolvable",
+		"tickets.set_ticket_owner_and_for",
+		"tickets.set_ticket_priority",
+		"tickets.set_ticket_requestor_responded",
+		"tickets.set_ticket_status",
+		"tickets.set_ticket_waiting_on_requestor",
+		"tickets.start_ticket",
+		"tickets.unassign_ticket_from_related",
+		"tickets.unassign_ticket_from_team",
+		"tickets.unassign_ticket_from_user",
+		"tickets.unassign_ticket_sla",
+		"tickets.unconfirm_ticket_issue",
 		"tickets.undelete_ticket",
+		"tickets.undelete_ticket_activity",
 		"tickets.update_ticket",
+		"tickets.update_ticket_activity",
 		"tickets.update_ticket_assets",
+		"tickets.update_ticket_assets_by_category",
 		"tickets.update_ticket_custom_fields",
+		"tickets.update_ticket_description",
+		"tickets.update_ticket_next_step",
+		"tickets.update_ticket_next_step_template",
 		"tickets.update_ticket_subject",
+		"tickets.update_ticket_tags",
+		"tickets.update_ticket_view",
+		"tickets.update_ticket_view_schedules",
+		"tickets.update_ticket_view_sort",
+		"users.add_room_to_user",
+		"users.award_achievement",
+		"users.bulk_set_user_rooms",
+		"users.change_user_password",
+		"users.complete_external_user_registration",
+		"users.convert_user_to_local",
+		"users.count_users",
 		"users.create_local_user",
+		"users.create_local_user_from_sis",
+		"users.create_shell_user",
+		"users.create_shortcut",
+		"users.create_temp_user",
+		"users.create_user_view",
+		"users.delete_shortcut",
 		"users.delete_user",
-		"users.delete_user_view",
-		"users.get_agents",
-		"users.get_agents_legacy",
-		"users.get_user",
+		"users.delete_user_by_id",
+		"users.delete_user_v2",
+		"users.delete_users_by_ids_v2",
+		"users.delete_users_by_query_v2",
+		"users.get_all_users",
+		"users.get_available_shortcuts",
+		"users.get_current_user_locations_filtered_v2",
+		"users.get_current_user_locations_v2",
+		"users.get_current_user_locations_view_filtered_v2",
+		"users.get_current_user_locations_view_v2",
+		"users.get_intercom_jwt",
+		"users.get_my_options",
+		"users.get_my_shortcuts",
+		"users.get_my_students_with_tickets",
+		"users.get_simple_user",
+		"users.get_site_system_user_id",
+		"users.get_user_achievements",
+		"users.get_user_activities",
+		"users.get_user_at_associated_site",
+		"users.get_user_by_email",
+		"users.get_user_by_external_email",
+		"users.get_user_by_id",
+		"users.get_user_by_username",
+		"users.get_user_ids_for_filter_sets",
+		"users.get_user_locations_filtered_v2",
+		"users.get_user_locations_v2",
+		"users.get_user_locations_view_filtered_v2",
+		"users.get_user_locations_view_v2",
+		"users.get_user_options",
+		"users.get_user_relationships",
+		"users.get_user_rooms",
+		"users.get_user_rooms_bulk",
+		"users.get_user_shortcuts",
 		"users.get_user_view",
-		"users.get_user_views",
-		"users.get_users",
+		"users.get_users_for_my_classes",
+		"users.get_users_for_requestor_swap",
 		"users.get_users_for_view",
-		"users.get_users_legacy",
 		"users.get_users_per_grade",
 		"users.get_users_per_location",
 		"users.get_users_with_location_permission",
+		"users.is_user_online_legacy",
+		"users.list_agents",
+		"users.list_agents_legacy_get",
+		"users.list_user_views",
+		"users.list_users_simple",
+		"users.migrate_user",
+		"users.register_external_user",
+		"users.remove_room_from_user",
+		"users.reset_user_password",
+		"users.restore_i_i_q_admin_accounts",
+		"users.search_agents",
+		"users.search_agents_legacy_get",
+		"users.search_users",
+		"users.search_users_by_keyword",
+		"users.search_users_legacy_get",
+		"users.send_user_heartbeat",
+		"users.send_welcome_package",
+		"users.send_welcome_packages_to_enabled_roles",
+		"users.set_my_options",
+		"users.set_user_active",
+		"users.set_user_away",
+		"users.set_user_initial_product",
+		"users.set_user_options",
+		"users.set_user_role",
+		"users.set_user_rooms",
+		"users.undelete_user",
+		"users.update_all_users_out_of_office_status",
+		"users.update_shortcut",
 		"users.update_user",
-		"users.update_user_view",
+		"users.update_user_authentication_source",
+		"users.update_user_view_sort",
+		"views.create_view",
+		"views.create_view_team",
+		"views.create_view_user",
+		"views.delete_view_team",
+		"views.delete_view_user",
+		"views.get_view_definition",
+		"views.get_view_filters",
+		"views.get_view_team",
+		"views.get_view_user",
+		"views.list_view_teams",
+		"views.list_view_users",
+		"views.list_views_all_products",
+		"views.update_view_schedules",
+		"views.update_view_sort",
+		"views.update_view_team",
+		"views.update_view_team_response",
+		"views.update_view_user",
+		"views.update_view_user_response",
+		"workflows.create_workflow",
+		"workflows.create_workflow_step",
+		"workflows.delete_workflow",
+		"workflows.delete_workflow_step",
+		"workflows.get_workflow",
+		"workflows.get_workflow_action_types",
+		"workflows.get_workflow_actions",
+		"workflows.get_workflow_approval_types",
+		"workflows.get_workflow_custom_fields",
+		"workflows.get_workflow_linked_issues",
+		"workflows.get_workflow_next_steps",
+		"workflows.get_workflow_next_steps_as_steps",
+		"workflows.get_workflow_step",
+		"workflows.get_workflow_steps",
+		"workflows.get_workflow_steps_by_workflow",
+		"workflows.list_workflows",
+		"workflows.list_workflows_all_products",
+		"workflows.list_workflows_by_site_and_product",
+		"workflows.update_workflow",
+		"workflows.update_workflow_step",
 	}
 }
 
 func SilverWrapperInventory() []string {
 	return []string{
+		"alerts.queue_notification",
 		"analytics.get_agent_current_stats",
 		"analytics.get_agent_location_stats",
-		"analytics.get_asset_summary_stats",
-		"analytics.get_requestor_summary_stats",
+		"analytics.get_report",
+		"analytics.get_report_elements",
+		"analytics.get_report_queries",
+		"analytics.get_reports",
 		"api.get_search_v2_expression",
 		"api.post_search_v2_recent_user",
 		"app_registry.get_app",
@@ -2030,46 +6359,78 @@ func SilverWrapperInventory() []string {
 		"apps.trafera.get_settings_options",
 		"apps.widgets.get_endpoint",
 		"apps.workspace_one.post_assets_lookup",
-		"assets.get_asset_by_serial",
-		"assets.get_asset_files",
-		"assets.get_asset_verifications",
-		"assets.get_stats_locations",
-		"assets.get_type",
-		"assets.post_checkouts_transactions_query_get",
-		"audits.get_policies_schedules_for_asset",
+		"assets.add_manufacturer_to_site2",
+		"assets.create_asset_status_type",
+		"assets.delete_asset_funding_type",
+		"assets.delete_asset_status_type",
+		"assets.get_asset_favorites2",
+		"assets.get_asset_funding_type",
+		"assets.get_asset_funding_types2",
+		"assets.get_assets_by_asset_status_type",
+		"assets.get_assets_by_asset_tag",
+		"assets.get_spare_assets_by_asset_tag",
+		"assets.get_user_assets2",
+		"assets.search_assets_by_asset_tag",
+		"assets.update_asset_funding_type",
+		"assets.update_asset_status_type",
 		"calendars.get_events_key",
 		"calendars.post_events",
-		"categories.get_of_filters",
-		"categories.get_of_models",
-		"custom_fields.post_for__asset",
-		"custom_fields.post_for__ticket",
-		"custom_fields.post_for__user",
+		"custom_fields.delete_custom_fields",
+		"custom_fields.get_custom_fields",
 		"dev.post_test_url",
 		"entities.get_types_fields_withoptions",
-		"files.get_entity",
-		"filters.get_for__entitytype",
-		"filters.get_set",
 		"filters.post_endpoint",
 		"flow_procedures.post_available_cards",
+		"forms.submit_form",
 		"help.get_intros_key",
 		"jobs.get_job",
 		"labor.get_rates_user",
-		"labor.get_rates_user_2",
-		"labor.post_types",
 		"layouts.get_my_dashboard",
+		"locations.delete_location",
+		"locations.get_all_location_rooms",
+		"locations.get_location_rooms",
+		"locations.get_location_type",
+		"locations.get_location_types",
+		"locations.update_location",
+		"manufacturers.add_manufacturer_to_site3",
+		"manufacturers.add_manufacturer_to_site4",
+		"manufacturers.delete_manufacturer2",
+		"manufacturers.get_global_manufacturers3",
+		"manufacturers.get_global_manufacturers4",
+		"manufacturers.get_manufacturer2",
+		"manufacturers.remove_manufacturer_from_site2",
+		"manufacturers.update_manufacturer2",
 		"maps.post_assets_all",
-		"models.get_all",
-		"models.get_apps_aeries_sis",
-		"models.get_apps_google_device_data",
-		"models.get_apps_microsoft_intune",
-		"models.get_apps_subtickets_for_i_t",
-		"models.post_available_to_site",
-		"models.post_endpoint",
+		"metrics.delete_metric_type",
+		"metrics.get_metric",
+		"metrics.get_metrics_for_sla",
+		"metrics.update_metric",
+		"metrics.update_metric_type",
+		"notifications.get_notifications",
+		"notifications.get_ticket_emails",
+		"notifications.get_unarchived_notifications",
+		"notifications.get_unread_notifications",
+		"notifications.mark_all_notifications_archived",
+		"notifications.mark_all_notifications_read",
+		"notifications.mark_notification_archived",
+		"notifications.mark_notification_read",
+		"parts.delete_part",
+		"parts.delete_part_supplier",
+		"parts.get_part",
+		"parts.get_part_supplier",
+		"parts.get_part_suppliers",
+		"parts.get_parts",
+		"parts.update_part",
+		"parts.update_part_supplier",
 		"permissions.get_ticket",
 		"permissions_next.get_users_user_preview_applied_policies",
 		"permissions_next.post_check_permission",
 		"products.get_available_features",
 		"profiles.post_profile_picture",
+		"purchaseorders.delete_purchase_order",
+		"purchaseorders.get_purchase_order",
+		"purchaseorders.get_purchase_orders",
+		"purchaseorders.update_purchase_order",
 		"resolutions.post_actions",
 		"resolutions.post_actions_for__issue_link",
 		"rules.get_log",
@@ -2090,29 +6451,13 @@ func SilverWrapperInventory() []string {
 		"settings.get_undefined",
 		"settings.post_search__recent_user_searches",
 		"sis.get_classes_for__user",
-		"sites.get_deployments",
-		"sites.post_roles",
-		"subtasks.get_subtask",
-		"surveys.get_responses_ticket",
+		"slas.get_sla",
+		"slas.update_sla",
 		"tasks.get_endpoint",
-		"teams.get_endpoint",
 		"teams.get_for_",
-		"tickets.get_ticket_activities",
-		"tickets.get_ticket_kb_articles",
-		"tickets.get_ticket_next_steps",
-		"tickets.get_ticket_status",
 		"tickets.get_wizards_site",
-		"tickets.post_endpoint",
-		"tickets.post_ticket_timeline",
 		"tickets_templates.post_endpoint",
-		"users.get_my_shortcuts",
-		"users.get_shortcuts_available",
-		"users.get_simple",
-		"users.get_user_options",
-		"users.get_user_relationships",
-		"users.get_user_rooms",
 		"users.post_is_online_list",
-		"views.get_view",
-		"views.get_view_2",
+		"users.update_user_view",
 	}
 }

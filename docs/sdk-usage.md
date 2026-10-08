@@ -1,70 +1,68 @@
 # SDK Usage
 
-The SDK surface distinguishes the Golden path from the Silver namespace:
-- Golden: the golden SDK path and correct default API surface, exposed directly on `client.<Namespace>.<Method>`.
-- Silver: quasi-supported API calls derived from live site interaction HARs. Silver methods are exposed under `client.Silver.<Namespace>.<Method>`, with app routes nested under `client.Silver.Apps.<AppNamespace>.<Method>`.
+The SDK surface is split into Golden and Silver paths:
+- Golden: generated from the bundled Incident IQ OpenAPI contract.
+- Silver: generated from HAR-observed undocumented routes and exposed explicitly under `client.silver`.
 
-Full generated route documentation lives under the SDK reference pages. The generated Go wrappers are reproduced from the bundled inventory snapshots.
+Full generated method and route documentation lives under the SDK reference pages.
 
-## Golden Wrapper Pattern
+## Namespace Pattern
 
-```go
-var payload map[string]any
-err := client.Tickets.GetTicketStatuses(ctx, incidentiq.RequestOptions{}, &payload)
+```python
+from incident_py_q import Client
+
+client = Client.from_env()
+print(client.tickets.list_methods())
 ```
 
-## Silver Wrapper Pattern
+Common shape:
+- `client.<namespace>.<method>(...)` returns typed Pydantic models when representable.
+- `client.<namespace>.<method>.raw(...)` returns validated JSON payloads.
+- `client.<namespace>.list_methods()` enumerates the generated runtime surface for that namespace.
+- `client.silver.<namespace>.*` exposes undocumented Silver routes.
+- `client.apps.<service>.*` is the legacy alias for `client.silver.apps.<service>.*`.
 
-```go
-var payload map[string]any
-err := client.Silver.Tickets.GetTicketStatus(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"ticket_id": "ticket-guid"},
-}, &payload)
+## Request Signatures
+
+Generated method parameters are snake_case from schema names:
+- `ThingId` -> `thing_id`
+- `pageSize` -> `page_size`
+
+## Pagination Helper
+
+When paging query parameters are present, `iter_pages(...)` is available:
+
+```python
+pages = client.tickets.get_tickets.iter_pages(start_page=1, page_size=100, max_pages=3)
 ```
-
-App-specific Silver routes use the nested app namespace:
-
-```go
-err := client.Silver.Apps.GoogleDeviceData.GetStatusLast(ctx, incidentiq.RequestOptions{
-	PathParams: map[string]any{"google_device_data_key": "site-app-key"},
-}, &payload)
-```
-
-All requests send `Client: ApiClient` by default. Silver wrappers and
-`RequestSilver` retry once without the SDK-provided `Client` header if the
-ApiClient-shaped request fails, because Silver routes are reverse-engineered
-from live site traffic and may not comply with the documented Postman header
-contract.
-
-## Request Options
-
-Use `RequestOptions` for path parameters, query parameters, JSON bodies,
-headers, per-request timeouts, per-request response-size limits, and the small
-number of header compatibility switches needed by HAR-derived Silver routes:
-
-```go
-err := client.Request(ctx, "GET", "/users/{UserId}", incidentiq.RequestOptions{
-	PathParams: map[string]any{"UserId": "00000000-0000-0000-0000-000000000000"},
-	Params:     map[string]string{"$s": "100"},
-}, &payload)
-```
-
-`Config.MaxResponseBytes` defaults to 4 MiB, and the SDK rejects larger
-responses before decoding them or attaching them to an API error. Set
-`RequestOptions.MaxResponseBodyBytes` when a single call needs a tighter or
-larger nonzero limit.
-
-Use `RequestOptions.OmitClientHeader` only when a Silver route is known from
-browser traffic to reject the SDK's default `Client: ApiClient` header on the
-first request. Use `RequestOptions.OmitSiteIDHeader` when the same route is
-known not to send `SiteId`.
 
 ## Low-Level Request API
 
-```go
-err := client.Request(ctx, "POST", "/services/tickets/-/-/AssignedToMe_Unassigned", incidentiq.RequestOptions{
-	JSON: map[string]any{"OnlyOpen": true},
-}, &payload)
+```python
+payload = client.request(
+    "GET",
+    "/users/{UserId}",
+    path_params={"UserId": "00000000-0000-0000-0000-000000000000"},
+)
 ```
 
-Use `RequestGolden` and `RequestSilver` when a caller needs to resolve a route dynamically by inventory namespace and method name instead of calling a generated Go method.
+## Silver Examples
+
+```python
+registry = client.silver.apps.registry.list_apps()
+actions = client.silver.apps.microsoft_intune.list_remote_actions()
+lookup = client.silver.apps.google_device_data.lookup_asset(
+    asset_id="asset-guid",
+    serial_number="SER123",
+)
+stats = client.silver.analytics.get_agent_current_stats()
+assigned = client.silver.tickets.list_current_user_assigned_tickets()
+agent_assigned = client.silver.tickets.list_assigned_tickets_for_agent(
+    agent_user_id="agent-guid",
+    schema="Open",
+)
+```
+
+`list_current_user_assigned_tickets(...)` uses the UI-observed read-only `AssignedToMe_Unassigned` queue route. That queue can include current-user assigned rows and unassigned rows; use `client.silver.analytics.get_agent_current_stats(...)` for the tenant's authoritative assigned-to-me and unassigned counts.
+
+Use `list_assigned_tickets_for_agent(...)` when automation authenticates as a service account but needs tickets for a specific human agent. The helper sends `POST /services/tickets` with `Schema` set to `Open` or `All`, an explicit `agent` facet filter, and the UI-style `Client: WebBrowser` header. In live validation for issue #87, `schema="Open"` matched the target agent's expected open-ticket UI count; `schema="All"` returned one more row than the stated UI/history total, so the checked-in docs treat `All` as the API's all-schema result until the UI exclusion rule is known.
